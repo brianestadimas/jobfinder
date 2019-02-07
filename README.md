@@ -6,8 +6,11 @@ proyek sistem informasi untuk client yang meliputi fitur HR dan Payroll
 
 ### Code Conference
 Snake_Case : Aji_Wuryanto
+
 Kalimat tanya sebagai penanda boolean : isEmpty
+
 Kata kerja sebagai fungsi : submitPelamar
+
 Kata benda sebagai variable/object/attribut : pelamar
 
 ### Bahasa Pemrograman
