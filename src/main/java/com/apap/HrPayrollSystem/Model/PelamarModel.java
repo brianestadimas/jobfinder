@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -27,7 +28,6 @@ public class PelamarModel implements Serializable{
 	@Column(name="nama_lengkap",nullable = false)
 	private String nama_lengkap;
 	
-	@NotNull
 	@Size(max=255)
 	@Column(name="nama_panggilan",nullable = true)
 	private String nama_panggilan;
@@ -57,15 +57,27 @@ public class PelamarModel implements Serializable{
 	@Column(name="telepon",nullable = false)
 	private String telepon;
 	
-	@NotNull
 	@Size(max=255)
-	@Column(name="telepon_penjamin",nullable = true)
-	private String telepon_penjamin;
+	@Column(name="telepon_orang_terdekat",nullable = true)
+	private String telepon_orang_terdekat;
+	
+	@Size(max=255)
+	@Column(name="nomor_whatsapp",nullable = true)
+	private String nomor_whatsapp;
+	
+	@Size(max=255)
+	@Column(name="email",nullable = true)
+	private String email;
 	
 	@NotNull
 	@Size(max=255)
 	@Column(name="produk_dilamar",nullable = false)
 	private String produk_dilamar;
+	
+	@NotNull
+	@Size(max=255)
+	@Column(name="jabatan_dilamar",nullable = false)
+	private String jabatan_dilamar;
 	
 	@NotNull
 	@Size(max=255)
@@ -87,11 +99,38 @@ public class PelamarModel implements Serializable{
 	@Column(name="apply_date",nullable = false)
 	private Date apply_date;
 
-    @OneToOne(mappedBy = "pelamar", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private PegawaiOutsourcingModel pegawaiOutsourcing;
+//    @OneToOne(mappedBy = "pelamar", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private PegawaiOutsourcingModel pegawai_Outsourcing;
+//	
+//    @OneToMany(mappedBy="pengalaman_pelamar", cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+//    private PengalamanPelamarModel pengalaman_Pelamar;
 	
-	public long getId() {
+    public long getId() {
 		return id;
+	}
+
+	public String getTelepon_orang_terdekat() {
+		return telepon_orang_terdekat;
+	}
+
+	public void setTelepon_orang_terdekat(String telepon_orang_terdekat) {
+		this.telepon_orang_terdekat = telepon_orang_terdekat;
+	}
+
+	public String getNomor_whatsapp() {
+		return nomor_whatsapp;
+	}
+
+	public void setNomor_whatsapp(String nomor_whatsapp) {
+		this.nomor_whatsapp = nomor_whatsapp;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public void setId(long id) {
@@ -155,11 +194,11 @@ public class PelamarModel implements Serializable{
 	}
 
 	public String getTelepon_penjamin() {
-		return telepon_penjamin;
+		return telepon_orang_terdekat;
 	}
 
 	public void setTelepon_penjamin(String telepon_penjamin) {
-		this.telepon_penjamin = telepon_penjamin;
+		this.telepon_orang_terdekat = telepon_penjamin;
 	}
 
 	public String getProduk_dilamar() {

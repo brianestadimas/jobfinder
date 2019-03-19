@@ -6,7 +6,6 @@ proyek sistem informasi untuk client yang meliputi fitur HR dan Payroll
 
 ### Code Conference
 Snake_Case : Aji_Wuryanto
-<<<<<<< HEAD
 Kalimat tanya sebagai penanda boolean : isEmpty
 Kata kerja sebagai fungsi : submitPelamar
 Kalimat tanya sebagai penanda boolean : isEmpty
@@ -21,6 +20,16 @@ Java 8.0
 Springboot sebagai backend
 
 Thymeleaf sebagai frontend
+
+## Cara Mulai Mengerjakan
+
+1. Clone ke pc/laptop (git clone <url>) jangan lupa add remote, git add remote <nama_remote> <url>
+2. Import project lewat STS
+3. Tunggu STS configurasi otomatis
+4. Bikin branch baru dengan nama usecase kalian (git branch <nama_use_case>)
+5. Pindah ke branch tersebut (git checkout <nama_branch_yang_tadi_dibuat>)
+6. Mulai Mengerjakan
+7. Jika sudah, push ke branch kalian (git status -> git add . -> git commit -m "commit messages", -> git push <nama_remote> <branch_kalian>)
 
 ## Version Control
 
