@@ -7,5 +7,7 @@ import com.apap.HrPayrollSystem.Model.PelamarModel;
 
 @Repository
 public interface PelamarDb extends JpaRepository<PelamarModel,Long>{
+	
+	PelamarModel findById(long id);
 
 }
