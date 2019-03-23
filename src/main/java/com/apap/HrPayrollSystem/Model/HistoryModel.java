@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,8 +23,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name="history_bekerja")
 public class HistoryModel implements Serializable{
 	
-	//Fk to pegawaioutsourcing NIP
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
+	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="nip_pegawai_outsourcing",referencedColumnName="nip",nullable=false)
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
