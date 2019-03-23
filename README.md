@@ -6,10 +6,15 @@ proyek sistem informasi untuk client yang meliputi fitur HR dan Payroll
 
 ### Code Conference
 Snake_Case : Aji_Wuryanto
+
 Kalimat tanya sebagai penanda boolean : isEmpty
+
 Kata kerja sebagai fungsi : submitPelamar
+
 Kalimat tanya sebagai penanda boolean : isEmpty
+
 Kata kerja sebagai fungsi : submitPelamar
+
 Kata benda sebagai variable/object/attribut : pelamar
 
 ### Bahasa Pemrograman
@@ -31,6 +36,15 @@ Thymeleaf sebagai frontend
 6. Mulai Mengerjakan
 7. Jika sudah, push ke branch kalian (git status -> git add . -> git commit -m "commit messages", -> git push <nama_remote> <branch_kalian>)
 
+## Commitment Control(not really lol)
+1. cek trello kalian
+2. comment kira2 task kalian apa saja dengan To Do
+3. ketika sudah selesai task tersebut, comment dengan cara copy yg Done dari To Do ke Done
+ex :
+`To Do
+1. bla bla bla
+Done
+`
 ## Version Control
 
 gitlab
@@ -38,7 +52,12 @@ gitlab
 ## Authors
 
 Aji Wuryanto
+
 Athifah Fidelia 
+
 Savira Santoso
+
 Brian Estadimas
+
 Nathanael Lemmuella
+
