@@ -68,7 +68,7 @@ public class PelamarModel implements Serializable{
 	@Size(max=255)
 	@Column(name="email",nullable = true)
 	private String email;
-	
+	//Ambil produknya dari mana? kan ada Marketing, Sales, dll.
 	@NotNull
 	@Size(max=255)
 	@Column(name="produk_dilamar",nullable = false)
@@ -93,11 +93,40 @@ public class PelamarModel implements Serializable{
 	@Size(max=255)
 	@Column(name="pendidikan_terakhir",nullable = false)
 	private String pendidikan_terakhir;
+
+/* Tambahan savira 
+	@NotNull
+	@Size(max=255)
+	@Column(name="nama_sekolah",nullable = false)
+	private String nama_sekolah;
 	
+	@NotNull
+	@Size(max=255)
+	@Column(name="tempat_sekolah",nullable = false)
+	private String tempat_sekolah;
+	
+	@NotNull
+	@Size(max=255)
+	@Column(name="jurusan",nullable = false)
+	private String jurusan;
+	
+	@NotNull
+	@Size(max=255)
+	@Column(name="lulusan_tahun",nullable = true)
+	private String lulusan_tahun;
+	
+	@NotNull
+	@Size(max=255)
+	@Column(name="telepon_rumah",nullable = true)
+	private String telepon_rumah;
+*/	
 	@NotNull
 	@Size(max=255)
 	@Column(name="apply_date",nullable = false)
 	private Date apply_date;
+
+//Relationship One to Many (1 pelamar memiliki N history (jumlahnya 3 kan kl di mock up))
+
 
 //    @OneToOne(mappedBy = "pelamar", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private PegawaiOutsourcingModel pegawai_Outsourcing;
