@@ -27,7 +27,7 @@ public class HistoryModel implements Serializable{
 	@JoinColumn(name="nip_pegawai_outsourcing",referencedColumnName="nip",nullable=false)
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
-	private PegawaiOutsourcingModel pegawai_outsourcing;	
+	private long pegawai_outsourcing_id;	
 	
 	//Fk to proyek id
 	@OneToOne(fetch=FetchType.LAZY)
@@ -56,12 +56,12 @@ public class HistoryModel implements Serializable{
 	@Column(name="alasan_berhenti",nullable = true)
 	private String alasan_berhenti;
 
-	public PegawaiOutsourcingModel getPegawai_outsourcing() {
-		return pegawai_outsourcing;
+	public long getPegawai_outsourcing() {
+		return pegawai_outsourcing_id;
 	}
 
-	public void setPegawai_outsourcing(PegawaiOutsourcingModel pegawai_outsourcing) {
-		this.pegawai_outsourcing = pegawai_outsourcing;
+	public void setPegawai_outsourcing(long pegawai_outsourcing) {
+		this.pegawai_outsourcing_id = pegawai_outsourcing;
 	}
 
 	public ProyekModel getProyek() {
