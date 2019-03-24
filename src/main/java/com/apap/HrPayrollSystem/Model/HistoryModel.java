@@ -27,13 +27,15 @@ public class HistoryModel implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
+	//nyambungin sama id aja?
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="nip_pegawai_outsourcing",referencedColumnName="nip",nullable=false)
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
 	private PegawaiOutsourcingModel pegawai_outsourcing;	
 	
-	//Fk to proyek id
+	// hapus aja relasinya lgsg ke pelamar 
+	//Fk to proyek id 
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_proyek",referencedColumnName="id",nullable=false)
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
@@ -47,6 +49,31 @@ public class HistoryModel implements Serializable{
 	@JsonIgnore
 	private ProdukModel produk;
 	
+	//Ide untuk database history
+	/*
+	 
+	@Size(max=255)
+	@Column(name="nama_perusahaan",nullable = true)
+	private long nama_perusahaan;
+	
+	@Size(max=255)
+	@Column(name="tahun_terakhir",nullable = true)
+	private String tahun_terakhir;
+	
+	
+	@Size(max=255)
+	@Column(name="tahun_terakhir_bekerja",nullable = true)
+	private String tahun_terakhir_bekerja;
+	
+	@Size(max=255)
+	@Column(name="lama_bekerja",nullable = true)
+	private String lama_bekerja;
+	
+	@Size(max=255)
+	@Column(name="alasan_berhenti",nullable = true)
+	private String alasan_berenti;
+	
+	 */
 	
 	@Size(max=255)
 	@Column(name="lama_bekerja",nullable = true)

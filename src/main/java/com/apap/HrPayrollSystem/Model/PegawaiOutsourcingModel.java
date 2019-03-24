@@ -104,6 +104,9 @@ public class PegawaiOutsourcingModel implements Serializable {
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
 	private ProyekModel proyek;
+	
+//Buat relasi ke kelas model riwayat kerja pegawai
+	
 
 //	@OneToMany(mappedBy = "history_bekerja", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //	private HistoryModel history_bekerja;
