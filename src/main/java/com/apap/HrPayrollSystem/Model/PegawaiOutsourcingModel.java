@@ -33,10 +33,10 @@ public class PegawaiOutsourcingModel implements Serializable {
 	private long id;
 	
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pelamar", referencedColumnName="id",nullable=false)
+	@JoinColumn(name="id_pelamar", referencedColumnName="id",nullable=false,unique=true)
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
-	private long pelamar_id;
+	private PelamarModel pelamar_id;
 	
 	@NotNull
 	@Size(max=255)
@@ -84,11 +84,11 @@ public class PegawaiOutsourcingModel implements Serializable {
 	@NotNull
 	@Size(max=255)
 	@Column(name="status",nullable = false)
-	private String status;
+	private boolean status;
 	
 	//FK to produk
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="produk",referencedColumnName="id",nullable=false)
+	@JoinColumn(name="produk",referencedColumnName="id",nullable=true)
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
 	private ProdukModel produk;
@@ -100,40 +100,35 @@ public class PegawaiOutsourcingModel implements Serializable {
 	
 	//FK to proyek
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="proyek",referencedColumnName="id",nullable=false)
+	@JoinColumn(name="proyek",referencedColumnName="id",nullable=true)
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
 	private ProyekModel proyek;
-	
-//Buat relasi ke kelas model riwayat kerja pegawai
-	
-
-//	@OneToMany(mappedBy = "history_bekerja", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//	private HistoryModel history_bekerja;
-
 
 	
-//	public HistoryModel getHistory_bekerja() {
-//		return history_bekerja;
-//	}
-//
-//	public void setHistory_bekerja(HistoryModel history_bekerja) {
-//		this.history_bekerja = history_bekerja;
-//	}
-<<<<<<< HEAD
+	//Buat relasi ke kelas model riwayat kerja pegawai
+		
 
-=======
+//		@OneToMany(mappedBy = "history_bekerja", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//		private HistoryModel history_bekerja;
+
+
+	
 	public long getId() {
-		return this.id;
-	}
-	public PelamarModel getPelamar() {
-		return pelamar;
+		return id;
 	}
 
-	public void setPelamar(PelamarModel pelamar) {
-		this.pelamar = pelamar;
+	public void setId(long id) {
+		this.id = id;
 	}
->>>>>>> 4a65d7ab78f0c7879077a80c345b0d41c459ec9e
+
+	public PelamarModel getPelamar_id() {
+		return pelamar_id;
+	}
+
+	public void setPelamar_id(PelamarModel pelamar_id) {
+		this.pelamar_id = pelamar_id;
+	}
 
 	public String getNip() {
 		return nip;
@@ -215,11 +210,11 @@ public class PegawaiOutsourcingModel implements Serializable {
 		this.bpjsk = bpjsk;
 	}
 
-	public String getStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(boolean status) {
 		this.status = status;
 	}
 
@@ -231,6 +226,14 @@ public class PegawaiOutsourcingModel implements Serializable {
 		this.produk = produk;
 	}
 
+	public String getJabatan() {
+		return jabatan;
+	}
+
+	public void setJabatan(String jabatan) {
+		this.jabatan = jabatan;
+	}
+
 	public ProyekModel getProyek() {
 		return proyek;
 	}
@@ -238,6 +241,12 @@ public class PegawaiOutsourcingModel implements Serializable {
 	public void setProyek(ProyekModel proyek) {
 		this.proyek = proyek;
 	}
+
+
+	
+
+
+	
 	
 }
 

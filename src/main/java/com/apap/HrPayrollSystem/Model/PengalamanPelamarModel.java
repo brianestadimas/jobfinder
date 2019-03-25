@@ -30,7 +30,7 @@ public class PengalamanPelamarModel implements Serializable{
 	@JoinColumn(name="id_pengalaman_pelamar",referencedColumnName="id",nullable=false)
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
-	private long pelamar_id;
+	private PelamarModel pelamar_id;
 	
 	@NotNull
 	@Size(max=255)
