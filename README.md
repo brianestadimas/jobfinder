@@ -49,6 +49,19 @@ Done
 
 gitlab
 
+## Java Documentation
+1. Diatas kelas dan method, ketik : "/**" lalu tekan enter
+2. Isi sesuai format tersedia
+3. Contoh isian:
+/**
+    * Fitur mengubah pelamar : POST request
+	* 
+	* @param id      id_pelamar
+	* @param pelamar Pelamar yang sudah diubah
+	* @param model   Model
+	* @return Halaman HTML detail pelamar
+*/
+
 ## Authors
 
 Aji Wuryanto

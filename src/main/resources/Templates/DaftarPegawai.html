@@ -1,0 +1,84 @@
+<html>
+	<head>
+		 <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<title>Basic Bootstrap Template</title>
+    	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	</head>
+	<body>
+		<table id="table">
+			<thead>
+				<tr>
+				    <th>NIP</th>
+				 	<th>Nama</th>
+			  	</tr>
+		  	</thead>
+		  	<tbody>
+				<tr th:each="pegawai : ${listPegawai}" th:id="'row' + ${pegawai.id}" >
+				    <td th:text="${pegawai.nip}"></td> 
+				    <td>
+				    	<a th:href="@{'/pegawai-detail/' + ${pegawai.id}}" th:text="${pegawai.pelamar.nama_lengkap}" ></a>
+				    </td> 
+				    <td>
+				<button type="button" th:if="${pegawai.status == 'available'}" th:value="${pegawai.id} + '-' + ${pegawai.pelamar.nama_lengkap}" class="btn btn-danger deleteButton" data-target="#delete" data-toggle="modal">Hapus</button>
+				<button type="button" th:unless="${pegawai.status == 'available'}" th:value="${pegawai.id} + '-' + ${pegawai.pelamar.nama_lengkap}" class="btn btn-danger deleteButton" data-target="#delete" data-toggle="modal" disabled>Hapus</button>
+				</td>
+				
+				</tr>
+			</tbody> 
+		</table>
+		
+		
+		
+		<div class="modal fade" id="delete">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button> 
+						                                                            
+					</div> 
+					<div class="modal-body">
+						<input type="hidden" id="deletedId"/>
+						Are you sure you want to delete <span id="deletedName"></span>
+						
+					</div>   
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger deleteAction" data-dismiss="modal">Ya</button>                               
+						<button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>                               
+					</div>
+				</div>                                                                       
+			</div>                                      
+		</div>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<script>
+			$(document).ready(function(){
+			  $(".deleteButton").on( "click", function() {
+			      var str = $(this).val().split("-");
+				  $("#deletedId").val(str[0]);
+				  $("#deletedName").html(str[1]);
+				
+				 /*  alert($(this).val());
+				  alert( $("#deletedId").val()); */
+			  });
+			  
+			  $(".deleteAction").on("click", function() {
+				  $.ajax({
+					    type: "POST",
+					    url: "/pegawai-hapus?id=" + $("#deletedId").val(),
+					    dataType: "json",
+					    success: function(result){
+					    	
+					    }
+					});  
+				  /*Action untuk kasih notifikasih berhasil dihapus*/
+				  $('#row' + $("#deletedId").val()).hide();
+			  })
+			});
+		</script>
+	</body>
+
+</html>

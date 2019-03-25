@@ -7,7 +7,10 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -18,17 +21,22 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.apap.HrPayrollSystem.Repository.PegawaiOutsourcingDb;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="pegawai_outsourcing")
-public class PegawaiOutsourcingModel implements Serializable{
+public class PegawaiOutsourcingModel implements Serializable {
+	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pelamar", referencedColumnName="id",nullable=false)
+	@JoinColumn(name="id_pelamar", referencedColumnName="id",nullable=false,unique=true)
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
-	private PelamarModel pelamar;
+	private PelamarModel pelamar_id;
 	
 	@NotNull
 	@Size(max=255)
@@ -76,11 +84,11 @@ public class PegawaiOutsourcingModel implements Serializable{
 	@NotNull
 	@Size(max=255)
 	@Column(name="status",nullable = false)
-	private String status;
+	private boolean status;
 	
 	//FK to produk
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="produk",referencedColumnName="id",nullable=false)
+	@JoinColumn(name="produk",referencedColumnName="id",nullable=true)
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
 	private ProdukModel produk;
@@ -92,30 +100,34 @@ public class PegawaiOutsourcingModel implements Serializable{
 	
 	//FK to proyek
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="proyek",referencedColumnName="id",nullable=false)
+	@JoinColumn(name="proyek",referencedColumnName="id",nullable=true)
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
 	private ProyekModel proyek;
 
-//	@OneToMany(mappedBy = "history_bekerja", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//	private HistoryModel history_bekerja;
+	
+	//Buat relasi ke kelas model riwayat kerja pegawai
+		
+
+//		@OneToMany(mappedBy = "history_bekerja", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//		private HistoryModel history_bekerja;
 
 
 	
-//	public HistoryModel getHistory_bekerja() {
-//		return history_bekerja;
-//	}
-//
-//	public void setHistory_bekerja(HistoryModel history_bekerja) {
-//		this.history_bekerja = history_bekerja;
-//	}
-
-	public PelamarModel getPelamar() {
-		return pelamar;
+	public long getId() {
+		return id;
 	}
 
-	public void setPelamar(PelamarModel pelamar) {
-		this.pelamar = pelamar;
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public PelamarModel getPelamar_id() {
+		return pelamar_id;
+	}
+
+	public void setPelamar_id(PelamarModel pelamar_id) {
+		this.pelamar_id = pelamar_id;
 	}
 
 	public String getNip() {
@@ -198,11 +210,11 @@ public class PegawaiOutsourcingModel implements Serializable{
 		this.bpjsk = bpjsk;
 	}
 
-	public String getStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(boolean status) {
 		this.status = status;
 	}
 
@@ -214,6 +226,14 @@ public class PegawaiOutsourcingModel implements Serializable{
 		this.produk = produk;
 	}
 
+	public String getJabatan() {
+		return jabatan;
+	}
+
+	public void setJabatan(String jabatan) {
+		this.jabatan = jabatan;
+	}
+
 	public ProyekModel getProyek() {
 		return proyek;
 	}
@@ -221,6 +241,12 @@ public class PegawaiOutsourcingModel implements Serializable{
 	public void setProyek(ProyekModel proyek) {
 		this.proyek = proyek;
 	}
+
+
+	
+
+
 	
 	
 }
+
