@@ -25,6 +25,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name="feedback")
 public class FeedbackModel implements Serializable{
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
+	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="nip_pegawai_outsourcing",referencedColumnName="nip",nullable=false)
 	@OnDelete(action=OnDeleteAction.NO_ACTION)

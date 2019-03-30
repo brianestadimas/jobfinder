@@ -69,16 +69,12 @@ public class PelamarModel implements Serializable{
 	@Column(name="email",nullable = true)
 	private String email;
 	
+	//Ambil produknya dari mana? kan ada Marketing, Sales, dll.
 	@NotNull
 	@Size(max=255)
 	@Column(name="produk_dilamar",nullable = false)
 	private String produk_dilamar;
-	
-	@NotNull
-	@Size(max=255)
-	@Column(name="jabatan_dilamar",nullable = false)
-	private String jabatan_dilamar;
-	
+		
 	@NotNull
 	@Size(max=255)
 	@Column(name="alamat",nullable = false)
@@ -93,44 +89,46 @@ public class PelamarModel implements Serializable{
 	@Size(max=255)
 	@Column(name="pendidikan_terakhir",nullable = false)
 	private String pendidikan_terakhir;
+
+	@NotNull
+	@Size(max=255)
+	@Column(name="nama_sekolah",nullable = false)
+	private String nama_sekolah;
 	
+	@NotNull
+	@Size(max=255)
+	@Column(name="tempat_sekolah",nullable = false)
+	private String tempat_sekolah;
+	
+	@NotNull
+	@Size(max=255)
+	@Column(name="jurusan",nullable = false)
+	private String jurusan;
+	
+	@Size(max=255)
+	@Column(name="lulusan_tahun",nullable = true)
+	private Date lulusan_tahun;
+	
+	@Size(max=255)
+	@Column(name="telepon_rumah",nullable = true)
+	private String telepon_rumah;
+
 	@NotNull
 	@Size(max=255)
 	@Column(name="apply_date",nullable = false)
 	private Date apply_date;
 
-//    @OneToOne(mappedBy = "pelamar", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private PegawaiOutsourcingModel pegawai_Outsourcing;
-//	
-//    @OneToMany(mappedBy="pengalaman_pelamar", cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-//    private PengalamanPelamarModel pengalaman_Pelamar;
+	//Relationship One to Many (1 pelamar memiliki N history (jumlahnya 3 kan kl di mock up))
+	//by aji -> relation ke pengalaman pelamar ada di model pengalaman pelamar nya
+
+//	    @OneToOne(mappedBy = "pelamar", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//	    private PegawaiOutsourcingModel pegawai_Outsourcing;
+//	    @OneToMany(mappedBy="pengalaman_pelamar", cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+//	    private PengalamanPelamarModel pengalaman_Pelamar;
 	
-    public long getId() {
+	
+	public long getId() {
 		return id;
-	}
-
-	public String getTelepon_orang_terdekat() {
-		return telepon_orang_terdekat;
-	}
-
-	public void setTelepon_orang_terdekat(String telepon_orang_terdekat) {
-		this.telepon_orang_terdekat = telepon_orang_terdekat;
-	}
-
-	public String getNomor_whatsapp() {
-		return nomor_whatsapp;
-	}
-
-	public void setNomor_whatsapp(String nomor_whatsapp) {
-		this.nomor_whatsapp = nomor_whatsapp;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public void setId(long id) {
@@ -193,12 +191,28 @@ public class PelamarModel implements Serializable{
 		this.telepon = telepon;
 	}
 
-	public String getTelepon_penjamin() {
+	public String getTelepon_orang_terdekat() {
 		return telepon_orang_terdekat;
 	}
 
-	public void setTelepon_penjamin(String telepon_penjamin) {
-		this.telepon_orang_terdekat = telepon_penjamin;
+	public void setTelepon_orang_terdekat(String telepon_orang_terdekat) {
+		this.telepon_orang_terdekat = telepon_orang_terdekat;
+	}
+
+	public String getNomor_whatsapp() {
+		return nomor_whatsapp;
+	}
+
+	public void setNomor_whatsapp(String nomor_whatsapp) {
+		this.nomor_whatsapp = nomor_whatsapp;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getProduk_dilamar() {
@@ -233,6 +247,46 @@ public class PelamarModel implements Serializable{
 		this.pendidikan_terakhir = pendidikan_terakhir;
 	}
 
+	public String getNama_sekolah() {
+		return nama_sekolah;
+	}
+
+	public void setNama_sekolah(String nama_sekolah) {
+		this.nama_sekolah = nama_sekolah;
+	}
+
+	public String getTempat_sekolah() {
+		return tempat_sekolah;
+	}
+
+	public void setTempat_sekolah(String tempat_sekolah) {
+		this.tempat_sekolah = tempat_sekolah;
+	}
+
+	public String getJurusan() {
+		return jurusan;
+	}
+
+	public void setJurusan(String jurusan) {
+		this.jurusan = jurusan;
+	}
+
+	public Date getLulusan_tahun() {
+		return lulusan_tahun;
+	}
+
+	public void setLulusan_tahun(Date lulusan_tahun) {
+		this.lulusan_tahun = lulusan_tahun;
+	}
+
+	public String getTelepon_rumah() {
+		return telepon_rumah;
+	}
+
+	public void setTelepon_rumah(String telepon_rumah) {
+		this.telepon_rumah = telepon_rumah;
+	}
+
 	public Date getApply_date() {
 		return apply_date;
 	}
@@ -240,6 +294,11 @@ public class PelamarModel implements Serializable{
 	public void setApply_date(Date apply_date) {
 		this.apply_date = apply_date;
 	}
+
+
+	
+	
+  
 	
 	
 }
