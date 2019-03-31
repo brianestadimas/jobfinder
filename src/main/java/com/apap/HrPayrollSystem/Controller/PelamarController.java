@@ -89,7 +89,7 @@ public class PelamarController {
 	 * 
 	 * @param id
 	 * @param model
-	 * @return
+	 * @return Halaman HTML pelamar
 	 */
 	@RequestMapping("/pelamar/delete/{id}")
 	public String hapusPelamar(@PathVariable(value = "id") long id, Model model) {
