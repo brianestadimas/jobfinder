@@ -1,79 +1,69 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <style>
-            #badan {
-                height: 100vh;
-            }
-            #bagian {
-                display: flex;
-                height: 100%;
-            }
-
-            #test1 {
-                width:70%;
-            }
-
-            #test2 {
-                margin-left: 10%;
-                margin-top: 5%;
-                
-            }
-
-            #judul_absensi{
-                margin-left: 5%;
-                font-size: 300%;
-            }
-
-            #absensi-absensi{
-                margin-left: 5%;
-            }
-
-            /* #Hapus{
-                float: right;
-                margin-right: 25%;
-            } */
-
-            #tambah_absensi{
-                width: 200%;
-                height: 20%;
-                font-size: 100%;
-                background-color:khaki;
-            }
-
-        </style>
+	<style>
+	    #badan {
+	        height: 100vh;
+	    }
+	    #bagian {
+	        display: flex;
+	        height: 100%;
+	    }
+	
+	    #test1 {
+	        width:70%;
+	    }
+	
+	    #test2 {
+	        margin-left: 10%;
+	        margin-top: 5%;
+	        
+	    }
+	
+	    #judul_absensi{
+	        margin-left: 5%;
+	        font-size: 300%;
+	    }
+	
+	    #absensi-absensi{
+	        margin-left: 5%;
+	    }
+	
+	    /* #Hapus{
+	        float: right;
+	        margin-right: 25%;
+	    } */
+	
+	    #tambah_absensi{
+	        width: 200%;
+	        height: 20%;
+	        font-size: 100%;
+	        background-color:khaki;
+	    }
+	
+	</style>
     <head>
         
     </head>
     <body id="badan">
-        <h1 style="font-size:400%">Hotel-Hotelan - Jakarta Tengah</h1>
+        <h1 style="font-size:400%">//ganti jadi actual nama proyek :))</h1>
         <hr >
         <section id="bagian">
             <div id="test1">
                 <h1 id="judul_absensi">Absensi Pegawai</h1>
                 <hr style="margin-left: 5%; margin-right: 25%">
                 <div id="absensi-absensi">
-                    /*
-                    To Do ->> iterate the kehadiran model based on proyek or... just iterate in the goddamn controller ha ha
-                    */
-                    <h1 style="font-size:200%">Tanggal Mulai-Tanggal Akhir1</h1>
-                    <hr  style="margin-right: 25%">
-                    <div style="margin-right: 25%">
-                            <button style="width:25%;background-color:lightgreen">Detail</button>
-                            <button style="width:24%;background-color:khaki">Ubah</button>
-                            <button style="width:27%;background-color:khaki">Do Payment</button>
-                            <button style="width:22%;background-color:tomato">Hapus</button>
-                    </div>
-                    
-                    
-                    <h1 style="font-size:200%">Tanggal Mulai-Tanggal Akhir2</h1>
-                    <hr  style="margin-right: 25%">
-                    <div style="margin-right: 25%">
-                            <button style="width:25%;background-color:lightgreen">Detail</button>
-                            <button style="width:24%;background-color:khaki">Ubah</button>
-                            <button style="width:27%;background-color:khaki">Do Payment</button>
-                            <button style="width:22%;background-color:tomato">Hapus</button>
-                    </div>
 
+				<div th:each="kehadiran : *{list_of_kehadiran}">
+					<h1 style="font-size:200%" th:text="${kehadiran}"></h1>
+                    <hr  style="margin-right: 25%">
+                    <div style="margin-right: 25%">
+                            <button style="width:25%;background-color:lightgreen">Detail</button>
+                            <button style="width:24%;background-color:khaki">Ubah</button>
+                            <button style="width:27%;background-color:khaki">Do Payment</button>
+                            <button style="width:22%;background-color:tomato">Hapus</button>
+                    </div>
+				</div>
+				
                 </div>
             </div>
             

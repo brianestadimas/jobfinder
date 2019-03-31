@@ -172,4 +172,30 @@ public class KehadiranModel implements Serializable{
 	public void setTanggal_pengisian_kehadiran(Date tanggal_pengisian_kehadiran) {
 		this.tanggal_pengisian_kehadiran = tanggal_pengisian_kehadiran;
 	}
+	
+	public PegawaiOutsourcingModel getPegawai_outsourcing() {
+		return pegawai_outsourcing;
+	}
+
+	public void setPegawai_outsourcing(PegawaiOutsourcingModel pegawai_outsourcing) {
+		this.pegawai_outsourcing = pegawai_outsourcing;
+	}
+
+	public ProyekModel getProyek() {
+		return proyek;
+	}
+
+	public void setProyek(ProyekModel proyek) {
+		this.proyek = proyek;
+	}
+
+	public ProdukModel getProduk() {
+		return produk;
+	}
+
+	public void setProduk(ProdukModel produk) {
+		this.produk = produk;
+	}
+
+
 }
