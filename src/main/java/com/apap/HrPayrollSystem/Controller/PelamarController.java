@@ -33,8 +33,10 @@ public class PelamarController {
 	private String daftarPelamar(Model model) {
 
 		PelamarModel pelamar = new PelamarModel();
+		FormCommand command = new FormCommand();
 		// Tambah attribute ke dalam model
 		model.addAttribute("pelamar", pelamar);
+		model.addAttribute("command", command);
 		return "pelamar-daftar";
 	}
 
@@ -46,7 +48,10 @@ public class PelamarController {
 	 * @return Halaman HTML data pelamar
 	 */
 	@RequestMapping(value = "pelamar/daftar", method = RequestMethod.POST)
-	private String daftarPelamarPost(@ModelAttribute PelamarModel pelamar, Model model) {
+	private String daftarPelamarPost(@ModelAttribute PelamarModel pelamar, FormCommand command, Model model) {
+		pelamar.setGender(command.getGenderSelectedValue());
+		pelamar.setStatus_marital(command.getStatusNikahSelectedValue());
+		pelamar.setProduk_dilamar(command.getProdukSelectedValues());
 		pelamarService.addPelamar(pelamar);
 		return "pelamar-view";
 	}
@@ -99,6 +104,21 @@ public class PelamarController {
 
 		model.addAttribute("nama_pelamar", nama_pelamar);
 		return "pelamar-view";
+	}
+
+	@ModelAttribute("radio_gender")
+	public String[] getRadioGenderValues() {
+		return new String[] { "Laki-Laki", "Perempuan" };
+	}
+
+	@ModelAttribute("checkbox_produk")
+	public String[] getProdukValues() {
+		return new String[] { "Security", "Housekeeping", "Driver/Kurir", "Pekerja blabla" };
+	}
+
+	@ModelAttribute("radio_statusNikah")
+	public String[] getStatusNikahValues() {
+		return new String[] { "Belum Menikah", "Sudah Menikah" };
 	}
 
 }
