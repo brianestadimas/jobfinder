@@ -57,10 +57,11 @@
 					<h1 style="font-size:200%" th:text="${kehadiran}"></h1>
                     <hr  style="margin-right: 25%">
                     <div style="margin-right: 25%">
-                            <button style="width:25%;background-color:lightgreen">Detail</button>
+                            <a th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/'+${kehadiran}}">Detail</a>
                             <button style="width:24%;background-color:khaki">Ubah</button>
                             <button style="width:27%;background-color:khaki">Do Payment</button>
-                            <button style="width:22%;background-color:tomato">Hapus</button>
+                            <a th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/hapus/'+${kehadiran}}">Hapus</a>
+                            
                     </div>
 				</div>
 				

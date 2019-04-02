@@ -90,6 +90,11 @@ public class KehadiranModel implements Serializable{
 	
 	@NotNull
 	@Size(max=255)
+	@Column(name="jumlah_lain_lain",nullable = false)
+	private int jumlah_lain_lain;
+	
+	@NotNull
+	@Size(max=255)
 	@Column(name="tanggal_pengisian_kehadiran",nullable = false)
 	private Date tanggal_pengisian_kehadiran;
 

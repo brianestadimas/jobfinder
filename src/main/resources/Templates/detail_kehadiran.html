@@ -9,6 +9,9 @@
                 text-align: center;
         }
 
+		
+
+		
 </style>
 <head>
 
@@ -17,12 +20,19 @@
 
                 <h1 style="font-size:300%">Detail Absensi</h1>
                 <hr>
-                <h3>Judul Absensi</h3><h3>03-25-2019 - 04-30-2019</h3>
-                <h3>Hari Kerja</h3><h3>35</h3>
-        
+
+                	<h3>Judul Absensi :</h3>
+                	<h3 th:text="${judul_kehadiran}"></h3>
+
+                	<h3>Hari Kerja :</h3>
+                	<h3 th:text="${jumlah_hari_kerja}"></h3>
+
+                
+
+        	
                 <h2>Daftar Pegawai</h2>
         
-                <!--dropdown filter based on product-->
+                <!--dropdown filter based on product--> 	
                 <table id="list_pegawai">
                         <thead>
                                 <tr id="header">
@@ -34,39 +44,28 @@
                                         <th>Alfa</th>
                                         <th>Libur</th>
                                         <th>Cuti</th>
-                                        <th>Lain-Lain</th>
                                 </tr>
                         </thead>
                         <tbody>
-                                <tr>
-                                        <td>1606884522</td>
-                                        <td>wuRYYYYYYYYYY</td>
-                                        <td>25</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>4</td>
-                                        <td>1</td>
-                                        <td>0</td>
+                                <tr th:each="kehadiran,iteration : *{detail_detail_kehadiran}">
+                                        <td th:text="${nip_pegawai[iteration.index]}">1606884522</td>
+                                        <td th:text="${nama_pegawai[iteration.index]}">wuRYYYYYYYYYY</td>
+                                        <td th:text="${kehadiran.jumlah_kehadiran}">25</td>
+                                        <td th:text="${kehadiran.jumlah_sakit}">1</td>
+                                        <td th:text="${kehadiran.jumlah_izin}">1</td>
+                                        <td th:text="${kehadiran.jumlah_absen}">1</td>
+                                        <td th:text="${kehadiran.jumlah_off}">4</td>
+                                        <td th:text="${kehadiran.jumlah_cuti}">1</td>
+                                        
                                 </tr>
-                                <tr>
-                                        <td>1606884523</td>
-                                        <td>wurwur</td>
-                                        <td>25</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>4</td>
-                                        <td>1</td>
-                                        <td>0</td>
-                                </tr>
+                                
         
         
                         </tbody>
                 </table>      
 
 
-        <h2>2 Pegawai Proyek</h2>   
+        <h2 th:text="'Jumlah Pegawai Proyek : '+${#lists.size(detail_detail_kehadiran)}"></h2>   
         
         <hr>
 

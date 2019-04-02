@@ -25,4 +25,10 @@ public class KehadiranServiceImpl implements KehadiranService{
 		return kehadiran_Db.findAll();
 	}
 
+	@Override
+	public void delete_kehadiran(KehadiranModel kehadiran) {
+		// TODO Auto-generated method stub
+		kehadiran_Db.delete(kehadiran);
+	}
+
 }
