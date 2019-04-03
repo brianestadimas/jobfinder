@@ -156,6 +156,14 @@ public class ProyekModel implements Serializable{
 		this.end_date_kontrak = end_date_kontrak;
 	}
 
+	public String getNo_rekening() {
+		return no_rekening;
+	}
+
+	public void setNo_rekening(String no_rekening) {
+		this.no_rekening = no_rekening;
+	}
+
 	public long getJenis_proyek() {
 		return jenis_proyek;
 	}
