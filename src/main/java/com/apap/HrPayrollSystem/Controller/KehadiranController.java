@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.apap.HrPayrollSystem.Model.KehadiranModel;
-import com.apap.HrPayrollSystem.Model.PelamarModel;
+import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Service.KehadiranService;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
-import com.apap.HrPayrollSystem.Service.PelamarService;
 
 @Controller
 public class KehadiranController {
@@ -80,7 +79,21 @@ public class KehadiranController {
 	//ADD KEHADIRAN
 	//iterasi semua pegawai yg ada di proyek itu NIP dan Nama Pegawainya
 	//sebelahnya form kosong hadir, sakit, izin, alfa, libur, cuti, lain-lain
-	
+	@RequestMapping(value="/proyek/{proyek_id}/kehadiran/tambah", method=RequestMethod.GET)
+	private String addKehadiranProyek(@PathVariable(value="proyek_id") long proyek_id, Model model) {
+		List<PegawaiOutsourcingModel> pegawai_outsourcing = pegawai_outsourcing_service.getAllPegawai();
+		List<String> nip_pegawai_pada_proyek_ini = new ArrayList<String>();
+		List<String> nama_pegawai_pada_proyek_ini = new ArrayList<String>();
+		for(int i = 0 ; i < pegawai_outsourcing.size() ; i++) {
+			if(pegawai_outsourcing.get(i).getProyek().getId() == proyek_id) {
+				nip_pegawai_pada_proyek_ini.add(pegawai_outsourcing.get(i).getNip());
+				nama_pegawai_pada_proyek_ini.add(pegawai_outsourcing.get(i).getPelamar_id().getNama_lengkap());
+			}	
+		}
+		model.addAttribute("nama_pegawai", nama_pegawai_pada_proyek_ini);
+		model.addAttribute("nip_pegawai", nip_pegawai_pada_proyek_ini);	
+		return "form_kehadiran";
+	}
 	//Update Kehadiran
 	
 	//Hapus Kehadiran

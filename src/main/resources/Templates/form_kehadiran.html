@@ -35,9 +35,9 @@
                                 </tr>
                         </thead>
                         <tbody>
-                                <tr id="test1">
-                                        <td>1606884522</td>
-                                        <td>wuRYYYYYYYYYY</td>
+                                <tr id="test1" th:each="pegawai,iteration : *{nama_pegawai}">
+                                        <td th:text="${nip_pegawai[iteration.index]}">1606884522</td>
+                                        <td th:text="${pegawai}">wuRYYYYYYYYYY</td>
                                         <td><input type="number" name="jumlah_hadir_1"></td>
                                         <td><input type="number" name="jumlah_sakit_1"></td>
                                         <td><input type="number" name="jumlah_izin_1"></td>
@@ -46,17 +46,7 @@
                                         <td><input type="number" name="jumlah_cuti_1"></td>
                                         <td><input type="number" name="jumlah_lain_lain_1"></td>
                                 </tr>
-                                <tr>
-                                        <td>1606884523</td>
-                                        <td>wurwur</td>
-                                        <td><input type="number" name="jumlah_hadir_1"></td>
-                                        <td><input type="number" name="jumlah_sakit_1"></td>
-                                        <td><input type="number" name="jumlah_izin_1"></td>
-                                        <td><input type="number" name="jumlah_alfa_1"></td>
-                                        <td><input type="number" name="jumlah_libur_1"></td>
-                                        <td><input type="number" name="jumlah_cuti_1"></td>
-                                        <td><input type="number" name="jumlah_lain_lain_1"></td>
-                                </tr>
+                                
         
         
                         </tbody>
