@@ -15,6 +15,8 @@ public interface PelamarService {
 	PelamarModel addPelamar(PelamarModel pelamar);
 	
 	void deletePelamar(PelamarModel pelamar);
+	
+	void deleteBanyakPelamar (List<PelamarModel> pelamar);
 
 	List<PelamarModel> getAllPelamar();
 

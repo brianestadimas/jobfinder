@@ -27,6 +27,11 @@ public class PelamarServiceImpl implements PelamarService {
 	}
 
 	@Override
+	public void deleteBanyakPelamar(List<PelamarModel> pelamar) {
+		pelamarDb.deleteInBatch(pelamar);
+	}
+
+	@Override
 	public List<PelamarModel> getAllPelamar() {
 		return pelamarDb.findAll();
 	}
@@ -40,4 +45,5 @@ public class PelamarServiceImpl implements PelamarService {
 	public PelamarModel updatePelamar(PelamarModel pelamar) {
 		return pelamarDb.save(pelamar);
 	}
+
 }

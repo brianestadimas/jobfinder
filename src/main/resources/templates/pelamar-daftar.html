@@ -77,7 +77,7 @@
 		</h2>
 		<hr class="hrCustom">
 		<div class="row">
-			<div class="col-sm-auto ">
+			<div class="col-sm-auto col-md-12 col-lg-12">
 
 				<form th:action="@{'/pelamar/daftar/'}" th:object="${pelamar}"
 					method="POST">
@@ -86,7 +86,7 @@
 						<div class="card-body">
 							<div class="form-group row">
 								<label for="tanggal_daftar"
-									class="col-sm-4 col-md-2 col-form-label">Tanggal
+									class="col -sm-4 col-md-2 col-form-label">Tanggal
 									Pendaftaran<span class="requiredField"> *</span>
 								</label>
 								<div class="col-sm-auto">
@@ -112,339 +112,339 @@
 
 									</div>
 								</div>
-						</div>
-						</fieldset>
-						<hr class="hrCustom2">
-						<h5 class="card-title">Data Pribadi</h5>
-						<div class="form-group row">
-							<label for="nama_lengkap"
-								class="col-form-label col-sm-4 col-md-2">Nama Lengkap<span
-								class="requiredField"> *</span></label>
-							<div class="col-sm-auto">
-								<input type="text" class="form-control" id="nama_lengkap"
-									placeholder="Nama Lengkap" th:value="${pelamar.nama_lengkap}"
-									required="required">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="nama_panggilan"
-								class="col-form-label col-sm-4 col-md-2">Nama Panggilan</label>
-							<div class="col-sm-auto">
-								<input type="text" class="form-control" id="nama_panggilan"
-									placeholder="Nama Panggilan"
-									th:value="${pelamar.nama_panggilan}">
-							</div>
-						</div>
-						<fieldset class="form-group">
-							<div class="row">
-								<legend class="col-form-label col-sm-4 col-md-2 pt-0">
-									Jenis Kelamin<span class="requiredField"> *</span>
-								</legend>
+							</fieldset>
+							<hr class="hrCustom2">
+							<h5 class="card-title">Data Pribadi</h5>
+							<div class="form-group row">
+								<label for="nama_lengkap"
+									class="col-form-label col-sm-4 col-md-2">Nama Lengkap<span
+									class="requiredField"> *</span></label>
 								<div class="col-sm-auto">
-									<div class="form-check form-check-inline">
-										<ul>
-											<li th:each="radioValue: ${radio_gender}"><input
-												class="form-check-input" type="radio"
-												th:field="*{genderSelectedValue}" th:value="${radioValue}" />
-												<label th:for="${#ids.prev('genderSelectedValue')}"
-												th:text="${radioValue}"></label></li>
-										</ul>
-									</div>
+									<input type="text" class="form-control" id="nama_lengkap"
+										placeholder="Nama Lengkap" th:value="${pelamar.nama_lengkap}"
+										required="required">
 								</div>
 							</div>
-						</fieldset>
-						<div class="form-group row">
-							<label for="tanggal_lahir"
-								class=" col-sm-4 col-md-2 col-form-label">Tanggal Lahir<span
-								class="requiredField"> *</span></label>
-							<div class="col-sm-auto">
-								<input type="date" class="form-control" id="tanggal_lahir"
-									required="required" th:value="${pelamar.tanggal_lahir}">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="agama" class=" col-sm-4 col-md-2 col-form-label">Agama</label>
-							<div class="col-sm-auto">
-								<select class="form-control" id="agama"
-									th:value="${pelamar.agama}">
-									<option selected>-Pilih Agama-</option>
-									<option value="Islam">Islam</option>
-									<option value="Kristen">Kristen</option>
-									<option value="Katolik">Katolik</option>
-									<option value="Buddha">Buddha</option>
-									<option value="Hindu">Hindu</option>
-									<option value="Konghucu">Konghucu</option>
-									<option value="Kepercayaan">Kepercayaan</option>
-								</select>
-							</div>
-						</div>
-						<fieldset class="form-group">
-							<div class="row">
-								<legend class="col-form-label col-sm-4 col-md-2 pt-0">
-									Status Pernikahan<span class="requiredField"> *</span>
-								</legend>
+							<div class="form-group row">
+								<label for="nama_panggilan"
+									class="col-form-label col-sm-4 col-md-2">Nama Panggilan</label>
 								<div class="col-sm-auto">
-									<div class="form-check form-check-inline">
-										<ul>
-											<li th:each="radioValue: ${radio_statusNikah}"><input
-												class="form-check-input" type="radio"
-												th:field="*{statusNikahSelectedValue}" th:value="${radioValue}" />
-												<label th:for="${#ids.prev('statusNikahSelectedValue')}"
-												th:text="${radioValue}"></label></li>
-										</ul>
-									</div>
-									
+									<input type="text" class="form-control" id="nama_panggilan"
+										placeholder="Nama Panggilan"
+										th:value="${pelamar.nama_panggilan}">
 								</div>
 							</div>
-						</fieldset>
-						<div class="form-group row">
-							<label for="alamat" class="col-sm-4 col-md-2 col-form-label">Alamat<span
-								class="requiredField"> *</span></label>
-							<div class="col-sm-5">
-								<textarea class="form-control" id="alamat" required="required"
-									rows="3" th:value="${pelamar.alamat}"></textarea>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="region" class="col-sm-4 col-md-2 col-form-label">Region</label>
-							<div class="col-sm-auto">
-								<select class="form-control" id="region"
-									th:value="${pelamar.region}" required="required">
-									<option selected>-Pilih Region-</option>
-									<option value="Islam">Islam</option>
-									<option value="Kristen">Kristen</option>
-									<option value="Katolik">Katolik</option>
-									<option value="Buddha">Buddha</option>
-									<option value="Hindu">Hindu</option>
-									<option value="Konghucu">Konghucu</option>
-									<option value="Kepercayaan">Kepercayaan</option>
-								</select>
-							</div>
-						</div>
-						<div class="form-grup row">
-							<div class="form-group col-sm-auto">
-								<label for="no_handphone" class="col-form-label">No.
-									Handphone<span class="requiredField"> *</span>
-								</label> <input type="text" class="form-control" id="nomor_handphone"
-									placeholder="Nomor handphone"
-									th:value="${pelamar.nomor_handphone}" required="required">
-							</div>
-							<div class="form-group col-sm-auto">
-								<label for="nama_lengkap" class="col-form-label">Telp.
-									Rumah</label> <input type="text" class="form-control" id="telp_rumah"
-									placeholder="Nomor telepon rumah"
-									th:value="${pelamar.telepon_rumah}">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="telepon_orang_terdekat"
-								class="col-form-label col-sm-4 col-md-2">No. Telp. Orang
-								Terdekat<span class="requiredField"> *</span>
-							</label>
-							<div class="col-sm-auto">
-								<input type="text" class="form-control"
-									id="telepon_orang_terdekat"
-									placeholder="Nomor Telepon Orang Terdekat"
-									th:value="${pelamar.telepon_orang_terdekat}"
-									required="required">
-							</div>
-						</div>
-						<hr class="hrCustom2">
-						<h5 class="card-title">Nomor Identitas</h5>
-						<div class="form-group row">
-							<label for="no_ktp" class="col-form-label col-sm-4 col-md-2">No.
-								KTP<span class="requiredField"> *</span>
-							</label>
-							<div class="col-sm-auto">
-								<input type="text" class="form-control" id="no_ktp"
-									placeholder="Nomor KTP Anda" th:value="${pelamar.no_ktp}"
-									required="required">
-							</div>
-						</div>
-						<hr class="hrCustom2">
-						<h5 class="card-title">Riwayat Pendidikan</h5>
-						<div class="form-group row">
-							<label for="pendidikan_terakhir"
-								class="col-sm-4 col-md-2 col-form-label">Pendidikan
-								Terakhir<span class="requiredField"> *</span>
-							</label>
-							<div class="col-sm-auto">
-								<select class="form-control" id="pendidikan_terakhir"
-									th:value="${pelamar.pendidikan_terakhir}" required="required">
-									<option selected>-Pilih Jenjang-</option>
-									<option value="Pendidikan Informal">Pendidikan
-										Informal</option>
-									<option value="SD">SD</option>
-									<option value="SMP">SMP</option>
-									<option value="SMA/SMK">SMA/SMK</option>
-									<option value="Diploma">Diploma</option>
-									<option value="Sarjana">Sarjana</option>
-									<option value="Magister">Magister</option>
-								</select>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="nama_sekolah"
-								class="col-form-label col-sm-4 col-md-2">Nama Sekolah<span
-								class="requiredField"> *</span>
-							</label>
-							<div class="col-sm-auto">
-								<input type="text" class="form-control" id="nama_sekolah"
-									placeholder="Nama Sekolah" th:value="${pelamar.nama_sekolah}"
-									required="required">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="tempat_sekolah"
-								class="col-form-label col-sm-4 col-md-2">Tempat<span
-								class="requiredField"> *</span>
-							</label>
-							<div class="col-sm-auto">
-								<input type="text" class="form-control" id="tempat_sekolah"
-									placeholder="Nama Sekolah/Institusi"
-									th:value="${pelamar.tempat_sekolah}" required="required">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="jurusan" class="col-form-label col-sm-4 col-md-2">Jurusan
-							</label>
-							<div class="col-sm-auto">
-								<input type="text" class="form-control" id="jurusan"
-									placeholder="Jurusan yang Diambil"
-									th:value="${pelamar.jurusan}">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="lulusan_tahun"
-								class="col-sm-4 col-md-2 col-form-label">Lulus Tahun<span
-								class="requiredField"> *</span></label>
-							<div class="col-sm-auto">
-								<select class="form-control" id="lulusan_tahun"
-									th:value="${pelamar.lulusan_tahun}" required="required">
-									<option selected>-Pilih Tahun-</option>
-								</select>
-							</div>
-						</div>
-						<hr class="hrCustom2">
-						<h5 class="card-title">
-							Riwayat Pekerjaan <small class="titleHelp">(3 Paling
-								Terakhir)</small>
-						</h5>
-						<div class="table-responsive">
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th scope="col" rowspan="2">No.</th>
-										<th scope="col" rowspan="2">Nama Perusahaan</th>
-										<th scope="col" rowspan="2">Tahun Terakhir</th>
-										<th scope="col" colspan="2">Lama Bekerja</th>
-										<th scope="col" rowspan="2">Jabatan</th>
-										<th scope="col" rowspan="2">Alasan Bergenti</th>
-									</tr>
-									<tr>
-										<th scope="col">Tahun</th>
-										<th scope="col">Bulan</th>
-									</tr>
-
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row">1</th>
-										<td><input type="text" class="form-control" id="jurusan"
-											th:value="${pelamar.jurusan}"></td>
-										<td><select class="form-control" id="lulusan_tahun"
-											th:value="${pelamar.lulusan_tahun}">
-
-										</select></td>
-										<td><select class="form-control" id="lulusan_tahun"
-											th:value="${pelamar.lulusan_tahun}">
-
-										</select></td>
-										<td><select class="form-control" id="lulusan_tahun"
-											th:value="${pelamar.lulusan_tahun}">
-
-										</select></td>
-										<td><input type="text" class="form-control" id="jurusan"
-											th:value="${pelamar.jurusan}"></td>
-										<td><input type="text" class="form-control" id="jurusan"
-											th:value="${pelamar.jurusan}"></td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td><input type="text" class="form-control" id="jurusan"
-											th:value="${pelamar.jurusan}"></td>
-										<td><select class="form-control" id="lulusan_tahun"
-											th:value="${pelamar.lulusan_tahun}">
-
-										</select></td>
-										<td><select class="form-control" id="lulusan_tahun"
-											th:value="${pelamar.lulusan_tahun}">
-
-										</select></td>
-										<td><select class="form-control" id="lulusan_tahun"
-											th:value="${pelamar.lulusan_tahun}">
-
-										</select></td>
-										<td><input type="text" class="form-control" id="jurusan"
-											th:value="${pelamar.jurusan}"></td>
-										<td><input type="text" class="form-control" id="jurusan"
-											th:value="${pelamar.jurusan}"></td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td><input type="text" class="form-control" id="jurusan"
-											th:value="${pelamar.jurusan}"></td>
-										<td><select class="form-control" id="lulusan_tahun"
-											th:value="${pelamar.lulusan_tahun}">
-
-										</select></td>
-										<td><select class="form-control" id="lulusan_tahun"
-											th:value="${pelamar.lulusan_tahun}">
-
-										</select></td>
-										<td><select class="form-control" id="lulusan_tahun"
-											th:value="${pelamar.lulusan_tahun}">
-										</select></td>
-										<td><input type="text" class="form-control" id="jurusan"
-											th:value="${pelamar.jurusan}"></td>
-										<td><input type="text" class="form-control" id="jurusan"
-											th:value="${pelamar.jurusan}"></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<br>
-						<button type="button" class="btn btn-primary" data-toggle="modal"
-							data-target="#myModal">Simpan</button>
-
-						<!-- The Modal -->
-						<div class="modal fade" id="myModal">
-							<div class="modal-dialog modal-dialog-centered">
-								<div class="modal-content">
-
-									<!-- Modal Header -->
-									<div class="modal-header">
-										<h4 class="modal-title">Formulir Pendaftaran</h4>
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<fieldset class="form-group">
+								<div class="row">
+									<legend class="col-form-label col-sm-4 col-md-2 pt-0">
+										Jenis Kelamin<span class="requiredField"> *</span>
+									</legend>
+									<div class="col-sm-auto">
+										<div class="form-check form-check-inline">
+											<ul>
+												<li th:each="radioValue: ${radio_gender}"><input
+													class="form-check-input" type="radio"
+													th:field="*{genderSelectedValue}" th:value="${radioValue}" />
+													<label th:for="${#ids.prev('genderSelectedValue')}"
+													th:text="${radioValue}"></label></li>
+											</ul>
+										</div>
 									</div>
-									<!-- Modal body -->
-									<div class="modal-body">Apakah Anda yakin untuk
-										menyimpan?</div>
+								</div>
+							</fieldset>
+							<div class="form-group row">
+								<label for="tanggal_lahir"
+									class=" col-sm-4 col-md-2 col-form-label">Tanggal Lahir<span
+									class="requiredField"> *</span></label>
+								<div class="col-sm-auto">
+									<input type="date" class="form-control" id="tanggal_lahir"
+										required="required" th:value="${pelamar.tanggal_lahir}">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="agama" class=" col-sm-4 col-md-2 col-form-label">Agama</label>
+								<div class="col-sm-auto">
+									<select class="form-control" id="agama"
+										th:value="${pelamar.agama}">
+										<option selected>-Pilih Agama-</option>
+										<option value="Islam">Islam</option>
+										<option value="Kristen">Kristen</option>
+										<option value="Katolik">Katolik</option>
+										<option value="Buddha">Buddha</option>
+										<option value="Hindu">Hindu</option>
+										<option value="Konghucu">Konghucu</option>
+										<option value="Kepercayaan">Kepercayaan</option>
+									</select>
+								</div>
+							</div>
+							<fieldset class="form-group">
+								<div class="row">
+									<legend class="col-form-label col-sm-4 col-md-2 pt-0">
+										Status Pernikahan<span class="requiredField"> *</span>
+									</legend>
+									<div class="col-sm-auto">
+										<div class="form-check form-check-inline">
+											<ul>
+												<li th:each="radioValue: ${radio_statusNikah}"><input
+													class="form-check-input" type="radio"
+													th:field="*{statusNikahSelectedValue}"
+													th:value="${radioValue}" /> <label
+													th:for="${#ids.prev('statusNikahSelectedValue')}"
+													th:text="${radioValue}"></label></li>
+											</ul>
+										</div>
 
-									<!-- Modal footer -->
-									<div class="modal-footer">
-										<button type="submit" class="btn btn-danger">Ya</button>
-										<button type="button" class="btn btn-danger"
-											data-dismiss="modal">Tidak</button>
+									</div>
+								</div>
+							</fieldset>
+							<div class="form-group row">
+								<label for="alamat" class="col-sm-4 col-md-2 col-form-label">Alamat<span
+									class="requiredField"> *</span></label>
+								<div class="col-sm-5">
+									<textarea class="form-control" id="alamat" required="required"
+										rows="3" th:value="${pelamar.alamat}"></textarea>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="region" class="col-sm-4 col-md-2 col-form-label">Region</label>
+								<div class="col-sm-auto">
+									<select class="form-control" id="region"
+										th:value="${pelamar.region}" required="required">
+										<option selected>-Pilih Region-</option>
+										<option value="Islam">Islam</option>
+										<option value="Kristen">Kristen</option>
+										<option value="Katolik">Katolik</option>
+										<option value="Buddha">Buddha</option>
+										<option value="Hindu">Hindu</option>
+										<option value="Konghucu">Konghucu</option>
+										<option value="Kepercayaan">Kepercayaan</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-grup row">
+								<div class="form-group col-sm-auto">
+									<label for="no_handphone" class="col-form-label">No.
+										Handphone<span class="requiredField"> *</span>
+									</label> <input type="text" class="form-control" id="nomor_handphone"
+										placeholder="Nomor handphone"
+										th:value="${pelamar.nomor_handphone}" required="required">
+								</div>
+								<div class="form-group col-sm-auto">
+									<label for="nama_lengkap" class="col-form-label">Telp.
+										Rumah</label> <input type="text" class="form-control" id="telp_rumah"
+										placeholder="Nomor telepon rumah"
+										th:value="${pelamar.telepon_rumah}">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="telepon_orang_terdekat"
+									class="col-form-label col-sm-4 col-md-2">No. Telp.
+									Orang Terdekat<span class="requiredField"> *</span>
+								</label>
+								<div class="col-sm-auto">
+									<input type="text" class="form-control"
+										id="telepon_orang_terdekat"
+										placeholder="Nomor Telepon Orang Terdekat"
+										th:value="${pelamar.telepon_orang_terdekat}"
+										required="required">
+								</div>
+							</div>
+							<hr class="hrCustom2">
+							<h5 class="card-title">Nomor Identitas</h5>
+							<div class="form-group row">
+								<label for="no_ktp" class="col-form-label col-sm-4 col-md-2">No.
+									KTP<span class="requiredField"> *</span>
+								</label>
+								<div class="col-sm-auto">
+									<input type="text" class="form-control" id="no_ktp"
+										placeholder="Nomor KTP Anda" th:value="${pelamar.no_ktp}"
+										required="required">
+								</div>
+							</div>
+							<hr class="hrCustom2">
+							<h5 class="card-title">Riwayat Pendidikan</h5>
+							<div class="form-group row">
+								<label for="pendidikan_terakhir"
+									class="col-sm-4 col-md-2 col-form-label">Pendidikan
+									Terakhir<span class="requiredField"> *</span>
+								</label>
+								<div class="col-sm-auto">
+									<select class="form-control" id="pendidikan_terakhir"
+										th:value="${pelamar.pendidikan_terakhir}" required="required">
+										<option selected>-Pilih Jenjang-</option>
+										<option value="Pendidikan Informal">Pendidikan
+											Informal</option>
+										<option value="SD">SD</option>
+										<option value="SMP">SMP</option>
+										<option value="SMA/SMK">SMA/SMK</option>
+										<option value="Diploma">Diploma</option>
+										<option value="Sarjana">Sarjana</option>
+										<option value="Magister">Magister</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="nama_sekolah"
+									class="col-form-label col-sm-4 col-md-2">Nama Sekolah<span
+									class="requiredField"> *</span>
+								</label>
+								<div class="col-sm-auto">
+									<input type="text" class="form-control" id="nama_sekolah"
+										placeholder="Nama Sekolah" th:value="${pelamar.nama_sekolah}"
+										required="required">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="tempat_sekolah"
+									class="col-form-label col-sm-4 col-md-2">Tempat<span
+									class="requiredField"> *</span>
+								</label>
+								<div class="col-sm-auto">
+									<input type="text" class="form-control" id="tempat_sekolah"
+										placeholder="Nama Sekolah/Institusi"
+										th:value="${pelamar.tempat_sekolah}" required="required">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="jurusan" class="col-form-label col-sm-4 col-md-2">Jurusan
+								</label>
+								<div class="col-sm-auto">
+									<input type="text" class="form-control" id="jurusan"
+										placeholder="Jurusan yang Diambil"
+										th:value="${pelamar.jurusan}">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="lulusan_tahun"
+									class="col-sm-4 col-md-2 col-form-label">Lulus Tahun<span
+									class="requiredField"> *</span></label>
+								<div class="col-sm-auto">
+									<select class="form-control" id="lulusan_tahun"
+										th:value="${pelamar.lulusan_tahun}" required="required">
+										<option selected>-Pilih Tahun-</option>
+									</select>
+								</div>
+							</div>
+							<hr class="hrCustom2">
+							<h5 class="card-title">
+								Riwayat Pekerjaan <small class="titleHelp">(3 Paling
+									Terakhir)</small>
+							</h5>
+							<div class="table-responsive">
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th scope="col" rowspan="2">No.</th>
+											<th scope="col" rowspan="2">Nama Perusahaan</th>
+											<th scope="col" rowspan="2">Tahun Terakhir</th>
+											<th scope="col" colspan="2">Lama Bekerja</th>
+											<th scope="col" rowspan="2">Jabatan</th>
+											<th scope="col" rowspan="2">Alasan Bergenti</th>
+										</tr>
+										<tr>
+											<th scope="col">Tahun</th>
+											<th scope="col">Bulan</th>
+										</tr>
+
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row">1</th>
+											<td><input type="text" class="form-control" id="jurusan"
+												th:value="${pelamar.jurusan}"></td>
+											<td><select class="form-control" id="lulusan_tahun"
+												th:value="${pelamar.lulusan_tahun}">
+
+											</select></td>
+											<td><select class="form-control" id="lulusan_tahun"
+												th:value="${pelamar.lulusan_tahun}">
+
+											</select></td>
+											<td><select class="form-control" id="lulusan_tahun"
+												th:value="${pelamar.lulusan_tahun}">
+
+											</select></td>
+											<td><input type="text" class="form-control" id="jurusan"
+												th:value="${pelamar.jurusan}"></td>
+											<td><input type="text" class="form-control" id="jurusan"
+												th:value="${pelamar.jurusan}"></td>
+										</tr>
+										<tr>
+											<th scope="row">2</th>
+											<td><input type="text" class="form-control" id="jurusan"
+												th:value="${pelamar.jurusan}"></td>
+											<td><select class="form-control" id="lulusan_tahun"
+												th:value="${pelamar.lulusan_tahun}">
+
+											</select></td>
+											<td><select class="form-control" id="lulusan_tahun"
+												th:value="${pelamar.lulusan_tahun}">
+
+											</select></td>
+											<td><select class="form-control" id="lulusan_tahun"
+												th:value="${pelamar.lulusan_tahun}">
+
+											</select></td>
+											<td><input type="text" class="form-control" id="jurusan"
+												th:value="${pelamar.jurusan}"></td>
+											<td><input type="text" class="form-control" id="jurusan"
+												th:value="${pelamar.jurusan}"></td>
+										</tr>
+										<tr>
+											<th scope="row">3</th>
+											<td><input type="text" class="form-control" id="jurusan"
+												th:value="${pelamar.jurusan}"></td>
+											<td><select class="form-control" id="lulusan_tahun"
+												th:value="${pelamar.lulusan_tahun}">
+
+											</select></td>
+											<td><select class="form-control" id="lulusan_tahun"
+												th:value="${pelamar.lulusan_tahun}">
+
+											</select></td>
+											<td><select class="form-control" id="lulusan_tahun"
+												th:value="${pelamar.lulusan_tahun}">
+											</select></td>
+											<td><input type="text" class="form-control" id="jurusan"
+												th:value="${pelamar.jurusan}"></td>
+											<td><input type="text" class="form-control" id="jurusan"
+												th:value="${pelamar.jurusan}"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<br>
+							<button type="button" class="btn btn-primary" data-toggle="modal"
+								data-target="#myModal">Simpan</button>
+
+							<!-- The Modal -->
+							<div class="modal fade" id="myModal">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+
+										<!-- Modal Header -->
+										<div class="modal-header">
+											<h4 class="modal-title">Formulir Pendaftaran</h4>
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+										</div>
+										<!-- Modal body -->
+										<div class="modal-body">Apakah Anda yakin untuk
+											menyimpan?</div>
+
+										<!-- Modal footer -->
+										<div class="modal-footer">
+											<button type="submit" class="btn btn-danger">Ya</button>
+											<button type="button" class="btn btn-danger"
+												data-dismiss="modal">Tidak</button>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+				</form>
 			</div>
-			</form>
 		</div>
-	</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script
