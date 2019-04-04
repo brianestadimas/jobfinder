@@ -15,6 +15,7 @@ import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Service.KehadiranService;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
 import com.apap.HrPayrollSystem.Service.ProyekService;
+import com.apap.HrPayrollSystem.Utility.KehadiranWrapper;
 
 @Controller
 public class KehadiranController {
@@ -25,6 +26,8 @@ public class KehadiranController {
 	@Autowired
 	private ProyekService proyek_service;
 	
+	
+	//List All Kehadiran
 	@RequestMapping(value="/proyek/{proyek_id}/kehadiran",method=RequestMethod.GET)
 	private String daftarKehadiranProyek(@PathVariable(value="proyek_id") long proyek_id, Model model) {
 		
@@ -85,6 +88,7 @@ public class KehadiranController {
 	//sebelahnya form kosong hadir, sakit, izin, alfa, libur, cuti, lain-lain
 	@RequestMapping(value="/proyek/{proyek_id}/kehadiran/tambah", method=RequestMethod.GET)
 	private String addKehadiranProyek(@PathVariable(value="proyek_id") long proyek_id, Model model) {
+		KehadiranWrapper daftar_kehadiran = new KehadiranWrapper();
 		List<PegawaiOutsourcingModel> pegawai_outsourcing = pegawai_outsourcing_service.getAllPegawai();
 		List<String> nip_pegawai_pada_proyek_ini = new ArrayList<String>();
 		List<String> nama_pegawai_pada_proyek_ini = new ArrayList<String>();
@@ -94,10 +98,21 @@ public class KehadiranController {
 				nama_pegawai_pada_proyek_ini.add(pegawai_outsourcing.get(i).getPelamar_id().getNama_lengkap());
 			}	
 		}
+		for(int i = 0 ; i < nama_pegawai_pada_proyek_ini.size() ; i ++) {
+			daftar_kehadiran.add_kehadiran(new KehadiranModel());
+		}
+		
+		model.addAttribute("daftar_daftar_kehadiran", daftar_kehadiran);
 		model.addAttribute("nama_pegawai", nama_pegawai_pada_proyek_ini);
 		model.addAttribute("nip_pegawai", nip_pegawai_pada_proyek_ini);	
 		return "form_kehadiran";
 	}
+	@RequestMapping(value="/proyek/{proyek_id}/kehadiran/tambah/submit", method=RequestMethod.POST)
+	private String addKehadiranProyekSubmit(@PathVariable(value="proyek_id") long proyek_id, Model model) {
+		
+		return "";
+	}
+	
 	//Update Kehadiran
 	
 	//Hapus Kehadiran

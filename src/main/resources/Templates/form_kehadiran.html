@@ -11,7 +11,7 @@
 
 </head>
 <body>
-        <form action="">
+        <form action="#" th:action="'/proyek/'+${proyek_id}+'/kehadiran/tambah/submit'" method="post" th:object="${daftar_daftar_kehadiran}">
                 <h1 style="font-size:300%">Form Penambahan Absensi</h1>
                 <hr>
                 <h3>Judul Absensi</h3><input type="text" name="judul_absensi">
@@ -35,16 +35,16 @@
                                 </tr>
                         </thead>
                         <tbody>
-                                <tr id="test1" th:each="pegawai,iteration : *{nama_pegawai}">
-                                        <td th:text="${nip_pegawai[iteration.index]}">1606884522</td>
-                                        <td th:text="${pegawai}">wuRYYYYYYYYYY</td>
-                                        <td><input type="number" name="jumlah_hadir_1"></td>
-                                        <td><input type="number" name="jumlah_sakit_1"></td>
-                                        <td><input type="number" name="jumlah_izin_1"></td>
-                                        <td><input type="number" name="jumlah_alfa_1"></td>
-                                        <td><input type="number" name="jumlah_libur_1"></td>
-                                        <td><input type="number" name="jumlah_cuti_1"></td>
-                                        <td><input type="number" name="jumlah_lain_lain_1"></td>
+                                <tr id="test1" th:each="daftar_kehadiran, itemStat : *{daftar_kehadiran}">
+                                        <td th:text="${nip_pegawai[itemStat.index]}">1606884522</td>
+                                        <td th:text="${nama_pegawai[itemStat.index]}">wuRYYYYYYYYYY</td>
+                                        <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_kehadiran}" name="jumlah_hadir"></td>
+                                        <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_sakit}" name="jumlah_sakit"></td>
+                                        <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_izin}" name="jumlah_izin"></td>
+                                        <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_absen}" name="jumlah_alfa"></td>
+                                        <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_off}" name="jumlah_libur"></td>
+                                        <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_cuti}" name="jumlah_cuti"></td>
+                                        <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_lain_lain}" name="jumlah_lain_lain"></td>
                                 </tr>
                                 
         

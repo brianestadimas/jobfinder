@@ -194,6 +194,14 @@ public class KehadiranModel implements Serializable{
 		this.proyek = proyek;
 	}
 
+	public int getJumlah_lain_lain() {
+		return jumlah_lain_lain;
+	}
+
+	public void setJumlah_lain_lain(int jumlah_lain_lain) {
+		this.jumlah_lain_lain = jumlah_lain_lain;
+	}
+
 	public ProdukModel getProduk() {
 		return produk;
 	}
