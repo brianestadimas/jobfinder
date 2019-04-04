@@ -37,6 +37,7 @@ public class PengalamanPelamarModel implements Serializable{
 	@Column(name="nama_perusahaan",nullable = false)
 	private String nama_perusahaan;
 	
+	//ini mestinya tahun_terakhir 
 	@Size(max=255)
 	@Column(name="pekerjaan_terakhir",nullable = true)
 	private String pekerjaan_terakhir;
