@@ -1,5 +1,10 @@
 package com.apap.HrPayrollSystem.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.apap.HrPayrollSystem.Model.PelamarModel;
+import com.apap.HrPayrollSystem.Model.PengalamanPelamarModel;
 import com.apap.HrPayrollSystem.Service.PelamarService;
+import com.apap.HrPayrollSystem.Service.PengalamanPelamarService;
 
 /**
  * Controller kelas Pelamar
@@ -23,6 +30,9 @@ public class PelamarController {
 	@Autowired
 	PelamarService pelamarService;
 
+	@Autowired
+	PengalamanPelamarService pengalamanService;
+
 	/**
 	 * Fitur pendaftaran pelamar : GET request
 	 * 
@@ -34,25 +44,58 @@ public class PelamarController {
 
 		PelamarModel pelamar = new PelamarModel();
 		FormCommand command = new FormCommand();
+		List<PengalamanPelamarModel> pengalaman = new ArrayList<PengalamanPelamarModel>(3);
 		// Tambah attribute ke dalam model
 		model.addAttribute("pelamar", pelamar);
 		model.addAttribute("command", command);
+		model.addAttribute("pengalaman", pengalaman);
 		return "pelamar-daftar";
+	}
+
+	@RequestMapping(value = "pelamar/daftar", params = { "addEntry" }, method = RequestMethod.GET)
+	private String addEntryPengalaman(Model model, @ModelAttribute FormCommand command) {
+		// Add baris baru dalam pengalaman di form
+		if (command.getPengalamanList().size() >= 3) {
+			model.addAttribute("limit_msg", "Maksimal 3 pengalaman");
+		} else {
+			command.addPengalamanToList(new PengalamanPelamarModel());
+		}
+		model.addAttribute("command", command);
+		return "pelamar-daftar";
+	}
+
+	@RequestMapping(value = "pelamar/daftar", params = { "deleteEntry" }, method = RequestMethod.POST)
+	private String deleteEntryPengalaman(Model model, @ModelAttribute FormCommand command,
+			HttpServletRequest deleteIndex) {
+
+		if (command.getPengalamanList().size() == 1) {
+			model.addAttribute("deleteLimit_msg", "Tidak bisa dihapus, minimum 1 entri pengalaman");
+		} else {
+			command.getPengalamanList().remove(
+					(command.getPengalamanList().get(Integer.parseInt(deleteIndex.getParameter("deleteEntry")))));
+		}
+		model.addAttribute("command", command);
+		return "jadwalJaga-add";
+
 	}
 
 	/**
 	 * Fitur pendaftaran pelamar : POST request
 	 * 
-	 * @param pelamar Data pelamar hasil isian formulir
+	 * @param pelamar Model Pelamar yang sudah diisi
+	 * @param command Hasil input RadioButton dan Checkbox
 	 * @param model   Model
 	 * @return Halaman HTML data pelamar
 	 */
-	@RequestMapping(value = "pelamar/daftar", method = RequestMethod.POST)
+	@RequestMapping(value = "pelamar/daftar", params = { "submitPelamar" }, method = RequestMethod.POST)
 	private String daftarPelamarPost(@ModelAttribute PelamarModel pelamar, FormCommand command, Model model) {
 		pelamar.setGender(command.getGenderSelectedValue());
 		pelamar.setStatus_marital(command.getStatusNikahSelectedValue());
 		pelamar.setProduk_dilamar(command.getProdukSelectedValues());
 		pelamarService.addPelamar(pelamar);
+		for (PengalamanPelamarModel pp : command.getPengalamanList()) {
+			pengalamanService.addPengalaman(pp);
+		}
 		return "pelamar-view";
 	}
 

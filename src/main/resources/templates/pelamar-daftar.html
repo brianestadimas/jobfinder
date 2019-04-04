@@ -66,6 +66,8 @@
 }
 </style>
 
+<!-- th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"  -->
+
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
 	<div class="container-fluid"
@@ -103,7 +105,7 @@
 											<ul>
 												<li th:each="checkboxValue: ${checkbox_produk}"><input
 													class="form-check-input" type="checkbox"
-													th:field="*{produkSelectedValues}"
+													th:field="*{command.produkSelectedValues}"
 													th:value="${checkboxValue}" /> <label
 													th:for="${#ids.prev('produkSelectedValues')}"
 													th:text="${checkboxValue}"></label></li>
@@ -144,8 +146,9 @@
 											<ul>
 												<li th:each="radioValue: ${radio_gender}"><input
 													class="form-check-input" type="radio"
-													th:field="*{genderSelectedValue}" th:value="${radioValue}" />
-													<label th:for="${#ids.prev('genderSelectedValue')}"
+													th:field="*{command.genderSelectedValue}"
+													th:value="${radioValue}" /> <label
+													th:for="${#ids.prev('genderSelectedValue')}"
 													th:text="${radioValue}"></label></li>
 											</ul>
 										</div>
@@ -187,7 +190,7 @@
 											<ul>
 												<li th:each="radioValue: ${radio_statusNikah}"><input
 													class="form-check-input" type="radio"
-													th:field="*{statusNikahSelectedValue}"
+													th:field="*{command.statusNikahSelectedValue}"
 													th:value="${radioValue}" /> <label
 													th:for="${#ids.prev('statusNikahSelectedValue')}"
 													th:text="${radioValue}"></label></li>
@@ -348,67 +351,37 @@
 
 									</thead>
 									<tbody>
-										<tr>
-											<th scope="row">1</th>
-											<td><input type="text" class="form-control" id="jurusan"
-												th:value="${pelamar.jurusan}"></td>
-											<td><select class="form-control" id="lulusan_tahun"
-												th:value="${pelamar.lulusan_tahun}">
+										<tr th:each="np, iterationStatus : *{command.pengalamanList}">
+											<th scope="row" th:text="${iterationStatus.index}"></th>
+											<td style="height: 3rem"><input class="form-control"
+												type="text" required="required"
+												th:field="*{command.pengalamanList[__${iterationStatus.index}__].nama_perusahaan}">
+											</td>
+											<td style="height: 3rem"><select class="form-control"
+												id="tahun_bekerja"
+												th:field="*{command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}"></select></td>
+											<td style="height: 3rem"><select class="form-control"
+												id="bulan_bekerja"
+												th:field="*{command.pengalamanList[__${iterationStatus.index}__].lamaBulan_bekerja}"></select></td>
 
-											</select></td>
-											<td><select class="form-control" id="lulusan_tahun"
-												th:value="${pelamar.lulusan_tahun}">
-
-											</select></td>
-											<td><select class="form-control" id="lulusan_tahun"
-												th:value="${pelamar.lulusan_tahun}">
-
-											</select></td>
-											<td><input type="text" class="form-control" id="jurusan"
-												th:value="${pelamar.jurusan}"></td>
-											<td><input type="text" class="form-control" id="jurusan"
-												th:value="${pelamar.jurusan}"></td>
+											<td style="height: 3rem"><input class="form-control"
+												type="text"
+												th:field="*{command.pengalamanList[__${iterationStatus.index}__].jabatan}"></td>
+											<td>
+											<td style="height: 3rem"><input class="form-control"
+												type="text" required="required"
+												th:field="*{command.pengalamanList[__${iterationStatus.index}__].alasan_berhenti}"></td>
+											<td>
+												<button type="submit" class="btn btn-warning"
+													name="deleteEntry" th:value="${iterationStatus.index}">Hapus</button>
+											</td>
 										</tr>
 										<tr>
-											<th scope="row">2</th>
-											<td><input type="text" class="form-control" id="jurusan"
-												th:value="${pelamar.jurusan}"></td>
-											<td><select class="form-control" id="lulusan_tahun"
-												th:value="${pelamar.lulusan_tahun}">
-
-											</select></td>
-											<td><select class="form-control" id="lulusan_tahun"
-												th:value="${pelamar.lulusan_tahun}">
-
-											</select></td>
-											<td><select class="form-control" id="lulusan_tahun"
-												th:value="${pelamar.lulusan_tahun}">
-
-											</select></td>
-											<td><input type="text" class="form-control" id="jurusan"
-												th:value="${pelamar.jurusan}"></td>
-											<td><input type="text" class="form-control" id="jurusan"
-												th:value="${pelamar.jurusan}"></td>
-										</tr>
-										<tr>
-											<th scope="row">3</th>
-											<td><input type="text" class="form-control" id="jurusan"
-												th:value="${pelamar.jurusan}"></td>
-											<td><select class="form-control" id="lulusan_tahun"
-												th:value="${pelamar.lulusan_tahun}">
-
-											</select></td>
-											<td><select class="form-control" id="lulusan_tahun"
-												th:value="${pelamar.lulusan_tahun}">
-
-											</select></td>
-											<td><select class="form-control" id="lulusan_tahun"
-												th:value="${pelamar.lulusan_tahun}">
-											</select></td>
-											<td><input type="text" class="form-control" id="jurusan"
-												th:value="${pelamar.jurusan}"></td>
-											<td><input type="text" class="form-control" id="jurusan"
-												th:value="${pelamar.jurusan}"></td>
+											<td>
+												<button type="submit" class="btn btn-secondary"
+													name="addEntry" th:value="${command.pengalamanList}">Tambah
+													Pengalaman</button>
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -433,7 +406,7 @@
 
 										<!-- Modal footer -->
 										<div class="modal-footer">
-											<button type="submit" class="btn btn-danger">Ya</button>
+											<button type="submit" class="btn btn-danger" name="submitPelamar">Ya</button>
 											<button type="button" class="btn btn-danger"
 												data-dismiss="modal">Tidak</button>
 										</div>
@@ -462,6 +435,22 @@
 		opt.value = i;
 		opt.innerHTML = i;
 		select.appendChild(opt);
+	}
+
+	for (var j = 0; j <= 20; i++) {
+		var select = document.getElementById("tahun_bekerja");
+		var option = document.createElement("OPTION");
+		select.options.add(option);
+		option.text = j;
+		option.value = "j";
+	}
+
+	for (var k = 0; k <= 12; i++) {
+		var select = document.getElementById("bulan_bekerja");
+		var option = document.createElement("OPTION");
+		select.options.add(option);
+		option.text = k;
+		option.value = "k";
 	}
 </script>
 </html>
