@@ -45,7 +45,7 @@
         
     </head>
     <body id="badan">
-        <h1 style="font-size:400%">//ganti jadi actual nama proyek :))</h1>
+        <h1 style="font-size:400%" th:text="${nama_proyek_ini}">Nama Proyek</h1>
         <hr >
         <section id="bagian">
             <div id="test1">
@@ -69,9 +69,9 @@
             </div>
             
             <div id="test2">
-                <button id="tambah_absensi">
+                <a th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/tambah'}" id="tambah_absensi" >
                     Tambah Absensi
-                </button>
+                </a>
             </div>
 
 

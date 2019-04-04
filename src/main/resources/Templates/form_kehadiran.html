@@ -14,7 +14,7 @@
         <form action="">
                 <h1 style="font-size:300%">Form Penambahan Absensi</h1>
                 <hr>
-                <h3>Judul Absensi</h3><input type="date" name="judul"><h3>-</h3></h3><input type="date" name="absensi">
+                <h3>Judul Absensi</h3><input type="text" name="judul_absensi">
                 <h3>Hari Kerja</h3><input type="number" name="jumlah_kehadiran">
         
                 <h2>Daftar Pegawai</h2>
@@ -51,7 +51,7 @@
         
                         </tbody>
                 </table>        
-                <h2>2 Pegawai Proyek</h2> 
+                <h2 th:text="'Jumlah Pegawai Proyek : '+${#lists.size(nama_pegawai)}"></h2> 
                 <hr>
                 <input type="submit" value="SIMPAN">
                 <button>batalkan</button>

@@ -14,6 +14,7 @@ import com.apap.HrPayrollSystem.Model.KehadiranModel;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Service.KehadiranService;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
+import com.apap.HrPayrollSystem.Service.ProyekService;
 
 @Controller
 public class KehadiranController {
@@ -21,13 +22,15 @@ public class KehadiranController {
 	private KehadiranService kehadiran_service;
 	@Autowired
 	private PegawaiOutsourcingService pegawai_outsourcing_service;
-
+	@Autowired
+	private ProyekService proyek_service;
 	
 	@RequestMapping(value="/proyek/{proyek_id}/kehadiran",method=RequestMethod.GET)
 	private String daftarKehadiranProyek(@PathVariable(value="proyek_id") long proyek_id, Model model) {
 		
 		List<KehadiranModel> get_all_kehadiran = kehadiran_service.get_all_kehadiran();
 		List<String> kehadiran_proyek_ini = new ArrayList<String>();
+		String nama_proyek = proyek_service.getProyekById(proyek_id).get().getNama_proyek();
 		
 		for(int i = 0 ; i < get_all_kehadiran.size() ; i++) {
 			if(get_all_kehadiran.get(i).getProyek().getId() == proyek_id) {
@@ -43,6 +46,7 @@ public class KehadiranController {
 			}
 		}
 		//TO DO render
+		model.addAttribute("nama_proyek_ini", nama_proyek);
 		model.addAttribute("id_proyek", proyek_id);
 		model.addAttribute("list_of_kehadiran",kehadiran_proyek_ini);
 		return "list_kehadiran";
