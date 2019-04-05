@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<style>
+	    #badan {
+	        height: 100vh;
+	    }
+	    #bagian {
+	        display: flex;
+	        height: 100%;
+	    }
+	
+	    #test1 {
+	        width:70%;
+	    }
+	
+	    #test2 {
+	        margin-left: 10%;
+	        margin-top: 5%;
+	        
+	    }
+	
+	    #judul_absensi{
+	        margin-left: 5%;
+	        font-size: 300%;
+	    }
+	
+	    #absensi-absensi{
+	        margin-left: 5%;
+	    }
+	
+	    /* #Hapus{
+	        float: right;
+	        margin-right: 25%;
+	    } */
+	
+	    #tambah_absensi{
+	        width: 200%;
+	        height: 20%;
+	        font-size: 100%;
+	        background-color:khaki;
+	    }
+	
+	</style>
+    <head>
+        
+    </head>
+    <body id="badan">
+        <h1 style="font-size:400%" th:text="${nama_proyek_ini}">Nama Proyek</h1>
+        <hr >
+        <section id="bagian">
+            <div id="test1">
+                <h1 id="judul_absensi">Absensi Pegawai</h1>
+                <hr style="margin-left: 5%; margin-right: 25%">
+                <div id="absensi-absensi">
+
+				<div th:each="kehadiran : *{list_of_kehadiran}">
+					<h1 style="font-size:200%" th:text="${kehadiran}"></h1>
+                    <hr  style="margin-right: 25%">
+                    <div style="margin-right: 25%">
+                            <a th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/'+${kehadiran}}">Detail</a>
+                            <a th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/update/'+${kehadiran}}">Ubah</a>
+                            <button style="width:27%;background-color:khaki">Do Payment</button>
+                            <a th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/hapus/'+${kehadiran}}">Hapus</a>
+                            
+                    </div>
+				</div>
+				
+                </div>
+            </div>
+            
+            <div id="test2">
+                <a th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/tambah'}" id="tambah_absensi" >
+                    Tambah Absensi
+                </a>
+            </div>
+
+
+        </section>
+
+
+
+
+    </body>
+    <footer>
+    
+    </footer>
+
+</html>
