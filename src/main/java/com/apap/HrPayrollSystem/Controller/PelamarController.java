@@ -163,5 +163,10 @@ public class PelamarController {
 	public String[] getStatusNikahValues() {
 		return new String[] { "Belum Menikah", "Sudah Menikah" };
 	}
-
+	
+	@RequestMapping(value = "/pelamar-assign", method = RequestMethod.GET)
+	private String assignPelamar(@PathVariable Long[] id, Model model) {
+		
+		return "form_assignment_pelamar";
+	}
 }

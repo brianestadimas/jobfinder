@@ -11,10 +11,10 @@
 		<table id="table">
 			<thead>
 				<tr>
-				    <th>NIP</th>
+				  <th>NIP</th>
 				 	<th>Nama</th>
-			  	</tr>
-		  	</thead>
+			  </tr>
+		  </thead>
 		  	<tbody>
 				<tr th:each="pegawai : ${listPegawai}" th:id="'row' + ${pegawai.id}" >
 				    <td th:text="${pegawai.nip}"></td> 
