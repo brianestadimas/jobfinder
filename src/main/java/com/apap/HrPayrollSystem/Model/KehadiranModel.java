@@ -42,60 +42,49 @@ public class KehadiranModel implements Serializable{
 	private ProyekModel proyek;
 	
 	//FK produk id
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_produk",referencedColumnName="id",nullable=false)
-	@OnDelete(action=OnDeleteAction.NO_ACTION)
-	@JsonIgnore
-	private ProdukModel produk;
+//	@OneToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name="id_produk",referencedColumnName="id",nullable=false)
+//	@OnDelete(action=OnDeleteAction.NO_ACTION)
+//	@JsonIgnore
+//	private ProdukModel produk;
 	
 	@NotNull
-	@Size(max=255)
 	@Column(name="judul_kehadiran",nullable = false)
 	private String judul_kehadiran;
 	
 	@NotNull
-	@Size(max=255)
 	@Column(name="jumlah_hari_kerja",nullable = false)
 	private int jumlah_hari_kerja;
 	
 	@NotNull
-	@Size(max=255)
 	@Column(name="jumlah_kehadiran",nullable = false)
 	private int jumlah_kehadiran;
 	
 	@NotNull
-	@Size(max=255)
 	@Column(name="jumlah_absen",nullable = false)
 	private int jumlah_absen;
 	
 	@NotNull
-	@Size(max=255)
 	@Column(name="jumlah_sakit",nullable = false)
 	private int jumlah_sakit;
 	
 	@NotNull
-	@Size(max=255)
 	@Column(name="jumlah_izin",nullable = false)
 	private int jumlah_izin;
 	
 	@NotNull
-	@Size(max=255)
 	@Column(name="jumlah_cuti",nullable = false)
 	private int jumlah_cuti;
 	
 	@NotNull
-	@Size(max=255)
 	@Column(name="jumlah_off",nullable = false)
 	private int jumlah_off;
 	
 	@NotNull
-	@Size(max=255)
 	@Column(name="jumlah_lain_lain",nullable = false)
 	private int jumlah_lain_lain;
 	
-	@NotNull
-	@Size(max=255)
-	@Column(name="tanggal_pengisian_kehadiran",nullable = false)
+	@Column(name="tanggal_pengisian_kehadiran",nullable = true)
 	private Date tanggal_pengisian_kehadiran;
 
 	public long getId() {
@@ -202,13 +191,13 @@ public class KehadiranModel implements Serializable{
 		this.jumlah_lain_lain = jumlah_lain_lain;
 	}
 
-	public ProdukModel getProduk() {
-		return produk;
-	}
-
-	public void setProduk(ProdukModel produk) {
-		this.produk = produk;
-	}
+//	public ProdukModel getProduk() {
+//		return produk;
+//	}
+//
+//	public void setProduk(ProdukModel produk) {
+//		this.produk = produk;
+//	}
 
 
 }

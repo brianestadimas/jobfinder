@@ -36,4 +36,15 @@ public class PegawaiOutsourcingServiceImpl implements PegawaiOutsourcingService 
 		pegawaiOutsourcingDb.deleteById(id);
 	}
 
+	@Override
+	public PegawaiOutsourcingModel getPegawaiByNip(String nip) {
+		// TODO Auto-generated method stub
+		for(int i = 0 ; i < pegawaiOutsourcingDb.findAll().size() ; i++) {
+			if(pegawaiOutsourcingDb.findAll().get(i).getNip().equals(nip)) {
+				return pegawaiOutsourcingDb.findAll().get(i);
+			}
+		}
+		return null;
+	}
+
 }

@@ -31,4 +31,11 @@ public class KehadiranServiceImpl implements KehadiranService{
 		kehadiran_Db.delete(kehadiran);
 	}
 
+	@Override
+	public void save_all_kehadiran(List<KehadiranModel> kehadiran_kehadiran) {
+		// TODO Auto-generated method stub
+		
+		kehadiran_Db.saveAll(kehadiran_kehadiran);
+	}
+
 }
