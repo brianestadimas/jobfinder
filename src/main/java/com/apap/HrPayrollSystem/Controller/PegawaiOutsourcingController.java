@@ -21,8 +21,8 @@ public class PegawaiOutsourcingController {
 	private ProyekService proyekService;
 	@Autowired
 	private PegawaiOutsourcingService pegawaiService;
-	@Autowired
-	private RiwayatKerjaPegawaiService riwayatService;
+//	@Autowired
+//	private RiwayatKerjaPegawaiService riwayatService;
 	
 	@RequestMapping("/pegawai")
 	private String pegawai(Model model) {
@@ -65,23 +65,23 @@ public class PegawaiOutsourcingController {
 		
 	}
 	
-	@RequestMapping(value = "/pegawai-berhenti-assign", method = RequestMethod.POST)
-	private String berhentiPegawai(@RequestParam("id") Long[] ids, Model model) {
-		
-		try {
-			System.out.println("MASUKKKKKK");
-			for(Long id : ids) {
-				System.out.println(id);
-				pegawaiService.updatePegawaiStatusById(id);
-				riwayatService.addRiwayat(id);
-			}
-			return "ListPegawai";
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
-			return null;
-		}
-		
-	}
+//	@RequestMapping(value = "/pegawai-berhenti-assign", method = RequestMethod.POST)
+//	private String berhentiPegawai(@RequestParam("id") Long[] ids, Model model) {
+//		
+//		try {
+//			System.out.println("MASUKKKKKK");
+//			for(Long id : ids) {
+//				System.out.println(id);
+//				pegawaiService.updatePegawaiStatusById(id);
+//				riwayatService.addRiwayat(id);
+//			}
+//			return "ListPegawai";
+//		} catch(Exception e) {
+//			System.out.println(e.getMessage());
+//			return null;
+//		}
+//		
+//	}
 	
 	
 	
