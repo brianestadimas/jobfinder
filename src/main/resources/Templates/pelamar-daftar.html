@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<object th:include="fragments/fragment :: css" th:remove="tag"></object>
-<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+<!-- <object th:include="fragments/fragment :: css" th:remove="tag"></object> -->
+<!-- <object th:include="fragments/fragment :: js" th:remove="tag"></object> -->
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport"
@@ -69,7 +69,7 @@
 <!-- th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"  -->
 
 <body>
-	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<!-- 	<nav th:replace="fragments/fragment :: navbar"></nav> -->
 	<div class="container-fluid"
 		style="margin-left: 1rem; margin-top: 1rem">
 		<h2 style="margin-top: 1rem">
@@ -101,17 +101,15 @@
 									<legend class="col-form-label col-sm-4 col-md-2 pt-0">Posisi
 										yang diinginkan</legend>
 									<div class="col-sm-auto col-md-auto">
-										<div class="form-check form-check-inline">
-											<ul>
-												<li th:each="checkboxValue: ${checkbox_produk}"><input
-													class="form-check-input" type="checkbox"
-													th:field="*{command.produkSelectedValues}"
-													th:value="${checkboxValue}" /> <label
-													th:for="${#ids.prev('produkSelectedValues')}"
-													th:text="${checkboxValue}"></label></li>
-											</ul>
-										</div>
-
+										<ul class="form-check form-check-inline">
+											<li th:each="checkboxValue: ${checkbox_produk}"
+												class="form-check form-check-inline"><input
+												class="form-check-input" type="checkbox"
+												th:field="${command.produkSelectedValues}"
+												th:value="${checkboxValue}" /> <label
+												th:for="${#ids.prev('produkSelectedValues')}"
+												th:text="${checkboxValue}"></label></li>
+										</ul>
 									</div>
 								</div>
 							</fieldset>
@@ -142,16 +140,15 @@
 										Jenis Kelamin<span class="requiredField"> *</span>
 									</legend>
 									<div class="col-sm-auto">
-										<div class="form-check form-check-inline">
-											<ul>
-												<li th:each="radioValue: ${radio_gender}"><input
-													class="form-check-input" type="radio"
-													th:field="*{command.genderSelectedValue}"
-													th:value="${radioValue}" /> <label
-													th:for="${#ids.prev('genderSelectedValue')}"
-													th:text="${radioValue}"></label></li>
-											</ul>
-										</div>
+										<ul class="form-check form-check-inline">
+											<li th:each="radioValue: ${radio_gender}"
+												class="form-check form-check-inline"><input
+												class="form-check-input" type="radio"
+												th:field="${command.genderSelectedValue}"
+												th:value="${radioValue}" /> <label
+												th:for="${#ids.prev('genderSelectedValue')}"
+												th:text="${radioValue}"></label></li>
+										</ul>
 									</div>
 								</div>
 							</fieldset>
@@ -190,7 +187,7 @@
 											<ul>
 												<li th:each="radioValue: ${radio_statusNikah}"><input
 													class="form-check-input" type="radio"
-													th:field="*{command.statusNikahSelectedValue}"
+													th:field="${command.statusNikahSelectedValue}"
 													th:value="${radioValue}" /> <label
 													th:for="${#ids.prev('statusNikahSelectedValue')}"
 													th:text="${radioValue}"></label></li>
@@ -342,7 +339,8 @@
 											<th scope="col" rowspan="2">Tahun Terakhir</th>
 											<th scope="col" colspan="2">Lama Bekerja</th>
 											<th scope="col" rowspan="2">Jabatan</th>
-											<th scope="col" rowspan="2">Alasan Bergenti</th>
+											<th scope="col" rowspan="2">Alasan Berhenti</th>
+											<th scope="col" rowspan="2">Action</th>
 										</tr>
 										<tr>
 											<th scope="col">Tahun</th>
@@ -351,40 +349,38 @@
 
 									</thead>
 									<tbody>
-										<tr th:each="np, iterationStatus : *{command.pengalamanList}">
-											<th scope="row" th:text="${iterationStatus.index}"></th>
+										<tr th:each="np, iterationStatus : ${command.pengalamanList}">
+											<th scope="row" th:text="${iterationStatus.index}+1"></th>
 											<td style="height: 3rem"><input class="form-control"
 												type="text" required="required"
-												th:field="*{command.pengalamanList[__${iterationStatus.index}__].nama_perusahaan}">
+												th:field="${command.pengalamanList[__${iterationStatus.index}__].nama_perusahaan}">
+											</td>
+											<td style="height: 3rem"><input class="form-control"
+												type="text"
+												th:field="${command.pengalamanList[__${iterationStatus.index}__].tahun_terakhir}">
 											</td>
 											<td style="height: 3rem"><select class="form-control"
 												id="tahun_bekerja"
-												th:field="*{command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}"></select></td>
+												th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}"></select></td>
 											<td style="height: 3rem"><select class="form-control"
 												id="bulan_bekerja"
-												th:field="*{command.pengalamanList[__${iterationStatus.index}__].lamaBulan_bekerja}"></select></td>
+												th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaBulan_bekerja}"></select></td>
 
 											<td style="height: 3rem"><input class="form-control"
 												type="text"
-												th:field="*{command.pengalamanList[__${iterationStatus.index}__].jabatan}"></td>
-											<td>
+												th:field="${command.pengalamanList[__${iterationStatus.index}__].jabatan}"></td>
 											<td style="height: 3rem"><input class="form-control"
 												type="text" required="required"
-												th:field="*{command.pengalamanList[__${iterationStatus.index}__].alasan_berhenti}"></td>
+												th:field="${command.pengalamanList[__${iterationStatus.index}__].alasan_berhenti}"></td>
 											<td>
 												<button type="submit" class="btn btn-warning"
 													name="deleteEntry" th:value="${iterationStatus.index}">Hapus</button>
 											</td>
 										</tr>
-										<tr>
-											<td>
-												<button type="submit" class="btn btn-secondary"
-													name="addEntry" th:value="${command.pengalamanList}">Tambah
-													Pengalaman</button>
-											</td>
-										</tr>
 									</tbody>
 								</table>
+								<button type="submit" class="btn btn-secondary" name="addEntry"
+									th:value="${command}">Tambah Pengalaman</button>
 							</div>
 							<br>
 							<button type="button" class="btn btn-primary" data-toggle="modal"
@@ -406,7 +402,8 @@
 
 										<!-- Modal footer -->
 										<div class="modal-footer">
-											<button type="submit" class="btn btn-danger" name="submitPelamar">Ya</button>
+											<button type="submit" class="btn btn-danger"
+												name="submitPelamar">Ya</button>
 											<button type="button" class="btn btn-danger"
 												data-dismiss="modal">Tidak</button>
 										</div>

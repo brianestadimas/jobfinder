@@ -61,6 +61,11 @@ public class PelamarModel implements Serializable {
 	@Column(name = "telepon", nullable = false)
 	private String telepon;
 
+	@NotNull
+	@Size(max = 255)
+	@Column(name = "nomor_handphone", nullable = false)
+	private String nomor_handphone;
+
 	@Size(max = 255)
 	@Column(name = "telepon_orang_terdekat", nullable = true)
 	private String telepon_orang_terdekat;
@@ -116,7 +121,7 @@ public class PelamarModel implements Serializable {
 	@Size(max = 255)
 	@Column(name = "telepon_rumah", nullable = true)
 	private String telepon_rumah;
-	
+
 	@NotNull
 	@Size(max = 255)
 	@Column(name = "apply_date", nullable = false)
@@ -305,6 +310,14 @@ public class PelamarModel implements Serializable {
 
 	public void setApply_date(Date apply_date) {
 		this.apply_date = apply_date;
+	}
+
+	public String getNomor_handphone() {
+		return nomor_handphone;
+	}
+
+	public void setNomor_handphone(String nomor_handphone) {
+		this.nomor_handphone = nomor_handphone;
 	}
 
 }

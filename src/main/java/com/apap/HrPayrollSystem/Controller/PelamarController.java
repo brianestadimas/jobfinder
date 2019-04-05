@@ -44,11 +44,10 @@ public class PelamarController {
 
 		PelamarModel pelamar = new PelamarModel();
 		FormCommand command = new FormCommand();
-		List<PengalamanPelamarModel> pengalaman = new ArrayList<PengalamanPelamarModel>(3);
+		command.addPengalamanToList(new PengalamanPelamarModel());
 		// Tambah attribute ke dalam model
 		model.addAttribute("pelamar", pelamar);
 		model.addAttribute("command", command);
-		model.addAttribute("pengalaman", pengalaman);
 		return "pelamar-daftar";
 	}
 
@@ -88,7 +87,7 @@ public class PelamarController {
 	 * @return Halaman HTML data pelamar
 	 */
 	@RequestMapping(value = "pelamar/daftar", params = { "submitPelamar" }, method = RequestMethod.POST)
-	private String daftarPelamarPost(@ModelAttribute PelamarModel pelamar, FormCommand command, Model model) {
+	private String daftarPelamarPost(@ModelAttribute PelamarModel pelamar, @ModelAttribute FormCommand command, Model model) {
 		pelamar.setGender(command.getGenderSelectedValue());
 		pelamar.setStatus_marital(command.getStatusNikahSelectedValue());
 		pelamar.setProduk_dilamar(command.getProdukSelectedValues());
