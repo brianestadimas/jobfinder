@@ -1,8 +1,5 @@
 package com.apap.HrPayrollSystem.Controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,10 +84,8 @@ public class PelamarController {
 	 * @return Halaman HTML data pelamar
 	 */
 	@RequestMapping(value = "pelamar/daftar", params = { "submitPelamar" }, method = RequestMethod.POST)
-	private String daftarPelamarPost(@ModelAttribute PelamarModel pelamar, @ModelAttribute FormCommand command, Model model) {
-		pelamar.setGender(command.getGenderSelectedValue());
-		pelamar.setStatus_marital(command.getStatusNikahSelectedValue());
-		pelamar.setProduk_dilamar(command.getProdukSelectedValues());
+	private String daftarPelamarPost(@ModelAttribute PelamarModel pelamar, @ModelAttribute FormCommand command,
+			Model model) {
 		pelamarService.addPelamar(pelamar);
 		for (PengalamanPelamarModel pp : command.getPengalamanList()) {
 			pengalamanService.addPengalaman(pp);
