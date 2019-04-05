@@ -133,7 +133,6 @@ public class KehadiranController {
 				proyek = proyek_service.getAllProyek().get(i);
 			}
 		}
-		//Asumsi ada NIP nya
 		for(int i = 0 ; i < daftar_daftar_kehadiran.getDaftar_kehadiran().size() ; i++) {
 			daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).setProyek(proyek);
 			daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).setJudul_kehadiran(judul_kehadiran);
@@ -195,27 +194,51 @@ public class KehadiranController {
 		model.addAttribute("nama_pegawai", nama_pegawai_proyek);
 		model.addAttribute("nip_pegawai", nip_pegawai_proyek);			
 		return "form_update_kehadiran";
-//		List<Long> nip_pegawai_pada_proyek_ini = new ArrayList<Long>();
-//		List<String> nama_pegawai_pada_proyek_ini = new ArrayList<String>();
-//		for(int i = 0 ; i < pegawai_outsourcing.size() ; i++) {
-//			if(pegawai_outsourcing.get(i).getProyek().getId() == proyek_id) {
-//				nip_pegawai_pada_proyek_ini.add(pegawai_outsourcing.get(i).getId());
-//				nama_pegawai_pada_proyek_ini.add(pegawai_outsourcing.get(i).getPelamar_id().getNama_lengkap());
-//			}	
-//		}
-//		for(int i = 0 ; i < nama_pegawai_pada_proyek_ini.size() ; i ++) {
-//			KehadiranModel kehadiran = new KehadiranModel();
-//			if(pegawai_outsourcing.get(i).getProyek().getId() == proyek_id) {
-//			kehadiran.setPegawai_outsourcing(pegawai_outsourcing.get(i));
-//			daftar_kehadiran.add_kehadiran(kehadiran);
-//			}
-//		}
-		
-//		model.addAttribute("daftar_kehadiran", daftar_kehadiran);
-//		model.addAttribute("nama_pegawai", nama_pegawai_pada_proyek_ini);
-//		model.addAttribute("nip_pegawai", nip_pegawai_pada_proyek_ini);	
 	}
 	
+	@RequestMapping(value="/proyek/{proyek_id}/kehadiran/update/submit", method=RequestMethod.POST)
+	private String updateKehadiranProyekSubmit(@PathVariable(value="proyek_id") long proyek_id,
+											@ModelAttribute KehadiranWrapper daftar_daftar_kehadiran, 
+											HttpServletRequest req,
+											Model model) {
+								
+			int jumlah_hari_kerja = Integer.parseInt(req.getParameter("jumlah_hari_kerja"));
+			String judul_kehadiran = String.valueOf(req.getParameter("judul_absensi"));
+			ProyekModel proyek = new ProyekModel();
+			for(int i = 0 ; i < proyek_service.getAllProyek().size() ; i++) {
+				if(proyek_service.getAllProyek().get(i).getId() == proyek_id) {
+					proyek = proyek_service.getAllProyek().get(i);
+					}
+				}
+			for(int i = 0 ; i < daftar_daftar_kehadiran.getDaftar_kehadiran().size() ; i++) {
+				daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).setProyek(proyek);
+				daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).setJudul_kehadiran(judul_kehadiran);
+				daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).setJumlah_hari_kerja(jumlah_hari_kerja);
+				}
+			kehadiran_service.save_all_kehadiran(daftar_daftar_kehadiran.getDaftar_kehadiran());				
+			List<KehadiranModel> get_all_kehadiran = kehadiran_service.get_all_kehadiran();
+			List<String> kehadiran_proyek_ini = new ArrayList<String>();
+			String nama_proyek = proyek_service.getProyekById(proyek_id).get().getNama_proyek();
+								
+			for(int i = 0 ; i < get_all_kehadiran.size() ; i++) {
+				if(get_all_kehadiran.get(i).getProyek().getId() == proyek_id) {
+					if(kehadiran_proyek_ini.isEmpty()) {
+						kehadiran_proyek_ini.add(get_all_kehadiran.get(i).getJudul_kehadiran());
+					}
+				else {
+					String judul_kehadiran_kehadiran = get_all_kehadiran.get(i).getJudul_kehadiran();
+					if(!(kehadiran_proyek_ini.contains(judul_kehadiran_kehadiran))) {
+						kehadiran_proyek_ini.add(get_all_kehadiran.get(i).getJudul_kehadiran());
+							}
+						}
+					}
+				}
+								//TO DO render
+				model.addAttribute("nama_proyek_ini", nama_proyek);
+				model.addAttribute("id_proyek", proyek_id);
+				model.addAttribute("list_of_kehadiran",kehadiran_proyek_ini);						
+				return "list_kehadiran";
+			}
 	
 	//Hapus Kehadiran
 	@RequestMapping(value="/proyek/{proyek_id}/kehadiran/hapus/{judul_kehadiran}", method=RequestMethod.GET)
