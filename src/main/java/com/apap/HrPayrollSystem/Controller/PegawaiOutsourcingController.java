@@ -47,7 +47,10 @@ public class PegawaiOutsourcingController {
 		}
 		
 	}
-	
-	
+
+	@RequestMapping(value = "/pegawai-assign", method = RequestMethod.GET)
+	private String assignPegawai(@PathVariable long id, Model model) {
+		return "form_assignment";
+	}
 	
 }

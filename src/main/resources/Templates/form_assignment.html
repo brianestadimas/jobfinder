@@ -102,7 +102,7 @@ thead th{
 <table id="example2" class="table table-striped table-bordered" style="width:100%;">
 
         <thead>
-            <tr>
+            <tr th:each="np, iterationStatus : *{command.pengalamanList}">
                 <th style='width: 30%;'>Nama</th> 
                 <th>Produk</th>
                 <th>Jabatan</th>
