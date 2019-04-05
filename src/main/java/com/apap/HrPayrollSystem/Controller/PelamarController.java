@@ -51,7 +51,7 @@ public class PelamarController {
 		return "pelamar-daftar";
 	}
 
-	@RequestMapping(value = "pelamar/daftar", params = { "addEntry" }, method = RequestMethod.GET)
+	@RequestMapping(value = "pelamar/daftar", params = { "addEntry" }, method = RequestMethod.POST)
 	private String addEntryPengalaman(Model model, @ModelAttribute FormCommand command) {
 		// Add baris baru dalam pengalaman di form
 		if (command.getPengalamanList().size() >= 3) {

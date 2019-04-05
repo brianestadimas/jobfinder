@@ -93,7 +93,8 @@
 								</label>
 								<div class="col-sm-auto">
 									<input type="date" class="form-control" id="tanggal_daftar"
-										required="required" th:value="${pelamar.apply_date}">
+										required="required" th:value="${pelamar.apply_date}"
+										th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
 								</div>
 							</div>
 							<fieldset class="form-group">
@@ -158,7 +159,8 @@
 									class="requiredField"> *</span></label>
 								<div class="col-sm-auto">
 									<input type="date" class="form-control" id="tanggal_lahir"
-										required="required" th:value="${pelamar.tanggal_lahir}">
+										required="required" th:value="${pelamar.tanggal_lahir}"
+										th:attr="max=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
 								</div>
 							</div>
 							<div class="form-group row">
