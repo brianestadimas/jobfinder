@@ -1,14 +1,19 @@
 package com.apap.HrPayrollSystem.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.apap.HrPayrollSystem.Repository.PegawaiOutsourcingDb;
-import com.apap.HrPayrollSystem.Repository.RiwayatKerjaPegawai;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.RiwayatKerjaPegawaiModel;
+import com.apap.HrPayrollSystem.Repository.PegawaiOutsourcingDb;
+import com.apap.HrPayrollSystem.Repository.RiwayatKerjaPegawai;
 
+@Service
+@Transactional
 public class RiwayatKerjaPegawaiServiceImpl implements RiwayatKerjaPegawaiService {
 
 	@Autowired
@@ -19,7 +24,8 @@ public class RiwayatKerjaPegawaiServiceImpl implements RiwayatKerjaPegawaiServic
 	@Override
 	public List<RiwayatKerjaPegawaiModel> getAllRiwayat(String nip) {
 		// TODO Auto-generated method stub
-		return riwayatKerjaPegawaiDb.findNipPegawaiOutsourcing(nip);
+//		return riwayatKerjaPegawaiDb.findNipPegawaiOutsourcing(nip);
+		return new ArrayList<RiwayatKerjaPegawaiModel>(); // yang diubah
 	}
 
 	@Override
