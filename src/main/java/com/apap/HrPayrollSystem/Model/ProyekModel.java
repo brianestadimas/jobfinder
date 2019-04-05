@@ -67,7 +67,7 @@ public class ProyekModel implements Serializable{
 	@NotNull
 	@Size(max=255)
 	@Column(name="jenis_proyek",nullable = false)
-	private long jenis_proyek;
+	private String jenis_proyek;
 	
 	//Biaya keseluruhan sudah sama dengan nilai kontrak 
 	@Size(max=255)
@@ -170,11 +170,11 @@ public class ProyekModel implements Serializable{
 		this.no_rekening = no_rekening;
 	}
 
-	public long getJenis_proyek() {
+	public String getJenis_proyek() {
 		return jenis_proyek;
 	}
 
-	public void setJenis_proyek(long jenis_proyek) {
+	public void setJenis_proyek(String jenis_proyek) {
 		this.jenis_proyek = jenis_proyek;
 	}
 
