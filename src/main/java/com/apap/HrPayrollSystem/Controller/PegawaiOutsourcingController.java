@@ -36,6 +36,17 @@ public class PegawaiOutsourcingController {
 		return "DetailPegawai";
 	}
 	
+	/*
+	 * Ubah Pegawai 
+	 */
+	@RequestMapping(value="/pegawai/ubah" , method = RequestMethod.GET)
+	private String ubahPegawai(@PathVariable Long id, Model model) {
+		PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(id).get();
+		
+		return "";
+		
+	}
+	
 	@RequestMapping(value = "/pegawai-hapus", method = RequestMethod.POST)
 	private String deletePegawai(@RequestParam("id") long id, Model model) {
 		
