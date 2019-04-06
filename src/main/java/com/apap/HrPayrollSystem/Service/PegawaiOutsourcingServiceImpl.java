@@ -25,6 +25,7 @@ public class PegawaiOutsourcingServiceImpl implements PegawaiOutsourcingService 
 		return pegawaiOutsourcingDb.findAll();
 	}
 
+		
 	@Override
 	public Optional<PegawaiOutsourcingModel> getPegawaiById(long id) {
 		
@@ -36,6 +37,20 @@ public class PegawaiOutsourcingServiceImpl implements PegawaiOutsourcingService 
 		pegawaiOutsourcingDb.deleteById(id);
 	}
 
+
+
+	@Override
+	public void updatePegawaiStatusById(long id) {
+		// TODO Auto-generated method stub
+		PegawaiOutsourcingModel obj = pegawaiOutsourcingDb.getOne(id);
+		obj.setStatus(false);
+		
+		pegawaiOutsourcingDb.save(obj);
+		pegawaiOutsourcingDb.flush();
+	}
+		
+		
+
 	@Override
 	public PegawaiOutsourcingModel getPegawaiByNip(String nip) {
 		// TODO Auto-generated method stub
@@ -45,6 +60,7 @@ public class PegawaiOutsourcingServiceImpl implements PegawaiOutsourcingService 
 			}
 		}
 		return null;
+
 	}
 
 }

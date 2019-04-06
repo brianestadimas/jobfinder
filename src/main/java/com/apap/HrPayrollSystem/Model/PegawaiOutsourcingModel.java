@@ -38,6 +38,8 @@ public class PegawaiOutsourcingModel implements Serializable {
 	@JsonIgnore
 	private PelamarModel pelamar_id;
 	
+	//Dia relasi juga sama kelas Feedback (mau di taro di iterasi dua?)
+	
 	@NotNull
 	@Size(max=255)
 	@Column(name="nip",nullable = false)
@@ -56,12 +58,10 @@ public class PegawaiOutsourcingModel implements Serializable {
 	private String no_arsip;
 
 	@NotNull
-	@Size(max=255)
 	@Column(name="join_date",nullable = false)
 	private Date join_date;	
 	
 	@NotNull
-	@Size(max=255)
 	@Column(name="end_date",nullable = false)
 	private Date end_date;
 	
@@ -82,7 +82,6 @@ public class PegawaiOutsourcingModel implements Serializable {
 	private String bpjsk;
 	
 	@NotNull
-	@Size(max=255)
 	@Column(name="status",nullable = false)
 	private boolean status;
 	
