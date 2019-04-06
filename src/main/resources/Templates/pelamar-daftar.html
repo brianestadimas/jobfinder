@@ -349,90 +349,95 @@
 								Jika belum ada, isilah kolom <em>Nama Perusahaan</em> dan <em>Alasan</em>
 								dengan menuliskan <b>Tidak Ada</b>
 							</p>
-							<div class="table-responsive">
-								<table class="table table-bordered w-auto align-middle">
-									<thead>
-										<tr>
-											<th scope="col" rowspan="2">No.</th>
-											<th scope="col" rowspan="2">Nama Perusahaan</th>
-											<th scope="col" rowspan="2">Tahun Terakhir</th>
-											<th scope="col" colspan="2">Lama Bekerja</th>
-											<th scope="col" rowspan="2">Jabatan</th>
-											<th scope="col" rowspan="2">Alasan Berhenti</th>
-											<th scope="col" rowspan="2">Action</th>
-										</tr>
-										<tr>
-											<th scope="col">Tahun</th>
-											<th scope="col">Bulan</th>
-										</tr>
+							<h6 class="alert alert-danger" th:if="${deleteLimit_msg!=null}"
+								th:text="${deleteLimit_msg}"></h6>
+								<h6 class="alert alert-danger" th:if="${limit_msg!=null}"
+								th:text="${limit_msg}"></h6>
+						
+						<div class="table-responsive">
+							<table class="table table-bordered w-auto align-middle">
+								<thead>
+									<tr>
+										<th scope="col" rowspan="2">No.</th>
+										<th scope="col" rowspan="2">Nama Perusahaan</th>
+										<th scope="col" rowspan="2">Tahun Terakhir</th>
+										<th scope="col" colspan="2">Lama Bekerja</th>
+										<th scope="col" rowspan="2">Jabatan</th>
+										<th scope="col" rowspan="2">Alasan Berhenti</th>
+										<th scope="col" rowspan="2">Action</th>
+									</tr>
+									<tr>
+										<th scope="col">Tahun</th>
+										<th scope="col">Bulan</th>
+									</tr>
 
-									</thead>
-									<tbody>
-										<tr th:each="np, iterationStatus : ${command.pengalamanList}">
-											<th scope="row" th:text="${iterationStatus.index}+1"></th>
-											<td style="height: 3rem"><input class="form-control"
-												type="text" required="required"
-												th:field="${command.pengalamanList[__${iterationStatus.index}__].nama_perusahaan}">
-											</td>
-											<td style="height: 3rem"><select class="form-control"
-												id="tahun_terakhir"
-												th:field="${command.pengalamanList[__${iterationStatus.index}__].tahun_terakhir}">
-											</select></td>
-											<td style="height: 3rem"><select class="form-control"
-												id="tahun_bekerja"
-												th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}"></select></td>
-											<td style="height: 3rem"><select class="form-control"
-												id="bulan_bekerja"
-												th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaBulan_bekerja}"></select></td>
-											<td style="height: 3rem"><input class="form-control"
-												type="text"
-												th:field="${command.pengalamanList[__${iterationStatus.index}__].jabatan}"></td>
-											<td style="height: 3rem"><input class="form-control"
-												type="text" required="required"
-												th:field="${command.pengalamanList[__${iterationStatus.index}__].alasan_berhenti}"></td>
-											<td>
-												<button type="submit" class="btn btn-warning"
-													name="deleteEntry" th:value="${iterationStatus.index}">Hapus</button>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-								<button type="submit" class="btn btn-secondary" name="addEntry"
-									th:value="${command}+${pelamar}">Tambah Pengalaman</button>
-							</div>
-							<br>
-							<button type="button" class="btn btn-primary" data-toggle="modal"
-								data-target="#myModal">Simpan</button>
+								</thead>
+								<tbody>
+									<tr th:each="np, iterationStatus : ${command.pengalamanList}">
+										<th scope="row" th:text="${iterationStatus.index}+1"></th>
+										<td style="height: 3rem"><input class="form-control"
+											type="text" required="required"
+											th:field="${command.pengalamanList[__${iterationStatus.index}__].nama_perusahaan}">
+										</td>
+										<td style="height: 3rem"><select class="form-control"
+											id="tahun_terakhir"
+											th:field="${command.pengalamanList[__${iterationStatus.index}__].tahun_terakhir}">
+										</select></td>
+										<td style="height: 3rem"><select class="form-control"
+											id="tahun_bekerja"
+											th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}"></select></td>
+										<td style="height: 3rem"><select class="form-control"
+											id="bulan_bekerja"
+											th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaBulan_bekerja}"></select></td>
+										<td style="height: 3rem"><input class="form-control"
+											type="text"
+											th:field="${command.pengalamanList[__${iterationStatus.index}__].jabatan}"></td>
+										<td style="height: 3rem"><input class="form-control"
+											type="text" required="required"
+											th:field="${command.pengalamanList[__${iterationStatus.index}__].alasan_berhenti}"></td>
+										<td>
+											<button type="submit" class="btn btn-warning"
+												name="deleteEntry" th:value="${iterationStatus.index}">Hapus</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<button type="submit" class="btn btn-secondary" name="addEntry"
+								th:value="${command}+${pelamar}">Tambah Pengalaman</button>
+						</div>
+						<br>
+						<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#myModal">Simpan</button>
 
-							<!-- The Modal -->
-							<div class="modal fade" id="myModal">
-								<div class="modal-dialog modal-dialog-centered">
-									<div class="modal-content">
+						<!-- The Modal -->
+						<div class="modal fade" id="myModal">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
 
-										<!-- Modal Header -->
-										<div class="modal-header">
-											<h4 class="modal-title">Formulir Pendaftaran</h4>
-											<button type="button" class="close" data-dismiss="modal">&times;</button>
-										</div>
-										<!-- Modal body -->
-										<div class="modal-body">Apakah Anda yakin untuk
-											menyimpan?</div>
+									<!-- Modal Header -->
+									<div class="modal-header">
+										<h4 class="modal-title">Formulir Pendaftaran</h4>
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+									</div>
+									<!-- Modal body -->
+									<div class="modal-body">Apakah Anda yakin untuk
+										menyimpan?</div>
 
-										<!-- Modal footer -->
-										<div class="modal-footer">
-											<button type="submit" class="btn btn-danger"
-												name="submitPelamar">Ya</button>
-											<button type="button" class="btn btn-danger"
-												data-dismiss="modal">Tidak</button>
-										</div>
+									<!-- Modal footer -->
+									<div class="modal-footer">
+										<button type="submit" class="btn btn-danger"
+											name="submitPelamar">Ya</button>
+										<button type="button" class="btn btn-danger"
+											data-dismiss="modal">Tidak</button>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</form>
 			</div>
+			</form>
 		</div>
+	</div>
 	</div>
 
 	<script
