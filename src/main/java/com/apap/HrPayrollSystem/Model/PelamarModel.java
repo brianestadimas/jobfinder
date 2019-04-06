@@ -42,7 +42,6 @@ public class PelamarModel implements Serializable {
 	private String agama;
 
 	@NotNull
-	@Size(max = 255)
 	@Column(name = "tanggal_lahir", nullable = false)
 	private Date tanggal_lahir;
 
@@ -56,7 +55,6 @@ public class PelamarModel implements Serializable {
 	@Column(name = "no_ktp", nullable = false)
 	private String no_ktp;
 
-	@NotNull
 	@Size(max = 255)
 	@Column(name = "telepon", nullable = false)
 	private String telepon;
@@ -116,14 +114,13 @@ public class PelamarModel implements Serializable {
 
 	@Size(max = 255)
 	@Column(name = "lulusan_tahun", nullable = true)
-	private Date lulusan_tahun;
+	private String lulusan_tahun;
 
 	@Size(max = 255)
 	@Column(name = "telepon_rumah", nullable = true)
 	private String telepon_rumah;
 
 	@NotNull
-	@Size(max = 255)
 	@Column(name = "apply_date", nullable = false)
 	private Date apply_date;
 
@@ -288,11 +285,11 @@ public class PelamarModel implements Serializable {
 		this.jurusan = jurusan;
 	}
 
-	public Date getLulusan_tahun() {
+	public String getLulusan_tahun() {
 		return lulusan_tahun;
 	}
 
-	public void setLulusan_tahun(Date lulusan_tahun) {
+	public void setLulusan_tahun(String lulusan_tahun) {
 		this.lulusan_tahun = lulusan_tahun;
 	}
 
