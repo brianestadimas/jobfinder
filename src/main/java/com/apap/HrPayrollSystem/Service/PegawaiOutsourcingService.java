@@ -8,4 +8,5 @@ public interface PegawaiOutsourcingService {
 	List<PegawaiOutsourcingModel> getAllPegawai();
 	Optional<PegawaiOutsourcingModel> getPegawaiById(long id);
 	void deletePegawaiById(long id);
+	PegawaiOutsourcingModel getPegawaiByNip(String nip);
 }
