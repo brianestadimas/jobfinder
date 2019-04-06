@@ -1,5 +1,9 @@
 package com.apap.HrPayrollSystem.Controller;
 
+import java.time.Year;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,8 +95,16 @@ public class PelamarController {
 			Model model) {
 		pelamarService.addPelamar(pelamar);
 		for (PengalamanPelamarModel pp : command.getPengalamanList()) {
+			pp.setPelamar_id(pelamar);
 			pengalamanService.addPengalaman(pp);
 		}
+		return "pelamar-view";
+	}
+
+	@RequestMapping(value = "pelamar/", method = RequestMethod.GET)
+	private String getPelamar(Model model) {
+		List<PelamarModel> arsip_pelamar = pelamarService.getAllPelamar();
+		model.addAttribute("listPelamar", arsip_pelamar);
 		return "pelamar-view";
 	}
 
@@ -161,4 +173,32 @@ public class PelamarController {
 		return new String[] { "Belum Menikah", "Sudah Menikah" };
 	}
 
+	@ModelAttribute("list_tahunBekerja")
+	public String[] getTahunBekerjaValues() {
+		String[] values = new String[21];
+		for (int i = 0; i <= 20; i++) {
+			values[i] = Integer.toString(i);
+		}
+		return values;
+	}
+
+	@ModelAttribute("list_bulanBekerja")
+	public String[] getBulanBekerjaValues() {
+		String[] values = new String[13];
+		for (int i = 0; i <= 12; i++) {
+			values[i] = Integer.toString(i);
+		}
+		return values;
+	}
+
+	@ModelAttribute("list_tahun")
+	public List<String> getTahunValues() {
+		int minYear = Year.now().getValue() - 60;
+		int maxYear = Year.now().getValue() + 10;
+		List<String> values = new ArrayList<String>();
+		for (int i = minYear; i <= maxYear; i++) {
+			values.add(Integer.toString(i));
+		}
+		return values;
+	}
 }

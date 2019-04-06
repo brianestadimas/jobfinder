@@ -95,8 +95,8 @@
 				<form th:action="@{'/pelamar/daftar/'}" th:object="${pelamar}"
 					method="POST">
 					<div class="card">
-
 						<div class="card-body">
+
 							<div class="form-group row">
 								<label for="tanggal_daftar"
 									class="col-sm-4 col-md-2 col-form-label">Tanggal
@@ -336,6 +336,8 @@
 										th:field="*{lulusan_tahun}" required="required">
 										<option selected value="" hidden="hidden">-Pilih
 											Tahun-</option>
+										<option th:each="val : ${list_tahun}" th:value="${val}"
+											th:text="${val}"></option>
 									</select>
 								</div>
 							</div>
@@ -351,95 +353,101 @@
 							</p>
 							<h6 class="alert alert-danger" th:if="${deleteLimit_msg!=null}"
 								th:text="${deleteLimit_msg}"></h6>
-								<h6 class="alert alert-danger" th:if="${limit_msg!=null}"
+							<h6 class="alert alert-danger" th:if="${limit_msg!=null}"
 								th:text="${limit_msg}"></h6>
-						
-						<div class="table-responsive">
-							<table class="table table-bordered w-auto align-middle">
-								<thead>
-									<tr>
-										<th scope="col" rowspan="2">No.</th>
-										<th scope="col" rowspan="2">Nama Perusahaan</th>
-										<th scope="col" rowspan="2">Tahun Terakhir</th>
-										<th scope="col" colspan="2">Lama Bekerja</th>
-										<th scope="col" rowspan="2">Jabatan</th>
-										<th scope="col" rowspan="2">Alasan Berhenti</th>
-										<th scope="col" rowspan="2">Action</th>
-									</tr>
-									<tr>
-										<th scope="col">Tahun</th>
-										<th scope="col">Bulan</th>
-									</tr>
 
-								</thead>
-								<tbody>
-									<tr th:each="np, iterationStatus : ${command.pengalamanList}">
-										<th scope="row" th:text="${iterationStatus.index}+1"></th>
-										<td style="height: 3rem"><input class="form-control"
-											type="text" required="required"
-											th:field="${command.pengalamanList[__${iterationStatus.index}__].nama_perusahaan}">
-										</td>
-										<td style="height: 3rem"><select class="form-control"
-											id="tahun_terakhir"
-											th:field="${command.pengalamanList[__${iterationStatus.index}__].tahun_terakhir}">
-										</select></td>
-										<td style="height: 3rem"><select class="form-control"
-											id="tahun_bekerja"
-											th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}"></select></td>
-										<td style="height: 3rem"><select class="form-control"
-											id="bulan_bekerja"
-											th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaBulan_bekerja}"></select></td>
-										<td style="height: 3rem"><input class="form-control"
-											type="text"
-											th:field="${command.pengalamanList[__${iterationStatus.index}__].jabatan}"></td>
-										<td style="height: 3rem"><input class="form-control"
-											type="text" required="required"
-											th:field="${command.pengalamanList[__${iterationStatus.index}__].alasan_berhenti}"></td>
-										<td>
-											<button type="submit" class="btn btn-warning"
-												name="deleteEntry" th:value="${iterationStatus.index}">Hapus</button>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-							<button type="submit" class="btn btn-secondary" name="addEntry"
-								th:value="${command}+${pelamar}">Tambah Pengalaman</button>
-						</div>
-						<br>
-						<button type="button" class="btn btn-primary" data-toggle="modal"
-							data-target="#myModal">Simpan</button>
+							<div class="table-responsive">
+								<table class="table table-bordered w-auto align-middle">
+									<thead>
+										<tr>
+											<th scope="col" rowspan="2">No.</th>
+											<th scope="col" rowspan="2">Nama Perusahaan</th>
+											<th scope="col" rowspan="2">Tahun Terakhir</th>
+											<th scope="col" colspan="2">Lama Bekerja</th>
+											<th scope="col" rowspan="2">Jabatan</th>
+											<th scope="col" rowspan="2">Alasan Berhenti</th>
+											<th scope="col" rowspan="2">Action</th>
+										</tr>
+										<tr>
+											<th scope="col">Tahun</th>
+											<th scope="col">Bulan</th>
+										</tr>
 
-						<!-- The Modal -->
-						<div class="modal fade" id="myModal">
-							<div class="modal-dialog modal-dialog-centered">
-								<div class="modal-content">
+									</thead>
+									<tbody>
+										<tr th:each="np, iterationStatus : ${command.pengalamanList}">
 
-									<!-- Modal Header -->
-									<div class="modal-header">
-										<h4 class="modal-title">Formulir Pendaftaran</h4>
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-									</div>
-									<!-- Modal body -->
-									<div class="modal-body">Apakah Anda yakin untuk
-										menyimpan?</div>
+											<th scope="row" th:text="${iterationStatus.index}+1"></th>
+											<td style="height: 3rem"><input class="form-control"
+												type="text" required="required"
+												th:field="${command.pengalamanList[__${iterationStatus.index}__].nama_perusahaan}">
+											</td>
+											<td style="height: 3rem"><select class="form-control"
+												id="tahun_terakhir"
+												th:field="${command.pengalamanList[__${iterationStatus.index}__].tahun_terakhir}"><option
+														th:each="val : ${list_tahun}" th:value="${val}"
+														th:text="${val}"></option>
+											</select></td>
+											<td style="height: 3rem"><select class="form-control"
+												id="tahun_bekerja"
+												th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}"><option
+														th:each="val : ${list_tahunBekerja}" th:value="${val}"
+														th:text="${val}"></option></select></td>
+											<td style="height: 3rem"><select class="form-control"
+												id="bulan_bekerja"
+												th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaBulan_bekerja}"><option
+														th:each="val : ${list_bulanBekerja}" th:value="${val}"
+														th:text="${val}"></option></select></td>
+											<td style="height: 3rem"><input class="form-control"
+												type="text"
+												th:field="${command.pengalamanList[__${iterationStatus.index}__].jabatan}"></td>
+											<td style="height: 3rem"><input class="form-control"
+												type="text" required="required"
+												th:field="${command.pengalamanList[__${iterationStatus.index}__].alasan_berhenti}"></td>
+											<td>
+												<button type="submit" class="btn btn-warning"
+													name="deleteEntry" th:value="${iterationStatus.index}">Hapus</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<button type="submit" class="btn btn-secondary" name="addEntry"
+									th:value="${command}+${pelamar}">Tambah Pengalaman</button>
+							</div>
+							<br>
+							<button type="button" class="btn btn-primary" data-toggle="modal"
+								data-target="#myModal">Simpan</button>
 
-									<!-- Modal footer -->
-									<div class="modal-footer">
-										<button type="submit" class="btn btn-danger"
-											name="submitPelamar">Ya</button>
-										<button type="button" class="btn btn-danger"
-											data-dismiss="modal">Tidak</button>
+							<!-- The Modal -->
+							<div class="modal fade" id="myModal">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+
+										<!-- Modal Header -->
+										<div class="modal-header">
+											<h4 class="modal-title">Formulir Pendaftaran</h4>
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+										</div>
+										<!-- Modal body -->
+										<div class="modal-body">Apakah Anda yakin untuk
+											menyimpan?</div>
+
+										<!-- Modal footer -->
+										<div class="modal-footer">
+											<button type="submit" class="btn btn-danger"
+												name="submitPelamar">Ya</button>
+											<button type="button" class="btn btn-danger"
+												data-dismiss="modal">Tidak</button>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+				</form>
 			</div>
-			</form>
 		</div>
 	</div>
-	</div>
-
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script
@@ -459,36 +467,5 @@
 		format : 'yyyy-mm-dd',
 		maxDate : today
 	});
-
-	var min = new Date().getFullYear() - 70;
-	max = new Date().getFullYear() + 10;
-	select = document.getElementById('lulusan_tahun');
-	for (var i = min; i <= max; i++) {
-		var opt = document.createElement('option');
-		opt.value = i;
-		opt.innerHTML = i;
-		select.appendChild(opt);
-	}
-	for (var j = 0; j <= 20; j++) {
-		var select = document.getElementById("tahun_bekerja");
-		var option = document.createElement("OPTION");
-		select.options.add(option);
-		option.text = j;
-		option.value = "j";
-	}
-	for (var k = 0; k <= 12; k++) {
-		var select = document.getElementById("bulan_bekerja");
-		var option = document.createElement("OPTION");
-		select.options.add(option);
-		option.text = k;
-		option.value = "k";
-	}
-	for (var l = (new Date().getFullYear() - 40); l <= new Date().getFullYear(); l++) {
-		var select = document.getElementById("tahun_terakhir");
-		var option = document.createElement("OPTION");
-		select.options.add(option);
-		option.text = l;
-		option.value = "l";
-	}
 </script>
 </html>
