@@ -96,11 +96,11 @@ public class KehadiranController {
 	private String addKehadiranProyek(@PathVariable(value="proyek_id") long proyek_id, Model model) {
 		KehadiranWrapper daftar_kehadiran = new KehadiranWrapper();
 		List<PegawaiOutsourcingModel> pegawai_outsourcing = pegawai_outsourcing_service.getAllPegawai();
-		List<Long> nip_pegawai_pada_proyek_ini = new ArrayList<Long>();
+		List<String> nip_pegawai_pada_proyek_ini = new ArrayList<String>();
 		List<String> nama_pegawai_pada_proyek_ini = new ArrayList<String>();
 		for(int i = 0 ; i < pegawai_outsourcing.size() ; i++) {
 			if(pegawai_outsourcing.get(i).getProyek().getId() == proyek_id) {
-				nip_pegawai_pada_proyek_ini.add(pegawai_outsourcing.get(i).getId());
+				nip_pegawai_pada_proyek_ini.add(pegawai_outsourcing.get(i).getNip());
 				nama_pegawai_pada_proyek_ini.add(pegawai_outsourcing.get(i).getPelamar_id().getNama_lengkap());
 			}	
 		}
@@ -188,6 +188,7 @@ public class KehadiranController {
 			nama_pegawai_proyek.add(detail_kehadiran_proyek_ini.get(i).getPegawai_outsourcing().getPelamar_id().getNama_lengkap());
 		}
 		int hari_kerja = detail_kehadiran_proyek_ini.get(0).getJumlah_hari_kerja();
+		model.addAttribute("proyek_id", proyek_id);
 		model.addAttribute("judul_kehadiran", judul_kehadiran);
 		model.addAttribute("jumlah_hari_kerja", hari_kerja);
 		model.addAttribute("daftar_kehadiran", daftar_kehadiran);

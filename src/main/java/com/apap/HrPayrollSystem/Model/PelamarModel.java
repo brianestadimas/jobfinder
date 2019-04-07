@@ -76,11 +76,11 @@ public class PelamarModel implements Serializable {
 	@Column(name = "email", nullable = true)
 	private String email;
 
-	// Ambil produknya dari mana? kan ada Marketing, Sales, dll.
+
 	@NotNull
 	@Size(max = 255)
 	@Column(name = "produk_dilamar", nullable = false)
-	private String[] produk_dilamar;
+	private String produk_dilamar;
 
 	@NotNull
 	@Size(max = 255)
@@ -229,11 +229,11 @@ public class PelamarModel implements Serializable {
 		this.agama = agama;
 	}
 
-	public String[] getProduk_dilamar() {
+	public String getProduk_dilamar() {
 		return produk_dilamar;
 	}
 
-	public void setProduk_dilamar(String[] produk_dilamar) {
+	public void setProduk_dilamar(String produk_dilamar) {
 		this.produk_dilamar = produk_dilamar;
 	}
 
