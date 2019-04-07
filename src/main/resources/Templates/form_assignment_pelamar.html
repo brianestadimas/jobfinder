@@ -66,35 +66,20 @@ thead th{
 
     <div class="form-row">
       <div class="form-group col-md-4">
-        <label for="inputEmail4">Proyek</label>
-        <select size="1" class="form-control" id="chooseProyek" name="row-1-office">
-                    <option value="Proyek A" selected="selected">
-                        Proyek A
-                    </option>
-                    <option value="Proyek B">
-                        Proyek B
-                    </option>
-                    <option value="Proyek C">
-                        Proyek C
-                    </option>
-                    <option value="Proyek D">
-                        Proyek D
-                    </option>
-                    <option value="Proyek E">
-                        Proyek E
-                    </option>
-                </select></td>
+        <label for="inputProyek">Proyek</label>
+        <input class="form-control" type="text" th:value="${daftar_proyek.nama_proyek}" th:field="*{daftar_pegawai[__${itemStat.index}__].proyek}" name="proyek"/>
       </div>
+      
     <div class="col-sm-12"></div> 
     <div class="form-group col-md-3">
-      <label for="inputAddress">Join Date</label>
-      <input type="Date" class="form-control" id="inputAddress" placeholder="1234 Main St">
+      <label for="inputJoinDate">Join Date</label>
+      <input type="Date" class="form-control getdate" th:field="*{daftar_pegawai[__${itemStat.index}__].join_date}" th:value="${#dates.format(bookingEntry.datefrom, 'dd-mm-yyyy')}" name="join_date"/>
     </div>
     <div class="col-sm-12"></div>
     <div class="form-row">
       <div class="form-group col-md-3">
-        <label for="inputCity">End Date</label>
-        <input type="Date" class="form-control" id="inputCity">
+        <label for="inputEndDate">End Date</label>
+      <input type="Date" class="form-control getdate" th:field="*{daftar_pegawai[__${itemStat.index}__].end_date}" th:value="${#dates.format(bookingEntry.datefrom, 'dd-mm-yyyy')}" name="end_date"/>
       </div>
     </div>
     <div class="col-sm-12"></div>

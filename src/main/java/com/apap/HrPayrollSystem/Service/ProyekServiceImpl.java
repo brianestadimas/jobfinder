@@ -58,4 +58,19 @@ public class ProyekServiceImpl implements ProyekService {
 		// TODO Auto-generated method stub
 		proyekDb.deleteById(id);	
 	}
+
+	@Override
+	public ProyekModel getProyekByName(String namaProyek) {
+		// TODO Auto-generated method stub
+		ProyekModel proyek = new ProyekModel();
+		List<ProyekModel> allProyek = proyekDb.findAll();
+		
+		for(int i=0; i < allProyek.size(); i++) {
+			if(allProyek.get(i).getNama_proyek().equals(namaProyek)) {
+				proyek = allProyek.get(i);
+			}
+		}
+		
+		return proyek;
+	}
 }

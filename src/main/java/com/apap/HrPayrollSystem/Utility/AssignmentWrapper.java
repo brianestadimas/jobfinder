@@ -14,7 +14,7 @@ public class AssignmentWrapper {
 		this.listOfPegawai = new ArrayList<PegawaiOutsourcingModel>();
 	}
 
-	public void add_kehadiran(PegawaiOutsourcingModel pegawai) {
+	public void add_pegawai(PegawaiOutsourcingModel pegawai) {
 		this.listOfPegawai.add(pegawai);
 	}
 

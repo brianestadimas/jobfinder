@@ -1,5 +1,7 @@
 package com.apap.HrPayrollSystem.Controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,10 +21,12 @@ import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.PelamarModel;
 import com.apap.HrPayrollSystem.Model.PengalamanPelamarModel;
 import com.apap.HrPayrollSystem.Model.ProdukModel;
+import com.apap.HrPayrollSystem.Model.ProyekModel;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
 import com.apap.HrPayrollSystem.Service.PelamarService;
 import com.apap.HrPayrollSystem.Service.PengalamanPelamarService;
 import com.apap.HrPayrollSystem.Service.ProdukService;
+import com.apap.HrPayrollSystem.Service.ProyekService;
 import com.apap.HrPayrollSystem.Utility.AssignmentWrapper;
 
 /**
@@ -177,19 +181,54 @@ public class PelamarController {
 	@Autowired
 	ProdukService produkService;
 	
+	@Autowired
+	ProyekService proyekService;
+	
 	@RequestMapping(value = "/pelamar/assign", method = RequestMethod.GET)
 	private String assignPelamar(@RequestParam("id") Long[] ids, Model model) {
 		AssignmentWrapper daftar_pegawai = new AssignmentWrapper();
 		List<ProdukModel> daftar_produk = produkService.getAllProduk();
+		List<ProyekModel> daftar_proyek = proyekService.getAllProyek();
 		
 		for(int i=0; i<ids.length; i++) {
-			//setiap id pelamar mau dijadiin pegawai
-			//tp masih agak bingung save dulu atau nambahin foreign key dulu
+			PelamarModel pelamar = pelamarService.getPelamarById(ids[i]);
+			PegawaiOutsourcingModel newPegawai = new PegawaiOutsourcingModel();
+			newPegawai.setPelamar_id(pelamar);
+			
+			daftar_pegawai.add_pegawai(newPegawai);
 		}
 		
 		model.addAttribute("daftar_pegawai", daftar_pegawai);
 		model.addAttribute("daftar_produk", daftar_produk);
+		model.addAttribute("daftar_proyek", daftar_proyek);
 		return "form_assignment_pelamar";
 	}
 	
+	
+	@RequestMapping(value="/proyek/pelamar/assign/submit", method=RequestMethod.POST)
+	private String assignPelamarSubmit(@ModelAttribute AssignmentWrapper daftar_pegawai, HttpServletRequest req, Model model) {
+
+		String stringProyek = String.valueOf(req.getParameter("proyek"));
+		ProyekModel proyek = proyekService.getProyekByName(stringProyek);
+		
+		String stringJoin_date = String.valueOf(req.getParameter("join_date"));
+		try {
+			Date join_date =new SimpleDateFormat("dd/MM/yyyy").parse(stringJoin_date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String stringEnd_date = String.valueOf(req.getParameter("end_date"));
+		try {
+			Date end_date =new SimpleDateFormat("dd/MM/yyyy").parse(stringEnd_date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return "DaftarPegawai";
+	}
 }

@@ -17,4 +17,6 @@ public interface ProyekService {
 	
 	//Delete
 	void deleteById(Long id);
+	
+	ProyekModel getProyekByName(String namaProyek);
 }
