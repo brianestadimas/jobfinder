@@ -133,7 +133,6 @@ thead th{
                 </table>
             </div>
     <p><button class="btn btn-primary btn-large" style="float: left; margin-right: 5px; margin-bottom: 10px;"><i class="fa fa-bar-chart"></i> Performa <br> Absensi</button><p>
-    <p><button class="btn btn-success btn-large" style="float: left; margin-right: 5px; margin-bottom: 10px;"><i class="fa fa-balance-scale"></i> Kelola <br> Gaji</button><p>
     </div>
     </div>
 </div>
@@ -156,8 +155,6 @@ thead th{
                 <th>Gaji Pokok</th>
                 <th>Tunjangan Tetap</th>
                 <th>Tunjangan Tidak Tetap</th>
-                <th>BPJSTK</th>
-                <th>BPJSK</th>
                 <th>Jaminan</th>
             </tr>
         </thead>
@@ -170,8 +167,6 @@ thead th{
                 <td th:text="${pegawaiProyek.gaji_pokok}"></td>
                 <td th:text="${pegawaiProyek.tunjangan_tetap}"></td>
                 <td th:text="${pegawaiProyek.tunjangan_tidak_tetap}"></td>
-                <td th:text="${pegawaiProyek.bpjstk}"></td>
-                <td th:text="${pegawaiProyek.bpjsk}"></td>
                 <td th:text="${pegawaiProyek.jaminan}"></td>
             </tr>
             <tr th:if="${pegawai.gaji_pokok != null && pegawai.tunjangan_tetap != null && pegawai.tunjangan_tidak_tetap != null && pegawai.bpjstk != null && pegawai.bpjsk != null}">
@@ -182,8 +177,6 @@ thead th{
                 <td style="background-color: yellow" th:text="${pegawaiProyek.gaji_pokok}"></td>
                 <td style="background-color: yellow" th:text="${pegawaiProyek.tunjangan_tetap}"></td>
                 <td style="background-color: yellow" th:text="${pegawaiProyek.tunjangan_tidak_tetap}"></td>
-                <td style="background-color: yellow" th:text="${pegawaiProyek.bpjstk}"></td>
-                <td style="background-color: yellow" th:text="${pegawaiProyek.bpjsk}"></td>
                 <td style="background-color: yellow" th:text="${pegawaiProyek.jaminan}"></td>
             </tr>
         <tfoot>

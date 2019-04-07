@@ -105,6 +105,22 @@ public class PegawaiOutsourcingModel implements Serializable {
 	@JsonIgnore
 	private ProyekModel proyek;
 
+
+	//Tambahan dari proyek
+
+	@Column(name="gaji_pokok",nullable = true)
+	private long gaji_pokok;
+
+	@Column(name="tunjangan_tetap",nullable = true)
+	private long tunjangan_tetap;
+
+	@Column(name="tunjangan_tetap",nullable = true)
+	private long tunjangan_tidak_tetap;
+
+	@Size(max=255)
+	@Column(name="jaminan",nullable = true)
+	private String jaminan;
+
 	
 	//Buat relasi ke kelas model riwayat kerja pegawai
 		
@@ -242,11 +258,37 @@ public class PegawaiOutsourcingModel implements Serializable {
 		this.proyek = proyek;
 	}
 
+	public long getGaji_pokok() {
+		return gaji_pokok;
+	}
 
-	
+	public void setGaji_pokok(long gaji_pokok) {
+		this.gaji_pokok = gaji_pokok;
+	}
 
+	public long getTunjangan_tetap() {
+		return tunjangan_tetap;
+	}
 
-	
-	
+	public void setTunjangan_tetap(long tunjangan_tetap) {
+		this.tunjangan_tetap = tunjangan_tetap;
+	}
+
+	public long getTunjangan_tidak_tetap() {
+		return tunjangan_tidak_tetap;
+	}
+
+	public void setTunjangan_tidak_tetap(long tunjangan_tidak_tetap) {
+		this.tunjangan_tidak_tetap = tunjangan_tidak_tetap;
+	}
+
+	public String getJaminan() {
+		return jaminan;
+	}
+
+	public void setJaminan(String jaminan) {
+		this.jaminan = jaminan;
+	}
+
 }
 
