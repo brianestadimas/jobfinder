@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import com.apap.HrPayrollSystem.Model.RiwayatKerjaPegawaiModel;
 
 public interface RiwayatKerjaPegawai extends JpaRepository<RiwayatKerjaPegawaiModel, Long>{
-	List<RiwayatKerjaPegawaiModel> findNipPegawaiOutsourcing(String nip);
+//	List<RiwayatKerjaPegawaiModel> findNipPegawaiOutsourcing(String nip);
 }
 
 

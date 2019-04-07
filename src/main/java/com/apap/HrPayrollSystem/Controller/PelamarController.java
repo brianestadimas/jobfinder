@@ -1,6 +1,7 @@
 package com.apap.HrPayrollSystem.Controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,11 +13,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.PelamarModel;
 import com.apap.HrPayrollSystem.Model.PengalamanPelamarModel;
+import com.apap.HrPayrollSystem.Model.ProdukModel;
+import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
 import com.apap.HrPayrollSystem.Service.PelamarService;
 import com.apap.HrPayrollSystem.Service.PengalamanPelamarService;
+import com.apap.HrPayrollSystem.Service.ProdukService;
+import com.apap.HrPayrollSystem.Utility.AssignmentWrapper;
 
 /**
  * Controller kelas Pelamar
@@ -33,6 +40,8 @@ public class PelamarController {
 	@Autowired
 	PengalamanPelamarService pengalamanService;
 
+	@Autowired
+	private PegawaiOutsourcingService pegawaiService;
 	/**
 	 * Fitur pendaftaran pelamar : GET request
 	 * 
@@ -164,9 +173,23 @@ public class PelamarController {
 		return new String[] { "Belum Menikah", "Sudah Menikah" };
 	}
 	
-	@RequestMapping(value = "/pelamar-assign", method = RequestMethod.GET)
-	private String assignPelamar(@PathVariable Long[] id, Model model) {
+	//Assign Pelamar Get
+	@Autowired
+	ProdukService produkService;
+	
+	@RequestMapping(value = "/pelamar/assign", method = RequestMethod.GET)
+	private String assignPelamar(@RequestParam("id") Long[] ids, Model model) {
+		AssignmentWrapper daftar_pegawai = new AssignmentWrapper();
+		List<ProdukModel> daftar_produk = produkService.getAllProduk();
 		
+		for(int i=0; i<ids.length; i++) {
+			//setiap id pelamar mau dijadiin pegawai
+			//tp masih agak bingung save dulu atau nambahin foreign key dulu
+		}
+		
+		model.addAttribute("daftar_pegawai", daftar_pegawai);
+		model.addAttribute("daftar_produk", daftar_produk);
 		return "form_assignment_pelamar";
 	}
+	
 }

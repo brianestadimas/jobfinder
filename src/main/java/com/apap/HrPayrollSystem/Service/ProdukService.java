@@ -1,5 +1,9 @@
 package com.apap.HrPayrollSystem.Service;
 
-public interface ProdukService {
+import java.util.List;
 
+import com.apap.HrPayrollSystem.Model.ProdukModel;
+
+public interface ProdukService {
+	List<ProdukModel> getAllProduk();
 }
