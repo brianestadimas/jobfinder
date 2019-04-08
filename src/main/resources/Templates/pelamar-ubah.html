@@ -109,17 +109,18 @@
 							</div>
 							<fieldset class="form-group">
 								<div class="row">
-									<legend class="col-form-label col-sm-4 col-md-2 pt-0">Posisi
-										yang diinginkan<span class="requiredField"> *</span></legend>
+									<legend class="col-form-label col-sm-4 col-md-2 pt-0">
+										Posisi yang diinginkan<span class="requiredField"> *</span>
+									</legend>
 									<div class="col-xs-12">
 										<ul class="form-check">
 											<li th:each="checkboxValue: ${checkbox_produk}"
 												class="form-check form-check-inline"><input
 												class="form-check-input" type="checkbox"
 												th:field="${command.selectedCheckboxProduk}"
-												th:value="${checkboxValue}"/> <label
+												th:value="${checkboxValue}" /> <label
 												th:for="${#ids.prev('selectedCheckboxProduk')}"
-												th:text="${checkboxValue}" ></label></li>
+												th:text="${checkboxValue}"></label></li>
 										</ul>
 									</div>
 								</div>
@@ -344,8 +345,7 @@
 							<hr class="hrCustom2">
 							<h5 class="card-title">Riwayat Pekerjaan</h5>
 							<p>
-								Isilah riwayat pekerjaan Anda. Maksimal <b>3</b> yang paling
-								terakhir.
+								Tuliskan <b>3</b> riwayat pekerjaan Anda yang paling terakhir.
 							</p>
 							<p>
 								Jika belum ada, isilah kolom <em>Nama Perusahaan</em> dan <em>Alasan</em>
@@ -412,10 +412,16 @@
 											</td>
 										</tr>
 									</tbody>
+									<tfoot>
+										<tr>
+											<td scope="col" colspan="8">
+												<button type="submit" class="btn btn-secondary"
+													name="addEntryUbah" th:value="${command}+${pelamar}">Tambah
+													Pengalaman</button>
+											</td>
+										</tr>
+									</tfoot>
 								</table>
-								<button type="submit" class="btn btn-secondary"
-									name="addEntryUbah" th:field="${command}+${pelamar}">Tambah
-									Pengalaman</button>
 							</div>
 							<br>
 							<button type="button" class="btn btn-primary" data-toggle="modal"

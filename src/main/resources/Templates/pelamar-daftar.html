@@ -344,8 +344,7 @@
 							<hr class="hrCustom2">
 							<h5 class="card-title">Riwayat Pekerjaan</h5>
 							<p>
-								Isilah riwayat pekerjaan Anda. Maksimal <b>3</b> yang paling
-								terakhir.
+								Tuliskan <b>3</b> riwayat pekerjaan Anda yang paling terakhir.
 							</p>
 							<p>
 								Jika belum ada, isilah kolom <em>Nama Perusahaan</em> dan <em>Alasan</em>
@@ -372,7 +371,6 @@
 											<th scope="col">Tahun</th>
 											<th scope="col">Bulan</th>
 										</tr>
-
 									</thead>
 									<tbody>
 										<tr th:each="np, iterationStatus : ${command.pengalamanList}">
@@ -410,9 +408,17 @@
 											</td>
 										</tr>
 									</tbody>
+									<tfoot>
+										<tr>
+											<td scope="col" colspan="8">
+												<button type="submit" class="btn btn-secondary"
+													name="addEntry" th:value="${command}+${pelamar}">Tambah
+													Pengalaman</button>
+											</td>
+										</tr>
+									</tfoot>
 								</table>
-								<button type="submit" class="btn btn-secondary" name="addEntry"
-									th:value="${command}+${pelamar}">Tambah Pengalaman</button>
+
 							</div>
 							<br>
 							<button type="button" class="btn btn-primary" data-toggle="modal"

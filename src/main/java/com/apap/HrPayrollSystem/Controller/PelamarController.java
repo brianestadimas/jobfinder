@@ -114,12 +114,17 @@ public class PelamarController {
 		for (String produk : command.getSelectedCheckboxProduk()) {
 			produkResult += produk + ",";
 		}
-		pelamar.setProduk_dilamar(produkResult);
+
+		System.out.println(produkResult.substring(0, produkResult.length() - 1));
+		pelamar.setProduk_dilamar(produkResult.substring(0, produkResult.length() - 1));
 		pelamarService.addPelamar(pelamar);
 		for (PengalamanPelamarModel pp : command.getPengalamanList()) {
 			pp.setPelamar_id(pelamar);
 			pengalamanService.addPengalaman(pp);
 		}
+		List<PelamarModel> arsip_pelamar = pelamarService.getAllPelamar();
+		model.addAttribute("daftarSukses_msg", "Pelamar " + pelamar.getNama_lengkap() + " sukses didaftarkan!");
+		model.addAttribute("listPelamar", arsip_pelamar);
 		return "pelamar-view";
 	}
 
@@ -137,7 +142,7 @@ public class PelamarController {
 	}
 
 	/**
-	 * Fitur mengubah pelamar : GET formulir ubah pelamar p
+	 * Fitur mengubah pelamar : GET formulir ubah pelamar
 	 * 
 	 * @param id    id_pelamar
 	 * @param model Model
@@ -157,16 +162,16 @@ public class PelamarController {
 	}
 
 	/**
+	 * Fitur mengubah pelamar : Tambah baris pengalaman
 	 * 
-	 * @param model
-	 * @param id
-	 * @param pengalaman
-	 * @param pelamar
-	 * @return
+	 * @param model   Model
+	 * @param id      ID Pelamar
+	 * @param command Model pembungkus list pengalaman dan checkbox
+	 * @param pelamar Model Pelamar yang akan diubah
+	 * @return Halaman HTML formulir ubah pelamar
 	 */
-	@RequestMapping(value = "pelamar/ubah/{id)", method = RequestMethod.POST)
-	private String addEntryPengalamanUpdate(Model model,
-			@RequestParam(value = "addEntryUbah") @PathVariable(value = "id") long id,
+	@RequestMapping(value = "pelamar/ubah/{id}", params = { "addEntryUbah" }, method = RequestMethod.POST)
+	private String addEntryPengalamanUpdate(Model model, @PathVariable(value = "id") long id,
 			@ModelAttribute FormCommand command, @ModelAttribute PelamarModel pelamar) {
 		// Add baris baru dalam pengalaman di form
 		if (command.getPengalamanList().size() >= 3) {
@@ -179,6 +184,16 @@ public class PelamarController {
 		return "pelamar-ubah";
 	}
 
+	/**
+	 * Fitur mengubah pelamar : Hapus baris pengalaman
+	 * 
+	 * @param model       Model
+	 * @param id          ID Pelamar
+	 * @param command     Model pembungkus list pengalaman dan checkbox
+	 * @param pelamar     Model Pelamar yang akan diubah
+	 * @param deleteIndex Index baris yang akan dihapus
+	 * @return Halaman HTML formulir ubah pelamar
+	 */
 	@RequestMapping(value = "pelamar/ubah/{id}", params = { "deleteEntryUbah" }, method = RequestMethod.POST)
 	private String deleteEntryPengalamanUpdate(Model model, @PathVariable(value = "id") long id,
 			@ModelAttribute FormCommand command, @ModelAttribute PelamarModel pelamar, HttpServletRequest deleteIndex) {
@@ -220,20 +235,23 @@ public class PelamarController {
 
 	}
 
-	/**
-	 * Fitur menghapus pelamar
-	 * 
-	 * @param id
-	 * @param model
-	 * @return Halaman HTML pelamar
-	 */
-	@RequestMapping("/pelamar/delete/{id}")
-	public String hapusPelamar(@PathVariable(value = "id") long id, Model model) {
-		PelamarModel arsip_pelamar = pelamarService.getPelamarById(id);
-		String nama_pelamar = arsip_pelamar.getNama_lengkap();
-		pelamarService.deletePelamar(arsip_pelamar);
-
-		model.addAttribute("nama_pelamar", nama_pelamar);
+	@RequestMapping(value = "/pelamar/hapus", method = RequestMethod.POST)
+	private String deletePelamar(@RequestParam("id") Long[] ids, Model model) {
+		List<PengalamanPelamarModel> arsip_pengalaman =pengalamanService.getAllPengalaman();
+		if (ids.length == 0) {
+			model.addAttribute("deleteError_msg", "Centang Pelamar yang akan dihapus terlebih dahulu!");
+		} else {
+			
+			for (Long id : ids) {
+				PelamarModel arsip_pelamar = pelamarService.getPelamarById(id);
+				for(PengalamanPelamarModel pengalaman : arsip_pengalaman) {
+					if(pengalaman.getPelamar_id().equals(arsip_pelamar)) {
+						pengalamanService.deletePengalaman(pengalaman);
+					}
+				}
+				pelamarService.deletePelamar(arsip_pelamar);
+			}
+		}
 		return "pelamar-view";
 	}
 
