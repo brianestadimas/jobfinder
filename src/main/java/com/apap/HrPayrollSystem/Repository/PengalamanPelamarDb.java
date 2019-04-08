@@ -7,5 +7,7 @@ import com.apap.HrPayrollSystem.Model.PengalamanPelamarModel;
 
 @Repository
 public interface PengalamanPelamarDb extends JpaRepository<PengalamanPelamarModel, Long> {
+	
+	PengalamanPelamarModel findById (long id);
 
 }

@@ -84,15 +84,16 @@
 	<div class="container-fluid"
 		style="margin-left: 1rem; margin-top: 1rem">
 		<h2 style="margin-top: 1rem">
-			Form Pendaftaran <small class="titleHelp">( Tanda <span
+			Form Ubah Pelamar <small class="titleHelp">( Tanda <span
 				class="requiredField">*</span> Berarti Wajib Diisi )
 			</small>
 		</h2>
 		<hr class="hrCustom">
 		<div class="row">
 			<div class="col-xs-12 col-sm-auto">
-				<form th:action="@{'/pelamar/daftar/'}" th:object="${pelamar}"
-					method="POST">
+				<form th:action="@{'/pelamar/ubah/'} + ${pelamar.id}"
+					th:object="${pelamar}" method="POST">
+					<input type="hidden" th:field="*{id}" name="id">
 					<div class="card">
 						<div class="card-body">
 
@@ -108,18 +109,17 @@
 							</div>
 							<fieldset class="form-group">
 								<div class="row">
-									<legend class="col-form-label col-sm-4 col-md-2 pt-0">
-										Posisi yang diinginkan<span class="requiredField"> *</span>
-									</legend>
+									<legend class="col-form-label col-sm-4 col-md-2 pt-0">Posisi
+										yang diinginkan<span class="requiredField"> *</span></legend>
 									<div class="col-xs-12">
 										<ul class="form-check">
 											<li th:each="checkboxValue: ${checkbox_produk}"
 												class="form-check form-check-inline"><input
 												class="form-check-input" type="checkbox"
 												th:field="${command.selectedCheckboxProduk}"
-												th:value="${checkboxValue}" /> <label
+												th:value="${checkboxValue}"/> <label
 												th:for="${#ids.prev('selectedCheckboxProduk')}"
-												th:text="${checkboxValue}" required="required"></label></li>
+												th:text="${checkboxValue}" ></label></li>
 										</ul>
 									</div>
 								</div>
@@ -377,6 +377,7 @@
 									<tbody>
 										<tr th:each="np, iterationStatus : ${command.pengalamanList}">
 
+
 											<th scope="row" th:text="${iterationStatus.index}+1"></th>
 											<td style="height: 3rem"><input class="form-control"
 												type="text" required="required"
@@ -404,15 +405,17 @@
 											<td style="height: 3rem"><input class="form-control"
 												type="text" required="required"
 												th:field="${command.pengalamanList[__${iterationStatus.index}__].alasan_berhenti}"></td>
-											<td>
+											<td><input type="hidden"
+												th:field="${command.pengalamanList[__${iterationStatus.index}__].id}">
 												<button type="submit" class="btn btn-warning"
-													name="deleteEntry" th:value="${iterationStatus.index}">Hapus</button>
+													name="deleteEntryUbah" th:value="${iterationStatus.index}">Hapus</button>
 											</td>
 										</tr>
 									</tbody>
 								</table>
-								<button type="submit" class="btn btn-secondary" name="addEntry"
-									th:value="${command}+${pelamar}">Tambah Pengalaman</button>
+								<button type="submit" class="btn btn-secondary"
+									name="addEntryUbah" th:field="${command}+${pelamar}">Tambah
+									Pengalaman</button>
 							</div>
 							<br>
 							<button type="button" class="btn btn-primary" data-toggle="modal"
@@ -425,17 +428,17 @@
 
 										<!-- Modal Header -->
 										<div class="modal-header">
-											<h4 class="modal-title">Formulir Pendaftaran</h4>
+											<h4 class="modal-title">Formulir Ubah Pelamar</h4>
 											<button type="button" class="close" data-dismiss="modal">&times;</button>
 										</div>
 										<!-- Modal body -->
-										<div class="modal-body">Apakah Anda yakin untuk
-											menyimpan?</div>
+										<div class="modal-body"
+											th:text="'Apakah Anda yakin untuk mengubah Pelamar ' + *{nama_lengkap}"></div>
 
 										<!-- Modal footer -->
 										<div class="modal-footer">
 											<button type="submit" class="btn btn-danger"
-												name="submitPelamar">Ya</button>
+												name="submitPelamarUbah">Ya</button>
 											<button type="button" class="btn btn-danger"
 												data-dismiss="modal">Tidak</button>
 										</div>

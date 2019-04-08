@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.apap.HrPayrollSystem.Model.PelamarModel;
 import com.apap.HrPayrollSystem.Model.PengalamanPelamarModel;
@@ -35,7 +36,7 @@ public class PelamarController {
 	PengalamanPelamarService pengalamanService;
 
 	/**
-	 * Fitur pendaftaran pelamar : GET request
+	 * Fitur pendaftaran pelamar : GET formulir pendaftaran
 	 * 
 	 * @param model Model
 	 * @return Halaman HTML formulir pendaftaran pelamar
@@ -52,6 +53,14 @@ public class PelamarController {
 		return "pelamar-daftar";
 	}
 
+	/**
+	 * Fitur pendaftaran pelamar : Tambah baris pengalaman
+	 * 
+	 * @param model   Model
+	 * @param command Model pembungkus list pengalaman
+	 * @param pelamar Model pelamar yang sudah diisi sementara
+	 * @return Halaman HTML formulir pendaftaran pelamar
+	 */
 	@RequestMapping(value = "pelamar/daftar", params = { "addEntry" }, method = RequestMethod.POST)
 	private String addEntryPengalaman(Model model, @ModelAttribute FormCommand command,
 			@ModelAttribute PelamarModel pelamar) {
@@ -66,6 +75,15 @@ public class PelamarController {
 		return "pelamar-daftar";
 	}
 
+	/**
+	 * Fitur pendaftaran pelamar : Hapus baris pengalaman
+	 * 
+	 * @param model       Model
+	 * @param command     Model pembungkus list pengalaman
+	 * @param pelamar     Model pelamar yang sudah diisi sementara
+	 * @param deleteIndex Index dari baris yang akan dihapus
+	 * @return Halaman HTML formulir pendaftaran pelamar
+	 */
 	@RequestMapping(value = "pelamar/daftar", params = { "deleteEntry" }, method = RequestMethod.POST)
 	private String deleteEntryPengalaman(Model model, @ModelAttribute FormCommand command,
 			@ModelAttribute PelamarModel pelamar, HttpServletRequest deleteIndex) {
@@ -79,20 +97,24 @@ public class PelamarController {
 		model.addAttribute("command", command);
 		model.addAttribute("pelamar", pelamar);
 		return "pelamar-daftar";
-
 	}
 
 	/**
-	 * Fitur pendaftaran pelamar : POST request
+	 * Fitur pendaftaran pelamar : POST formulir pendaftaran
 	 * 
 	 * @param pelamar Model Pelamar yang sudah diisi
-	 * @param command Hasil input RadioButton dan Checkbox
+	 * @param command Model pembungkus list pengalaman dan checkbox
 	 * @param model   Model
 	 * @return Halaman HTML data pelamar
 	 */
 	@RequestMapping(value = "pelamar/daftar", params = { "submitPelamar" }, method = RequestMethod.POST)
 	private String daftarPelamarPost(@ModelAttribute PelamarModel pelamar, @ModelAttribute FormCommand command,
 			Model model) {
+		String produkResult = "";
+		for (String produk : command.getSelectedCheckboxProduk()) {
+			produkResult += produk + ",";
+		}
+		pelamar.setProduk_dilamar(produkResult);
 		pelamarService.addPelamar(pelamar);
 		for (PengalamanPelamarModel pp : command.getPengalamanList()) {
 			pp.setPelamar_id(pelamar);
@@ -101,6 +123,12 @@ public class PelamarController {
 		return "pelamar-view";
 	}
 
+	/**
+	 * Fitur melihat list pelamar : GET Request
+	 * 
+	 * @param model Model
+	 * @return Halaman HTML list pelamar
+	 */
 	@RequestMapping(value = "pelamar/", method = RequestMethod.GET)
 	private String getPelamar(Model model) {
 		List<PelamarModel> arsip_pelamar = pelamarService.getAllPelamar();
@@ -109,7 +137,7 @@ public class PelamarController {
 	}
 
 	/**
-	 * Fitur mengubah pelamar : GET request
+	 * Fitur mengubah pelamar : GET formulir ubah pelamar p
 	 * 
 	 * @param id    id_pelamar
 	 * @param model Model
@@ -117,10 +145,55 @@ public class PelamarController {
 	 */
 	@RequestMapping(value = "pelamar/ubah/{id}", method = RequestMethod.GET)
 	private String ubahPelamar(@PathVariable(value = "id") long id, Model model) {
-
+		FormCommand command = new FormCommand();
 		PelamarModel arsip_pelamar = pelamarService.getPelamarById(id);
+		command.setSelectedCheckboxProduk(arsip_pelamar.getProduk_dilamar().split(","));
+		command.setPengalamanList(pengalamanService.getAllPengalamanByPelamar(arsip_pelamar));
+
 		// Tambah attribute ke dalam model
+		model.addAttribute("command", command);
 		model.addAttribute("pelamar", arsip_pelamar);
+		return "pelamar-ubah";
+	}
+
+	/**
+	 * 
+	 * @param model
+	 * @param id
+	 * @param pengalaman
+	 * @param pelamar
+	 * @return
+	 */
+	@RequestMapping(value = "pelamar/ubah/{id)", method = RequestMethod.POST)
+	private String addEntryPengalamanUpdate(Model model,
+			@RequestParam(value = "addEntryUbah") @PathVariable(value = "id") long id,
+			@ModelAttribute FormCommand command, @ModelAttribute PelamarModel pelamar) {
+		// Add baris baru dalam pengalaman di form
+		if (command.getPengalamanList().size() >= 3) {
+			model.addAttribute("limit_msg", "Maksimal 3 pengalaman");
+		} else {
+			command.addPengalamanToList(new PengalamanPelamarModel());
+		}
+		model.addAttribute("command", command);
+		model.addAttribute("pelamar", pelamar);
+		return "pelamar-ubah";
+	}
+
+	@RequestMapping(value = "pelamar/ubah/{id}", params = { "deleteEntryUbah" }, method = RequestMethod.POST)
+	private String deleteEntryPengalamanUpdate(Model model, @PathVariable(value = "id") long id,
+			@ModelAttribute FormCommand command, @ModelAttribute PelamarModel pelamar, HttpServletRequest deleteIndex) {
+
+		if (command.getPengalamanList().size() == 1) {
+			model.addAttribute("deleteLimit_msg", "Tidak bisa dihapus, minimum 1 entri pengalaman");
+		} else {
+			PengalamanPelamarModel pengalaman_to_delete = command.getPengalamanList()
+					.get(Integer.parseInt(deleteIndex.getParameter("deleteEntryUbah")));
+			PengalamanPelamarModel arsip_pengalaman = pengalamanService.getPengalamanById(pengalaman_to_delete.getId());
+			pengalamanService.deletePengalaman(arsip_pengalaman);
+			command.getPengalamanList().remove(pengalaman_to_delete);
+		}
+		model.addAttribute("command", command);
+		model.addAttribute("pelamar", pelamar);
 		return "pelamar-ubah";
 	}
 
@@ -132,8 +205,14 @@ public class PelamarController {
 	 * @param model   Model
 	 * @return Halaman HTML detail pelamar
 	 */
-	@RequestMapping(value = "pelamar/ubah/{id}", method = RequestMethod.POST)
-	private String ubahPelamarPost(@PathVariable(value = "id") long id, PelamarModel pelamar, Model model) {
+	@RequestMapping(value = "pelamar/ubah/{id}", params = { "submitPelamarUbah" }, method = RequestMethod.POST)
+	private String ubahPelamarPost(@PathVariable(value = "id") long id, @ModelAttribute PelamarModel pelamar,
+			@ModelAttribute FormCommand command, Model model) {
+		String produkResult = "";
+		for (String produk : command.getSelectedCheckboxProduk()) {
+			produkResult += produk + ",";
+		}
+		pelamar.setProduk_dilamar(produkResult);
 		pelamarService.updatePelamar(pelamar);
 		String nama_pelamar = pelamar.getNama_lengkap();
 		model.addAttribute("nama_pelamar", nama_pelamar);
