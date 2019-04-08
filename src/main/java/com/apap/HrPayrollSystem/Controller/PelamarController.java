@@ -19,6 +19,7 @@ import com.apap.HrPayrollSystem.Model.PelamarModel;
 import com.apap.HrPayrollSystem.Model.PengalamanPelamarModel;
 import com.apap.HrPayrollSystem.Service.PelamarService;
 import com.apap.HrPayrollSystem.Service.PengalamanPelamarService;
+import com.apap.HrPayrollSystem.Service.ProdukService;
 
 /**
  * Controller kelas Pelamar
@@ -34,6 +35,9 @@ public class PelamarController {
 
 	@Autowired
 	PengalamanPelamarService pengalamanService;
+	
+	@Autowired
+	ProdukService produkService;
 
 	/**
 	 * Fitur pendaftaran pelamar : GET formulir pendaftaran
@@ -251,7 +255,7 @@ public class PelamarController {
 				}
 				pelamarService.deletePelamar(arsip_pelamar);
 			}
-		}
+		} 
 		return "pelamar-view";
 	}
 
@@ -262,7 +266,7 @@ public class PelamarController {
 
 	@ModelAttribute("checkbox_produk")
 	public String[] getProdukValues() {
-		return new String[] { "Security", "Housekeeping", "Driver/Kurir", "Pekerja blabla" };
+		return produkService.getAllProdukName();
 	}
 
 	@ModelAttribute("radio_statusNikah")
