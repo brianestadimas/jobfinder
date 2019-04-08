@@ -90,9 +90,8 @@
 					<input type="hidden" id="tunjangan_tetap" name="tunjangan_tetap" th:field="*{tunjangan_tetap}">
 					<input type="hidden" id="tunjangan_tidak_tetap" name="tunjangan_tidak_tetap" th:field="*{tunjangan_tidak_tetap}">
 					<input type="hidden" id="jaminan" name="jaminan" th:field="*{jaminan}">
-					<div class="form-row">
-								
 					
+					<div class="form-row">
 								
 									<div class="form-group col-md-6"></div>
 									<div class="form-group col-md-6"></div>
@@ -276,39 +275,61 @@
 			</div>
 			
 			<div class="tab-pane fade" id="nav-proyek" role="tabpanel" aria-labelledby="nav-profile-tab">
-			
-				<form>
+				<form th:action="@{'/pegawai/ubah/' + *{id}} " th:object="${pegawai}"method="POST">
+					
+					<input type="hidden" id="id" name="id" th:field="*{id}">
+					<input type="hidden" id="gaji_pokok" name="gaji_pokok" th:field="*{gaji_pokok}">
+					<input type="hidden" id="tunjangan_tetap" name="tunjangan_tetap" th:field="*{tunjangan_tetap}">
+					<input type="hidden" id="tunjangan_tidak_tetap" name="tunjangan_tidak_tetap" th:field="*{tunjangan_tidak_tetap}">
+					<input type="hidden" id="jaminan" name="jaminan" th:field="*{jaminan}">
 					<div class="form-row">
+			
 						<div class="form-group col-md-6">
 							<label for="namaLengkap">Nama Proyek</label>
 							<input type="text" class="form-control" id="proyek" 
 								placeholder="" th:value="${pegawai.proyek.nama_proyek}" disabled/>
 							
 						</div>
-						<div class="form-group col-md-6">
-							<label for="joinDate">Join Date</label>
-							<input  type="date" class="form-control" id="join_date" name="join_date" th:field="*{join_date}"/>
+						
+					<div class="form-group col-md-6">
+							<label for="join_date">Join Date</label>
+							<input  th:if="${pegawai.status}" type="date" class="form-control" id="join_date" name="join_date" th:field="*{join_date}"/>
+							<input th:unless="${pegawai.status}" type="text" class="form-control"  th:value="'dd/mm/yy'" disabled/>
 					
 						</div>
-					</div>
+						
+					</div> 
+					
+					
 					<div class="form-row">
 						<div class="form-group col-md-4">
-							<label for="produk">Produk</label>
-							<select id="produk" name="produk" class="form-control" disabled>
-								<option selected th:field="*{produk.nama_produk}"></option>
-								
+							<label for="nama_produk"> Produk </label>
+							<select th:if="${pegawai.status}" id="produk" name="nama_produk" class="form-control">
+								<option  th:value= "*{produk.nama_produk}" th:field="*{produk.nama_produk}" disabled selected></option>
+								<option th:each="produk: ${produk}"
+								th:text="${produk.getNama_produk()}" th:value="${produk.getId()}" th:selected="${produk.getNama_produk()}"></option>
 							</select>
-						</div>
+							<select th:unless="${pegawai.status}" id="produk" name="nama_produk" class="form-control">
+								<option  th:unless="${pegawai.status}" th:value= "*{produk.nama_produk}" th:field="*{produk.nama_produk}" th:selected="${pegawai.produk.getNama_produk()}" disabled selected></option>
+							</select>
+						</div> 
+						 
+						 
 						<div class="form-group col-md-2">
 							<label for="jabatan">Jabatan</label>
-							<input type="text" class="form-control" id="jabatan" name="jabatan" th:field="*{jabatan}"/>
+							<input th:if="${pegawai.status}" type="text" class="form-control" id="jabatan" name="jabatan" th:field="*{jabatan}"/>
+							<input th:unless="${pegawai.status}" type="text" class="form-control" id="jabatan" name="jabatan" th:value="None" disabled/>
 							
 						</div>
+						
+						
 						<div class="form-group col-md-6">
 								<label for="endDate">End Date</label>
-								<input type="date" class="form-control" name = "end_date" id="end_date" th:field="*{end_date}"/>
-								
+								<input th:if="${pegawai.status}" type="date" class="form-control" name = "end_date" id="end_date" th:field="*{end_date}"/>
+								<input th:unless="${pegawai.status}" type="text" class="form-control"  id="end_date" th:value="'dd/mm/yy'" disabled/>
 						</div>
+						
+						
 					</div>
 					
 					<div class="form-row">
@@ -316,7 +337,7 @@
 					 		<button class="btn btn-primary btn-large" style="float: right;" type="submit">Simpan</button>
       				 		<button class="btn btn-info btn-danger" style="float: right; margin-right: 10px;">Batalkan</button>
 						</div>
-					</div>
+					</div> 
 	
 					</form>
 				</div>

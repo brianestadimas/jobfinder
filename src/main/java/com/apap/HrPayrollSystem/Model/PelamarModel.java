@@ -38,7 +38,6 @@ public class PelamarModel implements Serializable{
 	private String gender;
 	
 	@NotNull
-	@Size(max=255)
 	@Column(name="tanggal_lahir",nullable = false)
 	private Date tanggal_lahir;
 	
@@ -105,7 +104,7 @@ public class PelamarModel implements Serializable{
 	@Column(name="jurusan",nullable = false)
 	private String jurusan;
 	
-	@Size(max=255)
+	
 	@Column(name="lulusan_tahun",nullable = true)
 	private Date lulusan_tahun;
 	
@@ -114,7 +113,6 @@ public class PelamarModel implements Serializable{
 	private String telepon_rumah;
 
 	@NotNull
-	@Size(max=255)
 	@Column(name="apply_date",nullable = false)
 	private Date apply_date;
 

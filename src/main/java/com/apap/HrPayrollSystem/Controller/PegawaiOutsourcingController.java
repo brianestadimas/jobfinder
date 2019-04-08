@@ -7,17 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
+import com.apap.HrPayrollSystem.Model.PelamarModel;
 import com.apap.HrPayrollSystem.Model.ProdukModel;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
 import com.apap.HrPayrollSystem.Service.ProdukService;
 import com.apap.HrPayrollSystem.Service.ProyekService;
-import com.apap.HrPayrollSystem.Service.RiwayatKerjaPegawaiService;
 
 @Controller
 public class PegawaiOutsourcingController {
@@ -53,17 +52,21 @@ public class PegawaiOutsourcingController {
 	private String ubahPegawai(@PathVariable(value = "id") long id, Model model) {
 		PegawaiOutsourcingModel pegawaiLama = pegawaiService.getPegawaiById(id).get();
 		List<ProdukModel> produkList = produkService.getAllProduk();
-		
+		//List<PelamarModel> pelamarList = pelamarService
+		System.out.println(pegawaiLama.getStatus());
+		System.out.println(pegawaiLama.getProduk().getNama_produk());
+		System.out.println(pegawaiLama.getProduk().getId());
 		
 		model.addAttribute("pegawai", pegawaiLama);
 		model.addAttribute("produk", produkList);
+		
 		
 		return "UbahPegawai";
 	
 	}
 	
 	@RequestMapping(value="/pegawai/ubah/{id}", method = RequestMethod.POST)
-    public String submitUbahPegawai(@PathVariable(value="id") long id, PegawaiOutsourcingModel pegawaiBaru, Model model) {	
+    public String submitUbahPegawai(@PathVariable(value="id") long id, @ModelAttribute PegawaiOutsourcingModel pegawaiBaru, Model model) {	
 		pegawaiService.updatePegawai(id,pegawaiBaru);
 		return "DetailPegawai";
     }
