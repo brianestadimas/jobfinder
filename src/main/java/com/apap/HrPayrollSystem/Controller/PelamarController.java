@@ -1,9 +1,11 @@
 package com.apap.HrPayrollSystem.Controller;
 
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -190,30 +192,32 @@ public class PelamarController {
 	//Assign Pelamar Get
 	@RequestMapping(value = "/pelamar/assign", method = RequestMethod.GET)
 	private String assignPelamar(long[] ids, Model model) {
-		AssignmentWrapper daftar_pegawai = new AssignmentWrapper();
+		
+		AssignmentWrapper wrapper = new AssignmentWrapper();
 		List<ProdukModel> daftar_produk = produkService.getAllProduk();
-		List<ProyekModel> daftar_proyek1 = proyekService.getAllProyek();
-		System.out.println(daftar_proyek1.size());
-		System.out.println(daftar_produk.size());
+		List<ProyekModel> daftar_proyek = proyekService.getAllProyek();
+		
+		wrapper.setDaftar_proyek(daftar_proyek);
+		
 		List<String> nama_pelamar = new ArrayList<String>();
 		
-//		List<PelamarModel> list_temp = pelamarService.getAllPelamar();
-//		for(int i=0; i<list_temp.size(); i++) {
-//			ids.add(list_temp.get(i).getId());
-//		}
+		ids = new long[2];
+		ids[0] = (long) 3;
+		ids[1] = (long) 4;
 		
 		for(int i=0; i<ids.length; i++) {
 			PelamarModel pelamar = pelamarService.getPelamarById(ids[i]);
-			PegawaiOutsourcingModel newPegawai = new PegawaiOutsourcingModel();
-			newPegawai.setPelamar_id(pelamar);
+			PegawaiOutsourcingModel pegawai = new PegawaiOutsourcingModel();
+			pegawai.setPelamar_id(pelamar);
 			
-			daftar_pegawai.add_pegawai(newPegawai);
+			wrapper.add_pegawai(pegawai);
 			nama_pelamar.add(pelamar.getNama_lengkap());
+			System.out.println(wrapper.getDaftar_pegawai().get(i).getPelamar_id().getNama_lengkap());
 		}
 		
-		model.addAttribute("daftar_pegawai", daftar_pegawai);
+		model.addAttribute("wrapper", wrapper);
 		model.addAttribute("daftar_produk", daftar_produk);
-		model.addAttribute("daftar_proyek", daftar_proyek1);
+		model.addAttribute("daftar_proyek", daftar_proyek);
 		model.addAttribute("nama_pelamar", nama_pelamar);
 		return "form_assignment_pelamar";
 	}
@@ -221,26 +225,18 @@ public class PelamarController {
 	//Assign Pegawai Post
 	@RequestMapping(value="/pelamar/assign/submit", method=RequestMethod.POST)
 	private String assignPelamarSubmit(@ModelAttribute AssignmentWrapper daftar_pegawai, HttpServletRequest req, Model model) throws ParseException {
-		String stringProyek = String.valueOf(req.getParameter("proyek"));
-		ProyekModel proyek = proyekService.getProyekByName(stringProyek);
+		String stringProyek = req.getParameter("proyek");
+		Optional<ProyekModel> proyek = proyekService.getProyekById(Long.parseLong(stringProyek));
+		Date join_date = Date.valueOf(req.getParameter("join_date"));
+		Date end_date = Date.valueOf(req.getParameter("end_date"));
 		
-		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/mm/yyyy");
-		
-		String stringJoin_date = String.valueOf(req.getParameter("join_date"));
-		java.util.Date tempDate1 = sdf1.parse(stringJoin_date);
-		java.sql.Date join_date = new java.sql.Date(tempDate1.getTime());
-		
-		String stringEnd_date = String.valueOf(req.getParameter("end_date"));
-		java.util.Date tempDate2 = sdf1.parse(stringEnd_date);
-		java.sql.Date end_date = new java.sql.Date(tempDate2.getTime());
-				
-		for(int i=0; i<daftar_pegawai.getListOfPegawai().size(); i++) {
-			daftar_pegawai.getListOfPegawai().get(i).setProyek(proyek);
-			daftar_pegawai.getListOfPegawai().get(i).setJoin_date(join_date);;
-			daftar_pegawai.getListOfPegawai().get(i).setEnd_date(end_date);
+		for(int i=0; i<daftar_pegawai.getDaftar_pegawai().size(); i++) {
+			daftar_pegawai.getDaftar_pegawai().get(i).setProyek(proyek.get());
+			daftar_pegawai.getDaftar_pegawai().get(i).setJoin_date(join_date);;
+			daftar_pegawai.getDaftar_pegawai().get(i).setEnd_date(end_date);
 		}
 		
-//		pegawaiService.assignAll(daftar_pegawai.getListPegawai());
+		pegawaiService.assignAll(daftar_pegawai.getDaftar_pegawai());
 		
 		return "DaftarPegawai";
 	}

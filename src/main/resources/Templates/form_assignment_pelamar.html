@@ -62,13 +62,13 @@ thead th{
 <div class="boxContainer" style="overflow-x:auto;">
 <img src="img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
 <h2 style="display: inline; margin-left: 10px">Assign Pegawai</h2>
-<form th:action="'/pegawai/assign'" method="post" th:object="${wrapper}">
+<form th:action="'/pelamar/assign/submit'" method="post" th:object="${wrapper}">
 
     <div class="form-row">
       <div class="form-group col-md-4">
         <label for="inputProyek">Proyek</label>
-	      <select>
-			    <option th:each="dp: ${daftar_proyek}" name="proyek" th:value="${dp.id}" th:text="${dp.nama_proyek}">
+	      <select name="proyek">
+			    <option th:each="dp: ${daftar_proyek}"  th:value="${dp.id}" th:text="${dp.nama_proyek}">
 			    </option>
 			</select>
       </div>
@@ -76,13 +76,13 @@ thead th{
     <div class="col-sm-12"></div> 
     <div class="form-group col-md-3">
       <label for="inputJoinDate">Join Date</label>
-      <input type="Date" class="form-control getdate" th:field="*{wrapper[__${itemStat.index}__].join_date}" th:value="${#dates.format(bookingEntry.datefrom, 'dd-mm-yyyy')}" name="join_date"/>
+      <input type="Date" class="form-control getdate" name="join_date"/>
     </div>
     <div class="col-sm-12"></div>
     <div class="form-row">
       <div class="form-group col-md-3">
         <label for="inputEndDate">End Date</label>
-      <input type="Date" class="form-control getdate" th:field="*{wrapper[__${itemStat.index}__].end_date}" th:value="${#dates.format(bookingEntry.datefrom, 'dd-mm-yyyy')}" name="end_date"/>
+      <input type="Date" class="form-control getdate" name="end_date"/>
       </div>
     </div>
     <div class="col-sm-12"></div>
@@ -92,7 +92,7 @@ thead th{
 
         <thead>
             <tr>
-                <th style='width: 30%;'>Nama</th> 
+                <th>Nama</th> 
                 <th>Produk</th>
                 <th>Jabatan</th>
                 <th>NIP</th>
@@ -103,28 +103,27 @@ thead th{
             </tr>
         </thead>
         <tbody>
-            <tr th:each="wrapper, itemStat : *{wrapper}">
-                <td th:text="${nama_pelamar[itemStat.index]"></td>
-                <td><input class="form-control" type="text" th:value="${daftar_produk.nama_produk}" th:field="*{wrapper[__${itemStat.index}__].produk}" name="produk"/></td>
-                <td><input type="text" th:field="*{wrapper[__${itemStat.index}__].jabatan}" name="jabatan"></td>
-                <td><input type="text" th:field="*{wrapper[__${itemStat.index}__].nip}" name="nip"></td>
-                <td><input type="text" th:field="*{wrapper[__${itemStat.index}__].npwp}" name="npwp"></td>
-                <td><input type="text" th:field="*{wrapper[__${itemStat.index}__].pkwt}" name="pkwt"></td>
-                <td><input type="text" th:field="*{wrapper[__${itemStat.index}__].bpjsk}" name="bpjsk"></td>
-                <td><input type="text" th:field="*{wrapper[__${itemStat.index}__].bpjstk}" name="bpjstk"></td>
+            <tr th:each="wrapper, itemStat : *{wrapper.daftar_pegawai}">
+                <td th:text="${nama_pelamar[itemStat.index]}"></td>
+                <td><select th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].produk.id}">
+	                <option th:each="dp: ${daftar_produk}"  th:value="${dp.id}"  th:text="${dp.nama_produk}"></option>
+                </select></td>
+                <td><input type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].jabatan}" name="jabatan"></td>
+                <td><input type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].nip}" name="nip"></td>
+                <td><input type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].npwp}" name="npwp"></td>
+                <td><input type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].pkwt}" name="pkwt"></td>
+                <td><input type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].bpjsk}" name="bpjsk"></td>
+                <td><input type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].bpjstk}" name="bpjstk"></td>
 				
-				<td><input type="hidden" th:field="*{wrapper[__${itemStat.index}__].id_pelamar}"></td>
-				<td><input class="form-control" type="hidden" th:value="${daftar_produk.nama_produk}" th:field="*{wrapper[__${itemStat.index}__].produk}" name="produk"/></td>
-                <td><input type="hidden" th:field="*{wrapper[__${itemStat.index}__].jabatan}" name="jabatan"></td>
-                <td><input type="hidden" th:field="*{wrapper[__${itemStat.index}__].nip}" name="nip"></td>
-                <td><input type="hidden" th:field="*{wrapper[__${itemStat.index}__].npwp}" name="npwp"></td>
-                <td><input type="hidden" th:field="*{wrapper[__${itemStat.index}__].pkwt}" name="pkwt"></td>
-                <td><input type="hidden" th:field="*{wrapper[__${itemStat.index}__].bpjsk}" name="bpjsk"></td>
-                <td><input type="hidden" th:field="*{wrapper[__${itemStat.index}__].bpjstk}" name="bpjstk"></td>
+				<td><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].pelamar_id}" name="pelamar_id"></td>
+				<td><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].id}" name="id"></td>
+				<td><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].nama_bank}" name="nama_bank"></td>
+				<td><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].no_arsip}" name="no_arsip"></td>
+				<td><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].no_rekening}" name="no_rekening"></td>
             </tr>
          </tbody>
       </table>
-      <a href="#" class="btn btn-primary btn-large" style="float: right;">Submit</a>
+      <button type="submit" "btn btn-primary btn-large" style="float: right;">Submit</button>
       <a href="#" onClick="" class="btn btn-info btn-danger" style="float: right; margin-right: 10px;">Batalkan</a>
   </div>
   </div>
@@ -160,7 +159,6 @@ $(document).ready(function() {
       "sScrollX": "100%",
       "sScrollXInner": "100%",
       "scrollCollapse": true,
-    "lengthMenu": [[10, 50, 100, -1], [10, 50, 100, "All"]],
 
     } );
 

@@ -104,9 +104,7 @@ public class PegawaiOutsourcingController {
 		
 		AssignmentWrapper wrapper = new AssignmentWrapper();
 		List<ProdukModel> daftar_produk = produkService.getAllProduk();
-//		System.out.println(daftar_produk.get(0).getNama_produk());
 		List<ProyekModel> daftar_proyek = proyekService.getAllProyek();
-//		System.out.println(daftar_proyek.get(0).getNama_proyek());
 		
 		wrapper.setDaftar_proyek(daftar_proyek);
 		
@@ -138,17 +136,7 @@ public class PegawaiOutsourcingController {
 		System.out.println(stringProyek);
 		Date join_date = Date.valueOf(req.getParameter("join_date"));
 		Date end_date = Date.valueOf(req.getParameter("end_date"));
-//		
-//		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/mm/yyyy");
-//		
-//		String stringJoin_date = String.valueOf(req.getParameter("join_date"));
-//		java.util.Date tempDate1 = sdf1.parse(stringJoin_date);
-//		java.sql.Date join_date = new java.sql.Date(tempDate1.getTime());
-//		
-//		String stringEnd_date = String.valueOf(req.getParameter("end_date"));
-//		java.util.Date tempDate2 = sdf1.parse(stringEnd_date);
-//		java.sql.Date end_date = new java.sql.Date(tempDate2.getTime());
-//		
+		
 		for(int i=0; i<daftar_pegawai.getDaftar_pegawai().size(); i++) {
 			daftar_pegawai.getDaftar_pegawai().get(i).setProyek(proyek.get());
 			daftar_pegawai.getDaftar_pegawai().get(i).setJoin_date(join_date);;

@@ -240,12 +240,6 @@ public class PegawaiOutsourcingModel implements Serializable {
 	public void setProyek(ProyekModel proyek) {
 		this.proyek = proyek;
 	}
-
-
-	
-
-
-	
 	
 }
 
