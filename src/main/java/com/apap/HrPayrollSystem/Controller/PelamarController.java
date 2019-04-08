@@ -35,7 +35,7 @@ public class PelamarController {
 
 	@Autowired
 	PengalamanPelamarService pengalamanService;
-	
+
 	@Autowired
 	ProdukService produkService;
 
@@ -145,6 +145,13 @@ public class PelamarController {
 		return "pelamar-view";
 	}
 
+	@RequestMapping(value = "pelamar/detail/{id}", method = RequestMethod.GET)
+	private String getPelamarDetail(@PathVariable(value = "id") long id, Model model) {
+		PelamarModel arsip_pelamar = pelamarService.getPelamarById(id);
+		model.addAttribute("pelamar", arsip_pelamar);
+		return "pelamar-detail";
+	}
+
 	/**
 	 * Fitur mengubah pelamar : GET formulir ubah pelamar
 	 * 
@@ -234,28 +241,28 @@ public class PelamarController {
 		pelamar.setProduk_dilamar(produkResult);
 		pelamarService.updatePelamar(pelamar);
 		String nama_pelamar = pelamar.getNama_lengkap();
-		model.addAttribute("nama_pelamar", nama_pelamar);
+		model.addAttribute("pelamar",pelamar);
+		model.addAttribute("suksesUbah_msg", "Pelamar " + nama_pelamar + " berhasil diubah!");
 		return "pelamar-detail";
-
 	}
 
 	@RequestMapping(value = "/pelamar/hapus", method = RequestMethod.POST)
 	private String deletePelamar(@RequestParam("id") Long[] ids, Model model) {
-		List<PengalamanPelamarModel> arsip_pengalaman =pengalamanService.getAllPengalaman();
+		List<PengalamanPelamarModel> arsip_pengalaman = pengalamanService.getAllPengalaman();
 		if (ids.length == 0) {
 			model.addAttribute("deleteError_msg", "Centang Pelamar yang akan dihapus terlebih dahulu!");
 		} else {
-			
+
 			for (Long id : ids) {
 				PelamarModel arsip_pelamar = pelamarService.getPelamarById(id);
-				for(PengalamanPelamarModel pengalaman : arsip_pengalaman) {
-					if(pengalaman.getPelamar_id().equals(arsip_pelamar)) {
+				for (PengalamanPelamarModel pengalaman : arsip_pengalaman) {
+					if (pengalaman.getPelamar_id().equals(arsip_pelamar)) {
 						pengalamanService.deletePengalaman(pengalaman);
 					}
 				}
 				pelamarService.deletePelamar(arsip_pelamar);
 			}
-		} 
+		}
 		return "pelamar-view";
 	}
 
