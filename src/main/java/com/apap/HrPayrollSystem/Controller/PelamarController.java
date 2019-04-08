@@ -238,6 +238,9 @@ public class PelamarController {
 		
 		pegawaiService.assignAll(daftar_pegawai.getDaftar_pegawai());
 		
-		return "DaftarPegawai";
+		List<PegawaiOutsourcingModel> list = pegawaiService.getAllPegawai();
+		model.addAttribute("listPegawai", list);
+		
+		return "ListPegawai";
 	}
 }

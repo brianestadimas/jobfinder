@@ -62,7 +62,7 @@ thead th{
 <img src="img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
 <h2 style="display: inline; margin-left: 10px">Pegawai Outsourcing</h2>
 <a href="#" onClick="" id="berhentiButton" class="btn btn-info btn-large" style="float: right; margin-right: 10px;">Berhenti Assign</a>
-<a href="#" onClick="" id="assignButton" class="btn btn-success btn-large" style="float: right; margin-right: 10px;">Assign Dipilih</a>
+<a href="#" class="btn btn-success btn-large" style="float: right; margin-right: 10px;">Assign Dipilih</a>
 <a href="#" onClick="" id="hapusButton" class="btn btn-info btn-danger" style="float: right; margin-right: 10px;">Hapus</a>
 <a href="#" onClick="" class="btn btn-info btn-large" style="float: right; margin-right: 10px;">Tambah</a>
 <p>
@@ -84,7 +84,9 @@ thead th{
         <tbody>
             <tr th:each="pegawai : ${listPegawai}" th:id="'row' + ${pegawai.id}">
                 <td><input type="checkbox" class="checkbox" name="id" th:value="${pegawai.id}"></td> 
-				<td th:text="${pegawai.nip}"></td> 
+				<td>
+				<a th:href="@{'/pegawai-detail/' + ${pegawai.id}}" th:text="${pegawai.pelamar_id.nama_lengkap}"></a>
+				</td> 
                 <td th:text="${pegawai.pelamar_id.region}"></td>
                 
                 <td th:if="${pegawai.status}" th:text="${pegawai.produk.nama_produk}"></td>
@@ -208,26 +210,7 @@ $(document).ready(function() {
 		  
 	});
 	
-	$('#assignButton').click(function() {
-		var parameters = "";
-		$.each($("input[name='id']:checked"), function(){            
-			parameters += "id=" + $(this).val() + "&";
-        });
-		
-		  $.ajax({
-			    type: "POST",
-			    url: "/pegawai/assign?" + parameters,
-			    dataType: "json",
-			    success: function(result){
-			    	
-			    }
-			}); 
-		  
-		 $.each($("input[name='id']:checked"), function(){           
-	    	$('#row' + $(this).val()).hide();
-	     });
-		  
-	});
+	
     
     $('#example tfoot th').each( function () {
         var title = $(this).text();
