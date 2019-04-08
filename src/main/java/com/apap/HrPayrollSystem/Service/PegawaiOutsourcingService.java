@@ -11,4 +11,5 @@ public interface PegawaiOutsourcingService {
 	void updatePegawaiStatusById(long id);
 	void addPegawai(PegawaiOutsourcingModel pegawai);
 	void updatePegawai(PegawaiOutsourcingModel pegawai);
+	void assignAll(List<PegawaiOutsourcingModel> list_pegawai);
 }

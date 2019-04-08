@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -67,7 +67,10 @@ thead th{
     <div class="form-row">
       <div class="form-group col-md-4">
         <label for="inputProyek">Proyek</label>
-        <input class="form-control" type="text" th:value="${daftar_proyek.nama_proyek}" th:field="*{daftar_pegawai[__${itemStat.index}__].proyek}" name="proyek"/>
+	      <select>
+			    <option th:each="dp: ${daftar_proyek}" name="proyek" th:value="${dp.id}" th:text="${dp.nama_proyek}">
+			    </option>
+			</select>
       </div>
       
     <div class="col-sm-12"></div> 
@@ -88,7 +91,7 @@ thead th{
 <table id="example2" class="table table-striped table-bordered" style="width:100%;">
 
         <thead>
-            <tr th:each="daftar_pegawai, itemStat : *{daftar_pegawai}">
+            <tr>
                 <th style='width: 30%;'>Nama</th> 
                 <th>Produk</th>
                 <th>Jabatan</th>
@@ -100,8 +103,8 @@ thead th{
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td th:text="${nama_pegawai[itemStat.index]"></td>
+            <tr th:each="daftar_pegawai, itemStat : *{daftar_pegawai}">
+                <td th:text="${nama_pelamar[itemStat.index]"></td>
                 <td><input class="form-control" type="text" th:value="${daftar_produk.nama_produk}" th:field="*{daftar_pegawai[__${itemStat.index}__].produk}" name="produk"/></td>
                 <td><input type="text" th:field="*{daftar_pegawai[__${itemStat.index}__].jabatan}" name="jabatan"></td>
                 <td><input type="text" th:field="*{daftar_pegawai[__${itemStat.index}__].nip}" name="nip"></td>
@@ -109,7 +112,15 @@ thead th{
                 <td><input type="text" th:field="*{daftar_pegawai[__${itemStat.index}__].pkwt}" name="pkwt"></td>
                 <td><input type="text" th:field="*{daftar_pegawai[__${itemStat.index}__].bpjsk}" name="bpjsk"></td>
                 <td><input type="text" th:field="*{daftar_pegawai[__${itemStat.index}__].bpjstk}" name="bpjstk"></td>
-					<td><input type="hidden" th:field="*{daftar_pegawai[__${itemStat.index}__].daftar........}"></td>
+				
+				<td><input type="hidden" th:field="*{daftar_pegawai[__${itemStat.index}__].id_pelamar}"></td>
+				<td><input class="form-control" type="hidden" th:value="${daftar_produk.nama_produk}" th:field="*{daftar_pegawai[__${itemStat.index}__].produk}" name="produk"/></td>
+                <td><input type="hidden" th:field="*{daftar_pegawai[__${itemStat.index}__].jabatan}" name="jabatan"></td>
+                <td><input type="hidden" th:field="*{daftar_pegawai[__${itemStat.index}__].nip}" name="nip"></td>
+                <td><input type="hidden" th:field="*{daftar_pegawai[__${itemStat.index}__].npwp}" name="npwp"></td>
+                <td><input type="hidden" th:field="*{daftar_pegawai[__${itemStat.index}__].pkwt}" name="pkwt"></td>
+                <td><input type="hidden" th:field="*{daftar_pegawai[__${itemStat.index}__].bpjsk}" name="bpjsk"></td>
+                <td><input type="hidden" th:field="*{daftar_pegawai[__${itemStat.index}__].bpjstk}" name="bpjstk"></td>
             </tr>
          </tbody>
       </table>
