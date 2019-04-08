@@ -1,176 +1,341 @@
 <!DOCTYPE html>
 <!-- saved from url=(0156)file:///Users/savirasantoso/Documents/workspace-sts-3.9.5.RELEASE/hr-and-payroll-system/src/main/resources/templates/fragments/detailPegawaiOutsourcing.html -->
-<html xmlns:th="http://www.thymeleaf.org"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"></head><body>
-<link rel="stylesheet" type="text/css" href="./detailPegawaiOutsourcing_files/jquery.dataTables.css">  
+<html xmlns:th="http://www.thymeleaf.org">
 
-<style>
-table {
-  table-layout: fixed;
-}
-</style>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
 
-    <h3 th:text="${pegawai.pelamar.nama_lengkap} + ' - '  + ${pegawai.nip}"></h3>
+<body>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./detailPegawaiOutsourcing_files/jquery.dataTables.css">
 
-    <table style="width:100%" id="table" class="table table-striped table-bordered dataTable">
-        <tbody><tr>
-            <td>No.Arsip</td>
-            <td th:text = "${pegawai.no_arsip}"></td>
-        </tr>
-    </tbody>
-    </table>
+    <style>
+        /* table {
+        table-layout: fixed;
+        } */
 
-    <br>
-    <br>
+        body {
+            font-family: "Open Sans", sans-serif;
+            line-height: 1.25;
+        }
 
-    <h5>Data Pribadi</h5>
-    <table style="width:100%" class="table table-striped table-bordered">
-        <tbody><tr>
-            <td>Nama Lengkap</td>
-            <td th:text = "${pegawai.pelamar.nama_lengkap}"></td>
-        </tr>
-        <tr>
-            <td>Nama Panggilan</td>
-            <td th:text = "${pegawai.pelamar.nama_panggilan}"></td>
-        </tr>
-        <tr>
-            <td>Jenis Kelamin</td>
-            <td th:text = "${pegawai.pelamar.gender}"></td>
-        </tr>
-        <tr>
-            <td>Tanggal Lahir</td>
-            <td th:text = "${pegawai.pelamar.tanggal_lahir}"></td>
-        </tr>
- 
-        <tr>
-            <td>Status Marital</td>
-            <td th:text = "${pegawai.pelamar.status_marital}"></td>
-        </tr>
-    </tbody></table>
+        hr {
+            border-top: 1px solid rgb(37, 37, 37);
+        }
 
-    <br>
-    <br>
+        .tablecontainer {
+            padding-top: 100px;
+            padding-right: 300px;
+            padding-bottom: 50px;
+            padding-left: 100px;
+        }
 
-    <table style="width:100%" class="table table-striped table-bordered">
-        <tbody><tr>
-            <td>Alamat</td>
-            <td th:text = "${pegawai.pelamar.alamat}"></td>
-        </tr>
-        <tr>
-            <td>Region</td>
-            <td th:text = "${pegawai.pelamar.region}"></td>
-        </tr>
-        <tr>
-            <td>Telepon</td>
-            <td th:text = "${pegawai.pelamar.telepon}"></td>
-        </tr>
-        <tr>
-            <td>No Whatsapp</td>
-            <td th:text = "${pegawai.pelamar.nomor_whatsapp}"></td>
-        </tr>
-        <tr>
-            <td>No Telepon Orang Terdekat</td>
-            <td th:text = "${pegawai.pelamar.telepon_orang_terdekat}"></td>
-        </tr>
-        
-    </tbody></table>
+        table {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+            table-layout: fixed;
+            width: 100%;
+        }
 
-    <br>
-    <br>
+        table caption {
+            font-size: 1.5em;
+            margin: .5em 0 .75em;
+        }
 
-    <h5>No.Identitas</h5>
-    <table style="width:100%" class="table table-striped table-bordered">
-        <tbody><tr>
-            <td>No.KTP</td>
-            <td th:text = "${pegawai.pelamar.no_ktp}"></td>
-        </tr>
-        <tr>
-            <td>No.NPWP</td>
-            <td th:text = "${pegawai.npwp}"></td>
-        </tr>
-        <tr>
-            <td>No.BPJS Tenagakerja</td>
-            <td th:text = "${pegawai.bpjstk}"></td>
-        </tr>
-        <tr>
-            <td>No.BPJS Kesehatan</td>
-            <td th:text = "${pegawai.bpjsk}"></td>
-        </tr>
-    </tbody></table>
-        <tb>
-        <tb>
+        table tr {
+            border: 1px solid #ddd;
+            padding: .35em;
+        }
 
-        <h5>Informasi Rekening</h5>
-        <table style="width:100%" class="table table-striped table-bordered">
-            <tbody><tr>
-                <td>Nama Bank</td>
-                <td th:text = "${pegawai.nama_bank}"></td>
-            </tr>
-            <tr>
-                <td>No.Rekening</td>
-                <td th:text = "${no_rekening}"></td>
-            </tr>
-        </tbody>
-        </table>
+        table tr:nth-child(even) {
+            background: #f8f8f8;
+        }
 
-        <tb>
-        <tb> 
+        table th,
+        table td {
+            padding: .625em;
+            text-align: left;
+            border: 1px solid rgb(207, 207, 207)
+        }
 
-        <h5>Riwayat Pendidikan</h5>
-        <table style="width:100%" class="table table-striped table-bordered">
-            <tbody><tr>
-                <td>Pendidikan Terakhir</td>
-                <td th:text = "${pegawai.pelamar.pendidikan_terakhir}"></td>
-            </tr>
-            <!-- <tr>
-                <td>Nama Sekolah</td>
-                <td th:text = "${pegawai.}"></td>
-            </tr>
-            <tr>
-                <td>Tempat</td>
-                <td>"'${pegawai.nama}'"</td>
-            </tr>
-            <tr>
-                <td>Jurusan</td>
-                <td>"'${pegawai.nama}'"</td>
-            </tr>
-            <tr>
-                <td>Tahun Lulus</td>
-                <td>"'${pegawai.nama}'"</td>
-            </tr> -->
-        </tbody></table>
+        table th {
+            background: rgb(226, 226, 226);
+            color: #fff;
+            font-size: .85em;
+            letter-spacing: .1em;
+            text-transform: uppercase;
 
-        <tb>
-        <tb>
-        <tb>
+        }
 
-      
-        <table style="width:100%" class="table table-striped table-bordered">
-                <tbody><tr>
-                    <td>Proyek</td>
-                    <td th:text="${pegawai.proyek.nama_proyek}"></td>
-                </tr>
-                <tr>
-                    <td>Produk</td>
-                    <td th:text="${pegawai.produk.nama_produk}"></td>
-                </tr>
-                <tr>
-                    <td>Join Date</td>
-                    <td th:text="${pegawai.join_date}"></td>
-                </tr>
-                <tr>
-                    <td>End Date</td>
-                    <td th:text="${pegawai.end_date}"></td>
-                </tr>
-        </tbody></table>
- <script src="./detailPegawaiOutsourcing_files/jquery.min.js"></script>
-<script type="text/javascript" charset="utf8" src="./detailPegawaiOutsourcing_files/jquery.dataTables.js"></script>
-<script>
-    
-    $(document).ready( function () {
-    $('#table').DataTable();
-} );
-</script>
+        .nav-tabs {
+            padding-right: 10%;
+        }
+
+        table td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .history {
+            border-collapse: collapse;
+            width: 100%;
+            color: black;
+        }
+
+        tr.history:hover {
+            background-color: black;
+        }
+    </style>
 
 
 
-</tb></tb></tb></tb></tb></tb></tb></body></html>
+    <Body>
+        <h3>th:text="${pegawai.pelamar.nama_lengkap} + ' - ' + ${pegawai.nip}"</h3>
+        <a href="#"> <span class="glyphicon glyphicon-circle-arrow-left"></span>
+            <!--Belum berfungsi-->
+            <!-- <hr> -->
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                        aria-controls="nav-home" aria-selected="true">Informasi Umum</a>
+                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                        aria-controls="nav-profile" aria-selected="false">Proyek</a>
+                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
+                        aria-controls="nav-contact" aria-selected="false">Track Record</a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <a href="#" onClick="" class="btn btn-info btn-large"
+                        style="float: right; margin-top:10px ; margin-right: 50px;">Ubah 1</a>
+                    <div class="tablecontainer">
+                        <table style="width:100%" id="table" class="table table-striped table-bordered dataTable">
+                            <tbody>
+                                <tr>
+                                    <td style="width:50%" scope="row">No.Arsip</td>
+                                    <td style="width:100%" th:text="${pegawai.no_arsip}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <br>
+                        <table class="table table-striped table-bordered">
+                            <tbody>
+                                <thead>Data Pribadi</thead>
+                                <tr>
+                                    <td style="width:50%" scope="row">Nama Lengkap</td>
+                                    <td style="width:100%" th:text="${pegawai.pelamar.nama_lengkap}"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">Nama Panggilan</td>
+                                    <td style="width:100%" th:text="${pegawai.pelamar.nama_panggilan}"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">Jenis Kelamin</td>
+                                    <td style="width:100%" th:text="${pegawai.pelamar.gender}"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">Tanggal Lahir</td>
+                                    <td style="width:100%" th:text="${pegawai.pelamar.tanggal_lahir}"></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width:50%">Status Marital</td>
+                                    <td style="width:100%" th:text="${pegawai.pelamar.status_marital}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <br>
+                        <br>
+
+                        <table class="table table-striped table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td style="width:50%" scope="row">Alamat</td>
+                                    <td style="width:100%" th:text="${pegawai.pelamar.alamat}"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">Region</td>
+                                    <td style="width:100%" th:text="${pegawai.pelamar.region}"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">Telepon</td>
+                                    <td style="width:100%" th:text="${pegawai.pelamar.telepon}"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">No Whatsapp</td>
+                                    <td style="width:100%" th:text="${pegawai.pelamar.nomor_whatsapp}"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">No Telepon Orang Terdekat</td>
+                                    <td style="width:100%" th:text="${pegawai.pelamar.telepon_orang_terdekat}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <br>
+                        <br>
+
+                        <!-- <h5>No.Identitas</h5> -->
+                        <table class="table table-striped table-bordered">
+                            <tbody>
+                                <thead>No.Identitas</thead>
+                                <tr>
+                                    <td style="width:50%" scope="row">No.KTP</td>
+                                    <td style="width:100%" th:text="${pegawai.pelamar.no_ktp}"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">No.NPWP</td>
+                                    <td style="width:100%" th:text="${pegawai.npwp}"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">No.BPJS Tenagakerja</td>
+                                    <td style="width:100%" th:text="${pegawai.bpjstk}"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">No.BPJS Kesehatan</td>
+                                    <td style="width:100%" th:text="${pegawai.bpjsk}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <br>
+                        <br>
+
+                        <!-- <h5>Informasi Rekening</h5> -->
+                        <table class="table table-striped table-bordered">
+                            <tbody>
+                                <thead>Informasi Rekening</thead>
+                                <tr>
+                                    <td style="width:50%">Nama Bank</td>
+                                    <td style="width:100%" th:text="${pegawai.nama_bank}"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">No.Rekening</td>
+                                    <td style="width:100%" th:text="${no_rekening}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <br>
+                        <br>
+
+                        <!-- <h5>Riwayat Pendidikan</h5> -->
+                        <table class="table table-striped table-bordered">
+                            <tbody>
+                                <thead>Riwayat Pendidikan</thead>
+                                <tr>
+                                    <td style="width:50%" scope="row">Pendidikan Terakhir</td>
+                                    <td style="width:100%" th:text="${pegawai.pelamar.pendidikan_terakhir}"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">Nama Sekolah</td>
+                                    <td style="width:100%" th:text="${pegawai.}"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">Tempat</td>
+                                    <td style="width:100%">"'${pegawai.nama}'"</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">Jurusan</td>
+                                    <td style="width:100%">"'${pegawai.nama}'"</td>
+                                </tr>
+                                <tr>
+                                    <td width: 30%;>Tahun Lulus</td>
+                                    <td>"'${pegawai.nama}'"</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <a href="#" onClick="" class="btn btn-info btn-large"
+                        style="float: right; margin-top:10px ; margin-right: 50px;">Ubah 2</a>
+                    <div class="tablecontainer">
+                        <table class="table table-striped table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td style="width:50%" scope="row">Proyek</td>
+                                    <td style="width:100%" th:text="${pegawai.proyek.nama_proyek}"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">Produk</td>
+                                    <td style="width:100%" th:text="${pegawai.produk.nama_produk}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <br>
+                        <table class="table table-striped table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td style="width:50%">Join Date</td>
+                                    <td style="width:100%" th:text="${pegawai.join_date}"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">End Date</td>
+                                    <td style="width:100%" th:text="${pegawai.end_date}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <br>
+
+                        <div class="card">
+                            <h5 class="card-header">Riwayat Kerja</h5>
+                            <div class="card-body">
+                                <div class="history">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <th>Proyek</th>
+                                                <th>Produk</th>
+                                                <th>Tanggal Mulai Kontrak</th>
+                                                <th>Tanggal Selesai Kontrak</th>
+                                                <th>Feedback</th>
+                                            </tr>
+                                            <tr>
+                                                <td>hihi</td>
+                                                <td>hihi</td>
+                                                <td>hihi</td>
+                                                <td>hihi</td>
+                                                <td>hihi</td>
+                                            </tr>
+                                            <br>
+                                            <br>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">.....</div></div>    
+
+
+
+                <script src="./detailPegawaiOutsourcing_files/jquery.min.js"></script>
+                <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+                    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+                    crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                    crossorigin="anonymous"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                    crossorigin="anonymous"></script>
+                <script type="text/javascript" charset="utf8"
+                    src="./detailPegawaiOutsourcing_files/jquery.dataTables.js"></script>
+                <script>
+
+                    $(document).ready(function () {
+                        $('#table').DataTable();
+                    });
+                </script>
+    </body>
+
+</html>

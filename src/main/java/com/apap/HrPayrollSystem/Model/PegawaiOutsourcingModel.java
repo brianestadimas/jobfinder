@@ -38,6 +38,8 @@ public class PegawaiOutsourcingModel implements Serializable {
 	@JsonIgnore
 	private PelamarModel pelamar_id;
 	
+	//Dia relasi juga sama kelas Feedback (mau di taro di iterasi dua?)
+	
 	@NotNull
 	@Size(max=255)
 	@Column(name="nip",nullable = false, unique= true)

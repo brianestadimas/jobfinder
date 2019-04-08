@@ -3,11 +3,9 @@ package com.apap.HrPayrollSystem.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.apap.HrPayrollSystem.Model.PelamarModel;
+import com.apap.HrPayrollSystem.Model.PengalamanPelamarModel;
 
 @Repository
-public interface PelamarDb extends JpaRepository<PelamarModel,Long>{
-	
-	PelamarModel findById(long id);
+public interface PengalamanPelamarDb extends JpaRepository<PengalamanPelamarModel, Long> {
 
 }

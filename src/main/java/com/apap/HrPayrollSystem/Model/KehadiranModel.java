@@ -80,7 +80,6 @@ public class KehadiranModel implements Serializable{
 	@Column(name="jumlah_off",nullable = false)
 	private int jumlah_off;
 	
-	@NotNull
 	@Column(name="jumlah_lain_lain",nullable = false)
 	private int jumlah_lain_lain;
 	
