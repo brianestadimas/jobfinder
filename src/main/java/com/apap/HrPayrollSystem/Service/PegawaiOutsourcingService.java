@@ -8,9 +8,7 @@ public interface PegawaiOutsourcingService {
 	List<PegawaiOutsourcingModel> getAllPegawai();
 	Optional<PegawaiOutsourcingModel> getPegawaiById(long id);
 	void deletePegawaiById(long id);
-
 	void updatePegawaiStatusById(long id);
-
-	PegawaiOutsourcingModel getPegawaiByNip(String nip);
-
+	void updatePegawaiProyek(long id, PegawaiOutsourcingModel pegawaiLama);
+	void save_all_pegawai_proyek(List<PegawaiOutsourcingModel> listPegawai);
 }
