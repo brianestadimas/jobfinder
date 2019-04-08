@@ -40,7 +40,7 @@ public class PegawaiOutsourcingModel implements Serializable {
 	
 	@NotNull
 	@Size(max=255)
-	@Column(name="nip",nullable = false)
+	@Column(name="nip",nullable = false, unique= true)
 	private String nip;
 	
 	@Size(max=255)
@@ -56,12 +56,10 @@ public class PegawaiOutsourcingModel implements Serializable {
 	private String no_arsip;
 
 	@NotNull
-	@Size(max=255)
 	@Column(name="join_date",nullable = false)
 	private Date join_date;	
 	
 	@NotNull
-	@Size(max=255)
 	@Column(name="end_date",nullable = false)
 	private Date end_date;
 	
@@ -82,7 +80,6 @@ public class PegawaiOutsourcingModel implements Serializable {
 	private String bpjsk;
 	
 	@NotNull
-	@Size(max=255)
 	@Column(name="status",nullable = false)
 	private boolean status;
 	
@@ -104,6 +101,21 @@ public class PegawaiOutsourcingModel implements Serializable {
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
 	private ProyekModel proyek;
+
+
+	//Tambahan dari proyek
+	@Column(name="gaji_pokok",nullable = true)
+	private int gaji_pokok;
+
+	@Column(name="tunjangan_tetap",nullable = true)
+	private int tunjangan_tetap;
+	
+	@Column(name="tunjangan_tidak_tetap",nullable = true)
+	private int tunjangan_tidak_tetap;
+	
+	@Size(max=255)
+	@Column(name="jaminan",nullable = true)
+	private String jaminan;
 
 	
 	//Buat relasi ke kelas model riwayat kerja pegawai
@@ -242,11 +254,37 @@ public class PegawaiOutsourcingModel implements Serializable {
 		this.proyek = proyek;
 	}
 
+	public int getGaji_pokok() {
+		return gaji_pokok;
+	}
 
-	
+	public void setGaji_pokok(int gaji_pokok) {
+		this.gaji_pokok = gaji_pokok;
+	}
 
+	public int getTunjangan_tetap() {
+		return tunjangan_tetap;
+	}
 
-	
-	
+	public void setTunjangan_tetap(int tunjangan_tetap) {
+		this.tunjangan_tetap = tunjangan_tetap;
+	}
+
+	public int getTunjangan_tidak_tetap() {
+		return tunjangan_tidak_tetap;
+	}
+
+	public void setTunjangan_tidak_tetap(int tunjangan_tidak_tetap) {
+		this.tunjangan_tidak_tetap = tunjangan_tidak_tetap;
+	}
+
+	public String getJaminan() {
+		return jaminan;
+	}
+
+	public void setJaminan(String jaminan) {
+		this.jaminan = jaminan;
+	}
+
 }
 

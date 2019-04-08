@@ -49,7 +49,6 @@ public class ProyekServiceImpl implements ProyekService {
 		proyek.setEnd_date_kontrak(proyekBaru.getEnd_date_kontrak());
 		proyek.setJenis_proyek(proyekBaru.getJenis_proyek());
 		proyek.setNPWP_klien(proyekBaru.getNPWP_klien());
-		proyek.setBiaya_keseluruhan(proyekBaru.getBiaya_keseluruhan());
 		proyek.setNilai_kontrak(proyekBaru.getNilai_kontrak());
 	}
 

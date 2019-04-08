@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -61,60 +61,64 @@ thead th{
 <div class="boxContainer2" style="overflow-x:auto;">
 <img src="img/icon_building.png" style="max-width:5%;margin-top: -10px">
 <h2 style="display: inline; margin-left: 10px">Tambah Proyek</h2>
-      <a href="#" class="btn btn-primary btn-large" style="float: right;">Submit</a>
-      <a href="#" onClick="" class="btn btn-info btn-danger" style="float: right; margin-right: 10px;">Batalkan</a>
+<form th:action="@{/proyek-tambah}" th:object="${proyek}" method="POST">
 <hr></hr>
-<form>
     <div class="form-group col-md-12">
         <label for="inputAddress">Jenis Proyek *</label><br>
-        <input type="radio" name="gender" value="umum"> Umum
-        <input type="radio" name="gender" value="unik"> Unik
+        <input type="radio" name="jenis_proyek" value="umum"> Umum
+        <input type="radio" name="jenis_proyek" value="unik"> Unik
     </div>
     <div class="form-group col-md-6">
         <label for="inputAddress">Nama Proyek *</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="PT ABC Jakarta" required>
+        <input type="text" class="form-control" name="nama_proyek" placeholder="PT ABC Jakarta" required>
     </div>
     <div class="form-group col-md-6">
         <label for="inputAddress">Region *</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="Jakarta Utara" required>
+        <input type="text" class="form-control" name="region" placeholder="Jakarta Utara" required>
+    </div>
+    <div class="form-group col-md-6">
+        <label for="inputAddress">Nomor Kontrak *</label>
+        <input type="text" class="form-control" name="nomor_kontrak" placeholder="1560301212-AA" required>
     </div>
     <div class="form-group col-md-12">
         <label for="inputAddress">Deskripsi Proyek</label>
-        <input type="textarea" class="form-control" id="inputAddress" placeholder="Merupakan proyek umum... catatan tambahan dan sebagainya">
+        <input type="text" class="form-control" name="deskripsi_proyek" placeholder="Merupakan proyek umum... catatan tambahan dan sebagainya">
     </div>
     <div class="form-group col-md-6">
         <label for="inputAddress">Nama CP *</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="Bapak Andi" required>
+        <input type="text" class="form-control" name="nama_cp" placeholder="Bapak Andi" required>
     </div>
     <div class="form-group col-md-6">
         <label for="inputAddress">No Telp CP *</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="081234567890" required>
+        <input type="number" class="form-control" name="no_telp_cp" placeholder="081234567890" required>
     </div>
     <div class="col-sm-12"></div> 
     <div class="form-group col-md-3">
       <label for="inputAddress">Start Date *</label>
-      <input type="Date" class="form-control" id="inputAddress" placeholder="1234 Main St" required>
+      <input type="Date" class="form-control" name="start_date_kontrak" placeholder="1234 Main St" required>
     </div>
     <div class="form-row">
       <div class="form-group col-md-3">
         <label for="inputCity">End Date</label>
-        <input type="Date" class="form-control" id="inputCity">
+        <input type="Date" class="form-control" name="end_date_kontrak" id="inputCity" required>
       </div>
       <div class="form-group col-md-6">
         <label for="inputAddress">Nilai Kontrak (Rp)</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="500000000">
+        <input type="number" class="form-control" name="nilai_kontrak" placeholder="500000000">
     </div>
     <div class="form-group col-md-6">
         <label for="inputAddress">NPWP</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="12345678912">
+        <input type="text" class="form-control" name="NPWP_klien" placeholder="12345678912">
     </div>
     <div class="form-row"></div>
     <div class="form-group col-md-6">
         <label for="inputAddress">Nomor Rekening</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="12345678912">
+        <input type="number" class="form-control" name="no_rekening" placeholder="12345678912">
     </div>
     </div>
     <div class="col-sm-12"></div>
+      <button class="btn btn-primary btn-large" style="float: right;" type="submit">Submit</button>
+      <button class="btn btn-info btn-danger" style="float: right; margin-right: 10px;">Batalkan</button>
   </form>
 <p>
 </p></div>
@@ -143,79 +147,5 @@ thead th{
 <footer>
 </footer>
 
-<script>
-$(document).ready(function() {
-    // Setup - add a text input to each footer cell
-
-    var table = $('#example2').DataTable( {
-      "scrollY": "500px",
-      "sScrollX": "100%",
-      "sScrollXInner": "100%",
-      "scrollCollapse": true,
-    "lengthMenu": [[10, 50, 100, -1], [10, 50, 100, "All"]],
-
-    } );
-
-  table.buttons().container()
-    .appendTo( '#example_wrapper .col-sm-12:eq(0)' );
-  } );
-
-    $('#example tfoot th').each( function () {
-        var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-    } );
-    // DataTable
-    var docDefinition = {
-     pageSize: 'A4',
-  };
-
-  $('#myModal').on('shown.bs.modal', function () {
-    $('#myInput').trigger('focus')
-  });
-
-
-function Download(){
-  var x = $('example').children();
-  var fullText = "";
-    $.each(x, function(index, value) {
-       //console.log(value);
-        fullText+=$(this).context.innerText + ",";
-        console.log($(this).context.innerText);
-    });
-    
-    var docDefinition2 = {
-  content: [
-    fullText
-  ]
-    };
-    // this is just a simulation of the open event, replacing it with print produces the same result
-  var docDefinition = { content: [
-    {text:'Liat var docDefinition sama docDefinition2 di javascript Download(), baca dokumentasi',fontSize:20},
-    {text:'Dokumentasi di http://pdfmake.org',fontSize:15},
-    {text:'-dimas',fontSize:15},
-    ] 
-  };
-
-  pdfMake.createPdf(docDefinition).download('gg.pdf');
-};
-    
-$(function(){
-  var table2 = $('#example').DataTable();
- 
-    // Apply the search
-    table2.columns().every( function () {
-        var that = this;
- 
-        $( 'input', this.footer() ).on( 'keyup change', function () {
-            if ( that.search() !== this.value ) {
-                that
-                    .search( this.value )
-                    .draw();
-            }
-        } );
-    } );
-} );
-
-</script>
 
 </html>

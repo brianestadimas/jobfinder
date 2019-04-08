@@ -59,10 +59,10 @@ thead th{
 <body>
 <div class="blankspace">
 	<div class="boxContainer2">
-        <img src="img/icon_building.png" style="max-width:5%; margin-top: -10px; margin-left: -10px">
-        <h2 style="display: inline; margin-left: 10px" th:text="${proyek.nama_proyek}"></h2>
+		<img src="img/icon_building.png" style="max-width:5%; margin-top: -10px; margin-left: -10px">
+        <h2 style="display: inline; margin-left: 10px">PT XYZ Jakarta Utara</h2>
         <p><button href="#" class="btn btn-warning btn-large" style="float: right; margin-right: 5px; margin-bottom: 10px;">Ubah Detail<br></button>
-        <p th:text="${proyek.deskripsi_proyek}"></p>
+        <p>Proyek berlokasi di Jalan Delima Raya gedung Mandiri Jaya</p>
 
         <hr>
         
@@ -133,7 +133,6 @@ thead th{
                 </table>
             </div>
     <p><button class="btn btn-primary btn-large" style="float: left; margin-right: 5px; margin-bottom: 10px;"><i class="fa fa-bar-chart"></i> Performa <br> Absensi</button><p>
-    <p><button class="btn btn-success btn-large" style="float: left; margin-right: 5px; margin-bottom: 10px;"><i class="fa fa-balance-scale"></i> Kelola <br> Gaji</button><p>
     </div>
     </div>
 </div>
@@ -156,14 +155,11 @@ thead th{
                 <th>Gaji Pokok</th>
                 <th>Tunjangan Tetap</th>
                 <th>Tunjangan Tidak Tetap</th>
-                <th>BPJSTK</th>
-                <th>BPJSK</th>
                 <th>Jaminan</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="pegawaiProyek : ${listPegawai}">
-            <span th:if="${pegawaiProyek.gaji_pokok != null && pegawaiProyek.tunjangan_tetap != null && pegawaiProyek.tunjangan_tidak_tetap != null && pegawaiProyek.bpjstk != null && pegawaiProyek.bpjsk != null}">
+            <tr th:if="${pegawai.gaji_pokok != null && pegawai.tunjangan_tetap != null && pegawai.tunjangan_tidak_tetap != null && pegawai.bpjstk != null && pegawai.bpjsk != null}">
                 <td th:text="${pegawaiProyek.nip}"></td>
                 <td th:text="${pegawaiProyek.pelamar_id.nama_lengkap}"></td>
                 <td th:text="${pegawaiProyek.join_date}"></td>
@@ -171,10 +167,9 @@ thead th{
                 <td th:text="${pegawaiProyek.gaji_pokok}"></td>
                 <td th:text="${pegawaiProyek.tunjangan_tetap}"></td>
                 <td th:text="${pegawaiProyek.tunjangan_tidak_tetap}"></td>
-                <td th:text="${pegawaiProyek.bpjstk}"></td>
-                <td th:text="${pegawaiProyek.bpjsk}"></td>
                 <td th:text="${pegawaiProyek.jaminan}"></td>
-            <span th:unless="${pegawaiProyek.gaji_pokok != null && pegawaiProyek.tunjangan_tetap != null && pegawaiProyek.tunjangan_tidak_tetap != null && pegawaiProyek.bpjstk != null && pegawaiProyek.bpjsk != null}">
+            </tr>
+            <tr th:if="${pegawai.gaji_pokok != null && pegawai.tunjangan_tetap != null && pegawai.tunjangan_tidak_tetap != null && pegawai.bpjstk != null && pegawai.bpjsk != null}">
                 <td style="background-color: yellow" th:text="${pegawaiProyek.nip}"></td>
                 <td style="background-color: yellow" th:text="${pegawaiProyek.pelamar_id.nama_lengkap}"></td>
                 <td style="background-color: yellow" th:text="${pegawaiProyek.join_date}"></td>
@@ -182,8 +177,6 @@ thead th{
                 <td style="background-color: yellow" th:text="${pegawaiProyek.gaji_pokok}"></td>
                 <td style="background-color: yellow" th:text="${pegawaiProyek.tunjangan_tetap}"></td>
                 <td style="background-color: yellow" th:text="${pegawaiProyek.tunjangan_tidak_tetap}"></td>
-                <td style="background-color: yellow" th:text="${pegawaiProyek.bpjstk}"></td>
-                <td style="background-color: yellow" th:text="${pegawaiProyek.bpjsk}"></td>
                 <td style="background-color: yellow" th:text="${pegawaiProyek.jaminan}"></td>
             </tr>
         <tfoot>
@@ -236,6 +229,7 @@ $(document).ready(function() {
     	"sScrollX": "100%",
     	"sScrollXInner": "100%",
 	  	"scrollCollapse": true,
+		"lengthMenu": [[10, 50, 100, -1], [10, 50, 100, "All"]],
 		buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print',
         ],
