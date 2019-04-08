@@ -7,33 +7,36 @@ import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.ProyekModel;
 
 public class AssignmentWrapper {
-	private List<PegawaiOutsourcingModel> listOfPegawai;
-	private List<ProyekModel> listOfProyek;
+	private List<PegawaiOutsourcingModel> daftar_pegawai;
+	private List<ProyekModel> daftar_proyek;
 	
 	public AssignmentWrapper() {
 		super();
-		this.listOfPegawai = new ArrayList<PegawaiOutsourcingModel>();
-		this.listOfProyek = new ArrayList<ProyekModel>();
+		this.daftar_pegawai = new ArrayList<PegawaiOutsourcingModel>();
+		this.daftar_proyek = new ArrayList<ProyekModel>();
 	}
 
-	public void add_pegawai(PegawaiOutsourcingModel pegawai) {
-		this.listOfPegawai.add(pegawai);
+	public void add_pegawai(PegawaiOutsourcingModel daftar_pegawai) {
+		this.daftar_pegawai.add(daftar_pegawai);
 	}
 
-	public List<PegawaiOutsourcingModel> getListOfPegawai() {
-		return listOfPegawai;
+	public List<PegawaiOutsourcingModel> getDaftar_pegawai() {
+		return daftar_pegawai;
 	}
 
-	public void setListOfPegawai(List<PegawaiOutsourcingModel> listOfPegawai) {
-		this.listOfPegawai = listOfPegawai;
+	public void setDaftar_pegawai(List<PegawaiOutsourcingModel> daftar_pegawai) {
+		this.daftar_pegawai = daftar_pegawai;
 	}
 
-	public List<ProyekModel> getListOfProyek() {
-		return listOfProyek;
+	public List<ProyekModel> getDaftar_proyek() {
+		return daftar_proyek;
 	}
 
-	public void setListOfProyek(List<ProyekModel> listOfProyek) {
-		this.listOfProyek = listOfProyek;
+	public void setDaftar_proyek(List<ProyekModel> daftar_proyek) {
+		this.daftar_proyek = daftar_proyek;
 	}
+
+
+	
 	
 }

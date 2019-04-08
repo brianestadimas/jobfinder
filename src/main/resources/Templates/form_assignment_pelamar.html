@@ -62,7 +62,7 @@ thead th{
 <div class="boxContainer" style="overflow-x:auto;">
 <img src="img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
 <h2 style="display: inline; margin-left: 10px">Assign Pegawai</h2>
-<form th:action="'/pegawai/assign'" method="post" th:object="${daftar_pegawai}">
+<form th:action="'/pegawai/assign'" method="post" th:object="${wrapper}">
 
     <div class="form-row">
       <div class="form-group col-md-4">
@@ -76,13 +76,13 @@ thead th{
     <div class="col-sm-12"></div> 
     <div class="form-group col-md-3">
       <label for="inputJoinDate">Join Date</label>
-      <input type="Date" class="form-control getdate" th:field="*{daftar_pegawai[__${itemStat.index}__].join_date}" th:value="${#dates.format(bookingEntry.datefrom, 'dd-mm-yyyy')}" name="join_date"/>
+      <input type="Date" class="form-control getdate" th:field="*{wrapper[__${itemStat.index}__].join_date}" th:value="${#dates.format(bookingEntry.datefrom, 'dd-mm-yyyy')}" name="join_date"/>
     </div>
     <div class="col-sm-12"></div>
     <div class="form-row">
       <div class="form-group col-md-3">
         <label for="inputEndDate">End Date</label>
-      <input type="Date" class="form-control getdate" th:field="*{daftar_pegawai[__${itemStat.index}__].end_date}" th:value="${#dates.format(bookingEntry.datefrom, 'dd-mm-yyyy')}" name="end_date"/>
+      <input type="Date" class="form-control getdate" th:field="*{wrapper[__${itemStat.index}__].end_date}" th:value="${#dates.format(bookingEntry.datefrom, 'dd-mm-yyyy')}" name="end_date"/>
       </div>
     </div>
     <div class="col-sm-12"></div>
@@ -103,24 +103,24 @@ thead th{
             </tr>
         </thead>
         <tbody>
-            <tr th:each="daftar_pegawai, itemStat : *{daftar_pegawai}">
+            <tr th:each="wrapper, itemStat : *{wrapper}">
                 <td th:text="${nama_pelamar[itemStat.index]"></td>
-                <td><input class="form-control" type="text" th:value="${daftar_produk.nama_produk}" th:field="*{daftar_pegawai[__${itemStat.index}__].produk}" name="produk"/></td>
-                <td><input type="text" th:field="*{daftar_pegawai[__${itemStat.index}__].jabatan}" name="jabatan"></td>
-                <td><input type="text" th:field="*{daftar_pegawai[__${itemStat.index}__].nip}" name="nip"></td>
-                <td><input type="text" th:field="*{daftar_pegawai[__${itemStat.index}__].npwp}" name="npwp"></td>
-                <td><input type="text" th:field="*{daftar_pegawai[__${itemStat.index}__].pkwt}" name="pkwt"></td>
-                <td><input type="text" th:field="*{daftar_pegawai[__${itemStat.index}__].bpjsk}" name="bpjsk"></td>
-                <td><input type="text" th:field="*{daftar_pegawai[__${itemStat.index}__].bpjstk}" name="bpjstk"></td>
+                <td><input class="form-control" type="text" th:value="${daftar_produk.nama_produk}" th:field="*{wrapper[__${itemStat.index}__].produk}" name="produk"/></td>
+                <td><input type="text" th:field="*{wrapper[__${itemStat.index}__].jabatan}" name="jabatan"></td>
+                <td><input type="text" th:field="*{wrapper[__${itemStat.index}__].nip}" name="nip"></td>
+                <td><input type="text" th:field="*{wrapper[__${itemStat.index}__].npwp}" name="npwp"></td>
+                <td><input type="text" th:field="*{wrapper[__${itemStat.index}__].pkwt}" name="pkwt"></td>
+                <td><input type="text" th:field="*{wrapper[__${itemStat.index}__].bpjsk}" name="bpjsk"></td>
+                <td><input type="text" th:field="*{wrapper[__${itemStat.index}__].bpjstk}" name="bpjstk"></td>
 				
-				<td><input type="hidden" th:field="*{daftar_pegawai[__${itemStat.index}__].id_pelamar}"></td>
-				<td><input class="form-control" type="hidden" th:value="${daftar_produk.nama_produk}" th:field="*{daftar_pegawai[__${itemStat.index}__].produk}" name="produk"/></td>
-                <td><input type="hidden" th:field="*{daftar_pegawai[__${itemStat.index}__].jabatan}" name="jabatan"></td>
-                <td><input type="hidden" th:field="*{daftar_pegawai[__${itemStat.index}__].nip}" name="nip"></td>
-                <td><input type="hidden" th:field="*{daftar_pegawai[__${itemStat.index}__].npwp}" name="npwp"></td>
-                <td><input type="hidden" th:field="*{daftar_pegawai[__${itemStat.index}__].pkwt}" name="pkwt"></td>
-                <td><input type="hidden" th:field="*{daftar_pegawai[__${itemStat.index}__].bpjsk}" name="bpjsk"></td>
-                <td><input type="hidden" th:field="*{daftar_pegawai[__${itemStat.index}__].bpjstk}" name="bpjstk"></td>
+				<td><input type="hidden" th:field="*{wrapper[__${itemStat.index}__].id_pelamar}"></td>
+				<td><input class="form-control" type="hidden" th:value="${daftar_produk.nama_produk}" th:field="*{wrapper[__${itemStat.index}__].produk}" name="produk"/></td>
+                <td><input type="hidden" th:field="*{wrapper[__${itemStat.index}__].jabatan}" name="jabatan"></td>
+                <td><input type="hidden" th:field="*{wrapper[__${itemStat.index}__].nip}" name="nip"></td>
+                <td><input type="hidden" th:field="*{wrapper[__${itemStat.index}__].npwp}" name="npwp"></td>
+                <td><input type="hidden" th:field="*{wrapper[__${itemStat.index}__].pkwt}" name="pkwt"></td>
+                <td><input type="hidden" th:field="*{wrapper[__${itemStat.index}__].bpjsk}" name="bpjsk"></td>
+                <td><input type="hidden" th:field="*{wrapper[__${itemStat.index}__].bpjstk}" name="bpjstk"></td>
             </tr>
          </tbody>
       </table>
