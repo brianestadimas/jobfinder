@@ -169,6 +169,14 @@ public class ProyekModel implements Serializable{
 		this.jenis_proyek = jenis_proyek;
 	}
 	
+	public String getDeskripsi_proyek() {
+		return deskripsi_proyek;
+	}
+
+	public void setDeskripsi_proyek(String deskripsi_proyek) {
+		this.deskripsi_proyek = deskripsi_proyek;
+	}
+
 	public String getNPWP_klien() {
 		return NPWP_klien;
 	}
