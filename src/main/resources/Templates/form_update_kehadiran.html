@@ -16,12 +16,14 @@
 		<link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-        <form action="#" th:action="'/proyek/'+${proyek_id}+'/kehadiran/tambah/submit'" method="post" th:object="${daftar_kehadiran}">
-                <h1 style="font-size:300%">Form Penambahan Absensi</h1>
+        <form action="#" th:action="'/proyek/'+${proyek_id}+'/kehadiran/update/submit'" method="post" th:object="${daftar_kehadiran}">
+                <h1 style="font-size:300%">Form Ubah Absensi</h1>
                 <hr>
-                <h3>Judul Absensi</h3><input type="text" name="judul_absensi">
+                <h3>Judul Absensi</h3>
+                <input type="text" th:value="${judul_kehadiran}" name="judul_absensi" >
                 
-                <h3>Hari Kerja</h3><input type="number" name="jumlah_hari_kerja">
+                <h3>Hari Kerja</h3>
+                <input type="number" th:value="${jumlah_hari_kerja}" name="jumlah_hari_kerja" >
         
                 <h2>Daftar Pegawai</h2>
         
@@ -52,6 +54,7 @@
                                         <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_cuti}" name="jumlah_cuti"></td>
                                         <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_lain_lain}" name="jumlah_lain_lain"></td>
                                 		<td><input type="hidden" th:field="*{daftar_kehadiran[__${itemStat.index}__].pegawai_outsourcing}"></td>
+                                		<td><input type="hidden" th:field="*{daftar_kehadiran[__${itemStat.index}__].id}"></td>
                                 </tr>
                                 
         
