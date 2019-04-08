@@ -112,7 +112,7 @@ public class PelamarModel implements Serializable{
 	@Size(max=255)
 	@Column(name="telepon_rumah",nullable = true)
 	private String telepon_rumah;
-	
+
 	@NotNull
 	@Size(max=255)
 	@Column(name="apply_date",nullable = false)

@@ -38,8 +38,6 @@ public class PegawaiOutsourcingModel implements Serializable {
 	@JsonIgnore
 	private PelamarModel pelamar_id;
 	
-	//Dia relasi juga sama kelas Feedback (mau di taro di iterasi dua?)
-	
 	@NotNull
 	@Size(max=255)
 	@Column(name="nip",nullable = false)
@@ -103,6 +101,21 @@ public class PegawaiOutsourcingModel implements Serializable {
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
 	private ProyekModel proyek;
+
+
+	//Tambahan dari proyek
+	@Column(name="gaji_pokok",nullable = true)
+	private int gaji_pokok;
+
+	@Column(name="tunjangan_tetap",nullable = true)
+	private int tunjangan_tetap;
+	
+	@Column(name="tunjangan_tidak_tetap",nullable = true)
+	private int tunjangan_tidak_tetap;
+	
+	@Size(max=255)
+	@Column(name="jaminan",nullable = true)
+	private String jaminan;
 
 	
 	//Buat relasi ke kelas model riwayat kerja pegawai
@@ -241,11 +254,36 @@ public class PegawaiOutsourcingModel implements Serializable {
 		this.proyek = proyek;
 	}
 
+	public int getGaji_pokok() {
+		return gaji_pokok;
+	}
 
-	
+	public void setGaji_pokok(int gaji_pokok) {
+		this.gaji_pokok = gaji_pokok;
+	}
 
+	public int getTunjangan_tetap() {
+		return tunjangan_tetap;
+	}
 
-	
-	
+	public void setTunjangan_tetap(int tunjangan_tetap) {
+		this.tunjangan_tetap = tunjangan_tetap;
+	}
+
+	public int getTunjangan_tidak_tetap() {
+		return tunjangan_tidak_tetap;
+	}
+
+	public void setTunjangan_tidak_tetap(int tunjangan_tidak_tetap) {
+		this.tunjangan_tidak_tetap = tunjangan_tidak_tetap;
+	}
+
+	public String getJaminan() {
+		return jaminan;
+	}
+
+	public void setJaminan(String jaminan) {
+		this.jaminan = jaminan;
+	}
+
 }
-

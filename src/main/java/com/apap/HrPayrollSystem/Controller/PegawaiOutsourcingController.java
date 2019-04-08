@@ -5,13 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
+import com.apap.HrPayrollSystem.Model.ProdukModel;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
+import com.apap.HrPayrollSystem.Service.ProdukService;
 import com.apap.HrPayrollSystem.Service.ProyekService;
 import com.apap.HrPayrollSystem.Service.RiwayatKerjaPegawaiService;
 
@@ -21,6 +25,8 @@ public class PegawaiOutsourcingController {
 	private ProyekService proyekService;
 	@Autowired
 	private PegawaiOutsourcingService pegawaiService;
+	@Autowired
+	private ProdukService produkService;
 //	@Autowired
 //	private RiwayatKerjaPegawaiService riwayatService;
 	
@@ -43,13 +49,25 @@ public class PegawaiOutsourcingController {
 	/*
 	 * Ubah Pegawai 
 	 */
-	@RequestMapping(value="/pegawai/ubah" , method = RequestMethod.GET)
-	private String ubahPegawai(@PathVariable Long id, Model model) {
-		PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(id).get();
+	@RequestMapping(value="/pegawai/ubah/{id}" , method = RequestMethod.GET)
+	private String ubahPegawai(@PathVariable(value = "id") long id, Model model) {
+		PegawaiOutsourcingModel pegawaiLama = pegawaiService.getPegawaiById(id).get();
+		List<ProdukModel> produkList = produkService.getAllProduk();
 		
-		return "";
+		
+		model.addAttribute("pegawai", pegawaiLama);
+		model.addAttribute("produk", produkList);
+		
+		return "UbahPegawai";
 	
 	}
+	
+	@RequestMapping(value="/pegawai/ubah/{id}", method = RequestMethod.POST)
+    public String submitUbahPegawai(@PathVariable(value="id") long id, PegawaiOutsourcingModel pegawaiBaru, Model model) {	
+		pegawaiService.updatePegawai(id,pegawaiBaru);
+		return "DetailPegawai";
+    }
+	
 	
 	@RequestMapping(value = "/pegawai-hapus", method = RequestMethod.POST)
 	private String deletePegawai(@RequestParam("id") Long[] ids, Model model) {
@@ -65,26 +83,38 @@ public class PegawaiOutsourcingController {
 		
 	}
 	
-//	@RequestMapping(value = "/pegawai-berhenti-assign", method = RequestMethod.POST)
-//	private String berhentiPegawai(@RequestParam("id") Long[] ids, Model model) {
-//		
-//		try {
-//			System.out.println("MASUKKKKKK");
-//			for(Long id : ids) {
-//				System.out.println(id);
-//				pegawaiService.updatePegawaiStatusById(id);
+	@RequestMapping(value = "/pegawai-berhenti-assign", method = RequestMethod.POST)
+	private String berhentiPegawai(@RequestParam("id") Long[] ids, Model model) {
+
+		try {
+		System.out.println("MASUKKKKKK");
+			for(Long id : ids) {
+				System.out.println(id);
+				pegawaiService.updatePegawaiStatusById(id);
 //				riwayatService.addRiwayat(id);
-//			}
-//			return "ListPegawai";
-//		} catch(Exception e) {
-//			System.out.println(e.getMessage());
-//			return null;
-//		}
-//		
-//	}
-	
-	
-	
+			}
+			return "ListPegawai";
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+		
+	}	
+
+	@ModelAttribute("radio_gender")
+	public String[] getRadioGenderValues() {
+		return new String[] { "Laki-Laki", "Perempuan" };
+	}
+
+	@ModelAttribute("checkbox_produk")
+	public String[] getProdukValues() {
+		return new String[] { "Security", "Housekeeping", "Driver/Kurir", "Pekerja blabla" };
+	}
+
+	@ModelAttribute("radio_statusNikah")
+	public String[] getStatusNikahValues() {
+		return new String[] { "Belum Menikah", "Sudah Menikah" };
+	}
 	
 	
 }
