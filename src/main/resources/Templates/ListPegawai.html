@@ -84,7 +84,9 @@ thead th{
         <tbody>
             <tr th:each="pegawai : ${listPegawai}" th:id="'row' + ${pegawai.id}">
                 <td><input type="checkbox" class="checkbox" name="id" th:value="${pegawai.id}"></td> 
-				<td th:text="${pegawai.nip}"></td> 
+				<td>
+				<a th:href="@{'/pegawai-detail/' + ${pegawai.id}}" th:text="${pegawai.pelamar_id.nama_lengkap}"></a>
+				</td> 
                 <td th:text="${pegawai.pelamar_id.region}"></td>
                 
                 <td th:if="${pegawai.status}" th:text="${pegawai.produk.nama_produk}"></td>

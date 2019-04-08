@@ -49,22 +49,15 @@ public class ProyekModel implements Serializable{
 	@Column(name="no_telp_cp",nullable = true)
 	private String no_telp_cp;
 	
-	/*
-	@Size(max=255)
-	@Column(name="nama_bank",nullable = true)
-	private String nama_bank;
-	 */
 	@Size(max=255)
 	@Column(name="no_rekening",nullable = true)
 	private String no_rekening;
 	
 	@NotNull
-	@Size(max=255)
 	@Column(name="start_date_kontrak",nullable = false)
 	private Date start_date_kontrak;
 	
 	@NotNull
-	@Size(max=255)
 	@Column(name="end_date_kontrak",nullable = false)
 	private Date end_date_kontrak;
 	
@@ -73,16 +66,10 @@ public class ProyekModel implements Serializable{
 	@Column(name="jenis_proyek",nullable = false)
 	private String jenis_proyek;
 	
-	//Biaya keseluruhan sudah sama dengan nilai kontrak 
-	@Size(max=255)
-	@Column(name="biaya_keseluruhan",nullable = true)
-	private long biaya_keseluruhan;
-	
 	@Size(max=255)
 	@Column(name="NPWP_klien",nullable = true)
 	private String NPWP_klien;
 	
-	@Size(max=255)
 	@Column(name="nilai_kontrak",nullable = true)
 	private long nilai_kontrak;
 
@@ -178,16 +165,16 @@ public class ProyekModel implements Serializable{
 		return jenis_proyek;
 	}
 
-	public void setJenis_proyek(String jenis_proyek) {
+	public void setJenis_proyek(String	 jenis_proyek) {
 		this.jenis_proyek = jenis_proyek;
 	}
-
-	public long getBiaya_keseluruhan() {
-		return biaya_keseluruhan;
+	
+	public String getDeskripsi_proyek() {
+		return deskripsi_proyek;
 	}
 
-	public void setBiaya_keseluruhan(long biaya_keseluruhan) {
-		this.biaya_keseluruhan = biaya_keseluruhan;
+	public void setDeskripsi_proyek(String deskripsi_proyek) {
+		this.deskripsi_proyek = deskripsi_proyek;
 	}
 
 	public String getNPWP_klien() {

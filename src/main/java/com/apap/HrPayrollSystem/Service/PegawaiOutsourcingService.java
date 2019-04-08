@@ -11,6 +11,10 @@ public interface PegawaiOutsourcingService {
 
 	void updatePegawaiStatusById(long id);
 
+
 	PegawaiOutsourcingModel getPegawaiByNip(String nip);
+
+
+	void updatePegawai(long id, PegawaiOutsourcingModel pegawai);
 
 }
