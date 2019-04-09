@@ -86,4 +86,25 @@ public class PegawaiOutsourcingServiceImpl implements PegawaiOutsourcingService 
 		pegawai.setProyek(pegawaiBaru.getProyek());
 	}
 
+
+	@Override
+	public void addPegawai(PegawaiOutsourcingModel pegawai) {
+		// TODO Auto-generated method stub
+		pegawaiOutsourcingDb.save(pegawai);
+	}
+
+
+	@Override
+	public void updatePegawai(PegawaiOutsourcingModel pegawai) {
+		// TODO Auto-generated method stub
+		pegawaiOutsourcingDb.save(pegawai);
+	}
+
+
+	@Override
+	public void assignAll(List<PegawaiOutsourcingModel> list_pegawai) {
+		// TODO Auto-generated method stub
+		pegawaiOutsourcingDb.saveAll(list_pegawai);
+	}
+
 }

@@ -9,6 +9,7 @@ public interface PegawaiOutsourcingService {
 	Optional<PegawaiOutsourcingModel> getPegawaiById(long id);
 	void deletePegawaiById(long id);
 	void updatePegawaiStatusById(long id);
-	void updatePegawaiProyek(long id, PegawaiOutsourcingModel pegawaiLama);
-	void save_all_pegawai_proyek(List<PegawaiOutsourcingModel> listPegawai);
+	void addPegawai(PegawaiOutsourcingModel pegawai);
+	void updatePegawai(PegawaiOutsourcingModel pegawai);
+	void assignAll(List<PegawaiOutsourcingModel> list_pegawai);
 }

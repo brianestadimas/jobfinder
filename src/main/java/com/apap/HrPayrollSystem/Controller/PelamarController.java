@@ -1,5 +1,12 @@
 package com.apap.HrPayrollSystem.Controller;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +17,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.PelamarModel;
 import com.apap.HrPayrollSystem.Model.PengalamanPelamarModel;
+import com.apap.HrPayrollSystem.Model.ProdukModel;
+import com.apap.HrPayrollSystem.Model.ProyekModel;
+import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
 import com.apap.HrPayrollSystem.Service.PelamarService;
 import com.apap.HrPayrollSystem.Service.PengalamanPelamarService;
+import com.apap.HrPayrollSystem.Service.ProdukService;
+import com.apap.HrPayrollSystem.Service.ProyekService;
+import com.apap.HrPayrollSystem.Utility.AssignmentWrapper;
 
 /**
  * Controller kelas Pelamar
@@ -30,6 +44,8 @@ public class PelamarController {
 	@Autowired
 	PengalamanPelamarService pengalamanService;
 
+	@Autowired
+	private PegawaiOutsourcingService pegawaiService;
 	/**
 	 * Fitur pendaftaran pelamar : GET request
 	 * 
@@ -87,8 +103,15 @@ public class PelamarController {
 	 * @return Halaman HTML data pelamar
 	 */
 	@RequestMapping(value = "pelamar/daftar", params = { "submitPelamar" }, method = RequestMethod.POST)
-	private String daftarPelamarPost(@ModelAttribute PelamarModel pelamar, @ModelAttribute FormCommand command,
-			Model model) {
+	private String daftarPelamarPost(@ModelAttribute PelamarModel pelamar, FormCommand command, Model model) {
+		pelamar.setGender(command.getGenderSelectedValue());
+		pelamar.setStatus_marital(command.getStatusNikahSelectedValue());
+		String[] produk_dilamar = command.getProdukSelectedValues();
+		String produk_produk_dilamar = "";
+		for(int i = 0 ; i < produk_dilamar.length ; i++) {
+			produk_produk_dilamar += produk_dilamar[i];
+		}
+		pelamar.setProduk_dilamar(produk_produk_dilamar);
 		pelamarService.addPelamar(pelamar);
 		for (PengalamanPelamarModel pp : command.getPengalamanList()) {
 			pengalamanService.addPengalaman(pp);
@@ -160,5 +183,66 @@ public class PelamarController {
 	public String[] getStatusNikahValues() {
 		return new String[] { "Belum Menikah", "Sudah Menikah" };
 	}
-
+	
+	
+	@Autowired
+	ProdukService produkService;
+	
+	@Autowired
+	ProyekService proyekService;
+	
+	//Assign Pelamar Get
+	@RequestMapping(value = "/pelamar/assign", method = RequestMethod.GET)
+	private String assignPelamar(long[] ids, Model model) {
+		
+		AssignmentWrapper wrapper = new AssignmentWrapper();
+		List<ProdukModel> daftar_produk = produkService.getAllProduk();
+		List<ProyekModel> daftar_proyek = proyekService.getAllProyek();
+		
+		wrapper.setDaftar_proyek(daftar_proyek);
+		
+		List<String> nama_pelamar = new ArrayList<String>();
+		
+		ids = new long[2];
+		ids[0] = (long) 3;
+		ids[1] = (long) 4;
+		
+		for(int i=0; i<ids.length; i++) {
+			PelamarModel pelamar = pelamarService.getPelamarById(ids[i]);
+			PegawaiOutsourcingModel pegawai = new PegawaiOutsourcingModel();
+			pegawai.setPelamar_id(pelamar);
+			
+			wrapper.add_pegawai(pegawai);
+			nama_pelamar.add(pelamar.getNama_lengkap());
+			System.out.println(wrapper.getDaftar_pegawai().get(i).getPelamar_id().getNama_lengkap());
+		}
+		
+		model.addAttribute("wrapper", wrapper);
+		model.addAttribute("daftar_produk", daftar_produk);
+		model.addAttribute("daftar_proyek", daftar_proyek);
+		model.addAttribute("nama_pelamar", nama_pelamar);
+		return "form_assignment_pelamar";
+	}
+	
+	//Assign Pegawai Post
+	@RequestMapping(value="/pelamar/assign/submit", method=RequestMethod.POST)
+	private String assignPelamarSubmit(@ModelAttribute AssignmentWrapper daftar_pegawai, HttpServletRequest req, Model model) throws ParseException {
+		String stringProyek = req.getParameter("proyek");
+		Optional<ProyekModel> proyek = proyekService.getProyekById(Long.parseLong(stringProyek));
+		Date join_date = Date.valueOf(req.getParameter("join_date"));
+		Date end_date = Date.valueOf(req.getParameter("end_date"));
+		
+		for(int i=0; i<daftar_pegawai.getDaftar_pegawai().size(); i++) {
+			daftar_pegawai.getDaftar_pegawai().get(i).setProyek(proyek.get());
+			daftar_pegawai.getDaftar_pegawai().get(i).setJoin_date(join_date);;
+			daftar_pegawai.getDaftar_pegawai().get(i).setEnd_date(end_date);
+		}
+		
+		pegawaiService.assignAll(daftar_pegawai.getDaftar_pegawai());
+		
+		List<PegawaiOutsourcingModel> list = pegawaiService.getAllPegawai();
+		model.addAttribute("listPegawai", list);
+		
+		return "ListPegawai";
+	}
 }
