@@ -1,6 +1,10 @@
 package com.apap.HrPayrollSystem.Controller;
 
-import java.sql.Date;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.ProdukModel;
 import com.apap.HrPayrollSystem.Model.ProyekModel;
+import com.apap.HrPayrollSystem.Model.RiwayatKerjaPegawaiModel;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
 import com.apap.HrPayrollSystem.Service.ProdukService;
 import com.apap.HrPayrollSystem.Service.ProyekService;
@@ -35,21 +40,37 @@ public class PegawaiOutsourcingController {
 	@Autowired
 	private ProdukService produkService;
 	@Autowired
-	RiwayatKerjaPegawaiService riwayatService;
+	private RiwayatKerjaPegawaiService riwayatService;
+
 	
 	@RequestMapping("/pegawai")
 	private String pegawai(Model model) {
 		List<PegawaiOutsourcingModel> list = pegawaiService.getAllPegawai();
 		model.addAttribute("listPegawai", list);
 		
+		
 		return "ListPegawai";
 	}
 	
 	@RequestMapping(value = "/pegawai-detail/{id}", method = RequestMethod.GET)
 	private String detailPegawain(@PathVariable long id, Model model) {
-		PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(id).get();
-		//riwayatService.getAllRiwayat(nip)
+		PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(id);
+		
+		
+//		List<RiwayatKerjaPegawaiModel> rKerja= riwayatService.getAllRiwayat();
+//		List<RiwayatKerjaPegawaiModel>	rTemp = new ArrayList<RiwayatKerjaPegawaiModel>();
+//	
+//		for( RiwayatKerjaPegawaiModel riwayat : rKerja) {
+//			if (riwayat.getPegawai_outsourcing_id().equals(pegawai)){
+//				rTemp.add(riwayat);
+//			}
+//		}
+	
+	
+		
+		//riwayatService.getAllRiwayat(nip);
 		model.addAttribute("pegawai", pegawai);
+//		model.addAttribute("riwayatPegawai", rTemp);
 		return "DetailPegawai";
 	}
 	
@@ -58,20 +79,31 @@ public class PegawaiOutsourcingController {
 	 */
 	@RequestMapping(value="/pegawai/ubah/{id}" , method = RequestMethod.GET)
 	private String ubahPegawai(@PathVariable(value = "id") long id, Model model) {
-		PegawaiOutsourcingModel pegawaiLama = pegawaiService.getPegawaiById(id).get();
+		PegawaiOutsourcingModel pegawaiLama = pegawaiService.getPegawaiById(id);
 		List<ProdukModel> produkList = produkService.getAllProduk();
-		
+		List<ProdukModel> produkList2 = produkList.subList(1, produkList.size());
+		//List<ProdukModel> produkAvail = produkList.get(1);
+		//List<PelamarModel> pelamarList = pelamarService
 		
 		model.addAttribute("pegawai", pegawaiLama);
-		model.addAttribute("produk", produkList);
+		model.addAttribute("produk", produkList2);
+	
+		
+		
+		
 		
 		return "UbahPegawai";
 	
 	}
 	
 	@RequestMapping(value="/pegawai/ubah/{id}", method = RequestMethod.POST)
-    public String submitUbahPegawai(@PathVariable(value="id") long id, PegawaiOutsourcingModel pegawaiBaru, Model model) {	
+    public String submitUbahPegawai(@PathVariable(value="id") long id, @ModelAttribute PegawaiOutsourcingModel pegawaiBaru, Model model) {	
+		System.out.println(pegawaiBaru.getPkwt());
 		pegawaiService.updatePegawai(id,pegawaiBaru);
+		System.out.println(pegawaiBaru.getPelamar_id().getNama_lengkap());
+		System.out.println(pegawaiBaru.getPelamar_id().getNama_panggilan());
+		
+		model.addAttribute("pegawai", pegawaiBaru);
 		return "DetailPegawai";
     }
 	
@@ -82,6 +114,7 @@ public class PegawaiOutsourcingController {
 		try {
 			for(Long id : ids) {
 				pegawaiService.deletePegawaiById(id);
+				
 			}
 			return "ListPegawai";
 		} catch(Exception e) {
@@ -89,6 +122,42 @@ public class PegawaiOutsourcingController {
 		}
 		
 	}
+
+	@RequestMapping(value = "/pegawai-berhenti-assign", method = RequestMethod.POST)
+	private String berhentiPegawai(@RequestParam("id") Long[] ids, Model model) {
+//		List<RiwayatKerjaPegawaiModel> riwayatKerjaPegawai = new List();
+		try {
+		System.out.println("MASUKKKKKK");
+			for(Long id : ids) {
+				System.out.println(id);
+				pegawaiService.updatePegawaiStatusById(id);
+				
+				
+				/*
+				 * Untuk nambah Riwayat Kerja
+				 */
+				
+				RiwayatKerjaPegawaiModel rBaru = new RiwayatKerjaPegawaiModel();
+				
+				PegawaiOutsourcingModel temp = pegawaiService.getPegawaiById(id);
+				
+				rBaru.setPegawai_outsourcing_id(temp);
+				rBaru.setProyek(temp.getProyek());
+				rBaru.setProduk(temp.getProduk());
+				rBaru.setJoin_date(temp.getJoin_date());
+				rBaru.setEnd_date(temp.getEnd_date());
+				
+				
+				riwayatService.addRiwayat(rBaru);
+				
+				
+				//riwayatService.addRiwayat(id);
+			}
+			return "ListPegawai";
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
 
 //	@RequestMapping(value = "/pegawai-berhenti-assign", method = RequestMethod.POST)
 //	private String berhentiPegawai(@RequestParam("id") Long[] ids, Model model) {
@@ -111,7 +180,6 @@ public class PegawaiOutsourcingController {
 	//Assign Pegawai Get
 	@RequestMapping(value = "/pegawai/assign", method = RequestMethod.GET)
 	private String assignPegawai(long[] ids, Model model) {
-		
 		AssignmentWrapper wrapper = new AssignmentWrapper();
 		List<ProdukModel> daftar_produk = produkService.getAllProduk();
 		List<ProyekModel> daftar_proyek = proyekService.getAllProyek();

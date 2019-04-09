@@ -42,7 +42,7 @@ public class PelamarModel implements Serializable {
 	private String agama;
 
 	@NotNull
-	@Column(name = "tanggal_lahir", nullable = false)
+	@Column(name="tanggal_lahir",nullable = false)
 	private Date tanggal_lahir;
 
 	@NotNull
@@ -107,6 +107,7 @@ public class PelamarModel implements Serializable {
 	@Size(max = 255)
 	@Column(name = "jurusan", nullable = false)
 	private String jurusan;
+
 
 	@Size(max = 255)
 	@Column(name = "lulusan_tahun", nullable = true)
