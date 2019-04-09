@@ -25,107 +25,102 @@ import com.apap.HrPayrollSystem.Repository.PegawaiOutsourcingDb;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="pegawai_outsourcing")
+@Table(name = "pegawai_outsourcing")
 public class PegawaiOutsourcingModel implements Serializable {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pelamar", referencedColumnName="id",nullable=false,unique=true)
-	@OnDelete(action=OnDeleteAction.NO_ACTION)
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_pelamar", referencedColumnName = "id", nullable = false, unique = true)
+	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	@JsonIgnore
 	private PelamarModel pelamar_id;
-	
+
 	@NotNull
-	@Size(max=255)
-	@Column(name="nip",nullable = false)
+	@Size(max = 255)
+	@Column(name = "nip", nullable = false, unique = true)
 	private String nip;
-	
-	@Size(max=255)
-	@Column(name="npwp",nullable = true)
+
+	@Size(max = 255)
+	@Column(name = "npwp", nullable = true)
 	private String npwp;
 
-	@Size(max=255)
-	@Column(name="pkwt",nullable = true)
+	@Size(max = 255)
+	@Column(name = "pkwt", nullable = true)
 	private String pkwt;
-	
-	@Size(max=255)
-	@Column(name="no_arsip",nullable = true)
+
+	@Size(max = 255)
+	@Column(name = "no_arsip", nullable = true)
 	private String no_arsip;
 
 	@NotNull
-	@Column(name="join_date",nullable = false)
-	private Date join_date;	
-	
+	@Column(name = "join_date", nullable = false)
+	private Date join_date;
+
 	@NotNull
-	@Column(name="end_date",nullable = false)
+	@Column(name = "end_date", nullable = false)
 	private Date end_date;
-	
-	@Size(max=255)
-	@Column(name="nama_bank",nullable = true)
+
+	@Size(max = 255)
+	@Column(name = "nama_bank", nullable = true)
 	private String nama_bank;
-	
-	@Size(max=255)
-	@Column(name="no_rekening",nullable = true)
+
+	@Size(max = 255)
+	@Column(name = "no_rekening", nullable = true)
 	private String no_rekening;
-	
-	@Size(max=255)
-	@Column(name="BPJSTK",nullable = true)
+
+	@Size(max = 255)
+	@Column(name = "BPJSTK", nullable = true)
 	private String bpjstk;
-	
-	@Size(max=255)
-	@Column(name="BPJSK",nullable = true)
+
+	@Size(max = 255)
+	@Column(name = "BPJSK", nullable = true)
 	private String bpjsk;
-	
+
 	@NotNull
-	@Column(name="status",nullable = false)
+	@Column(name = "status", nullable = false)
 	private boolean status;
-	
-	//FK to produk
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="produk",referencedColumnName="id",nullable=true)
-	@OnDelete(action=OnDeleteAction.NO_ACTION)
+
+	// FK to produk
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "produk", referencedColumnName = "id", nullable = true)
+	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	@JsonIgnore
 	private ProdukModel produk;
-	
+
 	@NotNull
-	@Size(max=255)
-	@Column(name="jabatan",nullable = false)
+	@Size(max = 255)
+	@Column(name = "jabatan", nullable = false)
 	private String jabatan;
-	
-	//FK to proyek
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="proyek",referencedColumnName="id",nullable=true)
-	@OnDelete(action=OnDeleteAction.NO_ACTION)
+
+	// FK to proyek
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "proyek", referencedColumnName = "id", nullable = true)
+	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	@JsonIgnore
 	private ProyekModel proyek;
 
-
-	//Tambahan dari proyek
-	@Column(name="gaji_pokok",nullable = true)
+	// Tambahan dari proyek
+	@Column(name = "gaji_pokok", nullable = true)
 	private int gaji_pokok;
 
-	@Column(name="tunjangan_tetap",nullable = true)
+	@Column(name = "tunjangan_tetap", nullable = true)
 	private int tunjangan_tetap;
-	
-	@Column(name="tunjangan_tidak_tetap",nullable = true)
+
+	@Column(name = "tunjangan_tidak_tetap", nullable = true)
 	private int tunjangan_tidak_tetap;
-	
-	@Size(max=255)
-	@Column(name="jaminan",nullable = true)
+
+	@Size(max = 255)
+	@Column(name = "jaminan", nullable = true)
 	private String jaminan;
 
-	
-	//Buat relasi ke kelas model riwayat kerja pegawai
-		
+	// Buat relasi ke kelas model riwayat kerja pegawai
 
 //		@OneToMany(mappedBy = "history_bekerja", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //		private HistoryModel history_bekerja;
 
-
-	
 	public long getId() {
 		return id;
 	}

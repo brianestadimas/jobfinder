@@ -1,5 +1,16 @@
 # HR and Payroll System
 
+URL : 
+daftar : /proyek
+detail : /proyek-detail/1
+ubah : /pegawai-ubah/1
+tambah : /proyek-tambah/
+hapus : /pegawai-hapus?id=1
+
+
+
+# HR and Payroll System
+
 proyek sistem informasi untuk client yang meliputi fitur HR dan Payroll
 
 ## Getting Started
