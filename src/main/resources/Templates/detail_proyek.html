@@ -31,6 +31,9 @@ thead th{
 .blankspace{
 	margin-top: 20px;
 }
+.hide{
+    display:none;
+}
 </style>
 <nav class="navbar navbar-default" style="box-shadow:0 0px 2px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);">
     <div class="navbar-header">
@@ -59,10 +62,10 @@ thead th{
 <body>
 <div class="blankspace">
 	<div class="boxContainer2">
-		<img src="img/icon_building.png" style="max-width:5%; margin-top: -10px; margin-left: -10px">
-        <h2 style="display: inline; margin-left: 10px">PT XYZ Jakarta Utara</h2>
+        <img src="img/icon_building.png" style="max-width:5%; margin-top: -10px; margin-left: -10px">
+        <h2 style="display: inline; margin-left: 10px" th:text="${proyek.nama_proyek}"></h2>
         <p><button href="#" class="btn btn-warning btn-large" style="float: right; margin-right: 5px; margin-bottom: 10px;">Ubah Detail<br></button>
-        <p>Proyek berlokasi di Jalan Delima Raya gedung Mandiri Jaya</p>
+        <p th:text="${proyek.deskripsi_proyek}"></p>
 
         <hr>
         
@@ -133,6 +136,9 @@ thead th{
                 </table>
             </div>
     <p><button class="btn btn-primary btn-large" style="float: left; margin-right: 5px; margin-bottom: 10px;"><i class="fa fa-bar-chart"></i> Performa <br> Absensi</button><p>
+    <p><button class="btn btn-info btn-large" style="float: left; margin-right: 5px; margin-bottom: 10px;"><i class="fa fa-calendar-check-o"></i> Kelola <br> Absensi</button><p>
+    </div>
+    <p><button th:if="${proyek.jenis_proyek}=='umum'" class="btn btn-success btn-large" style="float: left; margin-right: 5px; margin-bottom: 10px;"><i class="fa fa-balance-scale"></i> Kelola <br> Gaji</button><p>
     </div>
     </div>
 </div>
@@ -150,34 +156,43 @@ thead th{
             <tr>
                 <th>NIP</th>
                 <th>Nama Pegawai</th>
+                <th>Produk</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Gaji Pokok</th>
                 <th>Tunjangan Tetap</th>
                 <th>Tunjangan Tidak Tetap</th>
+                <th>BPJSTK</th>
+                <th>BPJSK</th>
                 <th>Jaminan</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:if="${pegawai.gaji_pokok != null && pegawai.tunjangan_tetap != null && pegawai.tunjangan_tidak_tetap != null && pegawai.bpjstk != null && pegawai.bpjsk != null}">
+            <tr th:each="pegawaiProyek : ${listPegawai}">
+            <a th:if="${pegawaiProyek.gaji_pokok != 0 && pegawaiProyek.tunjangan_tetap != 0 && pegawaiProyek.tunjangan_tidak_tetap != 0}">
                 <td th:text="${pegawaiProyek.nip}"></td>
                 <td th:text="${pegawaiProyek.pelamar_id.nama_lengkap}"></td>
+                <td th:text="${pegawaiProyek.produk}"></td>
                 <td th:text="${pegawaiProyek.join_date}"></td>
                 <td th:text="${pegawaiProyek.end_date}"></td>
                 <td th:text="${pegawaiProyek.gaji_pokok}"></td>
                 <td th:text="${pegawaiProyek.tunjangan_tetap}"></td>
                 <td th:text="${pegawaiProyek.tunjangan_tidak_tetap}"></td>
-                <td th:text="${pegawaiProyek.jaminan}"></td>
-            </tr>
-            <tr th:if="${pegawai.gaji_pokok != null && pegawai.tunjangan_tetap != null && pegawai.tunjangan_tidak_tetap != null && pegawai.bpjstk != null && pegawai.bpjsk != null}">
-                <td style="background-color: yellow" th:text="${pegawaiProyek.nip}"></td>
-                <td style="background-color: yellow" th:text="${pegawaiProyek.pelamar_id.nama_lengkap}"></td>
-                <td style="background-color: yellow" th:text="${pegawaiProyek.join_date}"></td>
-                <td style="background-color: yellow" th:text="${pegawaiProyek.end_date}"></td>
-                <td style="background-color: yellow" th:text="${pegawaiProyek.gaji_pokok}"></td>
-                <td style="background-color: yellow" th:text="${pegawaiProyek.tunjangan_tetap}"></td>
-                <td style="background-color: yellow" th:text="${pegawaiProyek.tunjangan_tidak_tetap}"></td>
-                <td style="background-color: yellow" th:text="${pegawaiProyek.jaminan}"></td>
+                <td th:text="${pegawaiProyek.bpjstk}"></td>
+                <td th:text="${pegawaiProyek.bpjsk}"></td>
+                <td th:text="${pegawaiProyek.jaminan}"></td></a>
+            <a th:unless="${pegawaiProyek.gaji_pokok != 0 && pegawaiProyek.tunjangan_tetap != 0 && pegawaiProyek.tunjangan_tidak_tetap != 0}">
+                <td style="background-color:gray" th:text="${pegawaiProyek.nip}"></td>
+                <td th:text="${pegawaiProyek.pelamar_id.nama_lengkap}"></td>
+                <td th:text="${pegawaiProyek.produk}"></td>
+                <td th:text="${pegawaiProyek.join_date}"></td>
+                <td th:text="${pegawaiProyek.end_date}"></td>
+                <td th:text="${pegawaiProyek.gaji_pokok}"></td>
+                <td th:text="${pegawaiProyek.tunjangan_tetap}"></td>
+                <td th:text="${pegawaiProyek.tunjangan_tidak_tetap}"></td>
+                <td th:text="${pegawaiProyek.bpjstk}"></td>
+                <td th:text="${pegawaiProyek.bpjsk}"></td>
+                <td th:text="${pegawaiProyek.jaminan}"></td><a>
             </tr>
         <tfoot>
             <tr>
@@ -229,7 +244,6 @@ $(document).ready(function() {
     	"sScrollX": "100%",
     	"sScrollXInner": "100%",
 	  	"scrollCollapse": true,
-		"lengthMenu": [[10, 50, 100, -1], [10, 50, 100, "All"]],
 		buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print',
         ],
