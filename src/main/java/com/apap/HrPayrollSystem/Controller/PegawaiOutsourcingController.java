@@ -119,9 +119,9 @@ public class PegawaiOutsourcingController {
 		wrapper.setDaftar_proyek(daftar_proyek);
 		
 		List<String> nama_pegawai = new ArrayList<String>();
-		ids = new long[2];
+		ids = new long[1];
 		ids[0] = (long) 1;
-		ids[1] = (long) 2;
+
 		
 		for(int i=0; i<ids.length; i++) {
 			Optional<PegawaiOutsourcingModel> pegawai = pegawaiService.getPegawaiById(ids[i]);
