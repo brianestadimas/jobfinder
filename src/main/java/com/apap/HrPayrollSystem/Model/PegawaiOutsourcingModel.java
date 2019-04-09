@@ -286,10 +286,8 @@ public class PegawaiOutsourcingModel implements Serializable {
 		this.jaminan = jaminan;
 	}
 
-}
 
-	public void setJaminan(String jaminan) {
-		this.jaminan = jaminan;
-	}
+
+	
 
 }
