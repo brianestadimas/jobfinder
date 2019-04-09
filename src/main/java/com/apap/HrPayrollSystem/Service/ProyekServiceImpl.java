@@ -49,7 +49,6 @@ public class ProyekServiceImpl implements ProyekService {
 		proyek.setEnd_date_kontrak(proyekBaru.getEnd_date_kontrak());
 		proyek.setJenis_proyek(proyekBaru.getJenis_proyek());
 		proyek.setNPWP_klien(proyekBaru.getNPWP_klien());
-		proyek.setBiaya_keseluruhan(proyekBaru.getBiaya_keseluruhan());
 		proyek.setNilai_kontrak(proyekBaru.getNilai_kontrak());
 	}
 
@@ -57,5 +56,20 @@ public class ProyekServiceImpl implements ProyekService {
 	public void deleteById(Long id) {
 		// TODO Auto-generated method stub
 		proyekDb.deleteById(id);	
+	}
+
+	@Override
+	public ProyekModel getProyekByName(String namaProyek) {
+		// TODO Auto-generated method stub
+		ProyekModel proyek = new ProyekModel();
+		List<ProyekModel> allProyek = proyekDb.findAll();
+		
+		for(int i=0; i < allProyek.size(); i++) {
+			if(allProyek.get(i).getNama_proyek().equals(namaProyek)) {
+				proyek = allProyek.get(i);
+			}
+		}
+		
+		return proyek;
 	}
 }

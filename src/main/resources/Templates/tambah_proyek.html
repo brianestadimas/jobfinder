@@ -82,7 +82,7 @@ thead th{
     </div>
     <div class="form-group col-md-12">
         <label for="inputAddress">Deskripsi Proyek</label>
-        <input type="textarea" class="form-control" name="deskripsi_proyek" placeholder="Merupakan proyek umum... catatan tambahan dan sebagainya">
+        <input type="text" class="form-control" name="deskripsi_proyek" placeholder="Merupakan proyek umum... catatan tambahan dan sebagainya">
     </div>
     <div class="form-group col-md-6">
         <label for="inputAddress">Nama CP *</label>
@@ -100,7 +100,7 @@ thead th{
     <div class="form-row">
       <div class="form-group col-md-3">
         <label for="inputCity">End Date</label>
-        <input type="Date" class="form-control" name="end_date_kontrak" id="inputCity">
+        <input type="Date" class="form-control" name="end_date_kontrak" id="inputCity" required>
       </div>
       <div class="form-group col-md-6">
         <label for="inputAddress">Nilai Kontrak (Rp)</label>
@@ -147,79 +147,5 @@ thead th{
 <footer>
 </footer>
 
-<script>
-$(document).ready(function() {
-    // Setup - add a text input to each footer cell
-
-    var table = $('#example2').DataTable( {
-      "scrollY": "500px",
-      "sScrollX": "100%",
-      "sScrollXInner": "100%",
-      "scrollCollapse": true,
-    "lengthMenu": [[10, 50, 100, -1], [10, 50, 100, "All"]],
-
-    } );
-
-  table.buttons().container()
-    .appendTo( '#example_wrapper .col-sm-12:eq(0)' );
-  } );
-
-    $('#example tfoot th').each( function () {
-        var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-    } );
-    // DataTable
-    var docDefinition = {
-     pageSize: 'A4',
-  };
-
-  $('#myModal').on('shown.bs.modal', function () {
-    $('#myInput').trigger('focus')
-  });
-
-
-function Download(){
-  var x = $('example').children();
-  var fullText = "";
-    $.each(x, function(index, value) {
-       //console.log(value);
-        fullText+=$(this).context.innerText + ",";
-        console.log($(this).context.innerText);
-    });
-    
-    var docDefinition2 = {
-  content: [
-    fullText
-  ]
-    };
-    // this is just a simulation of the open event, replacing it with print produces the same result
-  var docDefinition = { content: [
-    {text:'Liat var docDefinition sama docDefinition2 di javascript Download(), baca dokumentasi',fontSize:20},
-    {text:'Dokumentasi di http://pdfmake.org',fontSize:15},
-    {text:'-dimas',fontSize:15},
-    ] 
-  };
-
-  pdfMake.createPdf(docDefinition).download('gg.pdf');
-};
-    
-$(function(){
-  var table2 = $('#example').DataTable();
- 
-    // Apply the search
-    table2.columns().every( function () {
-        var that = this;
- 
-        $( 'input', this.footer() ).on( 'keyup change', function () {
-            if ( that.search() !== this.value ) {
-                that
-                    .search( this.value )
-                    .draw();
-            }
-        } );
-    } );
-} );
-
-</script>
 
 </html>

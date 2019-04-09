@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -57,72 +57,77 @@ thead th{
     </div></nav>
 <body>
 
+<br/>
 <div class="blankspace">
-<div class="boxContainer2" style="overflow-x:auto;">
-<img src="img/icon_building.png" style="max-width:5%;margin-top: -10px">
-<h2 style="display: inline; margin-left: 10px">Ubah Proyek</h2>
-<form th:action="@{'/proyek-ubah/' + ${proyekLama.id}}" th:object="${proyek}" method="POST">
-<hr></hr>
-    <div>
-        <input type="hidden" class="form-control" name="jenis_proyek" th:value="${proyekLama.jenis_proyek}" required>
-    </div>
-    <div class="form-group col-md-6">
-        <label for="inputAddress">Nama Proyek *</label>
-        <input type="text" class="form-control" name="nama_proyek" th:value="${proyekLama.nama_proyek}" required>
-    </div>
-    <div class="form-group col-md-6">
-        <label for="inputAddress">Region *</label>
-        <input type="text" class="form-control" name="region" th:value="${proyekLama.region}" required>
-    </div>
-    <div class="form-group col-md-6">
-        <label for="inputAddress">Nomor Kontrak *</label>
-        <input type="text" class="form-control" name="nomor_kontrak" th:value="${proyekLama.nomor_kontrak}" required>
-    </div>
-    <div class="form-group col-md-12">
-        <label for="inputAddress">Deskripsi Proyek</label>
-        <input type="text" class="form-control" name="deskripsi_proyek" th:value="${proyekLama.deskripsi_proyek}">
-    </div>
-    <div class="form-group col-md-6">
-        <label for="inputAddress">Nama CP *</label>
-        <input type="text" class="form-control" name="nama_cp" th:value="${proyekLama.nama_cp}" required>
-    </div>
-    <div class="form-group col-md-6">
-        <label for="inputAddress">No Telp CP *</label>
-        <input type="number" class="form-control" name="no_telp_cp" th:value="${proyekLama.no_telp_cp}" required>
-    </div>
+<div class="boxContainer" style="overflow-x:auto;">
+<img src="img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
+<h2 style="display: inline; margin-left: 10px">Assign Pegawai</h2>
+<form th:action="'/pelamar/assign/submit'" method="post" th:object="${wrapper}">
+
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="inputProyek">Proyek</label>
+	      <select name="proyek">
+			    <option th:each="dp: ${daftar_proyek}"  th:value="${dp.id}" th:text="${dp.nama_proyek}">
+			    </option>
+			</select>
+      </div>
+      
     <div class="col-sm-12"></div> 
     <div class="form-group col-md-3">
-      <label for="inputAddress">Start Date *</label>
-      <input type="Date" class="form-control" name="start_date_kontrak" th:value="${proyekLama.start_date_kontrak}" required>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-3">
-        <label for="inputCity">End Date</label>
-        <input type="Date" name="end_date_kontrak" class="form-control" th:value="${proyekLama.end_date_kontrak}" required>
-      </div>
-      <div class="form-group col-md-6">
-        <label for="inputAddress">Nilai Kontrak (Rp)</label>
-        <input type="number" class="form-control" name="nilai_kontrak" th:value="${proyekLama.nilai_kontrak}" placeholder="500000000">
-    </div>
-    <div class="form-group col-md-6">
-        <label for="inputAddress">NPWP</label>
-        <input type="text" class="form-control" name="NPWP_klien" th:value="${proyekLama.NPWP_klien}" placeholder="12345678912">
-    </div>
-    <div class="form-row"></div>
-    <div class="form-group col-md-6">
-        <label for="inputAddress">Nomor Rekening</label>
-        <input type="number" class="form-control" name="no_rekening" th:value="${proyekLama.no_rekening}" placeholder="12345678912">
-    </div>
+      <label for="inputJoinDate">Join Date</label>
+      <input type="Date" class="form-control getdate" name="join_date"/>
     </div>
     <div class="col-sm-12"></div>
-      <button class="btn btn-primary btn-large" style="float: right;" type="submit">Submit</button>
-      <button class="btn btn-info btn-danger" style="float: right; margin-right: 10px;">Batalkan</button>
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="inputEndDate">End Date</label>
+      <input type="Date" class="form-control getdate" name="end_date"/>
+      </div>
+    </div>
+    <div class="col-sm-12"></div>
   </form>
 <p>
-</p></div>
-</form>
-</div>
-</div>
+<table id="example2" class="table table-striped table-bordered" style="width:100%;">
+
+        <thead>
+            <tr>
+                <th>Nama</th> 
+                <th>Produk</th>
+                <th>Jabatan</th>
+                <th>NIP</th>
+                <th>NPWP</th>
+                <th>PKWT</th>
+                <th>BPJS Kesehatan</th>
+                <th>BPJS Ketenagakerjaan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="wrapper, itemStat : *{wrapper.daftar_pegawai}">
+                <td th:text="${nama_pelamar[itemStat.index]}"></td>
+                <td><select th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].produk.id}">
+	                <option th:each="dp: ${daftar_produk}"  th:value="${dp.id}"  th:text="${dp.nama_produk}"></option>
+                </select></td>
+                <td><input type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].jabatan}" name="jabatan"></td>
+                <td><input type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].nip}" name="nip"></td>
+                <td><input type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].npwp}" name="npwp"></td>
+                <td><input type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].pkwt}" name="pkwt"></td>
+                <td><input type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].bpjsk}" name="bpjsk"></td>
+                <td><input type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].bpjstk}" name="bpjstk"></td>
+				
+				<td><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].pelamar_id}" name="pelamar_id"></td>
+				<td><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].id}" name="id"></td>
+				<td><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].nama_bank}" name="nama_bank"></td>
+				<td><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].no_arsip}" name="no_arsip"></td>
+				<td><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].no_rekening}" name="no_rekening"></td>
+            </tr>
+         </tbody>
+      </table>
+      <button type="submit" class="btn btn-primary btn-large" style="float: right;">Submit</button>
+      <a href="#" onClick="" class="btn btn-info btn-danger" style="float: right; margin-right: 10px;">Batalkan</a>
+  </div>
+  </div>
+
 
   <script type="text/javascript" src="/media/js/site.js?_=994321fabf3873df746bb8bbccd1886a"></script>
   <script type="text/javascript" src="/media/js/dynamic.php?comments-page=extensions%2Fbuttons%2Fexamples%2Fstyling%2Fbootstrap.html" async></script>

@@ -40,7 +40,7 @@ public class PegawaiOutsourcingModel implements Serializable {
 	
 	@NotNull
 	@Size(max=255)
-	@Column(name="nip",nullable = false)
+	@Column(name="nip",nullable = false, unique= true)
 	private String nip;
 	
 	@Size(max=255)
@@ -281,6 +281,12 @@ public class PegawaiOutsourcingModel implements Serializable {
 	public String getJaminan() {
 		return jaminan;
 	}
+
+	public void setJaminan(String jaminan) {
+		this.jaminan = jaminan;
+	}
+
+}
 
 	public void setJaminan(String jaminan) {
 		this.jaminan = jaminan;

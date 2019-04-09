@@ -66,6 +66,7 @@ public class ProyekModel implements Serializable{
 	@Column(name="jenis_proyek",nullable = false)
 	private String jenis_proyek;
 	
+	//Biaya keseluruhan sudah sama dengan nilai kontrak 
 	@Size(max=255)
 	@Column(name="NPWP_klien",nullable = true)
 	private String NPWP_klien;

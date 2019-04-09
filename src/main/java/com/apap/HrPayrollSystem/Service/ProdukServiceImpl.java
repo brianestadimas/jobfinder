@@ -2,24 +2,18 @@ package com.apap.HrPayrollSystem.Service;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.transaction.Transactional;
-
-
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import com.apap.HrPayrollSystem.Model.ProdukModel;
 import com.apap.HrPayrollSystem.Repository.ProdukDb;
-
 
 @Service
 @Transactional
 public class ProdukServiceImpl implements ProdukService{
 
-	@Autowired 
+	@Autowired
 	ProdukDb produkDb;
 	
 	@Override

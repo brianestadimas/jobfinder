@@ -72,7 +72,7 @@ public class PelamarModel implements Serializable {
 	@Column(name = "email", nullable = true)
 	private String email;
 
-	// Ambil produknya dari mana? kan ada Marketing, Sales, dll.
+
 	@NotNull
 	@Size(max = 255)
 	@Column(name = "produk_dilamar", nullable = false)
