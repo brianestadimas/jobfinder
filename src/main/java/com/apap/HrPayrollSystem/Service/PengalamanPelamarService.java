@@ -2,6 +2,7 @@ package com.apap.HrPayrollSystem.Service;
 
 import java.util.List;
 
+import com.apap.HrPayrollSystem.Model.PelamarModel;
 import com.apap.HrPayrollSystem.Model.PengalamanPelamarModel;
 
 /**
@@ -21,5 +22,7 @@ public interface PengalamanPelamarService {
 	PengalamanPelamarModel getPengalamanById(long id);
 
 	PengalamanPelamarModel updatePengalaman(PengalamanPelamarModel pengalaman);
+	
+	List<PengalamanPelamarModel> getAllPengalamanByPelamar(PelamarModel pelamar);
 
 }

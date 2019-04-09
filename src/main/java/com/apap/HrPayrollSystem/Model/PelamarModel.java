@@ -55,10 +55,6 @@ public class PelamarModel implements Serializable {
 	@Column(name = "no_ktp", nullable = false)
 	private String no_ktp;
 
-	@Size(max = 255)
-	@Column(name = "telepon", nullable = false)
-	private String telepon;
-
 	@NotNull
 	@Size(max = 255)
 	@Column(name = "nomor_handphone", nullable = false)
@@ -187,14 +183,6 @@ public class PelamarModel implements Serializable {
 
 	public void setNo_ktp(String no_ktp) {
 		this.no_ktp = no_ktp;
-	}
-
-	public String getTelepon() {
-		return telepon;
-	}
-
-	public void setTelepon(String telepon) {
-		this.telepon = telepon;
 	}
 
 	public String getTelepon_orang_terdekat() {

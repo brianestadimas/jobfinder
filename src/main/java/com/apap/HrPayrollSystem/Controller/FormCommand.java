@@ -7,6 +7,8 @@ import com.apap.HrPayrollSystem.Model.PengalamanPelamarModel;
 
 public class FormCommand {
 
+	private String[] selectedCheckboxProduk;
+
 	private List<PengalamanPelamarModel> pengalamanList;
 
 	public FormCommand() {
@@ -14,6 +16,13 @@ public class FormCommand {
 		this.pengalamanList = new ArrayList<PengalamanPelamarModel>();
 	}
 
+	public String[] getSelectedCheckboxProduk() {
+		return selectedCheckboxProduk;
+	}
+
+	public void setSelectedCheckboxProduk(String[] selectedCheckboxProduk) {
+		this.selectedCheckboxProduk = selectedCheckboxProduk;
+	}
 
 	public List<PengalamanPelamarModel> getPengalamanList() {
 		return pengalamanList;

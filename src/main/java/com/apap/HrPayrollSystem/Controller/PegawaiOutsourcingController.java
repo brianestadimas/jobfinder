@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,6 +34,8 @@ public class PegawaiOutsourcingController {
 	private ProyekService proyekService;
 	@Autowired
 	private PegawaiOutsourcingService pegawaiService;
+	@Autowired
+	private ProdukService produkService;
 //	@Autowired
 //	private RiwayatKerjaPegawaiService riwayatService;
 	
@@ -55,13 +58,25 @@ public class PegawaiOutsourcingController {
 	/*
 	 * Ubah Pegawai 
 	 */
-	@RequestMapping(value="/pegawai/ubah" , method = RequestMethod.GET)
-	private String ubahPegawai(@PathVariable Long id, Model model) {
-		PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(id).get();
+	@RequestMapping(value="/pegawai/ubah/{id}" , method = RequestMethod.GET)
+	private String ubahPegawai(@PathVariable(value = "id") long id, Model model) {
+		PegawaiOutsourcingModel pegawaiLama = pegawaiService.getPegawaiById(id).get();
+		List<ProdukModel> produkList = produkService.getAllProduk();
 		
-		return "";
+		
+		model.addAttribute("pegawai", pegawaiLama);
+		model.addAttribute("produk", produkList);
+		
+		return "UbahPegawai";
 	
 	}
+	
+	@RequestMapping(value="/pegawai/ubah/{id}", method = RequestMethod.POST)
+    public String submitUbahPegawai(@PathVariable(value="id") long id, PegawaiOutsourcingModel pegawaiBaru, Model model) {	
+		pegawaiService.updatePegawai(id,pegawaiBaru);
+		return "DetailPegawai";
+    }
+	
 	
 	@RequestMapping(value = "/pegawai-hapus", method = RequestMethod.POST)
 	private String deletePegawai(@RequestParam("id") Long[] ids, Model model) {

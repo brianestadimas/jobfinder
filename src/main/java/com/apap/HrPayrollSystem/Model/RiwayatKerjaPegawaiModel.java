@@ -78,63 +78,6 @@ public class RiwayatKerjaPegawaiModel implements Serializable{
 	@JoinColumn(name="feedback",referencedColumnName="feedback",nullable=false)
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
-	private FeedbackModel feedback;
+	private FeedbackModel feedback;	
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public PegawaiOutsourcingModel getPegawai_outsourcing_id() {
-		return pegawai_outsourcing_id;
-	}
-
-	public void setPegawai_outsourcing_id(PegawaiOutsourcingModel pegawai_outsourcing_id) {
-		this.pegawai_outsourcing_id = pegawai_outsourcing_id;
-	}
-
-	public ProyekModel getProyek() {
-		return proyek;
-	}
-
-	public void setProyek(ProyekModel proyek) {
-		this.proyek = proyek;
-	}
-
-	public ProdukModel getProduk() {
-		return produk;
-	}
-
-	public void setProduk(ProdukModel produk) {
-		this.produk = produk;
-	}
-
-	public Date getJoin_date() {
-		return join_date;
-	}
-
-	public void setJoin_date(Date join_date) {
-		this.join_date = join_date;
-	}
-
-	public Date getEnd_date() {
-		return end_date;
-	}
-
-	public void setEnd_date(Date end_date) {
-		this.end_date = end_date;
-	}
-
-	public FeedbackModel getFeedback() {
-		return feedback;
-	}
-
-	public void setFeedback(FeedbackModel feedback) {
-		this.feedback = feedback;
-	}	
-
-	
 }

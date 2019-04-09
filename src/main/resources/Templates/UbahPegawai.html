@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="utf-8" />
@@ -83,87 +83,245 @@
 			<div class="tab-content" id="nav-tabContent">
 				<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 
-						<form>
+					<form th:action="@{'/pegawai/ubah/' + *{id}} " th:object="${pegawai}"method="POST">
+					
+					<input type="hidden" id="id" name="id" th:field="*{id}">
+					<input type="hidden" id="gaji_pokok" name="gaji_pokok" th:field="*{gaji_pokok}">
+					<input type="hidden" id="tunjangan_tetap" name="tunjangan_tetap" th:field="*{tunjangan_tetap}">
+					<input type="hidden" id="tunjangan_tidak_tetap" name="tunjangan_tidak_tetap" th:field="*{tunjangan_tidak_tetap}">
+					<input type="hidden" id="jaminan" name="jaminan" th:field="*{jaminan}">
+					<div class="form-row">
+								
+					
+								
+									<div class="form-group col-md-6"></div>
+									<div class="form-group col-md-6"></div>
+								</div>
 								<div class="form-row">
 									<div class="form-group col-md-6">
-										<label for="NIP">NIP</label>
-										<input type="NIP" class="form-control" id="NIP" placeholder="NIP" />
+										<label for="nip">NIP</label>
+										<input type="text" class="form-control" id="nip" placeholder="Masukkan NIP"
+										th:field ="*{nip}" required/>
 									</div>
 									<div class="form-group col-md-6">
-										<label for="noArsip">Nomor Arsip</label>
-										<input type="noArsip" class="form-control" id="noArsip"
-											placeholder="9847302109281310" />
+										<label for="no_arsip">Nomor Arsip</label>
+										<input type="text" class="form-control" id="no_arsip"
+											placeholder="Masukkan Nomor Arsip"  th:field = "*{no_arsip}" required/>
 									</div>
 								</div>
 								<div class="form-row">
 									<div class="form-group col-md-6">
-										<label for="namaLengkap">Nama Lengkap</label>
-										<input type="text" class="form-control" id="namaLengkap"
-											placeholder="" />
+										<label for="nama_Lengkap">Nama Lengkap</label>
+										<input type="text" class="form-control" id="nama_lengkap"
+											placeholder="Masukkan Nama Lengkap" th:field="*{pelamar_id.nama_lengkap}" required/>
 									</div>
 									<div class="form-group col-md-6">
-										<label for="namaPanggilan">Nama Panggilan</label>
-										<input type="text" class="form-control" id="namap" />
+										<label for="nama_panggilan">Nama Panggilan</label>
+										<input type="text" class="form-control" id="nama_panggilan" th:field="*{pelamar_id.nama_lengkap}"/>
 									</div>
 								</div>
+								
 								<div class="form-row">
+									<div class="form-group col-md-3">
+										<label for="tanggal_lahir"> Tanggal Lahir </label>
+										<input type="date" class="form-control" id="tanggal_lahir" th:field="*{pelamar_id.tanggal_lahir}"required/>
+									</div>
+									<div th:if="${pegawai.pelamar_id.gender == 'Laki-laki'}"class="form-group col-md-3">
+										<label for="inputAddress">Jenis Kelamin *</label><br>
+        								<input type="radio" name="gender" value="Laki-laki"checked > Laki-laki
+        								<input type="radio" name="gender" value="Perempuan"> Perempuan
+									</div>
+									
+									<div th:unless="${pegawai.pelamar_id.gender == 'Laki-laki'}"class="form-group col-md-3">
+										<label for="inputAddress">Jenis Kelamin *</label><br>
+        								<input type="radio" name="gender" value="Laki-laki"> Laki-laki
+        								<input type="radio" name="gender" value="Perempuan"checked> Perempuan
+									</div>
+										
+								
+									<div th:if="${pegawai.pelamar_id.status_marital == 'Sudah Menikah'}"class="form-group col-md-4">
+										<label for="inputAddress">Jenis Kelamin *</label><br>
+        								<input type="radio" name="status_marital" value="Sudah Menikah" checked> Sudah Menikah
+        								<input type="radio" name="status_marital" value="Belum Menikah"> Belum Menikah
+									</div>
+									
+									<div th:unless="${pegawai.pelamar_id.status_marital == 'Sudah Menikah'}"class="form-group col-md-4">
+										<label for="inputAddress">Jenis Kelamin *</label><br>
+        								<input type="radio" name="status_marital" value="Sudah Menikah" > Sudah Menikah
+        								<input type="radio" name="status_marital" value="Belum Menikah" checked> Belum Menikah
+									</div>
+									
+									<div class="form-group col-md-4"></div>
+									
+								</div>
+								
+								<div class="form-row">
+									<div class="form-group col-md-6">
+										<label for="alamat">Alamat</label>
+										<input type="Text" class="form-control" id="alamat" placeholder="Masukkan Alamat"
+										th:value="${pegawai.pelamar_id.alamat}" th:field="*{pelamar_id.alamat}"/>
+									</div>
 									<div class="form-group col-md-4">
-										<label for="inputState">State</label>
-										<select id="inputState" class="form-control">
-											<option selected>Choose...</option>
-											<option>...</option>
-										</select>
+										<label for="region"> Region </label>
+										<input type="Text" class="form-control" id="region" placeholder="Masukkan Region"
+										th:value="${pegawai.pelamar_id.region}" th:field="*{pelamar_id.region}" required/>
 									</div>
-									<div class="form-group col-md-2">
-										<label for="inputZip">Zip</label>
-										<input type="text" class="form-control" id="inputZip" />
+									<div class="form-group col-md-4"></div>
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-6">
+										<label for="telepon">Telepon</label>
+										<input type="text" class="form-control" id="telepon" placeholder="Masukkan Nomor Telepon"
+										th:field="*{pelamar_id.telepon}" required/>
+									</div>
+									<div class="form-group col-md-6">
+										<label for="nomor_Whatsapp">Nomor Whatsapp</label>
+										<input type="text" class="form-control" id="nomor_Whatsapp"
+											placeholder="Masukkan Nomor Whatsapp"  
+											th:field="*{pelamar_id.nomor_whatsapp}"/>
+									</div>
+								
+									
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-6">
+										<label for="telepon_orang_terdekat">Nomor Telepon Orang Terdekat</label>
+										<input type="text" class="form-control" id="telepon_orang_terdekat"
+											placeholder="Masukkan Nomor Telepon Orang Terdekat"  
+											th:field="*{pelamar_id.telepon_orang_terdekat}"/>
+									</div>
+									<div class="form-group col-md-6"></div>
+								</div>
+								
+								<div class="form-row">
+									<div class="form-group col-md-6"></div>
+									<div class="form-group col-md-6"></div>
+								</div>
+								
+								<div class="form-row">
+									<div class="form-group col-md-12">
+									<h6>No.Identitas </h6>
+									<hr>
 									</div>
 								</div>
-								<button type="submit" class="btn btn-primary" style="margin-left: 10px;">
-									Submit
-								</button>		
+								
+								<div class="form-row">
+									<div class="form-group col-md-12">
+										<label for="no_ktp">No.KTP</label>
+										<input type="text" class="form-control" id="no_ktp" placeholder="Masukkan Nomor KTP"
+										th:field="*{pelamar_id.no_ktp}" required/>
+									</div>
+									
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-6">
+										<label for="pkwt">No.PKWT</label>
+										<input type="text" class="form-control" id="pkwt" placeholder="Masukkan PKWT"
+										 th:field="*{pkwt}" required/>
+									</div>
+									<div class="form-group col-md-6">
+										<label for="npwp">No.NPWP</label>
+										<input type="text" class="form-control" id="npwp"
+											placeholder="Masukkan Nomor NPWP"  th:field="*{npwp}" required/>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-6">
+										<label for="bpjstk">No.BPJS Ketenagakerjaan</label>
+										<input type="text" class="form-control" id="bpjstk" placeholder="Masukkan Nomor BPJS Ketenagakerjaan"
+										 th:field="*{bpjstk}" required/>
+									</div>
+									<div class="form-group col-md-6">
+										<label for="bpjsk">No.BPJS Kesehatan</label>
+										<input type="text" class="form-control" id="bpjsk"
+										placeholder="Masukkan Nomor BPJS Kesehatan"  th:field="*{bpjsk}"required/>
+									</div>
+								</div>
+								
+								<div class="form-row">
+									<div class="form-group col-md-6"></div>
+									<div class="form-group col-md-6"></div>
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-12">
+									<h6>Informasi Rekening </h6>
+									<hr>
+									</div>
+								</div>
+								
+								<div class="form-row">
+									<div class="form-group col-md-6">
+										<label for="nama_bank">Nama Bank</label>
+										<input type="text" class="form-control" id="nama_bank" placeholder="Masukkan NIP"
+										th:field="*{nama_bank}" />
+									</div>
+									<div class="form-group col-md-6">
+										<label for="no_rekening">No.Rekening</label>
+										<input type="text" class="form-control" id="no_rekening"
+											placeholder="Masukkan Nomor Rekening"  
+											th:field="*{no_rekening}" />
+									</div>
+								</div>
+								
+								
+								
+								<div class="form-row">
+									<div class="form-group col-md-12">
+					 					<button class="btn btn-primary btn-large" style="float: right;" type="submit">Simpan</button>
+      				 					<button class="btn btn-info btn-danger" style="float: right; margin-right: 10px;">Batalkan</button>
+									</div>
+								</div>
 						</form>
 
 			</div>
 			
 			<div class="tab-pane fade" id="nav-proyek" role="tabpanel" aria-labelledby="nav-profile-tab">
-				<!-- Isian Form -->
+			
 				<form>
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="namaLengkap">Nama Proyek</label>
-							<input type="text" class="form-control" id="proyek"
-								placeholder="" />
+							<input type="text" class="form-control" id="proyek" 
+								placeholder="" th:value="${pegawai.proyek.nama_proyek}" disabled/>
+							
 						</div>
 						<div class="form-group col-md-6">
 							<label for="joinDate">Join Date</label>
-							<input type="text" class="form-control" id="joinDate" placeholder="" />
+							<input  type="date" class="form-control" id="join_date" name="join_date" th:field="*{join_date}"/>
+					
 						</div>
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-4">
 							<label for="produk">Produk</label>
-							<select id="produk" class="form-control">
-								<option selected>Choose...</option>
-								<option>...</option>
+							<select id="produk" name="produk" class="form-control" disabled>
+								<option selected th:field="*{produk.nama_produk}"></option>
+								
 							</select>
 						</div>
 						<div class="form-group col-md-2">
 							<label for="jabatan">Jabatan</label>
-							<input type="text" class="form-control" id="jabatan" />
+							<input type="text" class="form-control" id="jabatan" name="jabatan" th:field="*{jabatan}"/>
+							
 						</div>
 						<div class="form-group col-md-6">
 								<label for="endDate">End Date</label>
-								<input type="text" class="form-control" id="endDate"/>
+								<input type="date" class="form-control" name = "end_date" id="end_date" th:field="*{end_date}"/>
+								
 						</div>
 					</div>
-						<button type="submit" class="btn btn-primary" style="margin-left: 10px;">
-							Submit
-						</button>		
-				</form>
-			</div>
+					
+					<div class="form-row">
+						<div class="form-group col-md-12">
+					 		<button class="btn btn-primary btn-large" style="float: right;" type="submit">Simpan</button>
+      				 		<button class="btn btn-info btn-danger" style="float: right; margin-right: 10px;">Batalkan</button>
+						</div>
+					</div>
+	
+					</form>
+				</div>
 			
-		</div>
+			</div>
 		<hr />
 	</div>
 	</div>
@@ -212,7 +370,6 @@
 			sScrollX: "100%",
 			sScrollXInner: "100%",
 			scrollCollapse: true,
-			lengthMenu: [[10, 50, 100, -1], [10, 50, 100, "All"]],
 			buttons: ["copy", "csv", "excel", "pdf", "print"]
 		});
 

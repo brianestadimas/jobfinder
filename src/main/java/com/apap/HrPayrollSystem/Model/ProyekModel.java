@@ -49,11 +49,6 @@ public class ProyekModel implements Serializable{
 	@Column(name="no_telp_cp",nullable = true)
 	private String no_telp_cp;
 	
-	/*
-	@Size(max=255)
-	@Column(name="nama_bank",nullable = true)
-	private String nama_bank;
-	 */
 	@Size(max=255)
 	@Column(name="no_rekening",nullable = true)
 	private String no_rekening;
