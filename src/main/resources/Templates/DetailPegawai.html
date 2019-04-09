@@ -258,6 +258,10 @@
                                     <td style="width: 30%;">Tahun Lulus</td>
                                     <td style="width:100%" th:text="${pegawai.pelamar_id.lulusan_tahun}"></td>
                                 </tr> 
+                               <tr>
+                               	<td style="width:100%" th:text="${#dates.format(#dates.createNow(), 'yyyy MMM dd ')}"></td>
+                               	<td style="width:100%" th:text="${pegawai.end_date}"></td>
+                               </tr>
                             </tbody>
                         </table>
                     </div>
@@ -317,15 +321,15 @@
                                                 <th>Produk</th>
                                                 <th>Tanggal Mulai Kontrak</th>
                                                 <th>Tanggal Selesai Kontrak</th>
-                                                <th>Feedback</th>
+                                             
                                             </tr>
-                                            <tr>
-                                                <td border-bottom: 1px solid #ddd >hihi</td>
-                                                <td border-bottom: 1px solid #ddd>hihi</td>
-                                                <td border-bottom: 1px solid #ddd>hihi</td>
-                                                <td border-bottom: 1px solid #ddd>hihi</td>
-                                                <td border-bottom: 1px solid #ddd>hihi</td>
-                                            </tr>
+                                           <!--  <tr th:each ="listRiwayat: ${riwayatPegawai}">
+                                                <td border-bottom: 1px solid #ddd th:text="${listRiwayat.proyek.nama_proyek}" ></td>
+                                                <td border-bottom: 1px solid #ddd th:text="${listRiwayat.produk.nama_produk}"></td>
+                                                <td border-bottom: 1px solid #ddd th:text="${listRiwayat.join_date}"></td>
+                                                <td border-bottom: 1px solid #ddd th:text="${listRiwayat.end_date}"></td>
+                                                <td border-bottom: 1px solid >hihi</td>
+                                            </tr> -->
                                             <br>
                                             <br>
                                         </tbody>

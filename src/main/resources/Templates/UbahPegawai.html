@@ -89,7 +89,18 @@
 					<input type="hidden" id="gaji_pokok" name="gaji_pokok" th:field="*{gaji_pokok}">
 					<input type="hidden" id="tunjangan_tetap" name="tunjangan_tetap" th:field="*{tunjangan_tetap}">
 					<input type="hidden" id="tunjangan_tidak_tetap" name="tunjangan_tidak_tetap" th:field="*{tunjangan_tidak_tetap}">
-					<input type="hidden" id="jaminan" name="jaminan" th:field="*{jaminan}">
+					<input type="hidden" name="jaminan" th:field="*{jaminan}">
+					<input type="hidden" name="nama_produk" th:field="*{produk.nama_produk}">
+					<input type="hidden" name="nama_sekolah" th:field="*{pelamar_id.nama_sekolah}">
+					<input type="hidden" name="pendidikan_terakhir" th:field="*{pelamar_id.pendidikan_terakhir}">
+					<input type="hidden" name="jurusan" th:field="*{pelamar_id.jurusan}">
+					<input type="hidden" name="apply_date" th:field="*{pelamar_id.apply_date}">
+					<input type="hidden" name="tempat_sekolah" th:field="*{pelamar_id.tempat_sekolah}">
+					<input type="hidden" name="jabatan" th:field="*{jabatan}">
+					<input type="hidden" name="join_date" th:field="*{join_date}">
+					<input type="hidden" name="tempat_sekolah" th:field="*{end_date}">
+					
+					<input type="hidden" name="id" th:field="${pegawai.pelamar_id.id}">
 					
 					<div class="form-row">
 								
@@ -116,7 +127,7 @@
 									</div>
 									<div class="form-group col-md-6">
 										<label for="nama_panggilan">Nama Panggilan</label>
-										<input type="text" class="form-control" id="nama_panggilan" th:field="*{pelamar_id.nama_lengkap}"/>
+										<input type="text" class="form-control" id="nama_panggilan" th:field="*{pelamar_id.nama_panggilan}"/>
 									</div>
 								</div>
 								
@@ -127,27 +138,27 @@
 									</div>
 									<div th:if="${pegawai.pelamar_id.gender == 'Laki-laki'}"class="form-group col-md-3">
 										<label for="inputAddress">Jenis Kelamin *</label><br>
-        								<input type="radio" name="gender" value="Laki-laki"checked > Laki-laki
-        								<input type="radio" name="gender" value="Perempuan"> Perempuan
+        								<input type="radio" name="gender" th:field="*{pelamar_id.gender}" value="Laki-laki"checked > Laki-laki
+        								<input type="radio" name="gender" th:field="*{pelamar_id.gender}" value="Perempuan"> Perempuan
 									</div>
 									
 									<div th:unless="${pegawai.pelamar_id.gender == 'Laki-laki'}"class="form-group col-md-3">
 										<label for="inputAddress">Jenis Kelamin *</label><br>
-        								<input type="radio" name="gender" value="Laki-laki"> Laki-laki
-        								<input type="radio" name="gender" value="Perempuan"checked> Perempuan
+        								<input type="radio" name="gender" th:field="*{pelamar_id.gender}" value="Laki-laki"> Laki-laki
+        								<input type="radio" name="gender" th:field="*{pelamar_id.gender}" value="Perempuan"checked> Perempuan
 									</div>
 										
 								
 									<div th:if="${pegawai.pelamar_id.status_marital == 'Sudah Menikah'}"class="form-group col-md-4">
-										<label for="inputAddress">Jenis Kelamin *</label><br>
-        								<input type="radio" name="status_marital" value="Sudah Menikah" checked> Sudah Menikah
-        								<input type="radio" name="status_marital" value="Belum Menikah"> Belum Menikah
+										<label for="inputAddress">Status Marital *</label><br>
+        								<input type="radio" name="status_marital"  th:field="*{pelamar_id.status_marital}" value="Sudah Menikah" checked> Sudah Menikah
+        								<input type="radio" name="status_marital"  th:field="*{pelamar_id.status_marital}" value="Belum Menikah"> Belum Menikah
 									</div>
 									
 									<div th:unless="${pegawai.pelamar_id.status_marital == 'Sudah Menikah'}"class="form-group col-md-4">
-										<label for="inputAddress">Jenis Kelamin *</label><br>
-        								<input type="radio" name="status_marital" value="Sudah Menikah" > Sudah Menikah
-        								<input type="radio" name="status_marital" value="Belum Menikah" checked> Belum Menikah
+										<label for="inputAddress"> Status Marital  *</label><br>
+        								<input type="radio" name="status_marital" th:field="*{pelamar_id.status_marital}" value="Sudah Menikah" > Sudah Menikah
+        								<input type="radio" name="status_marital" th:field="*{pelamar_id.status_marital}" value="Belum Menikah" checked> Belum Menikah
 									</div>
 									
 									<div class="form-group col-md-4"></div>
@@ -157,13 +168,12 @@
 								<div class="form-row">
 									<div class="form-group col-md-6">
 										<label for="alamat">Alamat</label>
-										<input type="Text" class="form-control" id="alamat" placeholder="Masukkan Alamat"
-										th:value="${pegawai.pelamar_id.alamat}" th:field="*{pelamar_id.alamat}"/>
+										<input type="text" class="form-control" id="alamat" th:field="*{pelamar_id.alamat}"/>
 									</div>
 									<div class="form-group col-md-4">
 										<label for="region"> Region </label>
-										<input type="Text" class="form-control" id="region" placeholder="Masukkan Region"
-										th:value="${pegawai.pelamar_id.region}" th:field="*{pelamar_id.region}" required/>
+										<input type="text" class="form-control" id="region" 
+										 th:field="${pegawai.pelamar_id.region}" required/>
 									</div>
 									<div class="form-group col-md-4"></div>
 								</div>
@@ -281,7 +291,19 @@
 					<input type="hidden" id="gaji_pokok" name="gaji_pokok" th:field="*{gaji_pokok}">
 					<input type="hidden" id="tunjangan_tetap" name="tunjangan_tetap" th:field="*{tunjangan_tetap}">
 					<input type="hidden" id="tunjangan_tidak_tetap" name="tunjangan_tidak_tetap" th:field="*{tunjangan_tidak_tetap}">
-					<input type="hidden" id="jaminan" name="jaminan" th:field="*{jaminan}">
+					<input type="hidden" name="jaminan" th:field="*{jaminan}">
+					<input type="hidden" name="nama_produk" th:field="*{produk.nama_produk}">
+					<input type="hidden" name="nama_sekolah" th:field="*{pelamar_id.nama_sekolah}">
+					<input type="hidden" name="pendidikan_terakhir" th:field="*{pelamar_id.pendidikan_terakhir}">
+					<input type="hidden" name="jurusan" th:field="*{pelamar_id.jurusan}">
+					<input type="hidden" name="apply_date" th:field="*{pelamar_id.apply_date}">
+					<input type="hidden" name="tempat_sekolah" th:field="*{pelamar_id.tempat_sekolah}">
+					<input type="hidden" name="jabatan" th:field="*{jabatan}">
+					<input type="hidden" name="join_date" th:field="*{join_date}">
+					<input type="hidden" name="tempat_sekolah" th:field="*{end_date}">
+					
+					<input type="hidden" name="id" th:field="${pegawai.pelamar_id.id}">
+					
 					<div class="form-row">
 			
 						<div class="form-group col-md-6">
@@ -304,14 +326,14 @@
 					<div class="form-row">
 						<div class="form-group col-md-4">
 							<label for="nama_produk"> Produk </label>
-							<select th:if="${pegawai.status}" id="produk" name="nama_produk" class="form-control">
-								<option  th:value= "*{produk.nama_produk}" th:field="*{produk.nama_produk}" disabled selected></option>
+							<select th:if="${pegawai.status}" id="produk" name="id" class="form-control">
+								<option  th:value= "*{produk.id}" th:field="*{produk.nama_produk}" disabled selected></option>
 								<option th:each="produk: ${produk}"
-								th:text="${produk.getNama_produk()}" th:value="${produk.getId()}" th:selected="${produk.getNama_produk()}"></option>
+								th:text="${pegawai.produk.nama_produk}" th:value="${produk.id}" th:selected="${pegawai.produk.nama_produk}"></option>
 							</select>
 							<select th:unless="${pegawai.status}" id="produk" name="nama_produk" class="form-control">
-								<option  th:unless="${pegawai.status}" th:value= "*{produk.nama_produk}" th:field="*{produk.nama_produk}" th:selected="${pegawai.produk.getNama_produk()}" disabled selected></option>
-							</select>
+								<option  th:unless="${pegawai.status}" th:value= "*{produk.nama_produk}" th:field="*{produk.nama_produk}" th:selected="${pegawai.produk.nama_produk}" disabled selected></option>
+							</select> 
 						</div> 
 						 
 						 

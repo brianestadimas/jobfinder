@@ -6,7 +6,7 @@ import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 
 public interface PegawaiOutsourcingService {
 	List<PegawaiOutsourcingModel> getAllPegawai();
-	Optional<PegawaiOutsourcingModel> getPegawaiById(long id);
+	PegawaiOutsourcingModel getPegawaiById(long id);
 	void deletePegawaiById(long id);
 	void updatePegawaiStatusById(long id);
 	void updatePegawai(long id, PegawaiOutsourcingModel pegawai);

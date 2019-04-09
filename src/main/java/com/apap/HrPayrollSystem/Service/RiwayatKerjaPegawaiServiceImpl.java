@@ -10,31 +10,38 @@ import org.springframework.transaction.annotation.Transactional;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.RiwayatKerjaPegawaiModel;
 import com.apap.HrPayrollSystem.Repository.PegawaiOutsourcingDb;
-import com.apap.HrPayrollSystem.Repository.RiwayatKerjaPegawai;
+import com.apap.HrPayrollSystem.Repository.RiwayatKerjaPegawaiDb;
 
 @Service
 @Transactional
 public class RiwayatKerjaPegawaiServiceImpl implements RiwayatKerjaPegawaiService {
 
 	@Autowired
-	RiwayatKerjaPegawai riwayatKerjaPegawaiDb;
+	RiwayatKerjaPegawaiDb riwayatKerjaPegawaiDb;
 	@Autowired
 	PegawaiOutsourcingDb pegawaiOutsourcingDb;
 	
 	@Override
-	public List<RiwayatKerjaPegawaiModel> getAllRiwayat(String nip) {
+	public List<RiwayatKerjaPegawaiModel> getAllRiwayat() {
 		// TODO Auto-generated method stub
-//		return riwayatKerjaPegawaiDb.findNipPegawaiOutsourcing(nip);
-		return new ArrayList<RiwayatKerjaPegawaiModel>(); // yang diubah
+		return riwayatKerjaPegawaiDb.findAll();
+		//return new ArrayList<RiwayatKerjaPegawaiModel>(); // yang diubah
 	}
-
+	
 	@Override
-	public void addRiwayat(long id) {
-		// TODO Auto-generated method stub
-		PegawaiOutsourcingModel obj = pegawaiOutsourcingDb.getOne(id);
-		RiwayatKerjaPegawaiModel data = new RiwayatKerjaPegawaiModel();
-		//data.setEnd_date();
-		
+	public RiwayatKerjaPegawaiModel addRiwayat(RiwayatKerjaPegawaiModel riwayat) {
+		return riwayatKerjaPegawaiDb.save(riwayat);
 	}
+//
+//	@Override
+//	public void addRiwayat(long id) {
+//		// TODO Auto-generated method stub
+//		PegawaiOutsourcingModel obj = pegawaiOutsourcingDb.getOne(id);
+//		RiwayatKerjaPegawaiModel data = new RiwayatKerjaPegawaiModel();
+//		//data.setEnd_date();
+//		
+//	}
+
+	
 	
 }

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.apap.HrPayrollSystem.Model.RiwayatKerjaPegawaiModel;
 
 public interface RiwayatKerjaPegawaiService {
-	List<RiwayatKerjaPegawaiModel> getAllRiwayat(String nip);
-	void addRiwayat(long id);
+	List<RiwayatKerjaPegawaiModel> getAllRiwayat();
+	RiwayatKerjaPegawaiModel addRiwayat(RiwayatKerjaPegawaiModel riwayat);
+//	void addRiwayat(long id);
+	
 }
