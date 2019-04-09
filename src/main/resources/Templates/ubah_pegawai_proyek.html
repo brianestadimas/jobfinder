@@ -69,6 +69,7 @@ thead th{
             <tr>
                 <th>NIP</th>
                 <th>Nama Pegawai</th>
+                <th>Produk</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Gaji Pokok</th>
@@ -83,6 +84,7 @@ thead th{
             <tr th:each="listPegawai, itemStat : *{listPegawai}">
                 <td th:text="*{listPegawai[__${itemStat.index}__].nip}" ></td>
                 <td th:text="*{listPegawai[__${itemStat.index}__].pelamar_id.nama_lengkap}"></td>
+                <td th:text="*{listPegawai[__${itemStat.index}__].produk}"></td>
                 <td th:text="*{listPegawai[__${itemStat.index}__].join_date}" ></td>
                 <td th:text="*{listPegawai[__${itemStat.index}__].end_date}"></td>
 
@@ -93,20 +95,20 @@ thead th{
                 <td><input type="text" th:field="*{listPegawai[__${itemStat.index}__].bpjstk}" name="bpjstk"></td>
                 <td><input type="text" th:field="*{listPegawai[__${itemStat.index}__].jaminan}" name="jaminan"></td>
 
-                <td><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].jabatan}" name="jabatan"></td>
-                <td><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].nip}" name="nip"></td>
-                <td><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].join_date}" name="join_date"></td>
-                <td><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].end_date}" name="end_date"></td>
-                <td><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].id}" name="id"></td>
-                <td><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].proyek}" name="proyek"></td>
-                <td><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].produk}" name="produk"></td>
-                <td><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].status}" name="status"></td>
-                <td><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].npwp}" name="npwp"></td>
-                <td><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].pkwt}" name="pkwt"></td>
-                <td><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].no_arsip}" name="no_arsip"></td>
-                <td><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].nama_bank}" name="nama_bank"></td>
-                <td><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].no_rekening}" name="no_rekening"></td>
-                <td><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].pelamar_id}" name="pelamar_id"></td>
+                <td style="display:none"><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].jabatan}" name="jabatan"></td>
+                <td style="display:none"><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].nip}" name="nip"></td>
+                <td style="display:none"><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].join_date}" name="join_date"></td>
+                <td style="display:none"><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].end_date}" name="end_date"></td>
+                <td style="display:none"><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].id}" name="id"></td>
+                <td style="display:none"><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].proyek}" name="proyek"></td>
+                <td style="display:none"><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].produk}" name="produk"></td>
+                <td style="display:none"><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].status}" name="status"></td>
+                <td style="display:none"><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].npwp}" name="npwp"></td>
+                <td style="display:none"><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].pkwt}" name="pkwt"></td>
+                <td style="display:none"><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].no_arsip}" name="no_arsip"></td>
+                <td style="display:none"><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].nama_bank}" name="nama_bank"></td>
+                <td style="display:none"><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].no_rekening}" name="no_rekening"></td>
+                <td style="display:none"><input type="hidden" th:field="*{listPegawai[__${itemStat.index}__].pelamar_id}" name="pelamar_id"></td>
             </tr>
             </tbody>
       </table>

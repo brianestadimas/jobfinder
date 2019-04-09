@@ -51,18 +51,13 @@ public class ProyekController {
 		}
 		model.addAttribute("listPegawai", pegawaiProyek);
 		
-		if (proyek.getJenis_proyek()=="umum") {
-			return "detail_proyek_umum";
-		}
-		else {
-			return "detail_proyek_umum";
-		}
+		return "detail_proyek";
 	}
 	
 	//Delete Proyek
 	
-	@RequestMapping(value = "/proyek-hapus", method = RequestMethod.POST)
-	private String deleteProyek(@RequestParam("id") long id, Model model) {
+	@RequestMapping(value = "/proyek-hapus/{id}", method = RequestMethod.GET)
+	private String deleteProyek(@PathVariable(value = "id") long id, Model model) {
 
 		List<PegawaiOutsourcingModel> pegawaiOutsourcing = pegawaiService.getAllPegawai();
 		for (int i=0; i<pegawaiOutsourcing.size(); i++){

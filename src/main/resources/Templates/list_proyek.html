@@ -80,7 +80,7 @@ thead th{
 				<td th:text="${proyek.region}"></td>
 				<td th:text="${proyek.start_date_kontrak}"></td>
 				<td th:text="${proyek.end_date_kontrak}"></td>
-				<td><button type="button" class="btn btn-success">Detail</button><button type="button" class="btn btn-danger" style="margin-left: 10px;">Hapus</button></td>
+				<td><button th:href="@{'/proyek-hapus/edit/' + ${category.idCategory}}" type="button" class="btn btn-success">Detail</button><button type="button" class="btn btn-danger" style="margin-left: 10px;">Hapus</button></td>
 			</tr>
 		</tbody>
 		<tfoot>
