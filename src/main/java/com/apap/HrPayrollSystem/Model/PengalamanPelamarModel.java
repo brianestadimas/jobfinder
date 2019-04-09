@@ -37,11 +37,9 @@ public class PengalamanPelamarModel implements Serializable {
 	@Column(name = "nama_perusahaan", nullable = false)
 	private String nama_perusahaan;
 
-	
-	//ini mestinya tahun_terakhir 
-	@Size(max=255)
-	@Column(name="pekerjaan_terakhir",nullable = true)
-	private String pekerjaan_terakhir;
+	@Size(max = 255)
+	@Column(name = "tahun_terakhir", nullable = true)
+	private String tahun_terakhir;
 
 	@Size(max = 255)
 	@Column(name = "lamaTahun_bekerja", nullable = true)
@@ -84,12 +82,12 @@ public class PengalamanPelamarModel implements Serializable {
 		this.nama_perusahaan = nama_perusahaan;
 	}
 
-	public String getPekerjaan_terakhir() {
-		return pekerjaan_terakhir;
+	public String getTahun_terakhir() {
+		return tahun_terakhir;
 	}
 
-	public void setPekerjaan_terakhir(String pekerjaan_terakhir) {
-		this.pekerjaan_terakhir = pekerjaan_terakhir;
+	public void setTahun_terakhir(String tahun_terakhir) {
+		this.tahun_terakhir = tahun_terakhir;
 	}
 
 	public String getLamaTahun_bekerja() {

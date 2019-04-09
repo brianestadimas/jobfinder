@@ -57,16 +57,16 @@ public class PelamarController {
 
 		PelamarModel pelamar = new PelamarModel();
 		FormCommand command = new FormCommand();
-		List<PengalamanPelamarModel> pengalaman = new ArrayList<PengalamanPelamarModel>(3);
+		command.addPengalamanToList(new PengalamanPelamarModel());
 		// Tambah attribute ke dalam model
 		model.addAttribute("pelamar", pelamar);
 		model.addAttribute("command", command);
-		model.addAttribute("pengalaman", pengalaman);
 		return "pelamar-daftar";
 	}
 
-	@RequestMapping(value = "pelamar/daftar", params = { "addEntry" }, method = RequestMethod.GET)
-	private String addEntryPengalaman(Model model, @ModelAttribute FormCommand command) {
+	@RequestMapping(value = "pelamar/daftar", params = { "addEntry" }, method = RequestMethod.POST)
+	private String addEntryPengalaman(Model model, @ModelAttribute FormCommand command,
+			@ModelAttribute PelamarModel pelamar) {
 		// Add baris baru dalam pengalaman di form
 		if (command.getPengalamanList().size() >= 3) {
 			model.addAttribute("limit_msg", "Maksimal 3 pengalaman");
@@ -74,12 +74,13 @@ public class PelamarController {
 			command.addPengalamanToList(new PengalamanPelamarModel());
 		}
 		model.addAttribute("command", command);
+		model.addAttribute("pelamar", pelamar);
 		return "pelamar-daftar";
 	}
 
 	@RequestMapping(value = "pelamar/daftar", params = { "deleteEntry" }, method = RequestMethod.POST)
 	private String deleteEntryPengalaman(Model model, @ModelAttribute FormCommand command,
-			HttpServletRequest deleteIndex) {
+			@ModelAttribute PelamarModel pelamar, HttpServletRequest deleteIndex) {
 
 		if (command.getPengalamanList().size() == 1) {
 			model.addAttribute("deleteLimit_msg", "Tidak bisa dihapus, minimum 1 entri pengalaman");
@@ -88,7 +89,8 @@ public class PelamarController {
 					(command.getPengalamanList().get(Integer.parseInt(deleteIndex.getParameter("deleteEntry")))));
 		}
 		model.addAttribute("command", command);
-		return "jadwalJaga-add";
+		model.addAttribute("pelamar", pelamar);
+		return "pelamar-daftar";
 
 	}
 
