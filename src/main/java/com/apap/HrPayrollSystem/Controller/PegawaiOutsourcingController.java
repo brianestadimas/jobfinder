@@ -2,7 +2,6 @@ package com.apap.HrPayrollSystem.Controller;
 
 import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,8 +34,8 @@ public class PegawaiOutsourcingController {
 	private PegawaiOutsourcingService pegawaiService;
 	@Autowired
 	private ProdukService produkService;
-//	@Autowired
-//	private RiwayatKerjaPegawaiService riwayatService;
+	@Autowired
+	RiwayatKerjaPegawaiService riwayatService;
 	
 	@RequestMapping("/pegawai")
 	private String pegawai(Model model) {
@@ -109,9 +107,6 @@ public class PegawaiOutsourcingController {
 //		}
 //		
 //	}
-
-	@Autowired
-	ProdukService produkService;
 	
 	//Assign Pegawai Get
 	@RequestMapping(value = "/pegawai/assign", method = RequestMethod.GET)

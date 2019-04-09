@@ -246,6 +246,8 @@ public class PelamarController {
 	@RequestMapping(value = "pelamar/ubah/{id}", params = { "submitPelamarUbah" }, method = RequestMethod.POST)
 	private String ubahPelamarPost(@PathVariable(value = "id") long id, @ModelAttribute PelamarModel pelamar,
 			@ModelAttribute FormCommand command, Model model) {
+		System.out.println(pelamar.getNama_lengkap());
+		System.out.println(command.getSelectedCheckboxProduk());
 		String produkResult = "";
 		for (String produk : command.getSelectedCheckboxProduk()) {
 			produkResult += produk + ",";
@@ -321,10 +323,8 @@ public class PelamarController {
 		}
 		return values;
 	}
-}
 
 	
-
 	//Assign Pelamar Get
 	@RequestMapping(value = "/pelamar/assign", method = RequestMethod.GET)
 	private String assignPelamar(long[] ids, Model model) {
