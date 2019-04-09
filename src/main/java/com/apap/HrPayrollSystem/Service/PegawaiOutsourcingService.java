@@ -10,4 +10,5 @@ public interface PegawaiOutsourcingService {
 	void deletePegawaiById(long id);
 	void updatePegawaiStatusById(long id);
 	void updatePegawai(long id, PegawaiOutsourcingModel pegawai);
+	Boolean expiredDate(PegawaiOutsourcingModel pegawai);
 }

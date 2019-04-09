@@ -1,6 +1,10 @@
 package com.apap.HrPayrollSystem.Controller;
 
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +41,15 @@ public class PegawaiOutsourcingController {
 		List<PegawaiOutsourcingModel> list = pegawaiService.getAllPegawai();
 		model.addAttribute("listPegawai", list);
 		
+		
 		return "ListPegawai";
 	}
 	
 	@RequestMapping(value = "/pegawai-detail/{id}", method = RequestMethod.GET)
 	private String detailPegawain(@PathVariable long id, Model model) {
 		PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(id);
+		
+		
 //		List<RiwayatKerjaPegawaiModel> rKerja= riwayatService.getAllRiwayat();
 //		List<RiwayatKerjaPegawaiModel>	rTemp = new ArrayList<RiwayatKerjaPegawaiModel>();
 //	
@@ -67,13 +74,15 @@ public class PegawaiOutsourcingController {
 	private String ubahPegawai(@PathVariable(value = "id") long id, Model model) {
 		PegawaiOutsourcingModel pegawaiLama = pegawaiService.getPegawaiById(id);
 		List<ProdukModel> produkList = produkService.getAllProduk();
+		List<ProdukModel> produkList2 = produkList.subList(1, produkList.size());
+		//List<ProdukModel> produkAvail = produkList.get(1);
 		//List<PelamarModel> pelamarList = pelamarService
-		System.out.println(pegawaiLama.getStatus());
-		System.out.println(pegawaiLama.getProduk().getNama_produk());
-		System.out.println(pegawaiLama.getProduk().getId());
 		
 		model.addAttribute("pegawai", pegawaiLama);
-		model.addAttribute("produk", produkList);
+		model.addAttribute("produk", produkList2);
+	
+		
+		
 		
 		
 		return "UbahPegawai";
@@ -115,6 +124,7 @@ public class PegawaiOutsourcingController {
 			for(Long id : ids) {
 				System.out.println(id);
 				pegawaiService.updatePegawaiStatusById(id);
+				
 				
 				/*
 				 * Untuk nambah Riwayat Kerja

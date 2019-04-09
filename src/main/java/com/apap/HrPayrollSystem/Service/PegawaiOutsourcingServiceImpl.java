@@ -58,6 +58,8 @@ public class PegawaiOutsourcingServiceImpl implements PegawaiOutsourcingService 
 	public void updatePegawai(long id, PegawaiOutsourcingModel pegawai) {
 		
 		PegawaiOutsourcingModel updatePegawai = pegawaiOutsourcingDb.findById(id);
+		
+	
 //		
 //		pelamar_baru.setNama_lengkap(pegawai.getPelamar_id().getNama_lengkap());
 //		pelamar_baru.setNama_panggilan(pegawai.getPelamar_id().getNama_panggilan());
@@ -124,5 +126,14 @@ public class PegawaiOutsourcingServiceImpl implements PegawaiOutsourcingService 
 		
 		
 	}
+
+	@Override
+	public Boolean expiredDate(PegawaiOutsourcingModel pegawai) {
+		Boolean expiredStatus = true;
+		
+		
+		return null;
+	}
+	
 
 }
