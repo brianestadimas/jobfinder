@@ -129,8 +129,6 @@ public class PelamarController {
 		for (String produk : command.getSelectedCheckboxProduk()) {
 			produkResult += produk + ",";
 		}
-
-		System.out.println(produkResult.substring(0, produkResult.length() - 1));
 		pelamar.setProduk_dilamar(produkResult.substring(0, produkResult.length() - 1));
 
 		pelamarService.addPelamar(pelamar);
@@ -263,10 +261,9 @@ public class PelamarController {
 	@RequestMapping(value = "/pelamar/hapus", method = RequestMethod.POST)
 	private String deletePelamar(@RequestParam("id") Long[] ids, Model model) {
 		List<PengalamanPelamarModel> arsip_pengalaman = pengalamanService.getAllPengalaman();
-		if (ids.length == 0) {
+		if (ids == null) {
 			model.addAttribute("deleteError_msg", "Centang Pelamar yang akan dihapus terlebih dahulu!");
 		} else {
-
 			for (Long id : ids) {
 				PelamarModel arsip_pelamar = pelamarService.getPelamarById(id);
 				for (PengalamanPelamarModel pengalaman : arsip_pengalaman) {
