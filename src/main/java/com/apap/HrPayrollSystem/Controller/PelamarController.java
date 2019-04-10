@@ -338,7 +338,7 @@ public class PelamarController {
 		List<String> nama_pelamar = new ArrayList<String>();
 		
 		ids = new long[1];
-		ids[0] = (long) 2;
+		ids[0] = (long) 1;
 
 		
 		for(int i=0; i<ids.length; i++) {

@@ -171,7 +171,7 @@ thead th{
             <a th:if="${pegawaiProyek.gaji_pokok != 0 && pegawaiProyek.tunjangan_tetap != 0 && pegawaiProyek.tunjangan_tidak_tetap != 0}">
                 <td th:text="${pegawaiProyek.nip}"></td>
                 <td th:text="${pegawaiProyek.pelamar_id.nama_lengkap}"></td>
-                <td th:text="${pegawaiProyek.produk}"></td>
+                <td th:text="${pegawaiProyek.produk.nama_produk}"></td>
                 <td th:text="${pegawaiProyek.join_date}"></td>
                 <td th:text="${pegawaiProyek.end_date}"></td>
                 <td th:text="${pegawaiProyek.gaji_pokok}"></td>
@@ -183,7 +183,7 @@ thead th{
             <a th:unless="${pegawaiProyek.gaji_pokok != 0 && pegawaiProyek.tunjangan_tetap != 0 && pegawaiProyek.tunjangan_tidak_tetap != 0}">
                 <td style="background-color:gray" th:text="${pegawaiProyek.nip}"></td>
                 <td th:text="${pegawaiProyek.pelamar_id.nama_lengkap}"></td>
-                <td th:text="${pegawaiProyek.produk}"></td>
+                <td th:text="${pegawaiProyek.produk.nama_produk}"></td>
                 <td th:text="${pegawaiProyek.join_date}"></td>
                 <td th:text="${pegawaiProyek.end_date}"></td>
                 <td th:text="${pegawaiProyek.gaji_pokok}"></td>
