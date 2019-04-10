@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -46,17 +46,16 @@ thead th{
         
     </div>
     <a class="navbar-brand" href="#">
-	  <img src="img/ss(3).png" style=" max-width:90%; display: inline-block; margin-top: -16px; opacity: 0.7;">
+	  <img th:src="@{img/ss(3).png}" style=" max-width:90%; display: inline-block; margin-top: -16px; opacity: 0.7;">
 	</a>
 
     <div id="navbarCollapse" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
         	<li><a href="#" style="font-weight:bold; margin-left: -34px; font-size: 16px">SIMOS</a></li>
-            <li class="active" style="display: inline;"><a href="#">Beranda</a></li>
-            <li><a href="#">Pelamar</a></li>
-            <li><a href="#">Pegawai</a></li>
-            <li><a href="#">Proyek</a></li>
-            <li><a href="#">Absensi</a></li>
+            <li class="active" style="display: inline;"><a th:href="@{/}">Beranda</a></li>
+            <li><a href="/pelamar/">Pelamar</a></li>
+            <li><a href="/pegawai">Pegawai</a></li>
+            <li><a href="/proyek">Proyek</a></li>
         </ul>
     </div></nav>
 <body>
@@ -172,7 +171,7 @@ thead th{
             <a th:if="${pegawaiProyek.gaji_pokok != 0 && pegawaiProyek.tunjangan_tetap != 0 && pegawaiProyek.tunjangan_tidak_tetap != 0}">
                 <td th:text="${pegawaiProyek.nip}"></td>
                 <td th:text="${pegawaiProyek.pelamar_id.nama_lengkap}"></td>
-                <td th:text="${pegawaiProyek.produk}"></td>
+                <td th:text="${pegawaiProyek.produk.nama_produk}"></td>
                 <td th:text="${pegawaiProyek.join_date}"></td>
                 <td th:text="${pegawaiProyek.end_date}"></td>
                 <td th:text="${pegawaiProyek.gaji_pokok}"></td>
@@ -184,7 +183,7 @@ thead th{
             <a th:unless="${pegawaiProyek.gaji_pokok != 0 && pegawaiProyek.tunjangan_tetap != 0 && pegawaiProyek.tunjangan_tidak_tetap != 0}">
                 <td style="background-color:gray" th:text="${pegawaiProyek.nip}"></td>
                 <td th:text="${pegawaiProyek.pelamar_id.nama_lengkap}"></td>
-                <td th:text="${pegawaiProyek.produk}"></td>
+                <td th:text="${pegawaiProyek.produk.nama_produk}"></td>
                 <td th:text="${pegawaiProyek.join_date}"></td>
                 <td th:text="${pegawaiProyek.end_date}"></td>
                 <td th:text="${pegawaiProyek.gaji_pokok}"></td>

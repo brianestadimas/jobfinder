@@ -5,7 +5,29 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 </head>
+<nav class="navbar navbar-default" style="box-shadow:0 0px 2px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);">
+    <div class="navbar-header">
+        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        
+    </div>
+    <a class="navbar-brand" href="#">
+	  <img th:src="@{img/ss(3).png}" style=" max-width:90%; display: inline-block; margin-top: -16px; opacity: 0.7;">
+	</a>
 
+    <div id="navbarCollapse" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+        	<li><a href="#" style="font-weight:bold; margin-left: -34px; font-size: 16px">SIMOS</a></li>
+            <li class="active" style="display: inline;"><a th:href="@{/}">Beranda</a></li>
+            <li><a href="/pelamar/">Pelamar</a></li>
+            <li><a href="/pegawai">Pegawai</a></li>
+            <li><a href="/proyek">Proyek</a></li>
+        </ul>
+    </div></nav>
 <body>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -111,8 +133,8 @@
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 
-                   <button th:href="'/pegawai/ubah/'+${pegawai.id}" class="btn btn-info btn-large"
-                        style="float: right; margin-top:10px ; margin-right: 50px;">Ubah</button>
+                   <a th:href="'/pegawai/ubah/'+${pegawai.id}" class="btn btn-info btn-large"
+                        style="float: right; margin-top:10px ; margin-right: 50px;">Ubah</a>
                     <div class="tablecontainer">
                         <table style="width:100%" id="table" class="table table-striped table-bordered dataTable">
                             <tbody>
@@ -258,6 +280,10 @@
                                     <td style="width: 30%;">Tahun Lulus</td>
                                     <td style="width:100%" th:text="${pegawai.pelamar_id.lulusan_tahun}"></td>
                                 </tr> 
+                               <!-- <tr>
+                               	<td style="width:100%" th:text="${#dates.format(#dates.createNow(), 'yyyy MMM dd ')}"></td>
+                               	<td style="width:100%" th:text="${pegawai.end_date}"></td>
+                               </tr> -->
                             </tbody>
                         </table>
                     </div>
@@ -271,18 +297,27 @@
 						</div> -->
                     
                     
-                     <button th:href="'/pegawai/ubah/'+${pegawai.id}"  class="btn btn-info btn-large" style="float: right; margin-top:10px ; margin-right: 50px;">Ubah</button>
+                     <a th:href="'/pegawai/ubah/'+${pegawai.id}" onClick="" class="btn btn-info btn-large" style="float: right; margin-top:10px ; margin-right: 50px;">Ubah</a>
                     <div class="tablecontainer">
                         <table class="table table-striped table-bordered">
                             <tbody>
                                 <tr>
                                     <td style="width:50%" scope="row">Proyek</td>
-                                    <td style="width:100%" th:if="${pegawai.status}" th:text="${pegawai.proyek.nama_proyek}"></td>
-                                    <td style="width:100%" th:unless="${pegawai.status}">None</td>
+                                    <div th:if="${pegawai.status}">
+                                       <td style="width:100%" th:if="${pegawai.status}" th:text="${pegawai.proyek.nama_proyek}"></td>
+                                    </div>
+                                    <div th:unless="${pegawai.status}">
+                                       <td style="width:100%" th:unless="${pegawai.status}">None</td>
+                                    </div>
                                 </tr>
                                 <tr>
                                     <td style="width:50%">Produk</td>
                                     <td style="width:100%" th:if="${pegawai.status}" th:text="${pegawai.produk.nama_produk}"></td>
+                                    <td style="width:100%" th:unless="${pegawai.status}">None</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%">Jabatan</td>
+                                    <td style="width:100%" th:if="${pegawai.status}" th:text="${pegawai.jabatan}"></td>
                                     <td style="width:100%" th:unless="${pegawai.status}">None</td>
                                 </tr>
                             </tbody>
@@ -298,7 +333,8 @@
                                 </tr>
                                 <tr>
                                     <td style="width:50%">End Date</td>
-                                    <td style="width:100%"  th:if="${pegawai.status}" th:text="${pegawai.end_date}"></td>
+                                    <td style="width:100%; color: red; "  th:if="${pegawai.status && expiredStatus == true}" th:text="${pegawai.end_date}"></td>
+                                    <td style="width:100%;"  th:if="${pegawai.status && expiredStatus == false}" th:text="${pegawai.end_date}"></td>
                                     <td style="width:100%" th:unless="${pegawai.status}">None</td>
                                 </tr>
                             </tbody>
@@ -317,15 +353,15 @@
                                                 <th>Produk</th>
                                                 <th>Tanggal Mulai Kontrak</th>
                                                 <th>Tanggal Selesai Kontrak</th>
-                                                <th>Feedback</th>
+                                             
                                             </tr>
-                                            <tr>
-                                                <td border-bottom: 1px solid #ddd >hihi</td>
-                                                <td border-bottom: 1px solid #ddd>hihi</td>
-                                                <td border-bottom: 1px solid #ddd>hihi</td>
-                                                <td border-bottom: 1px solid #ddd>hihi</td>
-                                                <td border-bottom: 1px solid #ddd>hihi</td>
-                                            </tr>
+                                            <tr th:each ="listRiwayat: ${riwayatPegawai}">
+                                                <td border-bottom: 1px solid #ddd th:text="${listRiwayat.proyek.nama_proyek}" ></td>
+                                                <td border-bottom: 1px solid #ddd th:text="${listRiwayat.produk.nama_produk}"></td>
+                                                <td border-bottom: 1px solid #ddd th:text="${listRiwayat.join_date}"></td>
+                                                <td border-bottom: 1px solid #ddd th:text="${listRiwayat.end_date}"></td>
+                                                
+                                            </tr> 
                                             <br>
                                             <br>
                                         </tbody>

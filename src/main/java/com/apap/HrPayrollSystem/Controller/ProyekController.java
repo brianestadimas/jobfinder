@@ -132,13 +132,13 @@ public class ProyekController {
 		
 		return "ubah_pegawai_proyek";
 	}
-	
-//	@RequestMapping(value = "/proyek-pegawai/{id}", method = RequestMethod.POST)
-//	private String ubahPegawaiProyekPost(@PathVariable(value = "id") long id, @ModelAttribute PegawaiProyekWrapper listPegawai, Model model) {
-//
-//		pegawaiService.save_all_pegawai_proyek(listPegawai.getListPegawai());
-//		return "list_proyek";
-//	}
+	@RequestMapping(value = "/proyek-pegawai/{id}", method = RequestMethod.POST)
+	private String ubahPegawaiProyekPost(@PathVariable(value = "id") long id, @ModelAttribute PegawaiProyekWrapper listPegawai, Model model) {
+
+		pegawaiService.save_all_pegawai_proyek(listPegawai.getListPegawai());
+		return "list_proyek";
+	}
+
 }
 
 

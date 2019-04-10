@@ -10,5 +10,6 @@ import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 @Repository
 public interface PegawaiOutsourcingDb extends JpaRepository<PegawaiOutsourcingModel,Long>{
 	List<PegawaiOutsourcingModel> findByStatus(boolean status);
+	PegawaiOutsourcingModel findById(long id);
 
 }

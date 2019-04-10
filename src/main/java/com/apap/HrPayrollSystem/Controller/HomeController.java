@@ -19,7 +19,7 @@ public class HomeController {
 	@Autowired
 	PelamarService pelamar_service;
 	
-	@RequestMapping("/home")
+	@RequestMapping("/")
 	private String home(Model model) {
 		List<ProyekModel> list_of_proyek = proyek_service.getAllProyek();
 		List<PelamarModel> list_of_pelamar = pelamar_service.getAllPelamar();

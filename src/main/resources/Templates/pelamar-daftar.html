@@ -79,7 +79,29 @@
 </style>
 
 <!-- th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"  -->
+<nav class="navbar navbar-default" style="box-shadow:0 0px 2px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);">
+    <div class="navbar-header">
+        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        
+    </div>
+    <a class="navbar-brand" href="#">
+	  <img th:src="@{img/ss(3).png}" style=" max-width:90%; display: inline-block; margin-top: -16px; opacity: 0.7;">
+	</a>
 
+    <div id="navbarCollapse" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+        	<li><a href="#" style="font-weight:bold; margin-left: -34px; font-size: 16px">SIMOS</a></li>
+            <li class="active" style="display: inline;"><a th:href="@{/}">Beranda</a></li>
+            <li><a href="/pelamar/">Pelamar</a></li>
+            <li><a href="/pegawai">Pegawai</a></li>
+            <li><a href="/proyek">Proyek</a></li>
+        </ul>
+    </div></nav>
 <body>
 	<!-- 	<nav th:replace="fragments/fragment :: navbar"></nav> -->
 	<div class="container-fluid"
@@ -223,23 +245,23 @@
 								<div class="form-group col-sm-auto">
 									<label for="no_handphone" class="col-form-label">No.
 										Handphone<span class="requiredField"> *</span>
-									</label> <input type="text" class="form-control" id="nomor_handphone"
+									</label> <input type="number" class="form-control" id="nomor_handphone"
 										placeholder="Nomor Handphone" th:field="*{nomor_handphone}"
 										required="required">
 								</div>
 								<div class="form-group col-sm-auto">
 									<label for="nama_lengkap" class="col-form-label">Telp.
-										Rumah</label> <input type="text" class="form-control" id="telp_rumah"
+										Rumah</label> <input type="number" class="form-control" id="telp_rumah"
 										placeholder="Nomor Telepon Rumah" th:field="*{telepon_rumah}">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label for="telepon_orang_terdekat"
 									class="col-form-label col-sm-4 col-md-2">No. Telp.
-									Keluarga<span class="requiredField"> *</span>
+									Orang Terdekat<span class="requiredField"> *</span>
 								</label>
 								<div class="col-sm-auto">
-									<input type="text" class="form-control"
+									<input type="number" class="form-control"
 										id="telepon_orang_terdekat" placeholder="Nomor Telp. Keluarga"
 										th:field="*{telepon_orang_terdekat}" required="required">
 								</div>
@@ -248,7 +270,7 @@
 								<label for="nomor_whatsapp"
 									class="col-form-label col-sm-4 col-md-2">No. WhatsApp </label>
 								<div class="col-sm-auto">
-									<input type="text" class="form-control" id="nomor_whatsapp"
+									<input type="number" class="form-control" id="nomor_whatsapp"
 										placeholder="Nomor WhatsApp" th:field="*{nomor_whatsapp}">
 								</div>
 							</div>

@@ -42,20 +42,20 @@ public class ProdukModel implements Serializable{
 //		this.history_bekerja = history;
 //	}
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	public String getNama_produk() {
 		return nama_produk;
 	}
 
 	public void setNama_produk(String nama_produk) {
 		this.nama_produk = nama_produk;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 //	public PegawaiOutsourcingModel getPegawai_outsourcing() {
