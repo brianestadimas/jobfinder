@@ -1,12 +1,9 @@
 package com.apap.HrPayrollSystem.Controller;
 
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.ProdukModel;
@@ -55,22 +53,40 @@ public class PegawaiOutsourcingController {
 	@RequestMapping(value = "/pegawai-detail/{id}", method = RequestMethod.GET)
 	private String detailPegawain(@PathVariable long id, Model model) {
 		PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(id);
+		Boolean expiredStatus= true;
 		
 		
-//		List<RiwayatKerjaPegawaiModel> rKerja= riwayatService.getAllRiwayat();
-//		List<RiwayatKerjaPegawaiModel>	rTemp = new ArrayList<RiwayatKerjaPegawaiModel>();
-//	
-//		for( RiwayatKerjaPegawaiModel riwayat : rKerja) {
-//			if (riwayat.getPegawai_outsourcing_id().equals(pegawai)){
-//				rTemp.add(riwayat);
-//			}
-//		}
+		System.out.println("MASOOOOEEKKKKKK SINIII");
+		System.out.println(pegawai.getJoin_date());
+		
+		
+		List<RiwayatKerjaPegawaiModel> rKerja= riwayatService.getAllRiwayat();
+		List<RiwayatKerjaPegawaiModel>	rTemp = new ArrayList<RiwayatKerjaPegawaiModel>();
 	
+		for( RiwayatKerjaPegawaiModel riwayat : rKerja) {
+			if (riwayat.getPegawai_outsourcing_id().equals(pegawai)){
+				rTemp.add(riwayat);
+			}
+		}
+		Date date = new Date();
+		long satuHari = 86400000;
+		long hariKe14 = pegawai.getEnd_date().getTime() -  14*satuHari;
+		System.out.println(hariKe14);
+		System.out.println(pegawai.getEnd_date());
+		System.out.println(date.getTime());
+		System.out.println(date.getTime() - hariKe14);
+		if(date.getTime() >  hariKe14) {
+			expiredStatus=true; //kalau mendekati end date
+		}else {
+			expiredStatus=false; //kalau belum dekat end date
+		}
+
 	
 		
 		//riwayatService.getAllRiwayat(nip);
+		model.addAttribute("expiredStatus", expiredStatus);
 		model.addAttribute("pegawai", pegawai);
-//		model.addAttribute("riwayatPegawai", rTemp);
+		model.addAttribute("riwayatPegawai", rTemp);
 		return "DetailPegawai";
 	}
 	
@@ -97,14 +113,14 @@ public class PegawaiOutsourcingController {
 	}
 	
 	@RequestMapping(value="/pegawai/ubah/{id}", method = RequestMethod.POST)
-    public String submitUbahPegawai(@PathVariable(value="id") long id, @ModelAttribute PegawaiOutsourcingModel pegawaiBaru, Model model) {	
+    public RedirectView submitUbahPegawai(@PathVariable(value="id") long id, @ModelAttribute PegawaiOutsourcingModel pegawaiBaru, Model model) {	
 		System.out.println(pegawaiBaru.getPkwt());
 		pegawaiService.updatePegawai(id,pegawaiBaru);
-		System.out.println(pegawaiBaru.getPelamar_id().getNama_lengkap());
-		System.out.println(pegawaiBaru.getPelamar_id().getNama_panggilan());
+		
 		
 		model.addAttribute("pegawai", pegawaiBaru);
-		return "DetailPegawai";
+		return new RedirectView("/pegawai-detail/"+id);
+
     }
 	
 	
@@ -146,8 +162,9 @@ public class PegawaiOutsourcingController {
 				rBaru.setProduk(temp.getProduk());
 				rBaru.setJoin_date(temp.getJoin_date());
 				rBaru.setEnd_date(temp.getEnd_date());
-				
-				
+//				System.out.println("==SAVING RIWAYAT==");
+//				System.out.println(rBaru.getEnd_date());
+//				System.out.println(rBaru.getProduk().getNama_produk());
 				riwayatService.addRiwayat(rBaru);
 				
 				

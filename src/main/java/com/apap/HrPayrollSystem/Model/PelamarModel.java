@@ -17,119 +17,114 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "pelamar")
-public class PelamarModel implements Serializable {
+@Table(name="pelamar")
+public class PelamarModel implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
+	
 	@NotNull
-	@Size(max = 255)
-	@Column(name = "nama_lengkap", nullable = false)
+	@Size(max=255)
+	@Column(name="nama_lengkap",nullable = false)
 	private String nama_lengkap;
-
-	@Size(max = 255)
-	@Column(name = "nama_panggilan", nullable = true)
+	
+	@Size(max=255)
+	@Column(name="nama_panggilan",nullable = true)
 	private String nama_panggilan;
-
+	
 	@NotNull
-	@Size(max = 255)
-	@Column(name = "gender", nullable = true)
+	@Size(max=255)
+	@Column(name="gender",nullable = true)
 	private String gender;
-
-	@Size(max = 20)
-	@Column(name = "agama", nullable = true)
-	private String agama;
-
+	
 	@NotNull
 	@Column(name="tanggal_lahir",nullable = false)
 	private Date tanggal_lahir;
-
+	
 	@NotNull
-	@Size(max = 255)
-	@Column(name = "status_marital", nullable = false)
+	@Size(max=255)
+	@Column(name="status_marital",nullable = false)
 	private String status_marital;
-
+	
 	@NotNull
-	@Size(max = 255)
-	@Column(name = "no_ktp", nullable = false)
+	@Size(max=255)
+	@Column(name="no_ktp",nullable = false)
 	private String no_ktp;
-
+	
 	@NotNull
-	@Size(max = 255)
-	@Column(name = "nomor_handphone", nullable = false)
-	private String nomor_handphone;
-
-	@Size(max = 255)
-	@Column(name = "telepon_orang_terdekat", nullable = true)
+	@Size(max=255)
+	@Column(name="telepon",nullable = false)
+	private String telepon;
+	
+	@Size(max=255)
+	@Column(name="telepon_orang_terdekat",nullable = true)
 	private String telepon_orang_terdekat;
-
-	@Size(max = 255)
-	@Column(name = "nomor_whatsapp", nullable = true)
+	
+	@Size(max=255)
+	@Column(name="nomor_whatsapp",nullable = true)
 	private String nomor_whatsapp;
-
-	@Size(max = 255)
-	@Column(name = "email", nullable = true)
+	
+	@Size(max=255)
+	@Column(name="email",nullable = true)
 	private String email;
-
-
+	
+	//Ambil produknya dari mana? kan ada Marketing, Sales, dll.
 	@NotNull
-	@Size(max = 255)
-	@Column(name = "produk_dilamar", nullable = false)
+	@Size(max=255)
+	@Column(name="produk_dilamar",nullable = false)
 	private String produk_dilamar;
-
+		
 	@NotNull
-	@Size(max = 255)
-	@Column(name = "alamat", nullable = false)
+	@Size(max=255)
+	@Column(name="alamat",nullable = false)
 	private String alamat;
-
+	
 	@NotNull
-	@Size(max = 255)
-	@Column(name = "region", nullable = false)
+	@Size(max=255)
+	@Column(name="region",nullable = false)
 	private String region;
-
+	
 	@NotNull
-	@Size(max = 255)
-	@Column(name = "pendidikan_terakhir", nullable = false)
+	@Size(max=255)
+	@Column(name="pendidikan_terakhir",nullable = false)
 	private String pendidikan_terakhir;
 
 	@NotNull
-	@Size(max = 255)
-	@Column(name = "nama_sekolah", nullable = false)
+	@Size(max=255)
+	@Column(name="nama_sekolah",nullable = false)
 	private String nama_sekolah;
-
+	
 	@NotNull
-	@Size(max = 255)
-	@Column(name = "tempat_sekolah", nullable = false)
+	@Size(max=255)
+	@Column(name="tempat_sekolah",nullable = false)
 	private String tempat_sekolah;
-
+	
 	@NotNull
-	@Size(max = 255)
-	@Column(name = "jurusan", nullable = false)
+	@Size(max=255)
+	@Column(name="jurusan",nullable = false)
 	private String jurusan;
-
-
-	@Size(max = 255)
-	@Column(name = "lulusan_tahun", nullable = true)
-	private String lulusan_tahun;
-
-	@Size(max = 255)
-	@Column(name = "telepon_rumah", nullable = true)
+	
+	
+	@Column(name="lulusan_tahun",nullable = true)
+	private Date lulusan_tahun;
+	
+	@Size(max=255)
+	@Column(name="telepon_rumah",nullable = true)
 	private String telepon_rumah;
 
 	@NotNull
-	@Column(name = "apply_date", nullable = false)
+	@Column(name="apply_date",nullable = false)
 	private Date apply_date;
 
-	// Relationship One to Many (1 pelamar memiliki N history (jumlahnya 3 kan kl di
-	// mock up))
-	// by aji -> relation ke pengalaman pelamar ada di model pengalaman pelamar nya
+	//Relationship One to Many (1 pelamar memiliki N history (jumlahnya 3 kan kl di mock up))
+	//by aji -> relation ke pengalaman pelamar ada di model pengalaman pelamar nya
 
 //	    @OneToOne(mappedBy = "pelamar", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //	    private PegawaiOutsourcingModel pegawai_Outsourcing;
 //	    @OneToMany(mappedBy="pengalaman_pelamar", cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 //	    private PengalamanPelamarModel pengalaman_Pelamar;
-
+	
+	
 	public long getId() {
 		return id;
 	}
@@ -186,6 +181,14 @@ public class PelamarModel implements Serializable {
 		this.no_ktp = no_ktp;
 	}
 
+	public String getTelepon() {
+		return telepon;
+	}
+
+	public void setTelepon(String telepon) {
+		this.telepon = telepon;
+	}
+
 	public String getTelepon_orang_terdekat() {
 		return telepon_orang_terdekat;
 	}
@@ -208,14 +211,6 @@ public class PelamarModel implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getAgama() {
-		return agama;
-	}
-
-	public void setAgama(String agama) {
-		this.agama = agama;
 	}
 
 	public String getProduk_dilamar() {
@@ -274,11 +269,11 @@ public class PelamarModel implements Serializable {
 		this.jurusan = jurusan;
 	}
 
-	public String getLulusan_tahun() {
+	public Date getLulusan_tahun() {
 		return lulusan_tahun;
 	}
 
-	public void setLulusan_tahun(String lulusan_tahun) {
+	public void setLulusan_tahun(Date lulusan_tahun) {
 		this.lulusan_tahun = lulusan_tahun;
 	}
 
@@ -298,12 +293,10 @@ public class PelamarModel implements Serializable {
 		this.apply_date = apply_date;
 	}
 
-	public String getNomor_handphone() {
-		return nomor_handphone;
-	}
 
-	public void setNomor_handphone(String nomor_handphone) {
-		this.nomor_handphone = nomor_handphone;
-	}
-
+	
+	
+  
+	
+	
 }
