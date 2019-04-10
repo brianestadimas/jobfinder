@@ -158,6 +158,7 @@ public class PegawaiOutsourcingController {
 			System.out.println(e.getMessage());
 			return null;
 		}
+	}
 
 //	@RequestMapping(value = "/pegawai-berhenti-assign", method = RequestMethod.POST)
 //	private String berhentiPegawai(@RequestParam("id") Long[] ids, Model model) {
@@ -192,10 +193,10 @@ public class PegawaiOutsourcingController {
 
 		
 		for(int i=0; i<ids.length; i++) {
-			Optional<PegawaiOutsourcingModel> pegawai = pegawaiService.getPegawaiById(ids[i]);
+			PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(ids[i]);
 			
-			wrapper.add_pegawai(pegawai.get());
-			nama_pegawai.add(pegawai.get().getPelamar_id().getNama_lengkap());
+			wrapper.add_pegawai(pegawai);
+			nama_pegawai.add(pegawai.getPelamar_id().getNama_lengkap());
 			System.out.println(wrapper.getDaftar_pegawai().get(i).getPelamar_id().getNama_lengkap());
 		}
 		
@@ -212,13 +213,13 @@ public class PegawaiOutsourcingController {
 		String stringProyek = req.getParameter("proyek");
 		Optional<ProyekModel> proyek = proyekService.getProyekById(Long.parseLong(stringProyek));
 		System.out.println(stringProyek);
-		Date join_date = Date.valueOf(req.getParameter("join_date"));
-		Date end_date = Date.valueOf(req.getParameter("end_date"));
+		java.sql.Date join_date = java.sql.Date.valueOf(req.getParameter("join_date"));
+		java.sql.Date end_date = java.sql.Date.valueOf(req.getParameter("end_date"));
 		
 		for(int i=0; i<daftar_pegawai.getDaftar_pegawai().size(); i++) {
 			daftar_pegawai.getDaftar_pegawai().get(i).setProyek(proyek.get());
 			daftar_pegawai.getDaftar_pegawai().get(i).setJoin_date(join_date);;
-			daftar_pegawai.getDaftar_pegawai().get(i).setEnd_date(end_date);
+			daftar_pegawai.getDaftar_pegawai().get(i).setJoin_date(end_date);
 		}
 		
 		pegawaiService.assignAll(daftar_pegawai.getDaftar_pegawai());

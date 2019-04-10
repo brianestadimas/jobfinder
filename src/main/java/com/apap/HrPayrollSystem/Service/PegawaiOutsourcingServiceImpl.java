@@ -53,7 +53,7 @@ public class PegawaiOutsourcingServiceImpl implements PegawaiOutsourcingService 
 		pegawaiOutsourcingDb.save(obj);
 		pegawaiOutsourcingDb.flush();
 		
-	
+	}
 
 
 	@Override
@@ -103,7 +103,6 @@ public class PegawaiOutsourcingServiceImpl implements PegawaiOutsourcingService 
 		
 		updatePegawai.getPelamar_id().setAlamat(pegawai.getPelamar_id().getAlamat());
 		updatePegawai.getPelamar_id().setRegion(pegawai.getPelamar_id().getRegion());
-		updatePegawai.getPelamar_id().setTelepon(pegawai.getPelamar_id().getTelepon());
 		updatePegawai.getPelamar_id().setNomor_whatsapp(pegawai.getPelamar_id().getNomor_whatsapp());
 		
 		updatePegawai.getPelamar_id().setNo_ktp(pegawai.getPelamar_id().getNo_ktp());
@@ -131,7 +130,7 @@ public class PegawaiOutsourcingServiceImpl implements PegawaiOutsourcingService 
 	@Override
 	//Ini sebenernya bisa dipake buat update data pegawai outsourcing
 	public void updatePegawaiProyek(long id, PegawaiOutsourcingModel pegawaiBaru) {
-		PegawaiOutsourcingModel pegawai = pegawaiOutsourcingDb.findById(id).get();
+		PegawaiOutsourcingModel pegawai = pegawaiOutsourcingDb.findById(id);
 		pegawai.setNip(pegawaiBaru.getNip());
 		pegawai.setPelamar_id(pegawaiBaru.getPelamar_id());
 		pegawai.setJoin_date(pegawaiBaru.getJoin_date());
@@ -184,11 +183,7 @@ public class PegawaiOutsourcingServiceImpl implements PegawaiOutsourcingService 
 	}
 
 
-	@Override
-	public void updatePegawai(long id, PegawaiOutsourcingModel pegawai) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public Boolean expiredDate(PegawaiOutsourcingModel pegawai) {

@@ -1,7 +1,7 @@
 package com.apap.HrPayrollSystem.Service;
 
 
-public class PelamarServiceImpl {
+
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +47,6 @@ public class PelamarServiceImpl implements PelamarService {
 	public PelamarModel updatePelamar(PelamarModel pelamar) {
 		return pelamarDb.save(pelamar);
 	}
+	
+	}
 
-}
