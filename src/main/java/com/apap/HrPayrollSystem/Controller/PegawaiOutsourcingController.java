@@ -93,8 +93,7 @@ public class PegawaiOutsourcingController {
     public String submitUbahPegawai(@PathVariable(value="id") long id, @ModelAttribute PegawaiOutsourcingModel pegawaiBaru, Model model) {	
 		System.out.println(pegawaiBaru.getPkwt());
 		pegawaiService.updatePegawai(id,pegawaiBaru);
-		System.out.println(pegawaiBaru.getPelamar_id().getNama_lengkap());
-		System.out.println(pegawaiBaru.getPelamar_id().getNama_panggilan());
+		
 		
 		model.addAttribute("pegawai", pegawaiBaru);
 		return "DetailPegawai";

@@ -93,8 +93,12 @@
 
 
     <Body>
-        <h3 th:text="${pegawai.pelamar_id.nama_lengkap} + ' - ' + ${pegawai.nip}"></h3>
-        <a href="#"> <span class="glyphicon glyphicon-circle-arrow-left"></span>
+        <h3 th:if="${pegawai.status}" th:utext="${pegawai.pelamar_id.nama_lengkap} + ' - ' + ${pegawai.nip}"><span class="badge badge-warning"> Not Available</span></h3>
+        <h3 th:unless="${pegawai.status}" th:utext="${pegawai.pelamar_id.nama_lengkap} + ' - ' + ${pegawai.nip}"><span class="badge badge-danger">  Available</span></h3> 
+        
+        <!-- <span type="button" class="btn btn-warning btn-sm" th:if="${pegawai.status}" style="float: right; color:white ; margin-top ;margin-right: 10px;" disabled>Available</span> -->
+        
+        <span class="glyphicon glyphicon-circle-arrow-left"></span>
             <!--Belum berfungsi-->
             <!-- <hr> -->
             <nav>
@@ -288,6 +292,13 @@
                                     <td style="width:100%" th:if="${pegawai.status}" th:text="${pegawai.produk.nama_produk}"></td>
                                     <td style="width:100%" th:unless="${pegawai.status}">None</td>
                                 </tr>
+                                
+                                 <tr>
+                                    <td style="width:50%">Jabatan</td>
+                                    <td style="width:100%" th:if="${pegawai.status}" th:text="${pegawai.jabatan}"></td>
+                                    <td style="width:100%" th:unless="${pegawai.status}">None</td>
+                                </tr>
+                                
                             </tbody>
                         </table>
                         <br>

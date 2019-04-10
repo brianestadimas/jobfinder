@@ -342,13 +342,14 @@ thead th {
 					</div>
 
 
-					<div class="form-group col-md-2">
-						<label for="jabatan">Jabatan</label> <input
-							th:if="${pegawai.status}" type="text" class="form-control"
-							id="jabatan" name="jabatan" th:field="*{jabatan}" /> <input
-							th:unless="${pegawai.status}" type="text" class="form-control"
-							id="jabatan" name="jabatan" th:value="None" disabled />
+					<div class="form-group col-md-2" th:if="${pegawai.status}">
+ 						<label for="jabatan">Jabatan</label> 
+ 						<input type="text" class="form-control" id="jabatan" name="jabatan" th:field="${pegawai.jabatan}">
+					</div>
 
+					<div class="form-group col-md-2" th:unless="${pegawai.status}">
+ 						<label for="jabatan">Jabatan</label> 
+ 						<input type="text" class="form-control" id="jabatan" name="jabatan" th:field="${pegawai.jabatan}" disabled>
 					</div>
 
 
