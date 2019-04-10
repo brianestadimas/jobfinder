@@ -82,8 +82,7 @@ thead th {
 					th:field="*{tunjangan_tetap}"> <input type="hidden"
 					id="tunjangan_tidak_tetap" name="tunjangan_tidak_tetap"
 					th:field="*{tunjangan_tidak_tetap}"> <input type="hidden"
-					name="jaminan" th:field="*{jaminan}"> <input type="hidden"
-					name="nama_produk" th:field="*{produk.nama_produk}"> <input
+					name="jaminan" th:field="*{jaminan}">  <input
 					type="hidden" name="nama_sekolah"
 					th:field="*{pelamar_id.nama_sekolah}"> <input type="hidden"
 					name="pendidikan_terakhir"
@@ -91,8 +90,7 @@ thead th {
 					type="hidden" name="jurusan" th:field="*{pelamar_id.jurusan}">
 				<input type="hidden" name="apply_date"
 					th:field="*{pelamar_id.apply_date}"> <input type="hidden"
-					name="tempat_sekolah" th:field="*{pelamar_id.tempat_sekolah}">
-				<input type="hidden" name="jabatan" th:field="*{jabatan}"> <input
+					name="tempat_sekolah" th:field="*{pelamar_id.tempat_sekolah}"> <input
 					type="hidden" name="join_date" th:field="*{join_date}"> <input
 					type="hidden" name="tempat_sekolah" th:field="*{end_date}">
 
@@ -104,7 +102,10 @@ thead th {
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="nip">NIP</label> <input type="text"
+						<label for="nip">NIP</label> <input 
+							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+						    type = "number"
+						    maxlength = "3"
 							class="form-control" id="nip" th:field="*{nip}" name="nip"
 							required />
 					</div>
@@ -193,15 +194,18 @@ thead th {
 					<div class="form-group col-md-4"></div>
 				</div>
 				<div class="form-row">
-					<div class="form-group col-md-6">
+<!-- 					<div class="form-group col-md-6">
 						<label for="telepon">Telepon</label> <input type="text"
 							class="form-control" id="telepon"
 							placeholder="Masukkan Nomor Telepon"
 							th:field="*{pelamar_id.nomor_handphone}" required />
-					</div>
+					</div> -->
 					<div class="form-group col-md-6">
 						<label for="nomor_Whatsapp">Nomor Whatsapp</label> <input
-							type="text" class="form-control" id="nomor_Whatsapp"
+							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+						    type = "number"
+						    maxlength = "3"
+							class="form-control" id="nomor_Whatsapp"
 							placeholder="Masukkan Nomor Whatsapp"
 							th:field="*{pelamar_id.nomor_whatsapp}" />
 					</div>
@@ -211,8 +215,11 @@ thead th {
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label for="telepon_orang_terdekat">Nomor Telepon Orang
-							Terdekat</label> <input type="text" class="form-control"
-							id="telepon_orang_terdekat"
+							Terdekat</label> <input 
+							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+						    type = "number"
+						    maxlength = "3" 
+							class="form-control" id="telepon_orang_terdekat"
 							placeholder="Masukkan Nomor Telepon Orang Terdekat"
 							th:field="*{pelamar_id.telepon_orang_terdekat}" />
 					</div>
@@ -233,15 +240,22 @@ thead th {
 
 				<div class="form-row">
 					<div class="form-group col-md-12">
-						<label for="no_ktp">No.KTP</label> <input type="text"
+						<label for="no_ktp">No.KTP</label> <input 
+						  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+						    type = "number"
+						    maxlength = "3"
 							class="form-control" id="no_ktp" placeholder="Masukkan Nomor KTP"
 							th:field="*{pelamar_id.no_ktp}" required />
+							
 					</div>
 
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="pkwt">No.PKWT</label> <input type="text"
+						<label for="pkwt">No.PKWT</label> <input 
+						oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+						    type = "number"
+						    maxlength = "3"
 							class="form-control" id="pkwt" placeholder="Masukkan PKWT"
 							th:field="*{pkwt}" required />
 					</div>
@@ -254,12 +268,12 @@ thead th {
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label for="bpjstk">No.BPJS Ketenagakerjaan</label> <input
-							type="text" class="form-control" id="bpjstk"
+							type="number" class="form-control" id="bpjstk"
 							placeholder="Masukkan Nomor BPJS Ketenagakerjaan"
 							th:field="*{bpjstk}" required />
 					</div>
 					<div class="form-group col-md-6">
-						<label for="bpjsk">No.BPJS Kesehatan</label> <input type="text"
+						<label for="bpjsk">No.BPJS Kesehatan</label> <input type="number"
 							class="form-control" id="bpjsk"
 							placeholder="Masukkan Nomor BPJS Kesehatan" th:field="*{bpjsk}"
 							required />
@@ -284,7 +298,10 @@ thead th {
 							placeholder="Masukkan Nama Bank" th:field="*{nama_bank}" />
 					</div>
 					<div class="form-group col-md-6">
-						<label for="no_rekening">No.Rekening</label> <input type="text"
+						<label for="no_rekening">No.Rekening</label> <input 
+						oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+						    type = "number"
+						    maxlength = "3"
 							class="form-control" id="no_rekening"
 							placeholder="Masukkan Nomor Rekening" th:field="*{no_rekening}" />
 					</div>
@@ -324,30 +341,30 @@ thead th {
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="nama_produk"> Produk </label> <select
-							th:if="${pegawai.status}" id="produk" class="form-control">
+							th:if="${pegawai.status}" id="produk" class="form-control" th:field="*{produk}" >
 							<!-- <option  th:value= "*{produk.id}" th:field="*{produk.nama_produk}" disabled selected></option>  -->
-							<option th:each="produk: ${produk}"
-								th:text="${produk.nama_produk}" th:value="${produk.id}"
-								th:selected="${pegawai.produk.nama_produk}"></option>
-						</select> <select th:unless="${pegawai.status}" id="produk"
+							<option th:each="produk: ${produk}" th:value="${produk.id}" th:text="${produk.nama_produk}">Wireframe</option>
+						</select>
+						 <select th:unless="${pegawai.status}" id="produk"
 							class="form-control">
 							<option th:unless="${pegawai.status}"
 								th:text="${pegawai.produk.nama_produk}" th:value="*{produk.id}"
 								th:selected="${pegawai.produk.nama_produk}" disabled></option>
-							<!-- th:field="*{produk.nama_produk}"  -->
+						<!-- 	th:field="*{produk.nama_produk}" --> 
 						</select>
 					</div>
 
 
 					<div class="form-group col-md-2" th:if="${pegawai.status}">
  						<label for="jabatan">Jabatan</label> 
- 						<input type="text" class="form-control" id="jabatan" name="jabatan" th:field="${pegawai.jabatan}">
+ 						<input type="text" class="form-control" id="jabatan" name="jabatan" th:field="${pegawai.jabatan}"/>
 					</div>
 
 					<div class="form-group col-md-2" th:unless="${pegawai.status}">
  						<label for="jabatan">Jabatan</label> 
- 						<input type="text" class="form-control" id="jabatan" name="jabatan" th:field="${pegawai.jabatan}" disabled>
-					</div>
+ 						<input type="text" class="form-control" id="jabatan" name="jabatan" value="None" disabled>
+ 						<input th:field="${pegawai.jabatan}" hidden />
+					</div> 
 
 
 					<div class="form-group col-md-6">

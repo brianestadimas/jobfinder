@@ -1,6 +1,6 @@
 package com.apap.HrPayrollSystem.Service;
 
-import java.util.List;
+import java.util.List;             
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +27,12 @@ public class PegawaiOutsourcingServiceImpl implements PegawaiOutsourcingService 
 	@Override
 	public List<PegawaiOutsourcingModel> getAllPegawai() {
 		// TODO Auto-generated method stub
-		
 		return pegawaiOutsourcingDb.findAll();
 	}
 
 		
 	@Override
 	public PegawaiOutsourcingModel getPegawaiById(long id) {
-		
 		return pegawaiOutsourcingDb.findById(id);
 	}
 
@@ -60,13 +58,13 @@ public class PegawaiOutsourcingServiceImpl implements PegawaiOutsourcingService 
 	public void updatePegawai(long id, PegawaiOutsourcingModel pegawai) {
 		
 		PegawaiOutsourcingModel updatePegawai = pegawaiOutsourcingDb.findById(id);
-		
 	
-//		
+	
+	
 //		pelamar_baru.setNama_lengkap(pegawai.getPelamar_id().getNama_lengkap());
 //		pelamar_baru.setNama_panggilan(pegawai.getPelamar_id().getNama_panggilan());
 //		pelamar_baru.setGender(pegawai.getPelamar_id().getGender());
-//		pelamar_baru.setTanggal_lahir(pegawai.getPelamar_id().getTanggal_lahir());
+//		pelamar_baru.setTanggal_lahir(pegawai.getPelamar_id().getTanggal_lahir()); 
 //		pelamar_baru.setStatus_marital(pegawai.getPelamar_id().getStatus_marital());
 //		
 //		pelamar_baru.setAlamat(pegawai.getPelamar_id().getAlamat());
@@ -107,7 +105,8 @@ public class PegawaiOutsourcingServiceImpl implements PegawaiOutsourcingService 
 		
 		updatePegawai.getPelamar_id().setNo_ktp(pegawai.getPelamar_id().getNo_ktp());
 		
-		
+		updatePegawai.setJabatan(pegawai.getJabatan());
+		updatePegawai.setProduk(pegawai.getProduk());
 		updatePegawai.setNip(pegawai.getNip());
 		updatePegawai.setNo_arsip(pegawai.getNo_arsip());
 		
