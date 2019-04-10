@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.PelamarModel;
+import com.apap.HrPayrollSystem.Model.ProyekModel;
 import com.apap.HrPayrollSystem.Repository.PegawaiOutsourcingDb;
 import com.apap.HrPayrollSystem.Repository.PelamarDb;
 
@@ -53,6 +54,7 @@ public class PegawaiOutsourcingServiceImpl implements PegawaiOutsourcingService 
 		pegawaiOutsourcingDb.flush();
 		
 	}
+
 
 	@Override
 	public void updatePegawai(long id, PegawaiOutsourcingModel pegawai) {
@@ -101,7 +103,6 @@ public class PegawaiOutsourcingServiceImpl implements PegawaiOutsourcingService 
 		
 		updatePegawai.getPelamar_id().setAlamat(pegawai.getPelamar_id().getAlamat());
 		updatePegawai.getPelamar_id().setRegion(pegawai.getPelamar_id().getRegion());
-		updatePegawai.getPelamar_id().setTelepon(pegawai.getPelamar_id().getTelepon());
 		updatePegawai.getPelamar_id().setNomor_whatsapp(pegawai.getPelamar_id().getNomor_whatsapp());
 		
 		updatePegawai.getPelamar_id().setNo_ktp(pegawai.getPelamar_id().getNo_ktp());
@@ -115,17 +116,74 @@ public class PegawaiOutsourcingServiceImpl implements PegawaiOutsourcingService 
 		
 		updatePegawai.setNama_bank(pegawai.getNama_bank());
 		updatePegawai.setNo_rekening(pegawai.getNo_rekening());
+	}
+	
+	@Override
+	public void save_all_pegawai_proyek(List<PegawaiOutsourcingModel> listPegawai) {
+		// TODO Auto-generated method stub
 		
-		updatePegawai.setBpjstk(pegawai.getBpjstk());
-		updatePegawai.setBpjsk(pegawai.getBpjsk());
-		updatePegawai.setNpwp(pegawai.getNpwp());
-		updatePegawai.setPkwt(pegawai.getPkwt());
-		
-		updatePegawai.setJabatan(pegawai.getJabatan());
-		
+		pegawaiOutsourcingDb.saveAll(listPegawai);
+	}
+
+
+
+	@Override
+	//Ini sebenernya bisa dipake buat update data pegawai outsourcing
+	public void updatePegawaiProyek(long id, PegawaiOutsourcingModel pegawaiBaru) {
+		PegawaiOutsourcingModel pegawai = pegawaiOutsourcingDb.findById(id);
+		pegawai.setNip(pegawaiBaru.getNip());
+		pegawai.setPelamar_id(pegawaiBaru.getPelamar_id());
+		pegawai.setJoin_date(pegawaiBaru.getJoin_date());
+		pegawai.setEnd_date(pegawaiBaru.getEnd_date());
+		pegawai.setGaji_pokok(pegawaiBaru.getGaji_pokok());
+		pegawai.setTunjangan_tetap(pegawaiBaru.getTunjangan_tetap());
+		pegawai.setTunjangan_tidak_tetap(pegawaiBaru.getTunjangan_tidak_tetap());
+		pegawai.setBpjsk(pegawaiBaru.getBpjsk());
+		pegawai.setBpjstk(pegawaiBaru.getBpjstk());
+		pegawai.setJaminan(pegawaiBaru.getJaminan());
+		pegawai.setNpwp(pegawaiBaru.getNpwp());
+		pegawai.setPkwt(pegawaiBaru.getPkwt());
+		pegawai.setNo_arsip(pegawai.getNo_arsip());
+		pegawai.setNo_rekening(pegawaiBaru.getNo_rekening());
+		pegawai.setNama_bank(pegawaiBaru.getNama_bank());
+		pegawai.setStatus(pegawaiBaru.getStatus());
+		pegawai.setJabatan(pegawai.getJabatan());
+		pegawai.setProduk(pegawaiBaru.getProduk());
+		pegawai.setProyek(pegawaiBaru.getProyek());
 		
 		
 	}
+
+
+	@Override
+	public void addPegawai(PegawaiOutsourcingModel pegawai) {
+		// TODO Auto-generated method stub
+		pegawaiOutsourcingDb.save(pegawai);
+	}
+
+
+	@Override
+	public void updatePegawai(PegawaiOutsourcingModel pegawai) {
+		// TODO Auto-generated method stub
+		pegawaiOutsourcingDb.save(pegawai);
+	}
+
+
+	@Override
+	public void assignAll(List<PegawaiOutsourcingModel> list_pegawai) {
+		// TODO Auto-generated method stub
+		pegawaiOutsourcingDb.saveAll(list_pegawai);
+	}
+
+
+	@Override
+	public PegawaiOutsourcingModel getPegawaiByNip(String nip) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
 
 	@Override
 	public Boolean expiredDate(PegawaiOutsourcingModel pegawai) {
