@@ -197,7 +197,7 @@ public class PegawaiOutsourcingController {
 	
 	//Assign Pegawai Get
 	@RequestMapping(value = "/pegawai/assign", method = RequestMethod.GET)
-	private String assignPegawai(long[] ids, Model model) {
+	private String assignPegawai(@RequestParam("id") long[] ids, Model model) {
 		AssignmentWrapper wrapper = new AssignmentWrapper();
 		List<ProdukModel> daftar_produk = produkService.getAllProduk();
 		List<ProyekModel> daftar_proyek = proyekService.getAllProyek();
@@ -205,8 +205,8 @@ public class PegawaiOutsourcingController {
 		wrapper.setDaftar_proyek(daftar_proyek);
 		
 		List<String> nama_pegawai = new ArrayList<String>();
-		ids = new long[1];
-		ids[0] = (long) 1;
+//		ids = new long[1];
+//		ids[0] = (long) 1;
 
 		
 		for(int i=0; i<ids.length; i++) {

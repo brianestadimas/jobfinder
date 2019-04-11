@@ -69,7 +69,7 @@ thead th {
 			<img src="img/icon_human_resources.png"
 				style="max-width: 5%; margin-top: -10px">
 			<h2 style="display: inline; margin-left: 10px">Pelamar</h2>
-			<a href="#" class="btn btn-success btn-large"
+			<a href="#" class="btn btn-success btn-large" id="assignButton" onClick=""
 				style="float: right; margin-right: 10px;">Assign Dipilih</a> <a
 				href="#" onClick="" id="hapusButton" class="btn btn-info btn-danger"
 				style="float: right; margin-right: 10px;">Hapus</a> <a href="#"
@@ -77,11 +77,9 @@ thead th {
 				style="float: right; margin-right: 10px;">Tambah</a>
 			<p>
 			<h6 class="alert alert-danger" th:if="${listPelamar==null}"
-				th:text="'Belum ada pelamar, daftarkan sekarang juga!'"></h6>
+								th:text="'Belum ada pelamar, daftarkan sekarang juga!'"></h6>
 			<h6 class="alert alert-success" th:if="${daftarSukses_msg!=null}"
-				th:text="${daftarSukses_msg}"></h6>
-			<h6 class="alert alert-danger" th:if="${deleteError_msg!=null}"
-				th:text="${deleteError_msg}"></h6>
+								th:text="${daftarSukses_msg}"></h6>
 			<table id="example" class="table table-striped table-bordered "
 				style="width: 100%;">
 				<thead>
@@ -99,12 +97,18 @@ thead th {
 						th:id="'row' + ${pelamar.id}">
 						<td><input type="checkbox" class="checkbox" name="id"
 							th:value="${pelamar.id}"></td>
-						<td><a th:href="@{'/pelamar/detail/'+${pelamar.id}}" th:text="${pelamar.nama_lengkap}"></a></td>
+						<td th:text="${pelamar.nama_lengkap}"></td>
 						<td th:text="${pelamar.region}"></td>
 						<td th:text="${pelamar.produk_dilamar}"></td>
 						<td th:text="${pelamar.pendidikan_terakhir}"></td>
 						<td th:text="${pelamar.apply_date}"></td>
+					
+
+						
+						<!-- <td><button type="button" class="btn btn-success">Assign</button></td>
+                <td><button type="button" class="btn btn-warning">Berhenti Assign</button></td> -->
 					</tr>
+
 				</tbody>
 				<tfoot>
 					<tr>
@@ -167,8 +171,6 @@ thead th {
 									"sScrollX" : "100%",
 									"sScrollXInner" : "100%",
 									"scrollCollapse" : true,
-									"lengthMenu" : [ [ 10, 50, 100, -1 ],
-											[ 10, 50, 100, "All" ] ],
 									buttons : [ 'copy', 'csv', 'excel', 'pdf',
 											'print' ]
 								});
@@ -197,6 +199,28 @@ thead th {
 		});
 
 	});
+
+	$('#assignButton').click(function() {
+		var parameters = "";
+		$.each($("input[name='id']:checked"), function() {
+			parameters += "id=" + $(this).val() + "&";
+		});
+		var urls = "/pelamar/assign?" + parameters;
+		console.log(parameters);
+		$.ajax({
+			type : "POST",
+			url : "/pelamar/assign?" + parameters,
+			dataType : "json",
+			success : function(result) {
+				
+			}
+		});
+		window.location.href = urls;
+		console.log(urls);
+		location.replace(urls);
+
+	});
+
 
 	$('#berhentiButton').click(function() {
 		var parameters = "";

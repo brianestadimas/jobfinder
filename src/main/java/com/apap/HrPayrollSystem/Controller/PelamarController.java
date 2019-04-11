@@ -324,7 +324,7 @@ public class PelamarController {
 	
 	//Assign Pelamar Get
 	@RequestMapping(value = "/pelamar/assign", method = RequestMethod.GET)
-	private String assignPelamar(long[] ids, Model model) {
+	private String assignPelamar(@RequestParam("id") long[] ids, Model model) {
 		
 		AssignmentWrapper wrapper = new AssignmentWrapper();
 		List<ProdukModel> daftar_produk = produkService.getAllProduk();
@@ -334,9 +334,10 @@ public class PelamarController {
 		
 		List<String> nama_pelamar = new ArrayList<String>();
 		
-		ids = new long[1];
-		ids[0] = (long) 1;
-
+//		ids = new long[2];
+//		ids[0] = (long) 2;
+//		ids[1] = (long) 3;
+//		System.out.println(ids.length);
 		
 		for(int i=0; i<ids.length; i++) {
 			PelamarModel pelamar = pelamarService.getPelamarById(ids[i]);
