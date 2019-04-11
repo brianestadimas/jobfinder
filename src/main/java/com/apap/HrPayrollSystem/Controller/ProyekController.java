@@ -87,6 +87,9 @@ public class ProyekController {
 	public String addProyekPost(Model model, @ModelAttribute ProyekModel proyek) {
 		proyekService.addProyek(proyek);
 		
+		List<ProyekModel> list = proyekService.getAllProyek();
+		model.addAttribute("listProyek", list);
+		
 		return "list_proyek";
 	}
 
@@ -104,7 +107,22 @@ public class ProyekController {
 	private String ubahProyekPost(@PathVariable(value = "id") long id, ProyekModel proyek, Model model) {
 
 		proyekService.updateProyek(id, proyek);
-		return "list_proyek";
+		
+		
+		model.addAttribute("proyek", proyek);
+		
+		List<PegawaiOutsourcingModel> pegawaiOutsourcing = pegawaiService.getAllPegawai();
+		List<PegawaiOutsourcingModel> pegawaiProyek = new ArrayList<PegawaiOutsourcingModel>();
+		for (int i=0; i<pegawaiOutsourcing.size(); i++){
+			if ((pegawaiOutsourcing.get(i)).getProyek() != null) {
+				if ((pegawaiOutsourcing.get(i).getProyek().getId())==(proyek.getId())){
+					pegawaiProyek.add(pegawaiOutsourcing.get(i));
+				}
+			}
+		}
+		model.addAttribute("listPegawai", pegawaiProyek);
+		
+		return "detail_proyek";
 	}
 
 	//Ubah Pegawai Proyek
@@ -134,9 +152,22 @@ public class ProyekController {
 	}
 	@RequestMapping(value = "/proyek-pegawai/{id}", method = RequestMethod.POST)
 	private String ubahPegawaiProyekPost(@PathVariable(value = "id") long id, @ModelAttribute PegawaiProyekWrapper listPegawai, Model model) {
-
+		ProyekModel proyek = proyekService.getProyekById(id).get();
 		pegawaiService.save_all_pegawai_proyek(listPegawai.getListPegawai());
-		return "list_proyek";
+		
+		List<PegawaiOutsourcingModel> pegawaiOutsourcing = pegawaiService.getAllPegawai();
+		List<PegawaiOutsourcingModel> pegawaiProyek = new ArrayList<PegawaiOutsourcingModel>();
+		for (int i=0; i<pegawaiOutsourcing.size(); i++){
+			if ((pegawaiOutsourcing.get(i)).getProyek() != null) {
+				if ((pegawaiOutsourcing.get(i).getProyek().getId())==(proyek.getId())){
+					pegawaiProyek.add(pegawaiOutsourcing.get(i));
+				}
+			}
+		}
+		
+		model.addAttribute("proyek", proyek);
+		model.addAttribute("listPegawai", pegawaiProyek);
+		return "detail_proyek";
 	}
 
 }

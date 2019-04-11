@@ -83,7 +83,7 @@ thead th{
             <tr th:each="listPegawai, itemStat : *{listPegawai}">
                 <td th:text="*{listPegawai[__${itemStat.index}__].nip}" ></td>
                 <td th:text="*{listPegawai[__${itemStat.index}__].pelamar_id.nama_lengkap}"></td>
-                <td th:text="*{listPegawai[__${itemStat.index}__].produk}"></td>
+                <td th:text="*{listPegawai[__${itemStat.index}__].produk.nama_produk}"></td>
                 <td th:text="*{listPegawai[__${itemStat.index}__].join_date}" ></td>
                 <td th:text="*{listPegawai[__${itemStat.index}__].end_date}"></td>
 
