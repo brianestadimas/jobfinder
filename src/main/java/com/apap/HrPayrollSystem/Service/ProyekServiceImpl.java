@@ -40,6 +40,7 @@ public class ProyekServiceImpl implements ProyekService {
 		// TODO Auto-generated method stub
 		ProyekModel proyek = proyekDb.findById(id).get();
 		proyek.setNama_proyek(proyekBaru.getNama_proyek());
+		proyek.setDeskripsi_proyek(proyekBaru.getDeskripsi_proyek());
 		proyek.setNomor_kontrak(proyekBaru.getNomor_kontrak());
 		proyek.setRegion(proyekBaru.getRegion());
 		proyek.setNama_cp(proyekBaru.getNama_cp());
