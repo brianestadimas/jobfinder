@@ -126,7 +126,7 @@
 								</label>
 								<div class="col-sm-auto">
 									<input class="form-control" required="required"
-										th:field="*{apply_date}" id="datepicker1">
+										th:field="*{apply_date}" id="datepicker1" readonly>
 								</div>
 							</div>
 							<fieldset class="form-group">
@@ -189,7 +189,7 @@
 									class="requiredField"> *</span></label>
 								<div class="col-sm-auto">
 									<input class="form-control" required="required"
-										th:field="*{tanggal_lahir}" id="datepicker2">
+										th:field="*{tanggal_lahir}" id="datepicker2" readonly>
 								</div>
 							</div>
 							<div class="form-group row">
@@ -214,7 +214,6 @@
 										Status Pernikahan<span class="requiredField"> *</span>
 									</legend>
 									<div class="col-sm-auto">
-
 										<ul class="form-check">
 											<li th:each="radioValue: ${radio_statusNikah}"
 												class="form-check form-check-inline"><input
@@ -232,13 +231,13 @@
 									class="requiredField"> *</span></label>
 								<div class="col-sm-5">
 									<textarea class="form-control" id="alamat" required="required"
-										rows="3" th:field="*{alamat}"></textarea>
+										rows="3" th:field="*{alamat}" placeholder="Tulis alamat lengkap Anda..."></textarea>
 								</div>
 							</div>
 							<div class="form-group row">
-								<label for="region" class="col-sm-4 col-md-2 col-form-label">Region</label>
+								<label for="region" class="col-sm-4 col-md-2 col-form-label">Region<span class="requiredField"> *</span></label>
 								<div class="col-sm-auto">
-									<input class="form-control" id="tags" th:field="*{region}">
+									<input type="search" class="form-control" id="tags" th:field="*{region}" required="required" placeholder="">
 								</div>
 							</div>
 							<div class="form-grup row">
@@ -252,7 +251,7 @@
 								<div class="form-group col-sm-auto">
 									<label for="nama_lengkap" class="col-form-label">Telp.
 										Rumah</label> <input type="number" class="form-control" id="telp_rumah"
-										placeholder="Nomor Telepon Rumah" th:field="*{telepon_rumah}">
+										placeholder="Nomor Telepon Rumah" th:field="*{telepon}">
 								</div>
 							</div>
 							<div class="form-group row">

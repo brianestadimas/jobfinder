@@ -77,9 +77,11 @@ thead th {
 				style="float: right; margin-right: 10px;">Tambah</a>
 			<p>
 			<h6 class="alert alert-danger" th:if="${listPelamar==null}"
-								th:text="'Belum ada pelamar, daftarkan sekarang juga!'"></h6>
+				th:text="'Belum ada pelamar, daftarkan sekarang juga!'"></h6>
 			<h6 class="alert alert-success" th:if="${daftarSukses_msg!=null}"
-								th:text="${daftarSukses_msg}"></h6>
+				th:text="${daftarSukses_msg}"></h6>
+			<h6 class="alert alert-danger" th:if="${deleteError_msg!=null}"
+				th:text="${deleteError_msg}"></h6>
 			<table id="example" class="table table-striped table-bordered "
 				style="width: 100%;">
 				<thead>
@@ -97,18 +99,12 @@ thead th {
 						th:id="'row' + ${pelamar.id}">
 						<td><input type="checkbox" class="checkbox" name="id"
 							th:value="${pelamar.id}"></td>
-						<td th:text="${pelamar.nama_lengkap}"></td>
+						<td><a th:href="@{'/pelamar/detail/'+${pelamar.id}}" th:text="${pelamar.nama_lengkap}"></a></td>
 						<td th:text="${pelamar.region}"></td>
 						<td th:text="${pelamar.produk_dilamar}"></td>
 						<td th:text="${pelamar.pendidikan_terakhir}"></td>
 						<td th:text="${pelamar.apply_date}"></td>
-					
-
-						
-						<!-- <td><button type="button" class="btn btn-success">Assign</button></td>
-                <td><button type="button" class="btn btn-warning">Berhenti Assign</button></td> -->
 					</tr>
-
 				</tbody>
 				<tfoot>
 					<tr>
