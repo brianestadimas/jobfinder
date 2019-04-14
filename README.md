@@ -47,15 +47,39 @@ Thymeleaf sebagai frontend
 6. Mulai Mengerjakan
 7. Jika sudah, push ke branch kalian (git status -> git add . -> git commit -m "commit messages", -> git push <nama_remote> <branch_kalian>)
 
-## Commitment Control(not really lol)
-1. cek trello kalian
-2. comment kira2 task kalian apa saja dengan To Do
-3. ketika sudah selesai task tersebut, comment dengan cara copy yg Done dari To Do ke Done
-ex :
-`To Do
-1. bla bla bla
-Done
-`
+## TODO
+Dimas : 
+[] Constraint Start dan End date proyek
+[] Ubah proyek autofill region
+[] Size kolom
+[] Search hanya untuk kolom tertentu
+[] seragamkan front end
+[] seluruh tombol sudah diimplementasikan bisa dipencet
+[] Notifikasi ketika proyek sudah di buat,ubah,hapus
+[] Notifikasi ketika regulasi pegawai sudah diganti
+[] Modal ketika hapus proyek
+Nael :
+[] Konsistensi
+[] Ketika ada error saat pengisian, notifikasi error nya di bagian mana
+[] Max length
+[] Hapus Pelamar debug
+[] Penamaan button
+[] seluruh tombol sudah diimplementasikan bisa dipencet
+[] Notifikasi ketika pelamar/pegawai sudah di buat,ubah,hapus
+[] Modal ketika hapus pelamar/pegawai
+[] Modal berhenti assign pegawai
+Aji :
+[] Constraint number
+[] Status ketika assign
+[] debug usecase 4&7
+[] Style Front end
+[] Constraint jumlah hari kerja
+[] Filter&Search dari kehadiran
+[] seluruh tombol sudah diimplementasikan bisa dipencet
+[] Notifikasi ketika pelamar/pegawai sudah di buat,ubah,hapus
+[] Modal ketika hapus pelamar/pegawai
+[] Modal berhenti assign pegawai
+
 ## Version Control
 
 gitlab
