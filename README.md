@@ -69,16 +69,18 @@ Nael :
 [] Modal ketika hapus pelamar/pegawai
 [] Modal berhenti assign pegawai
 Aji :
-[] Constraint number
+[x] Constraint number
 [] Status ketika assign
 [] debug usecase 4&7
 [] Style Front end
 [] Constraint jumlah hari kerja
 [] Filter&Search dari kehadiran
 [] seluruh tombol sudah diimplementasikan bisa dipencet
-[] Notifikasi ketika pelamar/pegawai sudah di buat,ubah,hapus
-[] Modal ketika hapus pelamar/pegawai
-[] Modal berhenti assign pegawai
+[] implement login & logout
+[] implement manage account
+[] implement manage product
+[] git suicide :))
+
 
 ## Version Control
 

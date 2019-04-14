@@ -108,17 +108,17 @@ thead th{
 	                <option th:each="dp: ${daftar_produk}"  th:value="${dp.id}"  th:text="${dp.nama_produk}"></option>
                 </select></td>
                 <td><input type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].jabatan}" name="jabatan"></td>
-                <td><input type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].nip}" name="nip"></td>
-                <td><input type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].npwp}" name="npwp"></td>
-                <td><input type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].pkwt}" name="pkwt"></td>
-                <td><input type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].bpjsk}" name="bpjsk"></td>
-                <td><input type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].bpjstk}" name="bpjstk"></td>
+                <td><input type="number" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].nip}" name="nip"></td>
+                <td><input type="number" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].npwp}" name="npwp"></td>
+                <td><input type="number" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].pkwt}" name="pkwt"></td>
+                <td><input type="number" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].bpjsk}" name="bpjsk"></td>
+                <td><input type="number" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].bpjstk}" name="bpjstk"></td>
 				
-				<td><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].pelamar_id}" name="pelamar_id"></td>
-				<td><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].id}" name="id"></td>
-				<td><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].nama_bank}" name="nama_bank"></td>
-				<td><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].no_arsip}" name="no_arsip"></td>
-				<td><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].no_rekening}" name="no_rekening"></td>
+				<td style="display:none"><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].pelamar_id}" name="pelamar_id"></td>
+				<td style="display:none"><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].id}" name="id"></td>
+				<td style="display:none"><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].nama_bank}" name="nama_bank"></td>
+				<td style="display:none"><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].no_arsip}" name="no_arsip"></td>
+				<td style="display:none"><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].no_rekening}" name="no_rekening"></td>
             </tr>
          </tbody>
       </table>
