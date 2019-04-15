@@ -99,19 +99,21 @@ public class KehadiranController {
 		List<String> nip_pegawai_pada_proyek_ini = new ArrayList<String>();
 		List<String> nama_pegawai_pada_proyek_ini = new ArrayList<String>();
 		for(int i = 0 ; i < pegawai_outsourcing.size() ; i++) {
-			if(pegawai_outsourcing.get(i).getProyek().getId() == proyek_id) {
+			if(pegawai_outsourcing.get(i).getProyek().getId() == proyek_id && pegawai_outsourcing.get(i).getStatus() == true) {
 				nip_pegawai_pada_proyek_ini.add(pegawai_outsourcing.get(i).getNip());
 				nama_pegawai_pada_proyek_ini.add(pegawai_outsourcing.get(i).getPelamar_id().getNama_lengkap());
 			}	
 		}
 		for(int i = 0 ; i < nama_pegawai_pada_proyek_ini.size() ; i ++) {
 			KehadiranModel kehadiran = new KehadiranModel();
-			if(pegawai_outsourcing.get(i).getProyek().getId() == proyek_id) {
+			if(pegawai_outsourcing.get(i).getProyek().getId() == proyek_id && pegawai_outsourcing.get(i).getStatus() == true ) {
 			kehadiran.setPegawai_outsourcing(pegawai_outsourcing.get(i));
 			daftar_kehadiran.add_kehadiran(kehadiran);
 			}
 		}
-		
+		for(int i = 0 ; i < nama_pegawai_pada_proyek_ini.size() ; i++) {
+			System.out.println(nama_pegawai_pada_proyek_ini.get(i));
+		}
 		model.addAttribute("daftar_kehadiran", daftar_kehadiran);
 		model.addAttribute("nama_pegawai", nama_pegawai_pada_proyek_ini);
 		model.addAttribute("nip_pegawai", nip_pegawai_pada_proyek_ini);	

@@ -70,16 +70,17 @@ Nael :
 [] Modal berhenti assign pegawai
 Aji :
 [x] Constraint number
-[] Status ketika assign
-[] debug usecase 4&7
-[] Style Front end
+[x] Status ketika assign
+[x] debug usecase 4&7
+[] Style Front end //design phase
 [] Constraint jumlah hari kerja
-[] Filter&Search dari kehadiran
-[] seluruh tombol sudah diimplementasikan bisa dipencet
+[] Filter&Search dari kehadiran //design phas
+[x] seluruh tombol sudah diimplementasikan bisa dipencet
 [] implement login & logout
 [] implement manage account
 [] implement manage product
 [] git suicide :))
+
 
 
 ## Version Control

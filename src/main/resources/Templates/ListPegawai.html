@@ -273,11 +273,11 @@ $('#assignButton').click(function() {
 	$.each($("input[name='id']:checked"), function() {
 		parameters += "id=" + $(this).val() + "&";
 	});
-	var urls = "/pelamar/assign?" + parameters;
+	var urls = "/pegawai/assign?" + parameters;
 	console.log(parameters);
 	$.ajax({
 		type : "POST",
-		url : "/pelamar/assign?" + parameters,
+		url : "/pegawai/assign?" + parameters,
 		dataType : "json",
 		success : function(result) {
 			

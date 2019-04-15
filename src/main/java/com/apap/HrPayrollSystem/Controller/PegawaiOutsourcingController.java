@@ -203,15 +203,9 @@ public class PegawaiOutsourcingController {
 		List<ProyekModel> daftar_proyek = proyekService.getAllProyek();
 		
 		wrapper.setDaftar_proyek(daftar_proyek);
-		
-		List<String> nama_pegawai = new ArrayList<String>();
-//		ids = new long[1];
-//		ids[0] = (long) 1;
-
-		
+		List<String> nama_pegawai = new ArrayList<String>();	
 		for(int i=0; i<ids.length; i++) {
 			PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(ids[i]);
-			
 			wrapper.add_pegawai(pegawai);
 			nama_pegawai.add(pegawai.getPelamar_id().getNama_lengkap());
 			System.out.println(wrapper.getDaftar_pegawai().get(i).getPelamar_id().getNama_lengkap());
@@ -236,8 +230,8 @@ public class PegawaiOutsourcingController {
 		
 		for(int i=0; i<daftar_pegawai.getDaftar_pegawai().size(); i++) {
 			daftar_pegawai.getDaftar_pegawai().get(i).setProyek(proyek.get());
-			daftar_pegawai.getDaftar_pegawai().get(i).setJoin_date(join_date);;
-			daftar_pegawai.getDaftar_pegawai().get(i).setJoin_date(end_date);
+			daftar_pegawai.getDaftar_pegawai().get(i).setJoin_date(join_date);
+			daftar_pegawai.getDaftar_pegawai().get(i).setEnd_date(end_date);
 			daftar_pegawai.getDaftar_pegawai().get(i).setStatus(is_assigned);
 		}
 		
