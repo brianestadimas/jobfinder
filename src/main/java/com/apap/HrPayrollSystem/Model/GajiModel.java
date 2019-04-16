@@ -35,24 +35,10 @@ public class GajiModel implements Serializable{
 	@JsonIgnore
 	private PegawaiOutsourcingModel pegawai_outsourcing;	
 		
-	@NotNull
-	@Size(max=255)
-	@Column(name="gaji_pokok",nullable=false)
-	private long gaji_pokok;
-	
-	@Size(max=255)
-	@Column(name="tunjangan",nullable=true)
-	private long tunjangan;
-	
 	@Size(max=255)
 	@Column(name="pinjaman",nullable=true)
 	private long pinjaman;
-	
-	@NotNull
-	@Size(max=255)
-	@Column(name="no_rekening",nullable=false)
-	private String no_rekening;
-	
+		
 	@NotNull
 	@Size(max=255)
 	@Column(name="gaji_net",nullable=false)
@@ -78,21 +64,6 @@ public class GajiModel implements Serializable{
 		this.id = id;
 	}
 
-	public long getGaji_pokok() {
-		return gaji_pokok;
-	}
-
-	public void setGaji_pokok(long gaji_pokok) {
-		this.gaji_pokok = gaji_pokok;
-	}
-
-	public long getTunjangan() {
-		return tunjangan;
-	}
-
-	public void setTunjangan(long tunjangan) {
-		this.tunjangan = tunjangan;
-	}
 
 	public long getPinjaman() {
 		return pinjaman;
@@ -100,14 +71,6 @@ public class GajiModel implements Serializable{
 
 	public void setPinjaman(long pinjaman) {
 		this.pinjaman = pinjaman;
-	}
-
-	public String getNo_rekening() {
-		return no_rekening;
-	}
-
-	public void setNo_rekening(String no_rekening) {
-		this.no_rekening = no_rekening;
 	}
 
 	public long getGaji_net() {

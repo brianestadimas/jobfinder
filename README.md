@@ -73,13 +73,23 @@ Aji :
 [x] Status ketika assign
 [x] debug usecase 4&7
 [] Style Front end //design phase
-[] Constraint jumlah hari kerja
-[] Filter&Search dari kehadiran //design phas
+[] Constraint jumlah hari kerja //Setelah WIP
+[] Filter&Search dari kehadiran //design phase
 [x] seluruh tombol sudah diimplementasikan bisa dipencet
-[] implement login & logout
-[] implement manage account
-[] implement manage product
-[] git suicide :))
+[] implement login & logout //Iterasi 2 
+[] implement manage account	//WIP
+[] implement manage product //WIP
+[] printable format untuk kehadiran perjudul
+
+TASK BELUM YG ADA AMBIL :
+[] Printable format buat detail pelamar yg ingin diajukan
+
+
+##FLow iterasi 2
+
+UC 9
+list of kehadiran -> do payment -> rekap(ubah kehadiran)[Modal notifikasi] -> form penggajian
+
 
 
 
