@@ -78,12 +78,13 @@ Aji :
 [x] seluruh tombol sudah diimplementasikan bisa dipencet
 [] implement login & logout //Iterasi 2 
 [] implement manage account	//WIP
-[] implement manage product //WIP
+[x] implement manage product //WIP
 [] printable format untuk kehadiran perjudul
 
 TASK BELUM YG ADA AMBIL :
 [] Printable format buat detail pelamar yg ingin diajukan
-
+[] If else buat pelamar, jika sudah jadi pegawai maka nama pelamar tersebut di hidden dari list of pelamar
+[] counter2 di home
 
 ##FLow iterasi 2
 

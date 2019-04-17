@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+
+</head>
+
+<style>
+	#add_produk{
+		display:flex;	
+	}
+	#form_add{
+		outline: 0;
+  		border-width: 0 0 0.5px;
+  		border-color: black;
+  		font-size:12px;
+	}
+
+</style>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	
+	<form th:action="@{/produk/tambah/submit}" th:object="${produk}" method = "POST">
+		<div id="add_produk">
+			<h2>Nama Produk : </h2>
+			<input id="form_add" type="text" name="nama_produk" required/>
+		</div>
+		
+		<button type="submit">Submit</button>
+	</form>
+	
+
+
+
+
+
+</body>
+
+<footer>
+
+
+
+</footer>
+
+
+
+</html>
