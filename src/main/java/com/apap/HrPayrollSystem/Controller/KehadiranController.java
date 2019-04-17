@@ -139,6 +139,15 @@ public class KehadiranController {
 			daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).setProyek(proyek);
 			daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).setJudul_kehadiran(judul_kehadiran);
 			daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).setJumlah_hari_kerja(jumlah_hari_kerja);
+			if(jumlah_hari_kerja != daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_absen()+
+									daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_cuti()+
+									daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_izin()+
+									daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_kehadiran()+
+									daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_lain_lain()+
+									daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_off()+
+									daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_sakit()) {
+				System.out.println("hai tayo :))");
+			}
 		}
 		kehadiran_service.save_all_kehadiran(daftar_daftar_kehadiran.getDaftar_kehadiran());
 
