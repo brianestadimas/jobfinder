@@ -33,28 +33,28 @@ public class PengalamanPelamarModel implements Serializable {
 	private PelamarModel pelamar_id;
 
 	@NotNull
-	@Size(max = 255)
+	@Size(max = 100)
 	@Column(name = "nama_perusahaan", nullable = false)
 	private String nama_perusahaan;
 
-	@Size(max = 255)
+	@Size(max = 5)
 	@Column(name = "tahun_terakhir", nullable = true)
 	private String tahun_terakhir;
 
-	@Size(max = 255)
+	@Size(max = 5)
 	@Column(name = "lamaTahun_bekerja", nullable = true)
 	private String lamaTahun_bekerja;
 
-	@Size(max = 255)
+	@Size(max = 5)
 	@Column(name = "lamaBulan_bekerja", nullable = true)
 	private String lamaBulan_bekerja;
 
-	@Size(max = 255)
+	@Size(max = 50)
 	@Column(name = "jabatan", nullable = true)
 	private String jabatan;
 
 	@NotNull
-	@Size(max = 500)
+	@Size(max = 255)
 	@Column(name = "alasan_berhenti", nullable = false)
 	private String alasan_berhenti;
 

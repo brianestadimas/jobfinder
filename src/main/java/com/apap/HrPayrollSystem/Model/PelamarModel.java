@@ -3,15 +3,11 @@ package com.apap.HrPayrollSystem.Model;
 import java.io.Serializable;
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,16 +20,16 @@ public class PelamarModel implements Serializable{
 	private long id;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=100)
 	@Column(name="nama_lengkap",nullable = false)
 	private String nama_lengkap;
 	
-	@Size(max=255)
+	@Size(max=50)
 	@Column(name="nama_panggilan",nullable = true)
 	private String nama_panggilan;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=12)
 	@Column(name="gender",nullable = true)
 	private String gender;
 	
@@ -42,44 +38,39 @@ public class PelamarModel implements Serializable{
 	private Date tanggal_lahir;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=15)
 	@Column(name="status_marital",nullable = false)
 	private String status_marital;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=16)
 	@Column(name="no_ktp",nullable = false)
 	private String no_ktp;
 	
-	@Size(max=255)
-	@Column(name="telepon",nullable = false)
-	private String telepon;
-	
 	@NotNull
-	@Size(max=255)
+	@Size(max=16)
 	@Column(name="nomor_handphone",nullable = false)
 	private String nomor_handphone;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=15)
 	@Column(name="agama",nullable = false)
 	private String agama;
 	
-	@Size(max=255)
+	@Size(max=16)
 	@Column(name="telepon_orang_terdekat",nullable = true)
 	private String telepon_orang_terdekat;
 	
-	@Size(max=255)
+	@Size(max=16)
 	@Column(name="nomor_whatsapp",nullable = true)
 	private String nomor_whatsapp;
 	
-	@Size(max=255)
+	@Size(max=50)
 	@Column(name="email",nullable = true)
 	private String email;
 	
-	//Ambil produknya dari mana? kan ada Marketing, Sales, dll.
 	@NotNull
-	@Size(max=255)
+	@Size(max=50)
 	@Column(name="produk_dilamar",nullable = false)
 	private String produk_dilamar;
 		
@@ -89,27 +80,27 @@ public class PelamarModel implements Serializable{
 	private String alamat;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=50)
 	@Column(name="region",nullable = false)
 	private String region;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=20)
 	@Column(name="pendidikan_terakhir",nullable = false)
 	private String pendidikan_terakhir;
 
 	@NotNull
-	@Size(max=255)
+	@Size(max=50)
 	@Column(name="nama_sekolah",nullable = false)
 	private String nama_sekolah;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=50)
 	@Column(name="tempat_sekolah",nullable = false)
 	private String tempat_sekolah;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=50)
 	@Column(name="jurusan",nullable = false)
 	private String jurusan;
 	
@@ -117,21 +108,12 @@ public class PelamarModel implements Serializable{
 	@Column(name="lulusan_tahun",nullable = true)
 	private String lulusan_tahun;
 	
-	@Size(max=255)
+	@Size(max=16)
 	@Column(name="telepon_rumah",nullable = true)
 	private String telepon_rumah;
 
 	@Column(name="apply_date",nullable = false)
 	private Date apply_date;
-
-	//Relationship One to Many (1 pelamar memiliki N history (jumlahnya 3 kan kl di mock up))
-	//by aji -> relation ke pengalaman pelamar ada di model pengalaman pelamar nya
-
-//	    @OneToOne(mappedBy = "pelamar", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//	    private PegawaiOutsourcingModel pegawai_Outsourcing;
-//	    @OneToMany(mappedBy="pengalaman_pelamar", cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-//	    private PengalamanPelamarModel pengalaman_Pelamar;
-	
 	
 	public long getId() {
 		return id;
@@ -187,14 +169,6 @@ public class PelamarModel implements Serializable{
 
 	public void setNo_ktp(String no_ktp) {
 		this.no_ktp = no_ktp;
-	}
-
-	public String getTelepon() {
-		return telepon;
-	}
-
-	public void setTelepon(String telepon) {
-		this.telepon = telepon;
 	}
 
 	public String getAgama() {

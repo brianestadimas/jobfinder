@@ -113,8 +113,6 @@ tr.history:hover {
 
 	<h3 th:text="${pelamar.nama_lengkap}"></h3>
 	<a href="#"> <span class="glyphicon glyphicon-circle-arrow-left"></span></a>
-	<!--Belum berfungsi-->
-	<!-- <hr> -->
 	<nav>
 		<div class="nav nav-tabs" id="nav-tab" role="tablist">
 			<a class="nav-item nav-link active" id="nav-home-tab"
@@ -130,8 +128,8 @@ tr.history:hover {
 				class="btn btn-info btn-large"
 				style="float: right; margin-top: 10px; margin-right: 50px;">Ubah</button>
 			<div class="tablecontainer">
-				<h6 class="alert alert-success" th:if="${ubahSukses_msg!=null}"
-					th:text="${ubahSukses_msg}"></h6>
+				<h5 class="alert alert-success" th:if="${ubahSukses_msg!=null}"
+					th:text="${ubahSukses_msg}"></h5>
 				<table style="width: 100%" id="table"
 					class="table table-striped table-bordered dataTable">
 					<tbody>

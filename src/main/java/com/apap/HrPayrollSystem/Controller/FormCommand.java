@@ -9,11 +9,31 @@ public class FormCommand {
 
 	private String[] selectedCheckboxProduk;
 
+	private String selectedRadioGender;
+
+	private String selectedRadioMarital;
+
 	private List<PengalamanPelamarModel> pengalamanList;
 
 	public FormCommand() {
 		super();
 		this.pengalamanList = new ArrayList<PengalamanPelamarModel>();
+	}
+
+	public String getSelectedRadioGender() {
+		return selectedRadioGender;
+	}
+
+	public void setSelectedRadioGender(String selectedRadioGender) {
+		this.selectedRadioGender = selectedRadioGender;
+	}
+
+	public String getSelectedRadioMarital() {
+		return selectedRadioMarital;
+	}
+
+	public void setSelectedRadioMarital(String selectedRadioMarital) {
+		this.selectedRadioMarital = selectedRadioMarital;
 	}
 
 	public String[] getSelectedCheckboxProduk() {
@@ -39,5 +59,21 @@ public class FormCommand {
 	public void removeJadwalFromList(PengalamanPelamarModel pengalaman) {
 		this.pengalamanList.remove(pengalaman);
 	}
-
+	
+	public boolean checkForNull() {
+		if(this.selectedCheckboxProduk.length==0||this.selectedRadioGender==null||this.selectedRadioMarital==null) {
+			return true;
+		}else
+			return false;
+	}
+	public String checkForNullMsg () {
+		if(this.selectedCheckboxProduk.length==0)
+			return "Minimal memilih satu jenis produk !";
+		else if(this.selectedRadioGender==null)
+			return "Jenis kelamin belum dipilih !";
+		else if (this.selectedRadioMarital==null)
+			return "Status pernikahan belum dipilih !";
+		else
+			return "";
+	}
 }
