@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.apap.HrPayrollSystem.Model.AccountModel;
@@ -39,6 +40,30 @@ public class AccountServiceImpl implements AccountService{
 	public void save_account(AccountModel account) {
 		// TODO Auto-generated method stub
 		account_db.save(account);
+	}
+
+	@Override
+	public AccountModel addAccount(AccountModel akun) {
+		// TODO Auto-generated method stub
+		String password = encrypt(akun.getPassword());
+		akun.setPassword(password);
+		return account_db.save(akun);
+	}
+
+	@Override
+	public String encrypt(String password) {
+		// TODO Auto-generated method stub
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(password);
+		return hashedPassword;
+	}
+
+	@Override
+	public boolean decrypt(String old_input, String old_get) {
+		// TODO Auto-generated method stub
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		boolean hashed_password = passwordEncoder.matches(old_input,old_get);
+		return hashed_password;
 	}
 	
 	

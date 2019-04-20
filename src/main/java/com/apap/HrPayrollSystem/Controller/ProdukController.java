@@ -52,7 +52,7 @@ public class ProdukController {
 		return "update_produk";
 	}
 	
-	@RequestMapping(value="/produk/update/{id}/submit",method=RequestMethod.POST)
+	@RequestMapping(value="/produk/update/submit",method=RequestMethod.POST)
 	private String editProdukSubmit(@PathVariable(value="id") long id ,
 									@ModelAttribute ProdukModel produk,
 									Model model) {

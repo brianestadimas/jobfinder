@@ -28,4 +28,9 @@ public class HomeController {
 		model.addAttribute("proyek",list_of_proyek);
 		return"home";
 	}
+	
+	@RequestMapping("/login")
+	public String login() {
+		return "login";
+	}
 }

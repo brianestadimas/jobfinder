@@ -21,7 +21,7 @@
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
 	
-	<form th:action="@{/produk/tambah/submit}" th:object="${produk}" method = "POST">
+	<form th:action="@{/produk/update/submit}" th:object="${produk}" method = "POST">
 		<input type="hidden" th:field="*{id}"/>
 		<div id="add_produk">
 			<h2>Nama Produk : </h2>

@@ -73,12 +73,14 @@ Aji :
 [x] Status ketika assign
 [x] debug usecase 4&7
 [] Style Front end //design phase
-[] Constraint jumlah hari kerja //Setelah WIP
+[] Constraint jumlah hari kerja //Not Tested
 [] Filter&Search dari kehadiran //design phase
 [x] seluruh tombol sudah diimplementasikan bisa dipencet
-[] implement login & logout //Iterasi 2 
-[] implement manage account	//WIP
-[x] implement manage product //WIP
+[x] implement login //Iterasi 2
+[x] implement logout //Iterasi 2 
+[] implement manage account	//sisa My Account
+[x] implement manage product //DONE
+[] Notifikasi ketika berhasil bikin kehadiran, hapus kehadiran, ubah kehadiran, berhasil assign
 [] printable format untuk kehadiran perjudul
 
 TASK BELUM YG ADA AMBIL :

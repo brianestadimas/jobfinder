@@ -39,7 +39,9 @@ public class AccountController {
 	private String tambahAkunSubmit(Model model,
 									@ModelAttribute AccountModel account) {
 		
-		akun_service.save_account(account);
+		
+		akun_service.addAccount(account);
+
 		
 		List<AccountModel> get_all_account = akun_service.get_all_account();
 		model.addAttribute("akun_akun", get_all_account);	
@@ -47,7 +49,7 @@ public class AccountController {
 	}
 	
 	//hapus akun untuk admin
-	@RequestMapping(value="/account/delete/{id}", method=RequestMethod.POST)
+	@RequestMapping(value="/account/delete/{id}", method=RequestMethod.GET)
 	private String hapusAkun(Model model,
 							 @ModelAttribute AccountModel account) {
 		akun_service.delete_account(account);
@@ -65,10 +67,10 @@ public class AccountController {
 		return "update_akun";
 	}
 	
-	@RequestMapping(value="/account/update/{id}/submit", method=RequestMethod.POST)
+	@RequestMapping(value="/account/update/submit", method=RequestMethod.POST)
 	private String updateAkunSubmit(Model model,
-									@ModelAttribute AccountModel account) {
-		akun_service.save_account(account);
+									@ModelAttribute AccountModel akun) {
+		akun_service.save_account(akun);
 		
 		List<AccountModel> get_all_account = akun_service.get_all_account();
 		model.addAttribute("akun_akun", get_all_account);

@@ -80,10 +80,10 @@ thead th{
 	<div style="padding:1%;padding-right:4%">
 		<div id="header-akun">
 			<div id="header-akun-2">
-				<h1 >SELAMAT DATANG DI SIMOS, {NAMA-AKUN}</h1>
+				<h1 th:text=" 'SELAMAT DATANG DI SIMOS, ' + ${#httpServletRequest.remoteUser} + ' !'"></h1>
 			</div>
 			<div id="kelola-akun">
-				<a  class="btn btn-warning btn-large">KELOLA AKUN</a>
+				<a  class="btn btn-warning btn-large">Akun Saya</a>
 			</div>	
 		</div>
 		<div id="status-db-dan-kelola-proyek">
@@ -138,10 +138,13 @@ thead th{
 			</div>
 		</div>
 		<div style="padding-top:2%" id="status-db-dan-kelola-proyek">
-			<div id="status-db">
-				<button id="button-di-home">Variable Gaji</button>
-				<button id="button-di-home">Lihat User Manual</button>
-			</div>		
+			<div>
+				<div id="status-db">
+					<button id="button-di-home">Variable Gaji</button>
+					<button id="button-di-home">Lihat User Manual</button>
+				</div>
+					<a type="button" th:href="@{'/account/list'}">Kelola Akun Akun</a>	
+			</div>
 			<div id="kelola-proyek">
 				<h2>Pelamar Terbaru & Kelola Pelamar</h2>
 					<hr>

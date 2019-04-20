@@ -19,7 +19,7 @@ public class AccountModel implements Serializable{
 	private long id;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=50)
 	@Column(name="username",nullable = false)
 	private String username;
 	
@@ -29,12 +29,12 @@ public class AccountModel implements Serializable{
 	private String password;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=50)
 	@Column(name="name",nullable=false)
 	private String name;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=50)
 	@Column(name="role",nullable=false)
 	private String role;
 
