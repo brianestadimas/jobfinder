@@ -2,7 +2,6 @@ package com.apap.HrPayrollSystem.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,10 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.apap.HrPayrollSystem.Model.KehadiranModel;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
-import com.apap.HrPayrollSystem.Model.ProdukModel;
 import com.apap.HrPayrollSystem.Model.ProyekModel;
 import com.apap.HrPayrollSystem.Service.KehadiranService;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
@@ -111,9 +110,7 @@ public class KehadiranController {
 			daftar_kehadiran.add_kehadiran(kehadiran);
 			}
 		}
-		for(int i = 0 ; i < nama_pegawai_pada_proyek_ini.size() ; i++) {
-			System.out.println(nama_pegawai_pada_proyek_ini.get(i));
-		}
+
 		model.addAttribute("daftar_kehadiran", daftar_kehadiran);
 		model.addAttribute("nama_pegawai", nama_pegawai_pada_proyek_ini);
 		model.addAttribute("nip_pegawai", nip_pegawai_pada_proyek_ini);	
@@ -143,10 +140,13 @@ public class KehadiranController {
 									daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_cuti()+
 									daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_izin()+
 									daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_kehadiran()+
-									daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_lain_lain()+
 									daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_off()+
 									daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_sakit()) {
 				System.out.println("hai tayo :))");
+				String msg = "Terdapat kehadiran dengan jumlah komponen kehadiran tidak sama dengan jumlah hari kerja";
+				model.addAttribute("fail_notif", msg);
+				return "redirect:/proyek/{proyek_id}/kehadiran/tambah";
+
 			}
 		}
 		kehadiran_service.save_all_kehadiran(daftar_daftar_kehadiran.getDaftar_kehadiran());
@@ -172,7 +172,7 @@ public class KehadiranController {
 		model.addAttribute("nama_proyek_ini", nama_proyek);
 		model.addAttribute("id_proyek", proyek_id);
 		model.addAttribute("list_of_kehadiran",kehadiran_proyek_ini);		
-		
+		model.addAttribute("notifikasi_sukses","Berhasil Menambahkan Kehadiran dengan judul "+judul_kehadiran);	
 		return "list_kehadiran";
 	}
 	
@@ -226,7 +226,17 @@ public class KehadiranController {
 				daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).setProyek(proyek);
 				daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).setJudul_kehadiran(judul_kehadiran);
 				daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).setJumlah_hari_kerja(jumlah_hari_kerja);
+				if(jumlah_hari_kerja != daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_absen()+
+										daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_cuti()+
+										daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_izin()+
+										daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_kehadiran()+
+										daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_off()+
+										daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_sakit()) {
+					System.out.println("hai tayo :))");
+					model.addAttribute("fail_notif", "Terdapat kehadiran dengan jumlah komponen kehadiran tidak sama dengan jumlah hari kerja");
+					return "redirect:/proyek/{proyek_id}/kehadiran/update/"+judul_kehadiran;
 				}
+			}
 			kehadiran_service.save_all_kehadiran(daftar_daftar_kehadiran.getDaftar_kehadiran());				
 			List<KehadiranModel> get_all_kehadiran = kehadiran_service.get_all_kehadiran();
 			List<String> kehadiran_proyek_ini = new ArrayList<String>();
@@ -248,7 +258,8 @@ public class KehadiranController {
 								//TO DO render
 				model.addAttribute("nama_proyek_ini", nama_proyek);
 				model.addAttribute("id_proyek", proyek_id);
-				model.addAttribute("list_of_kehadiran",kehadiran_proyek_ini);						
+				model.addAttribute("list_of_kehadiran",kehadiran_proyek_ini);
+				model.addAttribute("notifikasi_sukses","Berhasil Mengubah Kehadiran dengan judul "+judul_kehadiran);
 				return "list_kehadiran";
 			}
 	
@@ -287,7 +298,8 @@ public class KehadiranController {
 	//TO DO render
 	model.addAttribute("nama_proyek_ini", nama_proyek);
 	model.addAttribute("id_proyek", proyek_id);
-	model.addAttribute("list_of_kehadiran",kehadiran_proyek_ini);	
+	model.addAttribute("list_of_kehadiran",kehadiran_proyek_ini);
+	model.addAttribute("notifikasi_sukses","Berhasil Menghapus Kehadiran dengan judul "+judul_kehadiran);
 	return "list_kehadiran";
 	}
 	

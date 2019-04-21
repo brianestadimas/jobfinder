@@ -44,6 +44,8 @@
         <form action="#" th:action="'/proyek/'+${proyek_id}+'/kehadiran/update/submit'" method="post" th:object="${daftar_kehadiran}">
                 <h1 style="font-size:300%">Form Ubah Absensi</h1>
                 <hr>
+                <h2 class="alert alert-warning" th:if="${fail_notif!=null}"
+				th:text="${fail_notif}"></h2>	
                 <div id="Header-Kehadiran">
 	                <div id="judul-kehadiran">
 	                	<h3>Judul Absensi :</h3>

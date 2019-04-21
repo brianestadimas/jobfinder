@@ -99,7 +99,7 @@ Aji :
 
 [] Style Front end //design phase
 
-[] Constraint jumlah hari kerja //Not Tested
+[x] Constraint jumlah hari kerja 
 
 [] Filter&Search dari kehadiran //design phase
 
@@ -113,9 +113,11 @@ Aji :
 
 [x] implement manage product //DONE
 
-[] Notifikasi ketika berhasil bikin kehadiran, hapus kehadiran, ubah kehadiran, berhasil assign
+[x] Notifikasi ketika berhasil bikin kehadiran, hapus kehadiran, ubah kehadiran, berhasil assign 
 
 [] printable format untuk kehadiran perjudul
+
+[] Bug ketika pada proyek kedua dan lebih, saat akan menambahkan kehadiran daftar pegawai tidak kerender
 
 TASK BELUM YG ADA AMBIL :
 
