@@ -48,45 +48,83 @@ Thymeleaf sebagai frontend
 7. Jika sudah, push ke branch kalian (git status -> git add . -> git commit -m "commit messages", -> git push <nama_remote> <branch_kalian>)
 
 ## TODO
+
 Dimas : 
+
 [] Constraint Start dan End date proyek
+
 [] Ubah proyek autofill region
+
 [] Size kolom
+
 [] Search hanya untuk kolom tertentu
+
 [] seragamkan front end
+
 [] seluruh tombol sudah diimplementasikan bisa dipencet
+
 [] Notifikasi ketika proyek sudah di buat,ubah,hapus
+
 [] Notifikasi ketika regulasi pegawai sudah diganti
+
 [] Modal ketika hapus proyek
+
 Nael :
+
 [] Konsistensi
+
 [] Ketika ada error saat pengisian, notifikasi error nya di bagian mana
+
 [] Max length
+
 [] Hapus Pelamar debug
+
 [] Penamaan button
+
 [] seluruh tombol sudah diimplementasikan bisa dipencet
+
 [] Notifikasi ketika pelamar/pegawai sudah di buat,ubah,hapus
+
 [] Modal ketika hapus pelamar/pegawai
+
 [] Modal berhenti assign pegawai
+
 Aji :
+
 [x] Constraint number
+
 [x] Status ketika assign
+
 [x] debug usecase 4&7
+
 [] Style Front end //design phase
+
 [] Constraint jumlah hari kerja //Not Tested
+
 [] Filter&Search dari kehadiran //design phase
+
 [x] seluruh tombol sudah diimplementasikan bisa dipencet
+
 [x] implement login //Iterasi 2
+
 [x] implement logout //Iterasi 2 
+
 [] implement manage account	//sisa My Account
+
 [x] implement manage product //DONE
+
 [] Notifikasi ketika berhasil bikin kehadiran, hapus kehadiran, ubah kehadiran, berhasil assign
+
 [] printable format untuk kehadiran perjudul
 
 TASK BELUM YG ADA AMBIL :
+
 [] Printable format buat detail pelamar yg ingin diajukan
+
 [] If else buat pelamar, jika sudah jadi pegawai maka nama pelamar tersebut di hidden dari list of pelamar
+
 [] counter2 di home
+
 
 ##FLow iterasi 2
 
