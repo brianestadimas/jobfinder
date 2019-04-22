@@ -83,7 +83,7 @@ thead th{
 				<h1 th:text=" 'SELAMAT DATANG DI SIMOS, ' + ${#httpServletRequest.remoteUser} + ' !'"></h1>
 			</div>
 			<div id="kelola-akun">
-				<a  class="btn btn-warning btn-large">Akun Saya</a>
+				<a  class="btn btn-warning btn-large" th:href="@{'/my-account'}">Akun Saya</a>
 			</div>	
 		</div>
 		<div id="status-db-dan-kelola-proyek">

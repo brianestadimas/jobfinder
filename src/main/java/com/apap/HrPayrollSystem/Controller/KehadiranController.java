@@ -73,7 +73,10 @@ public class KehadiranController {
 		List<String> nama_pegawai_proyek = new ArrayList<String>();
 		for(int i = 0 ; i < get_all_kehadiran.size() ; i++) {
 			if(get_all_kehadiran.get(i).getProyek().getId() == proyek_id && get_all_kehadiran.get(i).getJudul_kehadiran().equals(judul_kehadiran)) {
-					detail_kehadiran_proyek_ini.add(get_all_kehadiran.get(i));
+				System.out.println(get_all_kehadiran.get(i).getProyek().getId());
+				System.out.println(proyek_id);
+				System.out.println(get_all_kehadiran.get(i).getPegawai_outsourcing().getPelamar_id().getNama_lengkap());
+				detail_kehadiran_proyek_ini.add(get_all_kehadiran.get(i));
 			}
 		}
 		for(int i = 0 ; i < detail_kehadiran_proyek_ini.size() ; i++) {
@@ -97,20 +100,22 @@ public class KehadiranController {
 		List<PegawaiOutsourcingModel> pegawai_outsourcing = pegawai_outsourcing_service.getAllPegawai();
 		List<String> nip_pegawai_pada_proyek_ini = new ArrayList<String>();
 		List<String> nama_pegawai_pada_proyek_ini = new ArrayList<String>();
+		List<PegawaiOutsourcingModel> pegawai_pegawai_proyek_ini = new ArrayList<PegawaiOutsourcingModel>();
 		for(int i = 0 ; i < pegawai_outsourcing.size() ; i++) {
 			if(pegawai_outsourcing.get(i).getProyek().getId() == proyek_id && pegawai_outsourcing.get(i).getStatus() == true) {
 				nip_pegawai_pada_proyek_ini.add(pegawai_outsourcing.get(i).getNip());
 				nama_pegawai_pada_proyek_ini.add(pegawai_outsourcing.get(i).getPelamar_id().getNama_lengkap());
+				pegawai_pegawai_proyek_ini.add(pegawai_outsourcing.get(i));
 			}	
 		}
 		for(int i = 0 ; i < nama_pegawai_pada_proyek_ini.size() ; i ++) {
 			KehadiranModel kehadiran = new KehadiranModel();
-			if(pegawai_outsourcing.get(i).getProyek().getId() == proyek_id && pegawai_outsourcing.get(i).getStatus() == true ) {
-			kehadiran.setPegawai_outsourcing(pegawai_outsourcing.get(i));
-			daftar_kehadiran.add_kehadiran(kehadiran);
+			if(pegawai_pegawai_proyek_ini.get(i).getProyek().getId() == proyek_id && pegawai_pegawai_proyek_ini.get(i).getStatus() == true ) {
+
+				kehadiran.setPegawai_outsourcing(pegawai_pegawai_proyek_ini.get(i));
+				daftar_kehadiran.add_kehadiran(kehadiran);
 			}
 		}
-
 		model.addAttribute("daftar_kehadiran", daftar_kehadiran);
 		model.addAttribute("nama_pegawai", nama_pegawai_pada_proyek_ini);
 		model.addAttribute("nip_pegawai", nip_pegawai_pada_proyek_ini);	
@@ -186,6 +191,7 @@ public class KehadiranController {
 		List<KehadiranModel> detail_kehadiran_proyek_ini = new ArrayList<KehadiranModel>();
 		List<String> nip_pegawai_proyek = new ArrayList<String>();
 		List<String> nama_pegawai_proyek = new ArrayList<String>();
+		List<PegawaiOutsourcingModel> pegawai_pegawai_proyek_ini = new ArrayList<PegawaiOutsourcingModel>();
 		for(int i = 0 ; i < get_all_kehadiran.size() ; i++) {
 			if(get_all_kehadiran.get(i).getProyek().getId() == proyek_id && get_all_kehadiran.get(i).getJudul_kehadiran().equals(judul_kehadiran)) {
 					detail_kehadiran_proyek_ini.add(get_all_kehadiran.get(i));
@@ -197,6 +203,7 @@ public class KehadiranController {
 		for(int i = 0 ; i < detail_kehadiran_proyek_ini.size() ; i++) {
 			nip_pegawai_proyek.add(detail_kehadiran_proyek_ini.get(i).getPegawai_outsourcing().getNip());
 			nama_pegawai_proyek.add(detail_kehadiran_proyek_ini.get(i).getPegawai_outsourcing().getPelamar_id().getNama_lengkap());
+			
 		}
 		int hari_kerja = detail_kehadiran_proyek_ini.get(0).getJumlah_hari_kerja();
 		model.addAttribute("proyek_id", proyek_id);

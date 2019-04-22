@@ -97,11 +97,11 @@ Aji :
 
 [x] debug usecase 4&7
 
-[] Style Front end //design phase
+[] Style Front end //Tunggu dimas
 
 [x] Constraint jumlah hari kerja 
 
-[] Filter&Search dari kehadiran //design phase
+[] Filter&Search dari kehadiran //Tungg dimas
 
 [x] seluruh tombol sudah diimplementasikan bisa dipencet
 
@@ -117,7 +117,7 @@ Aji :
 
 [] printable format untuk kehadiran perjudul
 
-[] Bug ketika pada proyek kedua dan lebih, saat akan menambahkan kehadiran daftar pegawai tidak kerender
+[x] Bug ketika pada proyek kedua dan lebih, saat akan menambahkan kehadiran daftar pegawai tidak kerender
 
 TASK BELUM YG ADA AMBIL :
 

@@ -2,6 +2,8 @@ package com.apap.HrPayrollSystem.Controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -77,35 +79,35 @@ public class AccountController {
 		return "list_akun";
 	}
 	
-//	//view detail akun 
-//	@RequestMapping(value="/my-account", method=RequestMethod.GET)
-//	private String detailAkunSaya(Model model) {
-//		
-//		
-//		
-//		
-//		return "akun_saya";
-//	}
-//	
-//	
-//	//edit password&username akun untuk pegawai
-//	@RequestMapping(value="/my-account/update", method=RequestMethod.GET)
-//	private String updateAkunSaya(Model model) {
-//		
-//		
-//		
-//		
-//		return "update_akun_saya";
-//	}
-//	
-//	@RequestMapping(value="/my-account/update", method=RequestMethod.POST)
-//	private String updateAkunSayaSubmit(Model model) {
-//		
-//		
-//		
-//		
-//		return "akun_saya";
-//	}
+	//view detail akun 
+	@RequestMapping(value="/my-account", method=RequestMethod.GET)
+	private String detailAkunSaya(Model model,HttpServletRequest req) {
+		
+		
+		
+		
+		return "akun_saya";
+	}
+	
+	
+	//edit password&username akun untuk pegawai
+	@RequestMapping(value="/my-account/update", method=RequestMethod.GET)
+	private String updateAkunSaya(Model model) {
+		
+		
+		
+		
+		return "update_akun_saya";
+	}
+	
+	@RequestMapping(value="/my-account/update", method=RequestMethod.POST)
+	private String updateAkunSayaSubmit(Model model) {
+		
+		
+		
+		
+		return "akun_saya";
+	}
 	
 	
 }
