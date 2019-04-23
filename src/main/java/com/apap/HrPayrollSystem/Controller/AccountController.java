@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.apap.HrPayrollSystem.Model.AccountModel;
 import com.apap.HrPayrollSystem.Service.AccountService;
+import com.apap.HrPayrollSystem.security.UserDetailsServiceImpl;
 
 @Controller
 public class AccountController {
@@ -82,10 +83,10 @@ public class AccountController {
 	//view detail akun 
 	@RequestMapping(value="/my-account", method=RequestMethod.GET)
 	private String detailAkunSaya(Model model,HttpServletRequest req) {
+		System.out.println(req.getRemoteUser());
+		AccountModel akun = akun_service.findByUsername(req.getRemoteUser());
 		
-		
-		
-		
+		model.addAttribute("akun", akun);
 		return "akun_saya";
 	}
 	

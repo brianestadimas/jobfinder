@@ -65,6 +65,12 @@ public class AccountServiceImpl implements AccountService{
 		boolean hashed_password = passwordEncoder.matches(old_input,old_get);
 		return hashed_password;
 	}
+
+	@Override
+	public AccountModel findByUsername(String username) {
+		// TODO Auto-generated method stub
+		return account_db.findByUsername(username);
+	}
 	
 	
 }

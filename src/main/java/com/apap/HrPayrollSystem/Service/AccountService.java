@@ -12,4 +12,5 @@ public interface AccountService {
 	AccountModel addAccount(AccountModel akun);
 	String encrypt(String password);
 	boolean decrypt(String old_input, String old_get);
+	AccountModel findByUsername(String username);
 }
