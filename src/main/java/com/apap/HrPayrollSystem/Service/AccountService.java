@@ -13,4 +13,5 @@ public interface AccountService {
 	String encrypt(String password);
 	boolean decrypt(String old_input, String old_get);
 	AccountModel findByUsername(String username);
+	void changePassword(String new_password, String username);
 }

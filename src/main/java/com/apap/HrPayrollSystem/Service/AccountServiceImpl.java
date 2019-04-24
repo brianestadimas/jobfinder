@@ -37,9 +37,11 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public void save_account(AccountModel account) {
+	public void save_account(AccountModel akun) {
 		// TODO Auto-generated method stub
-		account_db.save(account);
+		String password = encrypt(akun.getPassword());
+		akun.setPassword(password);
+		account_db.save(akun);
 	}
 
 	@Override
@@ -70,6 +72,12 @@ public class AccountServiceImpl implements AccountService{
 	public AccountModel findByUsername(String username) {
 		// TODO Auto-generated method stub
 		return account_db.findByUsername(username);
+	}
+
+	@Override
+	public void changePassword(String new_password, String username) {
+		// TODO Auto-generated method stub
+		account_db.findByUsername(username).setPassword(new_password);
 	}
 	
 	
