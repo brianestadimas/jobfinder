@@ -24,16 +24,16 @@ public class PelamarModel implements Serializable{
 	private long id;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=100)
 	@Column(name="nama_lengkap",nullable = false)
 	private String nama_lengkap;
 	
-	@Size(max=255)
+	@Size(max=50)
 	@Column(name="nama_panggilan",nullable = true)
 	private String nama_panggilan;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=12)
 	@Column(name="gender",nullable = true)
 	private String gender;
 	
@@ -42,44 +42,44 @@ public class PelamarModel implements Serializable{
 	private Date tanggal_lahir;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=20)
 	@Column(name="status_marital",nullable = false)
 	private String status_marital;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=16)
 	@Column(name="no_ktp",nullable = false)
 	private String no_ktp;
 	
-	@Size(max=255)
+	@Size(max=16)
 	@Column(name="telepon",nullable = false)
 	private String telepon;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=16)
 	@Column(name="nomor_handphone",nullable = false)
 	private String nomor_handphone;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=15)
 	@Column(name="agama",nullable = false)
 	private String agama;
 	
-	@Size(max=255)
+	@Size(max=16)
 	@Column(name="telepon_orang_terdekat",nullable = true)
 	private String telepon_orang_terdekat;
 	
-	@Size(max=255)
+	@Size(max=16)
 	@Column(name="nomor_whatsapp",nullable = true)
 	private String nomor_whatsapp;
 	
-	@Size(max=255)
+	@Size(max=50)
 	@Column(name="email",nullable = true)
 	private String email;
 	
 	//Ambil produknya dari mana? kan ada Marketing, Sales, dll.
 	@NotNull
-	@Size(max=255)
+	@Size(max=50)
 	@Column(name="produk_dilamar",nullable = false)
 	private String produk_dilamar;
 		
@@ -89,35 +89,35 @@ public class PelamarModel implements Serializable{
 	private String alamat;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=50)
 	@Column(name="region",nullable = false)
 	private String region;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=20)
 	@Column(name="pendidikan_terakhir",nullable = false)
 	private String pendidikan_terakhir;
 
 	@NotNull
-	@Size(max=255)
+	@Size(max=50)
 	@Column(name="nama_sekolah",nullable = false)
 	private String nama_sekolah;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=50)
 	@Column(name="tempat_sekolah",nullable = false)
 	private String tempat_sekolah;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=50)
 	@Column(name="jurusan",nullable = false)
 	private String jurusan;
 	
-	
+	@Size(max=5)
 	@Column(name="lulusan_tahun",nullable = true)
 	private String lulusan_tahun;
 	
-	@Size(max=255)
+	@Size(max=16)
 	@Column(name="telepon_rumah",nullable = true)
 	private String telepon_rumah;
 

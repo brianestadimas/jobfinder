@@ -42,7 +42,11 @@ public class AccountController {
 				}
 			}
 		}else if(peran.equals("admin")) {
-			akun_ditampilkan = get_all_account;
+			for(int i = 0 ; i < get_all_account.size() ; i++) {
+				if(!(get_all_account.get(i).getRole().equals("admin"))) {
+					akun_ditampilkan.add(get_all_account.get(i));
+				}
+			}
 		}
 		model.addAttribute("akun_akun", akun_ditampilkan);		
 		return "list_akun";
@@ -53,7 +57,6 @@ public class AccountController {
 	@RequestMapping(value="/account/add", method=RequestMethod.GET)
 	private String tambahAkun(Model model,
 							HttpServletRequest req) {
-		AccountModel akun = new AccountModel();
 		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
 		String peran = user.getRole();
 		String return_page = "";
@@ -64,7 +67,6 @@ public class AccountController {
 		}else if(peran.equals("hr")) {
 			return_page = "tambah_akun_hr";
 		}
-		model.addAttribute("akun",akun);
 		return return_page;
 	}
 	

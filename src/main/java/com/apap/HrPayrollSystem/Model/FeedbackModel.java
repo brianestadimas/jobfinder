@@ -42,11 +42,11 @@ public class FeedbackModel implements Serializable{
 	private ProyekModel proyek;
 	
 	@NotNull
-	@Size(max=500)
+	@Size(max=255)
 	@Column(name="feedback",nullable=false)
 	private String feedback;
 	
-	@Size(max=255)
+	
 	@Column(name="tanggal_pengisian_feedback",nullable=true)
 	private Date tanggal_pengisian_feedback;
 	

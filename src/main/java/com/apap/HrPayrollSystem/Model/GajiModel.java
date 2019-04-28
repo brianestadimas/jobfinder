@@ -34,27 +34,25 @@ public class GajiModel implements Serializable{
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
 	private PegawaiOutsourcingModel pegawai_outsourcing;	
-		
-	@Size(max=255)
+
 	@Column(name="pinjaman",nullable=true)
 	private long pinjaman;
 		
 	@NotNull
-	@Size(max=255)
 	@Column(name="gaji_net",nullable=false)
 	private long gaji_net;
 	
-	@Size(max=255)
 	@Column(name="take_home_pay",nullable=true)
 	private long take_home_pay;
 	
-	@Size(max=255)
 	@Column(name="penambahan_lain_lain",nullable=true)
 	private long penambahan_lain_lain;
 	
-	@Size(max=255)
 	@Column(name="pengurangan_lain_lain",nullable=true)
 	private long pengurangan_lain_lain;
+	
+	@Column(name="insentif",nullable=true)
+	private long insentif;
 
 	public long getId() {
 		return id;
@@ -64,6 +62,23 @@ public class GajiModel implements Serializable{
 		this.id = id;
 	}
 
+	
+
+	public PegawaiOutsourcingModel getPegawai_outsourcing() {
+		return pegawai_outsourcing;
+	}
+
+	public void setPegawai_outsourcing(PegawaiOutsourcingModel pegawai_outsourcing) {
+		this.pegawai_outsourcing = pegawai_outsourcing;
+	}
+
+	public long getInsentif() {
+		return insentif;
+	}
+
+	public void setInsentif(long insentif) {
+		this.insentif = insentif;
+	}
 
 	public long getPinjaman() {
 		return pinjaman;

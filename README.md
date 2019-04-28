@@ -109,7 +109,7 @@ Aji :
 
 [x] implement logout //Iterasi 2 
 
-[] implement manage account	//sisa My Account
+[x] implement manage account	//sisa My Account
 
 [x] implement manage product //DONE
 

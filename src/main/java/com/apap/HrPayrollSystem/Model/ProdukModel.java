@@ -23,7 +23,7 @@ public class ProdukModel implements Serializable{
 	private long id;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=10)
 	@Column(name="nama_produk",nullable=false)
 	private String nama_produk;
 	
