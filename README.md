@@ -48,37 +48,143 @@ Thymeleaf sebagai frontend
 7. Jika sudah, push ke branch kalian (git status -> git add . -> git commit -m "commit messages", -> git push <nama_remote> <branch_kalian>)
 
 ## TODO
+
 Dimas : 
+
 [] Constraint Start dan End date proyek
+
 [] Ubah proyek autofill region
+
 [] Size kolom
+
 [] Search hanya untuk kolom tertentu
+
 [] seragamkan front end
+
 [] seluruh tombol sudah diimplementasikan bisa dipencet
+
 [] Notifikasi ketika proyek sudah di buat,ubah,hapus
+
 [] Notifikasi ketika regulasi pegawai sudah diganti
+
 [] Modal ketika hapus proyek
+
 Nael :
+
 [] Konsistensi
+
 [] Ketika ada error saat pengisian, notifikasi error nya di bagian mana
+
 [] Max length
+
 [] Hapus Pelamar debug
+
 [] Penamaan button
+
 [] seluruh tombol sudah diimplementasikan bisa dipencet
+
 [] Notifikasi ketika pelamar/pegawai sudah di buat,ubah,hapus
+
 [] Modal ketika hapus pelamar/pegawai
+
 [] Modal berhenti assign pegawai
+
 Aji :
-[] Constraint number
-[] Status ketika assign
-[] debug usecase 4&7
-[] Style Front end
-[] Constraint jumlah hari kerja
-[] Filter&Search dari kehadiran
-[] seluruh tombol sudah diimplementasikan bisa dipencet
-[] Notifikasi ketika pelamar/pegawai sudah di buat,ubah,hapus
-[] Modal ketika hapus pelamar/pegawai
-[] Modal berhenti assign pegawai
+
+[x] Constraint number
+
+[x] Status ketika assign
+
+[x] debug usecase 4&7
+
+[] Style Front end //Tunggu dimas
+
+[x] Constraint jumlah hari kerja 
+
+[] Filter&Search dari kehadiran //Tungg dimas
+
+[x] seluruh tombol sudah diimplementasikan bisa dipencet
+
+[x] implement login //Iterasi 2
+
+[x] implement logout //Iterasi 2 
+
+[x] implement manage account	//sisa My Account
+
+[x] implement manage product //DONE
+
+[x] Notifikasi ketika berhasil bikin kehadiran, hapus kehadiran, ubah kehadiran, berhasil assign 
+
+[] printable format untuk kehadiran perjudul
+
+[x] Bug ketika pada proyek kedua dan lebih, saat akan menambahkan kehadiran daftar pegawai tidak kerender
+
+Savira/Athifah : 
+
+[] Busdev
+	
+	[] Menambah proyek
+	
+	[] Menghapus proyek
+	
+	[] Mengubah proyek
+	
+[] HR
+
+	[] Mendaftar pelamar
+	
+	[] Ubah pelamar
+	
+	[] assign pelamar
+	
+	[] ubah data pegawai
+	
+	[] assign pegawai
+
+	[] membuat kehadiran
+
+	[] mengubah kehadiran
+
+	[] menghapus kehadiran
+
+	[] penggajian
+
+[] Viewer
+
+	[] melihat daftar pelamar
+
+	[] melihat daftar pegawai
+
+	[] melihat daftar proyek
+
+	[] melihat daftar kehadiran
+
+	[] melihat detail pelamar
+
+	[] melihat detail pegawai
+
+	[] melihat detail proyek
+
+	[] melihat detail kehadiran
+
+//bisa cek file home.html dan homeController.java untuk referensi pengerjaan	
+
+TASK BELUM YG ADA AMBIL :
+
+[] Printable format buat detail pelamar yg ingin diajukan
+
+[] If else buat pelamar, jika sudah jadi pegawai maka nama pelamar tersebut di hidden dari list of pelamar
+
+[] counter2 di home
+
+
+##FLow iterasi 2
+
+UC 9
+list of kehadiran -> do payment -> rekap(ubah kehadiran)[Modal notifikasi] -> form penggajian
+
+
+
 
 ## Version Control
 

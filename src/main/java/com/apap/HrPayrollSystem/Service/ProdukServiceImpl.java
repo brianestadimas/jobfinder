@@ -33,6 +33,18 @@ public class ProdukServiceImpl implements ProdukService{
 		}
 		return listNama_produk ;
 	}
+
+	@Override
+	public void saveProduk(ProdukModel produk) {
+		// TODO Auto-generated method stub
+		produkDb.save(produk);
+	}
+
+	@Override
+	public ProdukModel getProdukById(long id) {
+		// TODO Auto-generated method stub
+		return produkDb.findById(id).get();
+	}
 	
 
 
