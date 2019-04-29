@@ -119,6 +119,56 @@ Aji :
 
 [x] Bug ketika pada proyek kedua dan lebih, saat akan menambahkan kehadiran daftar pegawai tidak kerender
 
+Savira/Athifah : 
+
+[] Busdev
+	
+	[] Menambah proyek
+	
+	[] Menghapus proyek
+	
+	[] Mengubah proyek
+	
+[] HR
+
+	[] Mendaftar pelamar
+	
+	[] Ubah pelamar
+	
+	[] assign pelamar
+	
+	[] ubah data pegawai
+	
+	[] assign pegawai
+
+	[] membuat kehadiran
+
+	[] mengubah kehadiran
+
+	[] menghapus kehadiran
+
+	[] penggajian
+
+[] Viewer
+
+	[] melihat daftar pelamar
+
+	[] melihat daftar pegawai
+
+	[] melihat daftar proyek
+
+	[] melihat daftar kehadiran
+
+	[] melihat detail pelamar
+
+	[] melihat detail pegawai
+
+	[] melihat detail proyek
+
+	[] melihat detail kehadiran
+
+//bisa cek file home.html dan homeController.java untuk referensi pengerjaan	
+
 TASK BELUM YG ADA AMBIL :
 
 [] Printable format buat detail pelamar yg ingin diajukan
