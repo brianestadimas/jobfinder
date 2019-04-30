@@ -139,7 +139,7 @@ thead th{
 		</div>
 		<div style="padding-top:2%" id="status-db-dan-kelola-proyek">
 			<div>
-				<a th:if="${peran=='manager' or peran=='busdev' or peran=='admin'}" type="button" th:href="@{'/produk'}">Kelola Produk</a>
+				<a th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" type="button" th:href="@{'/produk'}">Kelola Produk</a>
 				<div id="status-db">
 					<button id="button-di-home">Variable Gaji</button>
 					<button id="button-di-home">Lihat User Manual</button>
