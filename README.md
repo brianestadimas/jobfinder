@@ -1,12 +1,39 @@
-# HR and Payroll System
+# Halaman Form Penggajian
 
-URL : 
-daftar : /proyek
-detail : /proyek-detail/1
-ubah : /pegawai-ubah/1
-tambah : /proyek-tambah/
-hapus : /pegawai-hapus?id=1
+URL : penggajian/{id-absensi}/absensi
+view : form_penggajian.html
 
+pre-condition view : 
+URL : penggajian/{id-absensi}/gaji
+view : form_update_kehadiran.html
+
+## Flow Penggajian
+
+###Form Absensi
+1. Ambil data absensi sebelumnya dari ID
+2. Pass ke view (dimas)
+
+###Form Penggajian
+1. Ambil data jumlah_kehadiran dari absensi sebelumnya, buat array/wrapper untuk potongan dan tunjangan_tidak_tetap_total
+ - Rumus potongan : jumlah_kehadiran (tabel absensi) x default_potongan (tabel variabel_gaji)
+ - Rumus tunjangan_tidak_tetap_total = jumlah_kehadiran (tabel absensi) x tunjangan_tidak_tetap (tabel pegawai)
+
+2. Ambil data BPJSTK dan BPJSK dari setiap pegawai yang terlibat penggajian, buat wrapper yang isinya true dan false, ketentuan :
+ - Jika bpjstk 0 atau null maka false, sebaliknya
+ - jika bpjsk 0 atau null maka false, sebaliknya
+
+3. Buat wrapper isinya :
+ - nama 
+ - npm 
+ - potongan 
+ - tunjangan_tidak_tetap_total
+ - bpjstk 
+ - bpjsk
+ - list, semua elemen isinya 0
+
+4. Wrapper/array pass ke view sebagai default (dimas)
+
+###Hasil dan Perhitungan Penggajian (Coming)
 
 
 # HR and Payroll System
