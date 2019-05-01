@@ -120,7 +120,7 @@
 				<td>
 				<a th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/'+${kehadiran}}" type="button" class="btn btn-success">Detail</a>
 				<a th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/update/'+${kehadiran}}" type="button" class="btn btn-warning" style="margin-left: 10px;">Ubah</a>
-				<button type="button" class="btn btn-danger" style="margin-left: 10px;" data-toggle="modal" data-target="#hapus-kehadiran" th:attr="data-target='#hapus-kehadiran'+${kehadiran}" >Hapus</button>
+				<a type="button" class="btn btn-danger" style="margin-left: 10px;" data-toggle="modal" data-target="#hapus-kehadiran" th:attr="data-target='#hapus-kehadiran'+${kehadiran}" >Hapus</a>
 				    	
 	<div class="modal" th:id="'hapus-kehadiran'+${kehadiran}">
 	    <div class="modal-dialog">
@@ -149,7 +149,7 @@
 	    </div>
 	</div>   
 	
-				<a type="button" class="btn btn-warning" style="margin-left: 10px;">Do Payment</a>
+				<a th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/'+${kehadiran}+'/penggajian'}" type="button" class="btn btn-warning" style="margin-left: 10px;">Penggajian</a>
 				</td>
 			</tr>
 		</tbody>

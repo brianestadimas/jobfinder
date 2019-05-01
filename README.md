@@ -71,23 +71,27 @@ Dimas :
 
 Nael :
 
+Nael :
+
 [] Konsistensi
 
-[] Ketika ada error saat pengisian, notifikasi error nya di bagian mana
+[X] Ketika ada error saat pengisian, notifikasi error nya di bagian mana
 
-[] Max length
+[X] Max length
 
-[] Hapus Pelamar debug
+[X] Hapus Pelamar debug
 
-[] Penamaan button
+[X] Penamaan button
 
-[] seluruh tombol sudah diimplementasikan bisa dipencet
+[X] seluruh tombol sudah diimplementasikan bisa dipencet
 
-[] Notifikasi ketika pelamar/pegawai sudah di buat,ubah,hapus
+[X] Notifikasi ketika pelamar/pegawai sudah di buat,ubah,hapus
 
-[] Modal ketika hapus pelamar/pegawai
+[X] Modal ketika hapus pelamar/pegawai
 
 [] Modal berhenti assign pegawai
+
+[] Implement backend performa(grafik stuffs)
 
 Aji :
 
@@ -105,19 +109,23 @@ Aji :
 
 [x] seluruh tombol sudah diimplementasikan bisa dipencet
 
-[x] implement login //Iterasi 2
+[x] implement login 
 
-[x] implement logout //Iterasi 2 
+[x] implement logout 
 
-[x] implement manage account	//sisa My Account
+[x] implement manage account
 
-[x] implement manage product //DONE
+[x] implement manage product
 
 [x] Notifikasi ketika berhasil bikin kehadiran, hapus kehadiran, ubah kehadiran, berhasil assign 
 
 [] printable format untuk kehadiran perjudul
 
 [x] Bug ketika pada proyek kedua dan lebih, saat akan menambahkan kehadiran daftar pegawai tidak kerender
+
+[] Implement back end penggajian
+
+[] Implement back end feedback
 
 Savira/Athifah : 
 
