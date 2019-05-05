@@ -164,10 +164,18 @@ public class PelamarController {
 		return "pelamar-view";
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "pelamar/detail/{id}", method = RequestMethod.GET)
 	private String getPelamarDetail(@PathVariable(value = "id") long id, Model model) {
 		PelamarModel arsip_pelamar = pelamarService.getPelamarById(id);
+		List<PengalamanPelamarModel> arsip_pengalaman = pengalamanService.getAllPengalamanByPelamar(arsip_pelamar);
 		model.addAttribute("pelamar", arsip_pelamar);
+		model.addAttribute("list_pengalaman", arsip_pengalaman);
 		return "pelamar-detail";
 	}
 
