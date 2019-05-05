@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.apap.HrPayrollSystem.Model.FeedbackModel;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.ProdukModel;
 import com.apap.HrPayrollSystem.Model.ProyekModel;
 import com.apap.HrPayrollSystem.Model.RiwayatKerjaPegawaiModel;
+import com.apap.HrPayrollSystem.Service.FeedbackService;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
 import com.apap.HrPayrollSystem.Service.ProdukService;
 import com.apap.HrPayrollSystem.Service.ProyekService;
@@ -39,6 +41,8 @@ public class PegawaiOutsourcingController {
 	private ProdukService produkService;
 	@Autowired
 	private RiwayatKerjaPegawaiService riwayatService;
+	@Autowired
+	private FeedbackService feedback_service;
 
 	
 	@RequestMapping("/pegawai")
@@ -80,10 +84,12 @@ public class PegawaiOutsourcingController {
 		}else {
 			expiredStatus=false; //kalau belum dekat end date
 		}
-
-	
+		//get feedback
+		List<FeedbackModel> list_feedback_pegawai = feedback_service.get_feedback_by_id_pegawai(id);
+					
 		
 		//riwayatService.getAllRiwayat(nip);
+		model.addAttribute("list_of_feedback", list_feedback_pegawai);
 		model.addAttribute("expiredStatus", expiredStatus);
 		model.addAttribute("pegawai", pegawai);
 		model.addAttribute("riwayatPegawai", rTemp);
@@ -244,7 +250,7 @@ public class PegawaiOutsourcingController {
 		return "ListPegawai";
 	}
 	
-	
+	//methods for feedback stuffs. find out how to add feedback(dumbshit)
 	
 	
 	

@@ -89,6 +89,12 @@
         tr.history:hover {
             background-color: black;
         }
+    
+    	#header-ulasan{
+    		display: flex;
+    		justify-content: space-between;		
+    	}
+    
     </style>
 
 
@@ -357,9 +363,33 @@
                 		
                 		</div>
                 		<div id="feedback">
-                			<h2>TAYOOOOO</h2>
-                		
-                		
+                			<div id="header-ulasan">
+                				<h2>Ulasan Pegawai</h2>
+                				<a>Tambahkan Ulasan</a>                			
+                			</div>
+    						<div id="tabel-ulasan">
+    							<table id="list_ulasan" >
+    								<thead>
+	    								<tr id="header-tabel">
+	    									<th>Tanggal</th>
+	    									<th>Proyek</th>
+	    									<th>Feedback</th>
+	    									<th>Tindakan</th>
+	    								</tr>
+    								</thead>
+    								<tbody>
+    									<tr id="body-tabel-ulasan" th:each="feedback, itemStat : *{list_of_feedback}">
+    										<td th:text="${feedback.tanggal_pengisian_feedback}">tanggal</td>
+    										<td th:text="${feedback.proyek.id}">proyek</td>
+    										<td th:text="${feedback.feedback}">feedback</td>
+    										<td>
+    											<a>Ubah</a>
+    											<a>Hapus</a>
+    										</td>
+    									</tr>
+    								</tbody>
+    							</table>
+    						</div>               		
                 		</div>
                 	</div>
                 </div>    
