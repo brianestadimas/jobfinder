@@ -66,11 +66,6 @@ public class RiwayatKerjaPegawaiModel implements Serializable{
 	@Column(name="end_date",nullable = false)
 	private Date end_date;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="feedback",referencedColumnName="feedback",nullable=true)
-	@OnDelete(action=OnDeleteAction.NO_ACTION)
-	@JsonIgnore
-	private FeedbackModel feedback;
 
 	public long getId() {
 		return id;
@@ -122,12 +117,6 @@ public class RiwayatKerjaPegawaiModel implements Serializable{
 		this.end_date = end_date;
 	}
 
-	public FeedbackModel getFeedback() {
-		return feedback;
-	}
 
-	public void setFeedback(FeedbackModel feedback) {
-		this.feedback = feedback;
-	}	
 
 }

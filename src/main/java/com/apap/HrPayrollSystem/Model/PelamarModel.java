@@ -13,108 +13,108 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="pelamar")
-public class PelamarModel implements Serializable{
+@Table(name = "pelamar")
+public class PelamarModel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@NotNull
-	@Size(max=100)
-	@Column(name="nama_lengkap",nullable = false)
+	@Size(max = 100)
+	@Column(name = "nama_lengkap", nullable = false)
 	private String nama_lengkap;
-	
-	@Size(max=50)
-	@Column(name="nama_panggilan",nullable = true)
+
+	@Size(max = 50)
+	@Column(name = "nama_panggilan", nullable = true)
 	private String nama_panggilan;
-	
+
 	@NotNull
-	@Size(max=12)
-	@Column(name="gender",nullable = true)
+	@Size(max = 12)
+	@Column(name = "gender", nullable = true)
 	private String gender;
-	
+
 	@NotNull
-	@Column(name="tanggal_lahir",nullable = false)
+	@Column(name = "tanggal_lahir", nullable = false)
 	private Date tanggal_lahir;
-	
+
 	@NotNull
-	@Size(max=15)
-	@Column(name="status_marital",nullable = false)
+	@Size(max = 15)
+	@Column(name = "status_marital", nullable = false)
 	private String status_marital;
-	
+
 	@NotNull
-	@Size(max=16)
-	@Column(name="no_ktp",nullable = false)
+	@Size(max = 16)
+	@Column(name = "no_ktp", nullable = false)
 	private String no_ktp;
-	
+
 	@NotNull
-	@Size(max=16)
-	@Column(name="nomor_handphone",nullable = false)
+	@Size(max = 16)
+	@Column(name = "nomor_handphone", nullable = false)
 	private String nomor_handphone;
-	
+
 	@NotNull
-	@Size(max=15)
-	@Column(name="agama",nullable = false)
+	@Size(max = 15)
+	@Column(name = "agama", nullable = false)
 	private String agama;
-	
-	@Size(max=16)
-	@Column(name="telepon_orang_terdekat",nullable = true)
+
+	@Size(max = 16)
+	@Column(name = "telepon_orang_terdekat", nullable = true)
 	private String telepon_orang_terdekat;
-	
-	@Size(max=16)
-	@Column(name="nomor_whatsapp",nullable = true)
+
+	@Size(max = 16)
+	@Column(name = "nomor_whatsapp", nullable = true)
 	private String nomor_whatsapp;
-	
-	@Size(max=50)
-	@Column(name="email",nullable = true)
+
+	@Size(max = 50)
+	@Column(name = "email", nullable = true)
 	private String email;
-	
+
 	@NotNull
-	@Size(max=50)
-	@Column(name="produk_dilamar",nullable = false)
+	@Size(max = 50)
+	@Column(name = "produk_dilamar", nullable = false)
 	private String produk_dilamar;
-		
+
 	@NotNull
-	@Size(max=255)
-	@Column(name="alamat",nullable = false)
+	@Size(max = 255)
+	@Column(name = "alamat", nullable = false)
 	private String alamat;
-	
+
 	@NotNull
-	@Size(max=50)
-	@Column(name="region",nullable = false)
+	@Size(max = 50)
+	@Column(name = "region", nullable = false)
 	private String region;
-	
+
 	@NotNull
-	@Size(max=20)
-	@Column(name="pendidikan_terakhir",nullable = false)
+	@Size(max = 20)
+	@Column(name = "pendidikan_terakhir", nullable = false)
 	private String pendidikan_terakhir;
 
 	@NotNull
-	@Size(max=50)
-	@Column(name="nama_sekolah",nullable = false)
+	@Size(max = 50)
+	@Column(name = "nama_sekolah", nullable = false)
 	private String nama_sekolah;
-	
+
 	@NotNull
-	@Size(max=50)
-	@Column(name="tempat_sekolah",nullable = false)
+	@Size(max = 50)
+	@Column(name = "tempat_sekolah", nullable = false)
 	private String tempat_sekolah;
-	
+
 	@NotNull
-	@Size(max=50)
-	@Column(name="jurusan",nullable = false)
+	@Size(max = 50)
+	@Column(name = "jurusan", nullable = false)
 	private String jurusan;
-	
-	
-	@Column(name="lulusan_tahun",nullable = true)
+
+	@Size(max = 5)
+	@Column(name = "lulusan_tahun", nullable = true)
 	private String lulusan_tahun;
-	
-	@Size(max=16)
-	@Column(name="telepon_rumah",nullable = true)
+
+	@Size(max = 16)
+	@Column(name = "telepon_rumah", nullable = true)
 	private String telepon_rumah;
 
-	@Column(name="apply_date",nullable = false)
+	@Column(name = "apply_date", nullable = false)
 	private Date apply_date;
-	
+
 	public long getId() {
 		return id;
 	}
@@ -179,7 +179,6 @@ public class PelamarModel implements Serializable{
 		this.agama = agama;
 	}
 
-	
 	public String getTelepon_orang_terdekat() {
 		return telepon_orang_terdekat;
 	}
@@ -292,10 +291,4 @@ public class PelamarModel implements Serializable{
 		this.nomor_handphone = nomor_handphone;
 	}
 
-
-	
-	
-  
-	
-	
 }

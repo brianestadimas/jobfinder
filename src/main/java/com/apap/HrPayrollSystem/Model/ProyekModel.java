@@ -23,21 +23,21 @@ public class ProyekModel implements Serializable{
 	private long id;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=30)
 	@Column(name="nama_proyek",nullable = false)
 	private String nama_proyek;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=20)
 	@Column(name="nomor_kontrak",nullable = false)
 	private String nomor_kontrak;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=50)
 	@Column(name="region",nullable = false)
 	private String region;
 	
-	@Size(max=255)
+	@Size(max=20)
 	@Column(name="nama_cp",nullable = true)
 	private String nama_cp;
 	
@@ -45,11 +45,11 @@ public class ProyekModel implements Serializable{
 	@Column(name="deskripsi_proyek",nullable = true)
 	private String deskripsi_proyek;
 	
-	@Size(max=255)
+	@Size(max=16)
 	@Column(name="no_telp_cp",nullable = true)
 	private String no_telp_cp;
 	
-	@Size(max=255)
+	@Size(max=50)
 	@Column(name="no_rekening",nullable = true)
 	private String no_rekening;
 	
@@ -62,12 +62,12 @@ public class ProyekModel implements Serializable{
 	private Date end_date_kontrak;
 	
 	@NotNull
-	@Size(max=255)
+	@Size(max=10)
 	@Column(name="jenis_proyek",nullable = false)
 	private String jenis_proyek;
 	
 	//Biaya keseluruhan sudah sama dengan nilai kontrak 
-	@Size(max=255)
+	@Size(max=15)
 	@Column(name="NPWP_klien",nullable = true)
 	private String NPWP_klien;
 	

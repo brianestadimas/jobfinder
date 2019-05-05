@@ -29,7 +29,7 @@ public class FeedbackModel implements Serializable{
 	private long id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="nip_pegawai_outsourcing",referencedColumnName="nip",nullable=false)
+	@JoinColumn(name="id_pegawai",referencedColumnName="id",nullable=false)
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
 	private PegawaiOutsourcingModel pegawai_outsourcing;	
@@ -42,11 +42,11 @@ public class FeedbackModel implements Serializable{
 	private ProyekModel proyek;
 	
 	@NotNull
-	@Size(max=500)
+	@Size(max=255)
 	@Column(name="feedback",nullable=false)
 	private String feedback;
 	
-	@Size(max=255)
+	
 	@Column(name="tanggal_pengisian_feedback",nullable=true)
 	private Date tanggal_pengisian_feedback;
 	

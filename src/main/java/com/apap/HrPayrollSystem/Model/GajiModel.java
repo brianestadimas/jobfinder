@@ -30,45 +30,29 @@ public class GajiModel implements Serializable{
 	
 	//FK to NIP
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="nip_pegawai_outsourcing",referencedColumnName="nip",nullable=false)
+	@JoinColumn(name="id_pegawai",referencedColumnName="id",nullable=false)
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
 	private PegawaiOutsourcingModel pegawai_outsourcing;	
-		
-	@NotNull
-	@Size(max=255)
-	@Column(name="gaji_pokok",nullable=false)
-	private long gaji_pokok;
-	
-	@Size(max=255)
-	@Column(name="tunjangan",nullable=true)
-	private long tunjangan;
-	
-	@Size(max=255)
+
 	@Column(name="pinjaman",nullable=true)
 	private long pinjaman;
-	
+		
 	@NotNull
-	@Size(max=255)
-	@Column(name="no_rekening",nullable=false)
-	private String no_rekening;
-	
-	@NotNull
-	@Size(max=255)
 	@Column(name="gaji_net",nullable=false)
 	private long gaji_net;
 	
-	@Size(max=255)
 	@Column(name="take_home_pay",nullable=true)
 	private long take_home_pay;
 	
-	@Size(max=255)
 	@Column(name="penambahan_lain_lain",nullable=true)
 	private long penambahan_lain_lain;
 	
-	@Size(max=255)
 	@Column(name="pengurangan_lain_lain",nullable=true)
 	private long pengurangan_lain_lain;
+	
+	@Column(name="insentif",nullable=true)
+	private long insentif;
 
 	public long getId() {
 		return id;
@@ -78,20 +62,22 @@ public class GajiModel implements Serializable{
 		this.id = id;
 	}
 
-	public long getGaji_pokok() {
-		return gaji_pokok;
+	
+
+	public PegawaiOutsourcingModel getPegawai_outsourcing() {
+		return pegawai_outsourcing;
 	}
 
-	public void setGaji_pokok(long gaji_pokok) {
-		this.gaji_pokok = gaji_pokok;
+	public void setPegawai_outsourcing(PegawaiOutsourcingModel pegawai_outsourcing) {
+		this.pegawai_outsourcing = pegawai_outsourcing;
 	}
 
-	public long getTunjangan() {
-		return tunjangan;
+	public long getInsentif() {
+		return insentif;
 	}
 
-	public void setTunjangan(long tunjangan) {
-		this.tunjangan = tunjangan;
+	public void setInsentif(long insentif) {
+		this.insentif = insentif;
 	}
 
 	public long getPinjaman() {
@@ -100,14 +86,6 @@ public class GajiModel implements Serializable{
 
 	public void setPinjaman(long pinjaman) {
 		this.pinjaman = pinjaman;
-	}
-
-	public String getNo_rekening() {
-		return no_rekening;
-	}
-
-	public void setNo_rekening(String no_rekening) {
-		this.no_rekening = no_rekening;
 	}
 
 	public long getGaji_net() {

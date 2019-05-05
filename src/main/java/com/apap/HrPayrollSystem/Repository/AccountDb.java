@@ -7,5 +7,5 @@ import com.apap.HrPayrollSystem.Model.AccountModel;
 
 @Repository
 public interface AccountDb extends JpaRepository<AccountModel, Long>{
-
+	AccountModel 	findByUsername(String username);
 }
