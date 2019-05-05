@@ -42,6 +42,14 @@
     .blankspace{
         margin-top: 20px;
     }
+    table{
+    margin: 0 auto;
+    width: 100%;
+    clear: both;
+    border-collapse: collapse;
+    table-layout: fixed; // ***********add this
+    word-wrap:break-word; // ***********and this
+    }
 </style>
 <head>
   <meta charset="utf-8">
@@ -213,7 +221,7 @@
 <h3 style="display: inline; margin-left: 10px">Informasi Pegawai Proyek</h3>
 <hr>
 <p>
-<table id="example" class="table table-striped table-bordered" style="width:100%;">
+<table id="example3" class="table table-striped table-bordered" style="width:100%;">
         <thead>
             <tr>
                 <th>NIP</th>
@@ -231,7 +239,7 @@
         </thead>
         <tbody>
             <tr th:each="pegawaiProyek : ${listPegawai}">
-                <td th:text="${pegawaiProyek.nip}"></td>
+                <td th:text="${pegawaiProyek.nip}">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                 <td th:text="${pegawaiProyek.pelamar_id.nama_lengkap}"></td>
                 <td th:text="${pegawaiProyek.produk.nama_produk}"></td>
                 <td th:text="${pegawaiProyek.join_date}"></td>
@@ -317,43 +325,42 @@ $(document).ready(function() {
 
     $('#example tfoot th').each( function () {
         var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+        $(this).html( '<input type="text" style="width:100%" placeholder="Search '+title+'" />' );
     } );
-    // DataTable
-    var docDefinition = {
-         pageSize: 'A4',
-    };
 
     $('#myModal').on('shown.bs.modal', function () {
       $('#myInput').trigger('focus')
     });
 
 
-function Download(){
-    var x = $('example').children();
-    var fullText = "";
-    $.each(x, function(index, value) {
-       //console.log(value);
-        fullText+=$(this).context.innerText + ",";
-        console.log($(this).context.innerText);
-    });
-    
-    var docDefinition2 = {
-    content: [
-        fullText
-    ]
-    };
-    // this is just a simulation of the open event, replacing it with print produces the same result
-    var docDefinition = { content: [
-        {text:'Liat var docDefinition sama docDefinition2 di javascript Download(), baca dokumentasi',fontSize:20},
-        {text:'Dokumentasi di http://pdfmake.org',fontSize:15},
-        {text:'-dimas',fontSize:15},
-        ] 
-    };
+    var table3 = $('#example3').DataTable( {
+        "scrollY": "500px",
+        "sScrollX": "100%",
+        "sScrollXInner": "100%",
+        "scrollCollapse": true,
+        autoWidth: true,
+        columnDefs: [
+        { "width": "180px", "targets": [0,1] },
+        { "width": "130px", "targets": [2,3,4,5,6,7,8,9] },
+        { "width": "3600px", "targets": [10] },
+        ],
+        
+    } );
 
-    pdfMake.createPdf(docDefinition).download('gg.pdf');
-};
-    
+    table.buttons().container().appendTo( '#example_wrapper .col-sm-12:eq(0)' );
+   
+
+    $('#example3 tbody').on( 'click', 'tr', function () {
+        $(this).toggleClass('active');
+    } );
+
+    $('#example3 tfoot th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
+
+
+
 $(function(){
     var table2 = $('#example').DataTable();
  
