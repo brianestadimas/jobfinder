@@ -37,7 +37,10 @@ public class GajiModel implements Serializable{
 
 	@Column(name="pinjaman",nullable=true)
 	private long pinjaman;
-		
+	
+	@Column(name="potongan",nullable=true)
+	private long potongan;
+
 	@NotNull
 	@Column(name="gaji_net",nullable=false)
 	private long gaji_net;
@@ -62,7 +65,14 @@ public class GajiModel implements Serializable{
 		this.id = id;
 	}
 
-	
+	public long getPotongan() {
+		return potongan;
+	}
+
+	public void setPotongan(long potongan) {
+		this.potongan = potongan;
+	}
+
 
 	public PegawaiOutsourcingModel getPegawai_outsourcing() {
 		return pegawai_outsourcing;
@@ -119,5 +129,11 @@ public class GajiModel implements Serializable{
 	public void setPengurangan_lain_lain(long pengurangan_lain_lain) {
 		this.pengurangan_lain_lain = pengurangan_lain_lain;
 	}
+	
+	public void calculate_potongan(long gaji_pokok, long hari_kerja, long hari_masuk) {
+		this.potongan = (gaji_pokok/hari_kerja) * hari_masuk;
+	}
+	
+	
 
 }

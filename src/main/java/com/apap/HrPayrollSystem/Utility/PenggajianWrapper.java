@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.apap.HrPayrollSystem.Model.GajiModel;
-import com.apap.HrPayrollSystem.Model.KehadiranModel;
-import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 
 public class PenggajianWrapper {
+
 
 	private List<GajiModel> daftar_penggajian;
 	
@@ -20,12 +19,13 @@ public class PenggajianWrapper {
 		this.daftar_penggajian.add(penggajian);
 	}
 	
-	public List<GajiModel> getPenggajian() {
+	public List<GajiModel> getDaftar_penggajian() {
 		return daftar_penggajian;
 	}
 
-	public void setPenggajian(List<GajiModel> penggajian) {
-		this.daftar_penggajian = penggajian;
+	public void setDaftar_penggajian(List<GajiModel> daftar_penggajian) {
+		this.daftar_penggajian = daftar_penggajian;
 	}
+
 	
 }

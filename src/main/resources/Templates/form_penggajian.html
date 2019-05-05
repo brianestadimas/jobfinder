@@ -58,26 +58,11 @@
 <nav th:replace="fragments/fragment :: navbar"></nav>
     <div class="blankspace">
        <!--  <div class="boxContainer2" style="overflow-x:auto;"> -->
-            <form action="#" th:action="'/proyek/'+${proyek_id}+'/kehadiran/update/submit'" method="post" th:object="${daftar_penggajian}">
+            <form action="#" th:action="'/proyek/'+${proyek_id}+'/kehadiran/'+${judul_kehadiran}+'/penggajian3'" method="post" th:object="${daftar_penggajian}">
                 <img src="img/icon_building.png" style="max-width:5%;margin-top: -10px">
                 <h2 style="display: inline; margin-left: 10px">Data Penggajian</h2>
-                <hr><!-- 
-                <div id="Header-Kehadiran">
-                   <div id="judul-kehadiran">
-                    <div class="form-group col-lg-3">
-                        <label for="inputAddress">Judul Absensi*</label>
-                        <input id="input_box" type="text" class="form-control" th:value="${judul_kehadiran}" name="judul_absensi" required>
-                    </div>
-                    <div class="form-group col-lg-6"></div>
-                    <div class="form-group col-lg-3">
-                        <label for="inputAddress">Hari Kerja*</label>
-                        <input  id="input_box" type="number" class="form-control" th:value="${jumlah_hari_kerja}" name="jumlah_hari_kerja" required>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-</div> -->
+                <hr> 
+       
 <div class="blankspace">
     <div class="boxContainer" style="overflow-x:auto;">
         <img src="img/icon_building.png" style="max-width:5%;margin-top: -10px">
@@ -111,12 +96,12 @@
                 <tr id="test1" th:each="daftar_penggajian, itemStat : *{daftar_penggajian}">
                     <td th:text="*{daftar_penggajian[__${itemStat.index}__].pegawai_outsourcing.nip}">wuRYYYYYYYYYY</td>
                     <td th:text="*{daftar_penggajian[__${itemStat.index}__].pegawai_outsourcing.pelamar_id.nama_lengkap}">wuRYYYYYYYYYY</td>
-                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].pegawai_outsourcing.no_rekening}" name="no_rekening" style="width: 180px">wuRYYYYYYYYYY</td>
-                    <td></td>
-                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].pinjaman}" name="jumlah_sakit" style="width: 150px"></td>
-                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].insentif}" name="jumlah_izin" style="width: 150px"></td>
-                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].penambahan_lain_lain}" name="jumlah_alfa" style="width: 150px"></td>
-                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].pengurangan_lain_lain}" name="jumlah_libur" style="width: 150px"></td>
+                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].pegawai_outsourcing.no_rekening}" name="no_rekening" style="width: 180px"></td>
+                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].potongan}" name="potongan" style="width: 150px"></td>
+                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].pinjaman}" name="pinjaman" style="width: 150px"></td>
+                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].insentif}" name="insentif" style="width: 150px"></td>
+                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].penambahan_lain_lain}" name="penambahan_lain_lain" style="width: 150px"></td>
+                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].pengurangan_lain_lain}" name="pengurangan_lain_lain" style="width: 150px"></td>
                     <td style="display:none"><input type="hidden" th:field="*{daftar_penggajian[__${itemStat.index}__].pegawai_outsourcing}"></td>
                     <td style="display:none"><input type="hidden" th:field="*{daftar_penggajian[__${itemStat.index}__].id}"></td>
                 </tr>
@@ -164,7 +149,7 @@
                 <td th:text="${pegawaiProyek.tunjangan_tidak_tetap}"></td>
                 <td th:text="${pegawaiProyek.bpjstk}"></td>
                 <td th:text="${pegawaiProyek.bpjsk}"></td>
-                <td th:text="${pegawaiProyek.jaminan}"></td></a>
+                <td th:text="${pegawaiProyek.jaminan}"></td>
             </tr>
         <tfoot>
             <tr>

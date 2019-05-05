@@ -10,15 +10,13 @@ import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 public class KehadiranWrapper {
 	private List<KehadiranModel> daftar_kehadiran;
 	private List<PegawaiOutsourcingModel> daftar_pegawai_outsourcing;
-	private List<Penggajian> gaji;
 	
-
 	
 	public KehadiranWrapper() {
 		super();
 		this.daftar_kehadiran = new ArrayList<KehadiranModel>();
 		this.daftar_pegawai_outsourcing = new ArrayList<PegawaiOutsourcingModel>();
-		this.gaji = new ArrayList<Penggajian>();
+
 	}
 
 	public void add_kehadiran(KehadiranModel daftar_kehadiran) {
@@ -31,17 +29,7 @@ public class KehadiranWrapper {
 
 
 	
-	public void add_gaji(Penggajian penggajian) {
-		this.gaji.add(penggajian);
-	}
 	
-	public List<Penggajian> getGaji() {
-		return gaji;
-	}
-
-	public void setGaji(List<Penggajian> gaji) {
-		this.gaji = gaji;
-	}
 
 
 

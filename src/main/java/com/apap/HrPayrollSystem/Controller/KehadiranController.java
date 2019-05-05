@@ -378,6 +378,13 @@ public class KehadiranController {
 			}
 			GajiModel penggajian = new GajiModel();
 			penggajian.setPegawai_outsourcing(daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getPegawai_outsourcing());			
+			penggajian.calculate_potongan(penggajian.getPegawai_outsourcing().getGaji_pokok(), jumlah_hari_kerja, daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_kehadiran());
+			//pinjaman, tambahan lain, pengurangan lain, insentif darimana
+			//gaji_net sama take home pay maksudnya apa?
+			
+			
+			
+			
 			daftar_penggajian.add_penggajian(penggajian);
 			daftar_pegawai.add(daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getPegawai_outsourcing());
 		}
@@ -387,7 +394,6 @@ public class KehadiranController {
 		model.addAttribute("listPegawai", daftar_pegawai);
 		model.addAttribute("proyek_id", proyek_id);
 		model.addAttribute("judul_kehadiran", judul_kehadiran);
-		model.addAttribute("jumlah_hari_kerja", jumlah_hari_kerja);
 		model.addAttribute("daftar_penggajian", daftar_penggajian);
 		return "form_penggajian";		
 	}
