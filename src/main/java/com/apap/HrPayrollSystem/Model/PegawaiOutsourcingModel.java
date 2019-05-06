@@ -39,19 +39,19 @@ public class PegawaiOutsourcingModel implements Serializable {
 	private PelamarModel pelamar_id;
 
 	@NotNull
-	@Size(max = 255)
+	@Size(max = 20)
 	@Column(name = "nip", nullable = false, unique = true)
 	private String nip;
 
-	@Size(max = 255)
+	@Size(max = 15)
 	@Column(name = "npwp", nullable = true)
 	private String npwp;
 
-	@Size(max = 255)
+	@Size(max = 15)
 	@Column(name = "pkwt", nullable = true)
 	private String pkwt;
 
-	@Size(max = 255)
+	@Size(max = 5)
 	@Column(name = "no_arsip", nullable = true)
 	private String no_arsip;
 
@@ -63,19 +63,19 @@ public class PegawaiOutsourcingModel implements Serializable {
 	@Column(name = "end_date", nullable = false)
 	private Date end_date;
 
-	@Size(max = 255)
+	@Size(max = 20)
 	@Column(name = "nama_bank", nullable = true)
 	private String nama_bank;
 
-	@Size(max = 255)
+	@Size(max = 15)
 	@Column(name = "no_rekening", nullable = true)
 	private String no_rekening;
 
-	@Size(max = 255)
+	@Size(max = 15)
 	@Column(name = "BPJSTK", nullable = true)
 	private String bpjstk;
 
-	@Size(max = 255)
+	@Size(max = 15)
 	@Column(name = "BPJSK", nullable = true)
 	private String bpjsk;
 
@@ -91,7 +91,7 @@ public class PegawaiOutsourcingModel implements Serializable {
 	private ProdukModel produk;
 
 	@NotNull
-	@Size(max = 255)
+	@Size(max = 20)
 	@Column(name = "jabatan", nullable = false)
 	private String jabatan;
 
@@ -112,7 +112,7 @@ public class PegawaiOutsourcingModel implements Serializable {
 	@Column(name = "tunjangan_tidak_tetap", nullable = true)
 	private int tunjangan_tidak_tetap;
 
-	@Size(max = 255)
+	@Size(max = 25)
 	@Column(name = "jaminan", nullable = true)
 	private String jaminan;
 

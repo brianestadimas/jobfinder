@@ -10,6 +10,6 @@ public interface ProdukService {
 	String [] getAllProdukName();
 
 	List<ProdukModel> getAllProduk();
-
-
+	void saveProduk(ProdukModel produk);
+	ProdukModel getProdukById(long id);
 }

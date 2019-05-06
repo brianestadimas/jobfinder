@@ -29,7 +29,7 @@ public class KehadiranModel implements Serializable{
 	private long id;
 	
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="nip_pegawai_outsourcing",referencedColumnName="nip",nullable=false)
+	@JoinColumn(name="id_pegawai",referencedColumnName="id",nullable=false)
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
 	private PegawaiOutsourcingModel pegawai_outsourcing;	
@@ -41,12 +41,6 @@ public class KehadiranModel implements Serializable{
 	@JsonIgnore
 	private ProyekModel proyek;
 	
-	//FK produk id
-//	@OneToOne(fetch=FetchType.LAZY)
-//	@JoinColumn(name="id_produk",referencedColumnName="id",nullable=false)
-//	@OnDelete(action=OnDeleteAction.NO_ACTION)
-//	@JsonIgnore
-//	private ProdukModel produk;
 	
 	@NotNull
 	@Column(name="judul_kehadiran",nullable = false)
@@ -83,8 +77,7 @@ public class KehadiranModel implements Serializable{
 	@Column(name="jumlah_lain_lain",nullable = false)
 	private int jumlah_lain_lain;
 	
-	@Column(name="tanggal_pengisian_kehadiran",nullable = true)
-	private Date tanggal_pengisian_kehadiran;
+
 
 	public long getId() {
 		return id;
@@ -158,13 +151,7 @@ public class KehadiranModel implements Serializable{
 		this.jumlah_off = jumlah_off;
 	}
 
-	public Date getTanggal_pengisian_kehadiran() {
-		return tanggal_pengisian_kehadiran;
-	}
 
-	public void setTanggal_pengisian_kehadiran(Date tanggal_pengisian_kehadiran) {
-		this.tanggal_pengisian_kehadiran = tanggal_pengisian_kehadiran;
-	}
 	
 	public PegawaiOutsourcingModel getPegawai_outsourcing() {
 		return pegawai_outsourcing;

@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.apap.HrPayrollSystem.Model.FeedbackModel;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.ProdukModel;
 import com.apap.HrPayrollSystem.Model.ProyekModel;
 import com.apap.HrPayrollSystem.Model.RiwayatKerjaPegawaiModel;
+import com.apap.HrPayrollSystem.Service.FeedbackService;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
 import com.apap.HrPayrollSystem.Service.ProdukService;
 import com.apap.HrPayrollSystem.Service.ProyekService;
@@ -39,6 +41,8 @@ public class PegawaiOutsourcingController {
 	private ProdukService produkService;
 	@Autowired
 	private RiwayatKerjaPegawaiService riwayatService;
+	@Autowired
+	private FeedbackService feedback_service;
 
 	
 	@RequestMapping("/pegawai")
@@ -80,10 +84,12 @@ public class PegawaiOutsourcingController {
 		}else {
 			expiredStatus=false; //kalau belum dekat end date
 		}
-
-	
+		//get feedback
+		List<FeedbackModel> list_feedback_pegawai = feedback_service.get_feedback_by_id_pegawai(id);
+					
 		
 		//riwayatService.getAllRiwayat(nip);
+		model.addAttribute("list_of_feedback", list_feedback_pegawai);
 		model.addAttribute("expiredStatus", expiredStatus);
 		model.addAttribute("pegawai", pegawai);
 		model.addAttribute("riwayatPegawai", rTemp);
@@ -203,15 +209,9 @@ public class PegawaiOutsourcingController {
 		List<ProyekModel> daftar_proyek = proyekService.getAllProyek();
 		
 		wrapper.setDaftar_proyek(daftar_proyek);
-		
-		List<String> nama_pegawai = new ArrayList<String>();
-//		ids = new long[1];
-//		ids[0] = (long) 1;
-
-		
+		List<String> nama_pegawai = new ArrayList<String>();	
 		for(int i=0; i<ids.length; i++) {
 			PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(ids[i]);
-			
 			wrapper.add_pegawai(pegawai);
 			nama_pegawai.add(pegawai.getPelamar_id().getNama_lengkap());
 			System.out.println(wrapper.getDaftar_pegawai().get(i).getPelamar_id().getNama_lengkap());
@@ -229,21 +229,29 @@ public class PegawaiOutsourcingController {
 	private String assignPegawaiSubmit(@ModelAttribute AssignmentWrapper daftar_pegawai, HttpServletRequest req, Model model) throws ParseException {
 		String stringProyek = req.getParameter("proyek");
 		Optional<ProyekModel> proyek = proyekService.getProyekById(Long.parseLong(stringProyek));
-		System.out.println(stringProyek);
+//		System.out.println(stringProyek);
 		java.sql.Date join_date = java.sql.Date.valueOf(req.getParameter("join_date"));
 		java.sql.Date end_date = java.sql.Date.valueOf(req.getParameter("end_date"));
-		
+		boolean is_assigned = true;
+		String name = "";
 		for(int i=0; i<daftar_pegawai.getDaftar_pegawai().size(); i++) {
 			daftar_pegawai.getDaftar_pegawai().get(i).setProyek(proyek.get());
-			daftar_pegawai.getDaftar_pegawai().get(i).setJoin_date(join_date);;
-			daftar_pegawai.getDaftar_pegawai().get(i).setJoin_date(end_date);
+			daftar_pegawai.getDaftar_pegawai().get(i).setJoin_date(join_date);
+			daftar_pegawai.getDaftar_pegawai().get(i).setEnd_date(end_date);
+			daftar_pegawai.getDaftar_pegawai().get(i).setStatus(is_assigned);
+			name+= daftar_pegawai.getDaftar_pegawai().get(i).getPelamar_id().getNama_lengkap()+",";
 		}
 		
 		pegawaiService.assignAll(daftar_pegawai.getDaftar_pegawai());
 		
 		List<PegawaiOutsourcingModel> list = pegawaiService.getAllPegawai();
 		model.addAttribute("listPegawai", list);
-		
+		model.addAttribute("notifikasi_sukses","Berhasil Melakukan assignment terhadap pegawai dengan nama : " + name);
 		return "ListPegawai";
 	}
+	
+	//methods for feedback stuffs. find out how to add feedback(dumbshit)
+	
+	
+	
 }
