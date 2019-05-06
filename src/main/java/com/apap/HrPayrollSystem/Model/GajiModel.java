@@ -40,13 +40,6 @@ public class GajiModel implements Serializable{
 	
 	@Column(name="potongan",nullable=true)
 	private long potongan;
-
-	@NotNull
-	@Column(name="gaji_net",nullable=false)
-	private long gaji_net;
-	
-	@Column(name="take_home_pay",nullable=true)
-	private long take_home_pay;
 	
 	@Column(name="penambahan_lain_lain",nullable=true)
 	private long penambahan_lain_lain;
@@ -56,6 +49,17 @@ public class GajiModel implements Serializable{
 	
 	@Column(name="insentif",nullable=true)
 	private long insentif;
+	
+	@Column(name="total_tunjangan", nullable=true)
+	private long total_tunjangan;
+
+	public long getTotal_tunjangan() {
+		return total_tunjangan;
+	}
+
+	public void setTotal_tunjangan(long total_tunjangan) {
+		this.total_tunjangan = total_tunjangan;
+	}
 
 	public long getId() {
 		return id;
@@ -98,21 +102,6 @@ public class GajiModel implements Serializable{
 		this.pinjaman = pinjaman;
 	}
 
-	public long getGaji_net() {
-		return gaji_net;
-	}
-
-	public void setGaji_net(long gaji_net) {
-		this.gaji_net = gaji_net;
-	}
-
-	public long getTake_home_pay() {
-		return take_home_pay;
-	}
-
-	public void setTake_home_pay(long take_home_pay) {
-		this.take_home_pay = take_home_pay;
-	}
 
 	public long getPenambahan_lain_lain() {
 		return penambahan_lain_lain;

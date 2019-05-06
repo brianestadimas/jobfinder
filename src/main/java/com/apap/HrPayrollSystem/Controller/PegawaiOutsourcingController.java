@@ -89,6 +89,7 @@ public class PegawaiOutsourcingController {
 					
 		
 		//riwayatService.getAllRiwayat(nip);
+		model.addAttribute("id", id);
 		model.addAttribute("list_of_feedback", list_feedback_pegawai);
 		model.addAttribute("expiredStatus", expiredStatus);
 		model.addAttribute("pegawai", pegawai);
@@ -251,7 +252,12 @@ public class PegawaiOutsourcingController {
 	}
 	
 	//methods for feedback stuffs. find out how to add feedback(dumbshit)
-	
-	
+	//this shitty cunt entah kenapa forbidden REEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+	@RequestMapping(value="/pegawai-detail/{id}/feedback/submit", method=RequestMethod.GET)
+	private String feedbackSubmit(@PathVariable(value="id") long id, @ModelAttribute FeedbackModel feedback, Model model ) {
+		feedback_service.save_feedback(feedback);
+		
+		return "redirect:/pegawai-detail/"+id;
+	}
 	
 }

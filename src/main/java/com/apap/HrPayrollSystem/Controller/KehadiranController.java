@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.apap.HrPayrollSystem.Model.GajiModel;
 import com.apap.HrPayrollSystem.Model.KehadiranModel;
@@ -131,7 +132,7 @@ public class KehadiranController {
 	private String addKehadiranProyekSubmit(@PathVariable(value="proyek_id") long proyek_id,
 											@ModelAttribute KehadiranWrapper daftar_daftar_kehadiran, 
 											HttpServletRequest req,
-											Model model) {
+											Model model, RedirectAttributes redir) {
 		
 		int jumlah_hari_kerja = Integer.parseInt(req.getParameter("jumlah_hari_kerja"));
 		String judul_kehadiran = String.valueOf(req.getParameter("judul_absensi"));
@@ -153,7 +154,7 @@ public class KehadiranController {
 									daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_sakit()) {
 				System.out.println("hai tayo :))");
 				String msg = "Terdapat kehadiran dengan jumlah komponen kehadiran tidak sama dengan jumlah hari kerja";
-				model.addAttribute("fail_notif", msg);
+				redir.addFlashAttribute("fail_notif",msg);
 				return "redirect:/proyek/{proyek_id}/kehadiran/tambah";
 
 			}
@@ -379,8 +380,7 @@ public class KehadiranController {
 			GajiModel penggajian = new GajiModel();
 			penggajian.setPegawai_outsourcing(daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getPegawai_outsourcing());			
 			penggajian.calculate_potongan(penggajian.getPegawai_outsourcing().getGaji_pokok(), jumlah_hari_kerja, daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_kehadiran());
-			//pinjaman, tambahan lain, pengurangan lain, insentif darimana
-			//gaji_net sama take home pay maksudnya apa?
+			//calculate total tunjangan (tunjangan bulanan+(tunjangan harian * hadir))
 			
 			
 			
@@ -389,6 +389,8 @@ public class KehadiranController {
 			daftar_pegawai.add(daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getPegawai_outsourcing());
 		}
 		kehadiran_service.save_all_kehadiran(daftar_daftar_kehadiran.getDaftar_kehadiran());				
+		
+		//detail2 kehadiran
 		
 		//TO DO render
 		model.addAttribute("listPegawai", daftar_pegawai);

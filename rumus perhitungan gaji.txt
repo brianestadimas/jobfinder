@@ -1,0 +1,13 @@
+Gaji Bruto = gaji pokok + total tunjangan - potongan - pinjaman + tambahan_lain - pengurangan_lain + insentif
+
+BPJSTK = persenan bpjstk * Gaji pokok
+BPJSK = sama
+total bpjs = bpjstk+bpjsk
+jumlah gaji = gaji bruto - total bpjs
+ptkp = dari variable gaji
+pkp = jumlah gaji - gaji
+pph21
+	if pkp minus = 0
+	else 5%(variable gaji) * pkp
+total potongan = total bpjs + pph21
+gaji netto = jumlah gaji - pph21 

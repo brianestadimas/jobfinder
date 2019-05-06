@@ -36,6 +36,12 @@ public class FeedbackServiceImpl implements FeedbackService{
 		return feedback_by_pegawai;
 	}
 
+	@Override
+	public void save_feedback(FeedbackModel feedback) {
+		// TODO Auto-generated method stub
+		feedback_db.save(feedback);
+	}
+
 	
 	
 }

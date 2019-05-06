@@ -4,6 +4,12 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+	<!-- script buat addrow -->
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	
 </head>
 
 <body>
@@ -365,11 +371,12 @@
                 		<div id="feedback">
                 			<div id="header-ulasan">
                 				<h2>Ulasan Pegawai</h2>
-                				<a>Tambahkan Ulasan</a>                			
+                				<button id="tambah-ulasan" >Tambahkan Ulasan</button>                			
                 			</div>
     						<div id="tabel-ulasan">
-    							<table id="list_ulasan" >
-    								<thead>
+    							<form id="list_ulasan">
+    								<table  class="table order-list" >
+    									<thead>
 	    								<tr id="header-tabel">
 	    									<th>Tanggal</th>
 	    									<th>Proyek</th>
@@ -388,7 +395,9 @@
     										</td>
     									</tr>
     								</tbody>
-    							</table>
+    								</table>
+    								
+    							</form>
     						</div>               		
                 		</div>
                 	</div>
@@ -409,10 +418,48 @@
                 <script type="text/javascript" charset="utf8"
                     src="./detailPegawaiOutsourcing_files/jquery.dataTables.js"></script>
                 <script>
+                $(document).ready(function () {
+                    var counter = 0;
 
+                    $("#tambah-ulasan").on("click", function () {
+                        var newRow = $("<tr>");
+                        var cols = "";
+						
+                        cols += '<td><input type="Date" class="form-control"  name="tanggal_pengisian_feedback'+ counter +'"/></td>';
+                        cols += '<td><input type="text" class="form-control"  name="proyek'+ counter +'"/></td>';
+                        cols += '<td><input type="text" class="form-control"  name="feedback'+ counter +'"/></td>';
+						
+                        cols += '<td><input type="button" class="ibtnSubmit btn btn-md btn-submit" value="Simpan">'
+                        cols += '<input type="button" class="ibtnDel btn btn-md btn-danger "  value="Batal"></td>';
+ 						
+                        newRow.append(cols);
+                        $("table.order-list").append(newRow);
+                        counter++;
+                    });
+
+
+                    $("table.order-list").on("click", ".ibtnDel", function (event) {
+                        $(this).closest("tr").remove();       
+                        counter -= 1
+                    });
+
+                    $("table.order-list").on("click", ".ibtnSubmit", function (event) {
+                    	document.getElementById('list_ulasan').action = "/pegawai-detail/{id}/feedback/submit";
+                    	document.getElementById('list_ulasan').method = "POST";
+                    	document.getElementById('list_ulasan').submit();
+                    console.log("tayo");
+                    });
+                    
+                });	
+                
+                
                     $(document).ready(function () {
                         $('#table').DataTable();
                     });
+                    
+                    
+
+                    
                 </script>
     </body>
 
