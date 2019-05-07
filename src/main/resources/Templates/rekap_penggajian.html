@@ -85,27 +85,35 @@
             <thead>
                 <th>NIP</th>
                 <th>Nama Pegawai</th>
-                <th>No Rekening</th>
-                <th>Potongan</th>
+                <th>Gaji Pokok</th>
                 <th>Total Tunjangan</th>
-                <th>Pinjaman</th>
-                <th>Insentif</th>
-                <th>Penambahan Lain</th>
-                <th>Pengurangan Lain</th>
+                <th>Gaji Bruto</th>
+                <th>BPJSTK</th>
+                <th>BPJSK</th>
+                <th>Total BPJS</th>
+                <th>Jumlah Gaji</th>
+                <th>PTKP</th>
+                <th>PKP</th>
+                <th>PPH21</th>
+                <th>Total Potongan</th>
+                <th>Gaji Netto</th>
             </thead>
             <tbody>
-                <tr id="test1" th:each="daftar_penggajian, itemStat : *{daftar_penggajian}">
-                    <td th:text="*{daftar_penggajian[__${itemStat.index}__].pegawai_outsourcing.nip}">wuRYYYYYYYYYY</td>
-                    <td th:text="*{daftar_penggajian[__${itemStat.index}__].pegawai_outsourcing.pelamar_id.nama_lengkap}">wuRYYYYYYYYYY</td>
-                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].pegawai_outsourcing.no_rekening}" name="no_rekening" style="width: 180px"></td>
-                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].potongan}" name="potongan" style="width: 150px"></td>
-                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].total_tunjangan}" name="total tunjangan" style="width: 150px"></td>
-                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].pinjaman}" th:value="0" name="pinjaman" style="width: 150px"></td>
-                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].insentif}" th:value="0" name="insentif" style="width: 150px"></td>
-                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].penambahan_lain_lain}" th:value="0" name="penambahan_lain_lain" style="width: 150px"></td>
-                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].pengurangan_lain_lain}" th:value="0" name="pengurangan_lain_lain" style="width: 150px"></td>
-                    <td style="display:none"><input type="hidden" th:field="*{daftar_penggajian[__${itemStat.index}__].pegawai_outsourcing}"></td>
-                    <td style="display:none"><input type="hidden" th:field="*{daftar_penggajian[__${itemStat.index}__].id}"></td>
+                <tr id="test1" th:each="daftar_rekap_gaji, itemStat : ${rekap_gaji}">
+                    <td th:text="${daftar_rekap_gaji.pegawai.nip}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.pegawai.pelamar_id.nama_lengkap}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.pegawai.gaji_pokok}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.gaji.total_tunjangan}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.gaji_bruto}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.bpjstk}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.bpjsk}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.total_bpjs}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.jumlah_gaji}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.ptkp}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.pkp}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.pph21}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.total_potongan}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.gaji_netto}">wuRYYYYYYYYYY</td>
                 </tr>
 
             </tbody>

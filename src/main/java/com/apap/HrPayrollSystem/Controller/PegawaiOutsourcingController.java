@@ -260,4 +260,7 @@ public class PegawaiOutsourcingController {
 		return "redirect:/pegawai-detail/"+id;
 	}
 	
+	
+	
+	
 }

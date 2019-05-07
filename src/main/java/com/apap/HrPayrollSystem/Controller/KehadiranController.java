@@ -416,7 +416,7 @@ public class KehadiranController {
 		VariableGajiModel variable = variable_service.get_by_id(1).get();
 		List<Penggajian> daftar_rekap_gaji = new ArrayList<Penggajian>();
 		for(int i = 0 ; i < daftar_penggajian.getDaftar_penggajian().size() ; i++) {
-			gaji_service.save_gaji(daftar_penggajian.getDaftar_penggajian().get(i));
+			
 			long gaji_bruto = daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getGaji_pokok()+
 							  daftar_penggajian.getDaftar_penggajian().get(i).getTotal_tunjangan()+
 							  daftar_penggajian.getDaftar_penggajian().get(i).getPenambahan_lain_lain()+
@@ -424,18 +424,28 @@ public class KehadiranController {
 							  daftar_penggajian.getDaftar_penggajian().get(i).getPengurangan_lain_lain()+
 							  daftar_penggajian.getDaftar_penggajian().get(i).getPinjaman()+
 							  daftar_penggajian.getDaftar_penggajian().get(i).getPotongan());
-			long bpjstk = variable.getBPJSTK() * daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getGaji_pokok();
-			long bpjsk = variable.getBPJSTK() * daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getGaji_pokok();
-			long total_bpjs = bpjstk+bpjsk;
-			long jumlah_gaji = gaji_bruto - total_bpjs;
-			long ptkp = variable.getPTKP();
-			long pkp = jumlah_gaji - ptkp;
-			long pph21 = 0;
-			if(pkp > 0 ) {
-				pph21 = variable.getPersenan_pph() * pkp;
+			float bpjstk = 0;
+			float gaji_pokok = daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getGaji_pokok();
+			float  var_bpjstk = variable.getBPJSTK();
+			float var_bpjsk = variable.getBPJSK();
+			if(daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getBpjstk().equals(null)) {
+				bpjstk =  gaji_pokok * (var_bpjstk/100);
 			}
-			long total_potongan = total_bpjs + pph21;
-			long gaji_netto = jumlah_gaji - pph21;
+			float bpjsk = 0;
+			if(daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getBpjsk().equals(null)) {
+				bpjsk =   gaji_pokok * (var_bpjsk/100);
+			}
+			float total_bpjs = bpjstk+bpjsk;
+			float jumlah_gaji = gaji_bruto - total_bpjs;
+			long ptkp = variable.getPTKP();
+			float pkp = jumlah_gaji - ptkp;
+			float pph21 = 0;
+			float var_pph21 = variable.getPersenan_pph();
+			if(pkp > 0 ) {
+				pph21 = (var_pph21/100) * pkp;
+			}
+			float total_potongan = total_bpjs + pph21;
+			float gaji_netto = jumlah_gaji - pph21;
 			Penggajian rekap_gaji = new Penggajian(daftar_penggajian.getDaftar_penggajian().get(i), 
 												   daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing(), 
 												gaji_bruto, 
@@ -449,7 +459,7 @@ public class KehadiranController {
 												total_potongan, 
 												gaji_netto);
 			daftar_rekap_gaji.add(rekap_gaji);
-			
+			gaji_service.save_gaji(daftar_penggajian.getDaftar_penggajian().get(i));
 		}
 		model.addAttribute("rekap_gaji", daftar_rekap_gaji);
 		

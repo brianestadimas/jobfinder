@@ -6,20 +6,20 @@ import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 public class Penggajian {
 	GajiModel gaji = new GajiModel();
 	PegawaiOutsourcingModel pegawai = new PegawaiOutsourcingModel();
-	long gaji_bruto = 0; 
-	long bpjstk = 0;
-	long bpjsk = 0;
-	long total_bpjs = 0;
-	long jumlah_gaji = 0;
-	long ptkp = 0;
-	long pkp = 0; 
-	long pph21 = 0;
-	long total_potongan = 0;
-	long gaji_netto = 0;
+	float gaji_bruto = 0; 
+	float bpjstk = 0;
+	float bpjsk = 0;
+	float total_bpjs = 0;
+	float jumlah_gaji = 0;
+	float ptkp = 0;
+	float pkp = 0; 
+	float pph21 = 0;
+	float total_potongan = 0;
+	float gaji_netto = 0;
 	
 
-	public Penggajian(GajiModel gaji, PegawaiOutsourcingModel pegawai, long gaji_bruto, long bpjstk, long bpjsk,
-			long total_bpjs, long jumlah_gaji, long ptkp, long pkp, long pph21, long total_potongan, long gaji_netto) {
+	public Penggajian(GajiModel gaji, PegawaiOutsourcingModel pegawai, float gaji_bruto, float bpjstk, float bpjsk,
+			float total_bpjs, float jumlah_gaji, float ptkp, float pkp, float pph21, float total_potongan, float gaji_netto) {
 		super();
 		this.gaji = gaji;
 		this.pegawai = pegawai;
@@ -51,83 +51,83 @@ public class Penggajian {
 		this.pegawai = pegawai;
 	}
 
-	public long getGaji_bruto() {
+	public float getGaji_bruto() {
 		return gaji_bruto;
 	}
 
-	public void setGaji_bruto(long gaji_bruto) {
+	public void setGaji_bruto(float gaji_bruto) {
 		this.gaji_bruto = gaji_bruto;
 	}
 
-	public long getBpjstk() {
+	public float getBpjstk() {
 		return bpjstk;
 	}
 
-	public void setBpjstk(long bpjstk) {
+	public void setBpjstk(float bpjstk) {
 		this.bpjstk = bpjstk;
 	}
 
-	public long getBpjsk() {
+	public float getBpjsk() {
 		return bpjsk;
 	}
 
-	public void setBpjsk(long bpjsk) {
+	public void setBpjsk(float bpjsk) {
 		this.bpjsk = bpjsk;
 	}
 
-	public long getTotal_bpjs() {
+	public float getTotal_bpjs() {
 		return total_bpjs;
 	}
 
-	public void setTotal_bpjs(long total_bpjs) {
+	public void setTotal_bpjs(float total_bpjs) {
 		this.total_bpjs = total_bpjs;
 	}
 
-	public long getJumlah_gaji() {
+	public float getJumlah_gaji() {
 		return jumlah_gaji;
 	}
 
-	public void setJumlah_gaji(long jumlah_gaji) {
+	public void setJumlah_gaji(float jumlah_gaji) {
 		this.jumlah_gaji = jumlah_gaji;
 	}
 
-	public long getPtkp() {
+	public float getPtkp() {
 		return ptkp;
 	}
 
-	public void setPtkp(long ptkp) {
+	public void setPtkp(float ptkp) {
 		this.ptkp = ptkp;
 	}
 
-	public long getPkp() {
+	public float getPkp() {
 		return pkp;
 	}
 
-	public void setPkp(long pkp) {
+	public void setPkp(float pkp) {
 		this.pkp = pkp;
 	}
 
-	public long getPph21() {
+	public float getPph21() {
 		return pph21;
 	}
 
-	public void setPph21(long pph21) {
+	public void setPph21(float pph21) {
 		this.pph21 = pph21;
 	}
 
-	public long getTotal_potongan() {
+	public float getTotal_potongan() {
 		return total_potongan;
 	}
 
-	public void setTotal_potongan(long total_potongan) {
+	public void setTotal_potongan(float total_potongan) {
 		this.total_potongan = total_potongan;
 	}
 
-	public long getGaji_netto() {
+	public float getGaji_netto() {
 		return gaji_netto;
 	}
 
-	public void setGaji_netto(long gaji_netto) {
+	public void setGaji_netto(float gaji_netto) {
 		this.gaji_netto = gaji_netto;
 	}
 	
