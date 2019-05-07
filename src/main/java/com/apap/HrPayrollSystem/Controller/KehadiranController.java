@@ -364,6 +364,7 @@ public class KehadiranController {
 		ProyekModel proyek = new ProyekModel();
 		PenggajianWrapper daftar_penggajian = new PenggajianWrapper();
 		List<PegawaiOutsourcingModel> daftar_pegawai = new ArrayList<PegawaiOutsourcingModel>();
+		List<KehadiranModel> daftar_kehadiran = new ArrayList<KehadiranModel>();
 		for(int i = 0 ; i < proyek_service.getAllProyek().size() ; i++) {
 			if(proyek_service.getAllProyek().get(i).getId() == proyek_id) {
 				proyek = proyek_service.getAllProyek().get(i);
@@ -391,7 +392,7 @@ public class KehadiranController {
 												 daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_kehadiran());
 			
 			
-			
+			daftar_kehadiran.add(daftar_daftar_kehadiran.getDaftar_kehadiran().get(i));
 			daftar_penggajian.add_penggajian(penggajian);
 			daftar_pegawai.add(daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getPegawai_outsourcing());
 		}
@@ -404,6 +405,7 @@ public class KehadiranController {
 		model.addAttribute("proyek_id", proyek_id);
 		model.addAttribute("judul_kehadiran", judul_kehadiran);
 		model.addAttribute("daftar_penggajian", daftar_penggajian);
+		model.addAttribute("daftar_kehadiran", daftar_kehadiran);
 		return "form_penggajian";		
 	}
 	
@@ -415,7 +417,10 @@ public class KehadiranController {
 								    Model model) {
 		VariableGajiModel variable = variable_service.get_by_id(1).get();
 		List<Penggajian> daftar_rekap_gaji = new ArrayList<Penggajian>();
-		for(int i = 0 ; i < daftar_penggajian.getDaftar_penggajian().size() ; i++) {
+		List<GajiModel> daftar_gaji = new ArrayList<GajiModel>();
+		List<PegawaiOutsourcingModel> daftar_pegawai = new ArrayList<PegawaiOutsourcingModel>();
+		List<KehadiranModel> daftar_kehadiran = new ArrayList<KehadiranModel>();
+ 		for(int i = 0 ; i < daftar_penggajian.getDaftar_penggajian().size() ; i++) {
 			
 			long gaji_bruto = daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getGaji_pokok()+
 							  daftar_penggajian.getDaftar_penggajian().get(i).getTotal_tunjangan()+
@@ -428,11 +433,11 @@ public class KehadiranController {
 			float gaji_pokok = daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getGaji_pokok();
 			float  var_bpjstk = variable.getBPJSTK();
 			float var_bpjsk = variable.getBPJSK();
-			if(daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getBpjstk().equals(null)) {
+			if(!daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getBpjstk().equals(null)) {
 				bpjstk =  gaji_pokok * (var_bpjstk/100);
 			}
 			float bpjsk = 0;
-			if(daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getBpjsk().equals(null)) {
+			if(!daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getBpjsk().equals(null)) {
 				bpjsk =   gaji_pokok * (var_bpjsk/100);
 			}
 			float total_bpjs = bpjstk+bpjsk;
@@ -459,9 +464,27 @@ public class KehadiranController {
 												total_potongan, 
 												gaji_netto);
 			daftar_rekap_gaji.add(rekap_gaji);
+			daftar_gaji.add(daftar_penggajian.getDaftar_penggajian().get(i));
+			daftar_pegawai.add(daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing());
 			gaji_service.save_gaji(daftar_penggajian.getDaftar_penggajian().get(i));
 		}
+ 		for(int i = 0 ; i < kehadiran_service.get_all_kehadiran().size() ; i++) {
+ 			for(int j = 0 ; j < pegawai_outsourcing_service.getAllPegawai().size() ; j++) {
+ 				if(kehadiran_service.get_all_kehadiran().get(i).getProyek().getId()==proyek_id) {
+	 				if(kehadiran_service.get_all_kehadiran().get(i).getJudul_kehadiran().equals(judul_kehadiran)) {
+ 						if(kehadiran_service.get_all_kehadiran().get(i).getPegawai_outsourcing().getId()==pegawai_outsourcing_service.getAllPegawai().get(j).getId()) {
+ 							daftar_kehadiran.add(kehadiran_service.get_all_kehadiran().get(i));
+	 					}
+	 				}
+ 				}
+ 			}
+ 		}
+ 		
 		model.addAttribute("rekap_gaji", daftar_rekap_gaji);
+		model.addAttribute("daftar_gaji", daftar_gaji);
+		model.addAttribute("listPegawai", daftar_pegawai);
+		model.addAttribute("daftar_kehadiran", daftar_kehadiran);
+		model.addAttribute("variable", variable);
 		
 		
 		return "rekap_penggajian";

@@ -183,30 +183,26 @@
             <tr>
                 <th>NIP</th>
                 <th>Nama Pegawai</th>
-                <th>Produk</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Gaji Pokok</th>
-                <th>Tunjangan Tetap</th>
-                <th>Tunjangan Tidak Tetap</th>
-                <th>BPJSTK</th>
-                <th>BPJSK</th>
-                <th>Jaminan</th>
+                <th>Hadir</th>
+                <th>Sakit</th>
+                <th>Izin</th>
+                <th>Alfa</th>
+                <th>Libur</th>
+                <th>Cuti</th>
+                <th>Lain-Lain</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="pegawaiProyek : ${listPegawai}">
-                <td th:text="${pegawaiProyek.nip}"></td>
-                <td th:text="${pegawaiProyek.pelamar_id.nama_lengkap}"></td>
-                <td th:text="${pegawaiProyek.produk.nama_produk}"></td>
-                <td th:text="${pegawaiProyek.join_date}"></td>
-                <td th:text="${pegawaiProyek.end_date}"></td>
-                <td th:text="${pegawaiProyek.gaji_pokok}"></td>
-                <td th:text="${pegawaiProyek.tunjangan_tetap}"></td>
-                <td th:text="${pegawaiProyek.tunjangan_tidak_tetap}"></td>
-                <td th:text="${pegawaiProyek.bpjstk}"></td>
-                <td th:text="${pegawaiProyek.bpjsk}"></td>
-                <td th:text="${pegawaiProyek.jaminan}"></td>
+            <tr th:each="kehadiran : ${daftar_kehadiran}">
+                <td th:text="${kehadiran.pegawai_outsourcing.nip}"></td>
+                <td th:text="${kehadiran.pegawai_outsourcing.pelamar_id.nama_lengkap}"></td>
+                <td th:text="${kehadiran.jumlah_kehadiran}"></td>
+                <td th:text="${kehadiran.jumlah_sakit}"></td>
+                <td th:text="${kehadiran.jumlah_izin}"></td>
+                <td th:text="${kehadiran.jumlah_absen}"></td>
+                <td th:text="${kehadiran.jumlah_off}"></td>
+                <td th:text="${kehadiran.jumlah_cuti}"></td>
+                <td th:text="${kehadiran.jumlah_lain_lain}"></td>
             </tr>
         <tfoot>
             <tr>

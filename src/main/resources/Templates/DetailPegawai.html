@@ -371,7 +371,8 @@
                 		<div id="feedback">
                 			<div id="header-ulasan">
                 				<h2>Ulasan Pegawai</h2>
-                				<button id="tambah-ulasan" >Tambahkan Ulasan</button>                			
+                			<button id="tambah-ulasan">Tambahkan Ulasan</button> 
+                				
                 			</div>
     						<div id="tabel-ulasan">
     							<form id="list_ulasan">
@@ -422,12 +423,13 @@
                     var counter = 0;
 
                     $("#tambah-ulasan").on("click", function () {
-                        var newRow = $("<tr>");
+                    	console.log("tayo");
+                    	var newRow = $("<tr>");
                         var cols = "";
 						
-                        cols += '<td><input type="Date" class="form-control"  name="tanggal_pengisian_feedback'+ counter +'"/></td>';
-                        cols += '<td><input type="text" class="form-control"  name="proyek'+ counter +'"/></td>';
-                        cols += '<td><input type="text" class="form-control"  name="feedback'+ counter +'"/></td>';
+                        cols += '<td><input type="Date" class="form-control"  name="tanggal_pengisian_feedback"/></td>';
+                        cols += '<td><input type="text" class="form-control"  name="proyek"/></td>';
+                        cols += '<td><input type="text" class="form-control"  name="feedback"/></td>';
 						
                         cols += '<td><input type="button" class="ibtnSubmit btn btn-md btn-submit" value="Simpan">'
                         cols += '<input type="button" class="ibtnDel btn btn-md btn-danger "  value="Batal"></td>';
@@ -442,9 +444,8 @@
                         $(this).closest("tr").remove();       
                         counter -= 1
                     });
-
                     $("table.order-list").on("click", ".ibtnSubmit", function (event) {
-                    	document.getElementById('list_ulasan').action = "/pegawai-detail/{id}/feedback/submit";
+                    	document.getElementById('list_ulasan').action = "${pegawai.id}+/feedback/submit";
                     	document.getElementById('list_ulasan').method = "POST";
                     	document.getElementById('list_ulasan').submit();
                     console.log("tayo");
