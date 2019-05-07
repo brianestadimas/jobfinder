@@ -123,6 +123,10 @@ public class GajiModel implements Serializable{
 		this.potongan = (gaji_pokok/hari_kerja) * hari_masuk;
 	}
 	
+	public void calculate_total_tunjangan(long tunjangan_bulanan, long tunjangan_harian, long jumlah_hadir) {
+		this.total_tunjangan = tunjangan_bulanan + (tunjangan_harian * jumlah_hadir); 
+	}
+	
 	
 
 }

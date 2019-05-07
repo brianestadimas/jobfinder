@@ -18,11 +18,14 @@ import com.apap.HrPayrollSystem.Model.GajiModel;
 import com.apap.HrPayrollSystem.Model.KehadiranModel;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.ProyekModel;
+import com.apap.HrPayrollSystem.Model.VariableGajiModel;
 import com.apap.HrPayrollSystem.Service.GajiService;
 import com.apap.HrPayrollSystem.Service.KehadiranService;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
 import com.apap.HrPayrollSystem.Service.ProyekService;
+import com.apap.HrPayrollSystem.Service.VariableGajiService;
 import com.apap.HrPayrollSystem.Utility.KehadiranWrapper;
+import com.apap.HrPayrollSystem.Utility.Penggajian;
 import com.apap.HrPayrollSystem.Utility.PenggajianWrapper;
 
 @Controller
@@ -35,6 +38,8 @@ public class KehadiranController {
 	private ProyekService proyek_service;
 	@Autowired
 	private GajiService gaji_service;
+	@Autowired
+	private VariableGajiService variable_service;
 	
 	
 	//List All Kehadiran
@@ -381,7 +386,9 @@ public class KehadiranController {
 			penggajian.setPegawai_outsourcing(daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getPegawai_outsourcing());			
 			penggajian.calculate_potongan(penggajian.getPegawai_outsourcing().getGaji_pokok(), jumlah_hari_kerja, daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_kehadiran());
 			//calculate total tunjangan (tunjangan bulanan+(tunjangan harian * hadir))
-			
+			penggajian.calculate_total_tunjangan(daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getPegawai_outsourcing().getTunjangan_tetap(),
+												 daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getPegawai_outsourcing().getTunjangan_tidak_tetap(),
+												 daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_kehadiran());
 			
 			
 			
@@ -403,11 +410,48 @@ public class KehadiranController {
 	@RequestMapping(value="/proyek/{proyek_id}/kehadiran/{judul_kehadiran}/penggajian3",method=RequestMethod.POST)
 	private String penggajianTahap3(@PathVariable(value="proyek_id") long proyek_id,
 								    @PathVariable(value="judul_kehadiran") String judul_kehadiran,
-								    @ModelAttribute KehadiranWrapper daftar_daftar_kehadiran, 
+								    @ModelAttribute PenggajianWrapper daftar_penggajian, 
 									HttpServletRequest req,
 								    Model model) {
-		
-		
+		VariableGajiModel variable = variable_service.get_by_id(1).get();
+		List<Penggajian> daftar_rekap_gaji = new ArrayList<Penggajian>();
+		for(int i = 0 ; i < daftar_penggajian.getDaftar_penggajian().size() ; i++) {
+			gaji_service.save_gaji(daftar_penggajian.getDaftar_penggajian().get(i));
+			long gaji_bruto = daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getGaji_pokok()+
+							  daftar_penggajian.getDaftar_penggajian().get(i).getTotal_tunjangan()+
+							  daftar_penggajian.getDaftar_penggajian().get(i).getPenambahan_lain_lain()+
+							  daftar_penggajian.getDaftar_penggajian().get(i).getInsentif() - (
+							  daftar_penggajian.getDaftar_penggajian().get(i).getPengurangan_lain_lain()+
+							  daftar_penggajian.getDaftar_penggajian().get(i).getPinjaman()+
+							  daftar_penggajian.getDaftar_penggajian().get(i).getPotongan());
+			long bpjstk = variable.getBPJSTK() * daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getGaji_pokok();
+			long bpjsk = variable.getBPJSTK() * daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getGaji_pokok();
+			long total_bpjs = bpjstk+bpjsk;
+			long jumlah_gaji = gaji_bruto - total_bpjs;
+			long ptkp = variable.getPTKP();
+			long pkp = jumlah_gaji - ptkp;
+			long pph21 = 0;
+			if(pkp > 0 ) {
+				pph21 = variable.getPersenan_pph() * pkp;
+			}
+			long total_potongan = total_bpjs + pph21;
+			long gaji_netto = jumlah_gaji - pph21;
+			Penggajian rekap_gaji = new Penggajian(daftar_penggajian.getDaftar_penggajian().get(i), 
+												   daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing(), 
+												gaji_bruto, 
+												bpjstk, 
+												bpjsk, 
+												total_bpjs, 
+												jumlah_gaji, 
+												ptkp, 
+												pkp, 
+												pph21, 
+												total_potongan, 
+												gaji_netto);
+			daftar_rekap_gaji.add(rekap_gaji);
+			
+		}
+		model.addAttribute("rekap_gaji", daftar_rekap_gaji);
 		
 		
 		return "rekap_penggajian";
