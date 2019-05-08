@@ -129,27 +129,23 @@
                 <th>pph21</th>
                 <th>Total Potongan</th>
                 <th>Gaji Netto</th>
-                <th style="display:none"></th>
-                <th style="display:none"></th>
             </thead>
             <tbody>
-               <tr th:each="pegawaiProyek : ${listPegawai}">
-                    <td th:text="${pegawaiProyek.nip}"></td>
-                    <td th:text="${pegawaiProyek.pelamar_id.nama_lengkap}"></td>
-                    <td th:text="${pegawaiProyek.produk.nama_produk}"></td>
-                    <td th:text="${pegawaiProyek.join_date}"></td>
-                    <td th:text="${pegawaiProyek.end_date}"></td>
-                    <td th:text="${pegawaiProyek.gaji_pokok}"></td>
-                    <td th:text="${pegawaiProyek.tunjangan_tetap}"></td>
-                    <td th:text="${pegawaiProyek.tunjangan_tidak_tetap}"></td>
-                    <td th:text="${pegawaiProyek.end_date}"></td>
-                    <td th:text="${pegawaiProyek.gaji_pokok}"></td>
-                    <td th:text="${pegawaiProyek.tunjangan_tetap}"></td>
-                    <td th:text="${pegawaiProyek.tunjangan_tidak_tetap}"></td>
-                    <td th:text="${pegawaiProyek.bpjstk}"></td>
-                    <td th:text="${pegawaiProyek.bpjstk}"></td>
-                    <td style="display:none"><input type="hidden" th:field="*{daftar_kehadiran[__${itemStat.index}__].pegawai_outsourcing}"></td>
-                    <td style="display:none"><input type="hidden" th:field="*{daftar_kehadiran[__${itemStat.index}__].id}"></td>
+                <tr id="test1" th:each="daftar_rekap_gaji, itemStat : ${rekap_gaji}">
+                    <td th:text="${daftar_rekap_gaji.pegawai.nip}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.pegawai.pelamar_id.nama_lengkap}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.pegawai.gaji_pokok}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.gaji.total_tunjangan}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.gaji_bruto}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.bpjstk}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.bpjsk}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.total_bpjs}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.jumlah_gaji}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.ptkp}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.pkp}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.pph21}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.total_potongan}">wuRYYYYYYYYYY</td>
+                    <td th:text="${daftar_rekap_gaji.gaji_netto}">wuRYYYYYYYYYY</td>
                 </tr>
             <tfoot>
                 <th>NIP</th>
@@ -166,8 +162,6 @@
                 <th>pph21</th>
                 <th>Total Potongan</th>
                 <th>Gaji Netto</th>
-                <th style="display:none"></th>
-                <th style="display:none"></th>
             </tfoot>
 
             </tbody>
@@ -195,16 +189,19 @@
                 <th>Pengurangan Lain</th>
             </thead>
             <tbody>
-               <tr th:each="pegawaiProyek : ${listPegawai}">
-                    <td th:text="${pegawaiProyek.nip}"></td>
-                    <td th:text="${pegawaiProyek.pelamar_id.nama_lengkap}"></td>
-                    <td th:text="${pegawaiProyek.produk.nama_produk}"></td>
-                    <td th:text="${pegawaiProyek.join_date}"></td>
-                    <td th:text="${pegawaiProyek.end_date}"></td>
-                    <td th:text="${pegawaiProyek.gaji_pokok}"></td>
-                    <td th:text="${pegawaiProyek.tunjangan_tetap}"></td>
-                    <td th:text="${pegawaiProyek.tunjangan_tidak_tetap}"></td>
-                    <td th:text="${pegawaiProyek.bpjstk}"></td>
+            <tr th:each="gaji : ${daftar_gaji}">
+                <td th:text="${gaji.pegawai_outsourcing.nip}"></td>
+                <td th:text="${gaji.pegawai_outsourcing.pelamar_id.nama_lengkap}"></td>
+                <td th:text="${gaji.pegawai_outsourcing.no_rekening}"></td>
+                <td th:text="${gaji.potongan}"></td>
+                <td th:text="${gaji.total_tunjangan}"></td>
+                <td th:text="${gaji.pinjaman}"></td>
+                <td th:text="${gaji.insentif}"></td>
+                <td th:text="${gaji.penambahan_lain_lain}"></td>
+                <td th:text="${gaji.pengurangan_lain_lain}"></td>
+
+            </tr>
+
             <tfoot>
                 <th>NIP</th>
                 <th>Nama Pegawai</th>
@@ -237,11 +234,11 @@
                         </tr>
                         <tr>
                             <th>BPJS TK(%)</th>
-                            <td th:text="${proyek.nomor_kontrak}"></td>
+                            <td th:text="${variablegaji.bpjstk}"></td>
                         </tr>
                         <tr>
                             <th>BPJS K(%)</th>
-                            <td th:text="${proyek.region}"></td>
+                            <td th:text="${variablegaji.bpjsk}"></td>
                         </tr>
                         
                         <tr style="background-color: gray">
@@ -265,11 +262,11 @@
                         </tr>
                         <tr>
                             <th>PTKP(Rp)</th>
-                            <td th:text="${proyek.nomor_kontrak}"></td>
+                            <td th:text="${variablegaji.ptkp}"></td>
                         </tr>
                         <tr>
                             <th>pph21(%)</th>
-                            <td th:text="${proyek.region}"></td>
+                            <td th:text="${variablegaji.pph}"></td>
                         </tr>
                         
                         <tr style="background-color: gray">
@@ -362,16 +359,17 @@
             </tr>
         </thead>
         <tbody>
-        <tr th:each="kehadiran,iteration : *{detail_detail_kehadiran}">
-            <td th:text="${nip_pegawai[iteration.index]}">1606884522</td>
-            <td th:text="${nama_pegawai[iteration.index]}">wuRYYYYYYYYYY</td>
-            <td th:text="${kehadiran.jumlah_kehadiran}">25</td>
-            <td th:text="${kehadiran.jumlah_sakit}">1</td>
-            <td th:text="${kehadiran.jumlah_izin}">1</td>
-            <td th:text="${kehadiran.jumlah_absen}">1</td>
-            <td th:text="${kehadiran.jumlah_off}">4</td>
-            <td th:text="${kehadiran.jumlah_cuti}">1</td>
-            <td th:text="${kehadiran.jumlah_lain_lain}">1</td>
+            <tr th:each="kehadiran : ${daftar_kehadiran}">
+                <td th:text="${kehadiran.pegawai_outsourcing.nip}"></td>
+                <td th:text="${kehadiran.pegawai_outsourcing.pelamar_id.nama_lengkap}"></td>
+                <td th:text="${kehadiran.jumlah_kehadiran}"></td>
+                <td th:text="${kehadiran.jumlah_sakit}"></td>
+                <td th:text="${kehadiran.jumlah_izin}"></td>
+                <td th:text="${kehadiran.jumlah_absen}"></td>
+                <td th:text="${kehadiran.jumlah_off}"></td>
+                <td th:text="${kehadiran.jumlah_cuti}"></td>
+                <td th:text="${kehadiran.jumlah_lain_lain}"></td>
+            </tr>
         </tr>
         <tfoot>
             <tr>

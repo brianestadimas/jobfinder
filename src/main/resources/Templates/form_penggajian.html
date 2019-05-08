@@ -86,7 +86,7 @@
 <body>
     <div class="blankspace">
        <!--  <div class="boxContainer2" style="overflow-x:auto;"> -->
-            <form action="#" th:action="'/proyek/'+${proyek_id}+'/kehadiran/update/submit'" method="post" th:object="${daftar_kehadiran}">
+            <form action="#" th:action="'/proyek/'+${proyek_id}+'/kehadiran/'+${judul_kehadiran}+'/penggajian3'" method="post" th:object="${daftar_penggajian}">
                 <img src="img/icon_building.png" style="max-width:5%;margin-top: -10px">
                 <h2 style="display: inline; margin-left: 10px">Data Penggajian</h2>
                 <hr><!-- 
@@ -127,20 +127,19 @@
                 <th style="display:none"></th>
             </thead>
             <tbody>
-                <tr id="test1" th:each="daftar_kehadiran, itemStat : *{daftar_kehadiran}">
-                    <td th:text="${nip_pegawai[itemStat.index]}">wuRYYYYYYYYYY</td>
-                    <td th:text="${nama_pegawai[itemStat.index]}">wuRYYYYYYYYYY</td>
-                    <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_kehadiran}" name="jumlah_hadir" style="width: 100%"></td>
-                    <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_sakit}" name="jumlah_sakit" style="width: 100%"></td>
-                    <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_izin}" name="jumlah_izin" style="width: 100%"></td>
-                    <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_absen}" name="ttun" style="width: 100%"></td>
-                    <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_absen}" name="jumlah_alfa" style="width: 100%"></td>
-                    <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_off}" name="jumlah_libur" style="width: 100%"></td>
-                    <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_cuti}" name="jumlah_cuti" style="width: 100%"></td>
-                    <td style="display:none"><input type="hidden" th:field="*{daftar_kehadiran[__${itemStat.index}__].pegawai_outsourcing}"></td>
-                    <td style="display:none"><input type="hidden" th:field="*{daftar_kehadiran[__${itemStat.index}__].id}"></td>
+                <tr id="test1" th:each="daftar_penggajian, itemStat : *{daftar_penggajian}">
+                    <td th:text="*{daftar_penggajian[__${itemStat.index}__].pegawai_outsourcing.nip}">wuRYYYYYYYYYY</td>
+                    <td th:text="*{daftar_penggajian[__${itemStat.index}__].pegawai_outsourcing.pelamar_id.nama_lengkap}">wuRYYYYYYYYYY</td>
+                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].pegawai_outsourcing.no_rekening}" name="no_rekening" style="width: 100%"></td>
+                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].potongan}" name="potongan" style="width: 100%"></td>
+                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].total_tunjangan}" name="total tunjangan" style="width: 100%"></td>
+                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].pinjaman}" th:value="0" name="pinjaman" style="width: 100%"></td>
+                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].insentif}" th:value="0" name="insentif" style="width: 100%"></td>
+                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].penambahan_lain_lain}" th:value="0" name="penambahan_lain_lain" style="width: 100%"></td>
+                    <td><input type="number" th:field="*{daftar_penggajian[__${itemStat.index}__].pengurangan_lain_lain}" th:value="0" name="pengurangan_lain_lain" style="width: 100%"></td>
+                    <td style="display:none"><input type="hidden" th:field="*{daftar_penggajian[__${itemStat.index}__].pegawai_outsourcing}"></td>
+                    <td style="display:none"><input type="hidden" th:field="*{daftar_penggajian[__${itemStat.index}__].id}"></td>
                 </tr>
-
             </tbody>
         </table>
 </div>
@@ -223,16 +222,16 @@
             </tr>
         </thead>
         <tbody>
-        <tr th:each="kehadiran,iteration : *{detail_detail_kehadiran}">
-            <td th:text="${nip_pegawai[iteration.index]}">1606884522</td>
-            <td th:text="${nama_pegawai[iteration.index]}">wuRYYYYYYYYYY</td>
-            <td th:text="${kehadiran.jumlah_kehadiran}">25</td>
-            <td th:text="${kehadiran.jumlah_sakit}">1</td>
-            <td th:text="${kehadiran.jumlah_izin}">1</td>
-            <td th:text="${kehadiran.jumlah_absen}">1</td>
-            <td th:text="${kehadiran.jumlah_off}">4</td>
-            <td th:text="${kehadiran.jumlah_cuti}">1</td>
-            <td th:text="${kehadiran.jumlah_lain_lain}">1</td>
+        <tr th:each="kehadiran : ${daftar_kehadiran}">
+            <td th:text="${kehadiran.pegawai_outsourcing.nip}"></td>
+            <td th:text="${kehadiran.pegawai_outsourcing.pelamar_id.nama_lengkap}"></td>
+            <td th:text="${kehadiran.jumlah_kehadiran}"></td>
+            <td th:text="${kehadiran.jumlah_sakit}"></td>
+            <td th:text="${kehadiran.jumlah_izin}"></td>
+            <td th:text="${kehadiran.jumlah_absen}"></td>
+            <td th:text="${kehadiran.jumlah_off}"></td>
+            <td th:text="${kehadiran.jumlah_cuti}"></td>
+            <td th:text="${kehadiran.jumlah_lain_lain}"></td>
         </tr>
         <tfoot>
             <tr>
@@ -350,7 +349,7 @@ $(document).ready(function() {
         "scrollCollapse": true,
         autoWidth: true,
         columnDefs: [
-        { "width": "180px", "targets": [0,1] },
+        { "width": "120px", "targets": [0,1] },
         { "width": "50", "targets": [2,3,4,5,6,7,8] },
         ],
         
