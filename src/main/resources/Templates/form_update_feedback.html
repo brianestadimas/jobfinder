@@ -117,11 +117,11 @@
       <div class="col-md-12"></div>
       <div class="form-group col-md-12">
         <label for="inputEndDate">Feedback</label>
-      <input type="text" class="form-control" name="feedback"></textarea>
+      <input type="text" class="form-control" th:field="${feedback.feedback}" name="feedback"></textarea>
       </div>
     </div>
     <div class="col-sm-12"></div>
-    <input style="display: none" type="Date" th:field="${feedback.feedback}"  class="form-control" name="feedback"/>
+    <input style="display: none" type="Date" th:field="${feedback.id}"  class="form-control" name="feedback"/>
   </form>
 <p>
 </p>
