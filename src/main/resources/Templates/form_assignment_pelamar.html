@@ -94,10 +94,10 @@
     <div class="form-row">
       <div class="form-group col-md-4">
         <label for="inputProyek">Proyek</label>
-	      <select class="form-control" id="inputProyek" name="proyek">
-			    <option th:each="dp: ${daftar_proyek}"  th:value="${dp.id}" th:text="${dp.nama_proyek}">aaaaaa
-			    </option>
-			</select>
+        <select class="form-control" id="inputProyek" name="proyek">
+          <option th:each="dp: ${daftar_proyek}"  th:value="${dp.id}" th:text="${dp.nama_proyek}">aaaaaa
+          </option>
+      </select>
       </div>
     <div class="form-group col-md-4">
       <label for="inputJoinDate">Join Date</label>
@@ -119,7 +119,7 @@
 <div class="boxContainer" style="overflow-x:auto; margin-top: 10px">
 <h4 style="display: inline; margin-left: 10px">Melengkapi Data Tambahan</h4>
 <hr></hr>
-<table id="example" class="table table-striped table-bordered" style="width:100%;">
+<table id="example2" class="table table-striped table-bordered" style="width:100%;">
         <thead>
             <tr>
                 <th>Nama</th> 
@@ -141,7 +141,7 @@
             <tr th:each="wrapper, itemStat : *{wrapper.daftar_pegawai}">
                 <td th:text="${nama_pelamar[itemStat.index]}"></td>
                 <td><select style="width:100%" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].produk}">
-	                <option th:each="dp: ${daftar_produk}"  th:value="${dp}"  th:text="${dp.nama_produk}"></option>
+                  <option th:each="dp: ${daftar_produk}"  th:value="${dp}"  th:text="${dp.nama_produk}"></option>
                 </select></td>
                 <td><input style="width:100%" type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].jabatan}" name="jabatan"></td>
                 <td><input style="width:100%" type="number" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].nip}" name="nip"></td>
@@ -149,12 +149,12 @@
                 <td><input style="width:100%" type="number" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].pkwt}" name="pkwt"></td>
                 <td><input style="width:100%" type="number" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].bpjsk}" name="bpjsk"></td>
                 <td><input style="width:100%"type="number" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].bpjstk}" name="bpjstk"></td>
-				
-          			<td style="display:none"><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].pelamar_id}" name="pelamar_id"></td>
-          			<td style="display:none"><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].id}" name="id"></td>
-          			<td style="display:none"><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].nama_bank}" name="nama_bank"></td>
-          			<td style="display:none"><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].no_arsip}" name="no_arsip"></td>
-          			<td style="display:none"><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].no_rekening}" name="no_rekening"></td>
+        
+                <td style="display:none"><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].pelamar_id}" name="pelamar_id"></td>
+                <td style="display:none"><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].id}" name="id"></td>
+                <td style="display:none"><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].nama_bank}" name="nama_bank"></td>
+                <td style="display:none"><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].no_arsip}" name="no_arsip"></td>
+                <td style="display:none"><input type="hidden" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].no_rekening}" name="no_rekening"></td>
             </tr>
          </tbody>
        </table>
@@ -187,37 +187,22 @@
 <footer>
 
 </footer> 
+</html>
 <script>
 $(document).ready(function() {
     // Setup - add a text input to each footer cell
-
-    var table = $('#example').DataTable( {
+    var table2 = $('#example2').DataTable( {
         autoWidth: true,
         columnDefs: [
-        { "width": "180px", "targets": [0,1] },
-        { "width": "120px", "targets": [2,3,4,5,6,7,8,9] },
-        { "width": "200px", "targets": [10] },
+        { "width": "180px", "targets": [0] },
+        { "width": "120px", "targets": [1,2,3,4,5,6,7,8,9] },
         ],
         "scrollY": "500px",
         "sScrollX": "100%",
         "sScrollXInner": "100%",
         "scrollCollapse": true,
     } );
-
-
-    $('#example tbody').on( 'click', 'tr', function () {
-        $(this).toggleClass('active');
-    } );
-
-    $('#example tfoot th').each( function () {
-        var title = $(this).text();
-        $(this).html( '<input type="text" style="width:100%" placeholder="Search '+title+'" />' );
-    } );
-
-    $('#example2 tbody').on( 'click', 'tr', function () {
-        $(this).toggleClass('active');
-    } );
-
+  } );
 </script>
 
 </html>
