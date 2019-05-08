@@ -250,8 +250,7 @@ public class PegawaiOutsourcingController {
 		return "ListPegawai";
 	}
 	
-	//methods for feedback stuffs. find out how to add feedback(dumbshit)
-	//this shitty cunt entah kenapa forbidden REEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+
 	@RequestMapping(value="/pegawai-detail/{id}/feedback/submit", method=RequestMethod.POST)
 	private String feedbackSubmit(@PathVariable(value="id") long id, @ModelAttribute FeedbackModel feedback, Model model, HttpServletRequest req ) {
 		feedback.setPegawai_outsourcing(pegawaiService.getPegawaiById(id));
@@ -262,6 +261,21 @@ public class PegawaiOutsourcingController {
 		return "redirect:/pegawai-detail/"+id;
 	}
 	
+	@RequestMapping(value="/pegawai-detail/{id}/feedback/update", method=RequestMethod.GET)
+	private String feedbackUpdate(@PathVariable(value="id") long id, Model model) {
+		
+		
+		
+		return "";
+	}
+	
+	@RequestMapping(value="/pegawai-detail/{id}/feedback/update/submit", method=RequestMethod.GET)
+	private String feedbackUpdateSubmit() {
+		
+		
+		
+		return "";
+	}
 	
 	
 	
