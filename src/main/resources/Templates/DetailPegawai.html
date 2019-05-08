@@ -4,6 +4,12 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+    <!-- script buat addrow -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    
 </head>
 
 <body>
@@ -90,10 +96,10 @@
             background-color: black;
         }
     
-    	#header-ulasan{
-    		display: flex;
-    		justify-content: space-between;		
-    	}
+        #header-ulasan{
+            display: flex;
+            justify-content: space-between;     
+        }
     
     </style>
 
@@ -266,20 +272,20 @@
                                     <td style="width:100%" th:text="${pegawai.pelamar_id.lulusan_tahun}"></td>
                                 </tr> 
                                <!-- <tr>
-                               	<td style="width:100%" th:text="${#dates.format(#dates.createNow(), 'yyyy MMM dd ')}"></td>
-                               	<td style="width:100%" th:text="${pegawai.end_date}"></td>
+                                <td style="width:100%" th:text="${#dates.format(#dates.createNow(), 'yyyy MMM dd ')}"></td>
+                                <td style="width:100%" th:text="${pegawai.end_date}"></td>
                                </tr> -->
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                    	<!-- <div class="card-body" style="display: flex; flex-direction:row;"> 
-             				<form th:action="@{/pegawai/ubah}" method="GET">
-			    				<input type=hidden name="idPegawai" th:value="${pegawai.id}" />
-			    				<button value="submit" class="btn  btn-primary" style="margin-right:1rem;margin-top:0.5rem;">Ubah</button>
-			 				</form>
-						</div> -->
+                        <!-- <div class="card-body" style="display: flex; flex-direction:row;"> 
+                            <form th:action="@{/pegawai/ubah}" method="GET">
+                                <input type=hidden name="idPegawai" th:value="${pegawai.id}" />
+                                <button value="submit" class="btn  btn-primary" style="margin-right:1rem;margin-top:0.5rem;">Ubah</button>
+                            </form>
+                        </div> -->
                     
                     
                      <a th:href="'/pegawai/ubah/'+${pegawai.id}" onClick="" class="btn btn-info btn-large" style="float: right; margin-top:10px ; margin-right: 50px;">Ubah</a>
@@ -356,42 +362,46 @@
                         </div>
                     </div>
                 </div>
-                	<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                		<div>
-                		
-                		
-                		
-                		</div>
-                		<div id="feedback">
-                			<div id="header-ulasan">
-                				<h2>Ulasan Pegawai</h2>
-                				<a>Tambahkan Ulasan</a>                			
-                			</div>
-    						<div id="tabel-ulasan">
-    							<table id="list_ulasan" >
-    								<thead>
-	    								<tr id="header-tabel">
-	    									<th>Tanggal</th>
-	    									<th>Proyek</th>
-	    									<th>Feedback</th>
-	    									<th>Tindakan</th>
-	    								</tr>
-    								</thead>
-    								<tbody>
-    									<tr id="body-tabel-ulasan" th:each="feedback, itemStat : *{list_of_feedback}">
-    										<td th:text="${feedback.tanggal_pengisian_feedback}">tanggal</td>
-    										<td th:text="${feedback.proyek.id}">proyek</td>
-    										<td th:text="${feedback.feedback}">feedback</td>
-    										<td>
-    											<a>Ubah</a>
-    											<a>Hapus</a>
-    										</td>
-    									</tr>
-    								</tbody>
-    							</table>
-    						</div>               		
-                		</div>
-                	</div>
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <div>
+                        
+                        
+                        
+                        </div>
+                        <div id="feedback">
+                            <div id="header-ulasan">
+                                <h2>Ulasan Pegawai</h2>
+                            <button id="tambah-ulasan">Tambahkan Ulasan</button> 
+                                
+                            </div>
+                            <div id="tabel-ulasan">
+                                <form id="list_ulasan">
+                                    <table  class="table order-list" >
+                                        <thead>
+                                        <tr id="header-tabel">
+                                            <th>Tanggal</th>
+                                            <th>Proyek</th>
+                                            <th>Feedback</th>
+                                            <th>Tindakan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr id="body-tabel-ulasan" th:each="feedback, itemStat : *{list_of_feedback}">
+                                            <td th:text="${feedback.tanggal_pengisian_feedback}">tanggal</td>
+                                            <td th:text="${feedback.proyek.id}">proyek</td>
+                                            <td th:text="${feedback.feedback}">feedback</td>
+                                            <td>
+                                                <a>Ubah</a>
+                                                <a>Hapus</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                    
+                                </form>
+                            </div>                      
+                        </div>
+                    </div>
                 </div>    
 
 
@@ -409,10 +419,48 @@
                 <script type="text/javascript" charset="utf8"
                     src="./detailPegawaiOutsourcing_files/jquery.dataTables.js"></script>
                 <script>
+                $(document).ready(function () {
+                    var counter = 0;
 
+                    $("#tambah-ulasan").on("click", function () {
+                        console.log("tayo");
+                        var newRow = $("<tr>");
+                        var cols = "";
+                        
+                        cols += '<td><input type="Date" class="form-control"  name="tanggal_pengisian_feedback"/></td>';
+                        cols += '<td><input type="text" class="form-control"  name="proyek"/></td>';
+                        cols += '<td><input type="text" class="form-control"  name="feedback"/></td>';
+                        
+                        cols += '<td><input type="button" class="ibtnSubmit btn btn-md btn-submit" value="Simpan">'
+                        cols += '<input type="button" class="ibtnDel btn btn-md btn-danger "  value="Batal"></td>';
+                        
+                        newRow.append(cols);
+                        $("table.order-list").append(newRow);
+                        counter++;
+                    });
+
+
+                    $("table.order-list").on("click", ".ibtnDel", function (event) {
+                        $(this).closest("tr").remove();       
+                        counter -= 1
+                    });
+                    $("table.order-list").on("click", ".ibtnSubmit", function (event) {
+                        document.getElementById('list_ulasan').action = "${pegawai.id}+/feedback/submit";
+                        document.getElementById('list_ulasan').method = "POST";
+                        document.getElementById('list_ulasan').submit();
+                    console.log("tayo");
+                    });
+                    
+                }); 
+                
+                
                     $(document).ready(function () {
                         $('#table').DataTable();
                     });
+                    
+                    
+
+                    
                 </script>
     </body>
 
