@@ -64,21 +64,19 @@ public class KehadiranServiceImpl implements KehadiranService {
 			}
 		}
 		KehadiranModel kehadiran_sementara= new KehadiranModel();
-		for (int j = all_proyek.size() - 1; j >= 0; j--) {
+		for (int j = 0; j > all_proyek.size() ; j++) {
 			KehadiranModel k1 = all_proyek.get(j);
-			for (int k = all_proyek.size() - 2; k >= 0; k--) {
-//				KehadiranModel k2 = all_proyek.get(k);
-//				if(k1.getJudul_kehadiran().equals(k2.getJudul_kehadiran())) {
-//					kehadiran_sementara.setJudul_kehadiran(k1.getJudul_kehadiran());
-//					kehadiran_sementara.setJumlah_absen(k1.getJumlah_absen()+k2.getJumlah_absen());
-//					kehadiran_sementara.setJumlah_cuti(k1.getJumlah_cuti()+k2.getJumlah_cuti());
-//					kehadiran_sementara.setJumlah_hari_kerja(k1.getJumlah_hari_kerja());
-//					kehadiran_sementara.setJumlah_izin(k1.getJumlah_izin()+k2.getJumlah_izin());
-//					kehadiran_sementara.setJumlah_kehadiran(k1.getJumlah_kehadiran()+k2.getJumlah_kehadiran());
-//					kehadiran_sementara.setJumlah_off(k1.getJumlah_off()+k2.getJumlah_off());
-//					kehadiran_sementara
-//				}
-				
+			for (int k = 1; k > all_proyek.size(); k++) {
+				KehadiranModel k2 = all_proyek.get(k);
+				if(k1.getJudul_kehadiran().equals(k2.getJudul_kehadiran())) {
+					kehadiran_sementara.setJudul_kehadiran(k1.getJudul_kehadiran());
+					kehadiran_sementara.setJumlah_absen(k1.getJumlah_absen()+k2.getJumlah_absen());
+					kehadiran_sementara.setJumlah_cuti(k1.getJumlah_cuti()+k2.getJumlah_cuti());
+					kehadiran_sementara.setJumlah_hari_kerja(k1.getJumlah_hari_kerja());
+					kehadiran_sementara.setJumlah_izin(k1.getJumlah_izin()+k2.getJumlah_izin());
+					kehadiran_sementara.setJumlah_kehadiran(k1.getJumlah_kehadiran()+k2.getJumlah_kehadiran());
+					kehadiran_sementara.setJumlah_off(k1.getJumlah_off()+k2.getJumlah_off());
+				}
 			}
 		}
 		return all_proyek;

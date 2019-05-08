@@ -30,6 +30,7 @@ import com.apap.HrPayrollSystem.Service.PengalamanPelamarService;
 import com.apap.HrPayrollSystem.Service.ProdukService;
 import com.apap.HrPayrollSystem.Service.ProyekService;
 import com.apap.HrPayrollSystem.Utility.AssignmentWrapper;
+import com.apap.HrPayrollSystem.Utility.FormCommand;
 
 /**
  * Controller kelas Pelamar

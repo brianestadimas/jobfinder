@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.apap.HrPayrollSystem.Model.KehadiranModel;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.ProyekModel;
+import com.apap.HrPayrollSystem.Service.KehadiranService;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
 import com.apap.HrPayrollSystem.Service.ProyekService;
 import com.apap.HrPayrollSystem.Utility.PegawaiProyekWrapper;
@@ -24,7 +25,14 @@ public class ProyekController {
 	private ProyekService proyekService;
 	@Autowired
 	private PegawaiOutsourcingService pegawaiService;
+	@Autowired
+	private KehadiranService kehadiranService;
 	
+	/**
+	 * Fitur Menampilkan Daftar Proyek
+	 * @param model Model
+	 * @return Halaman HTML list_proyek
+	 */
 	@RequestMapping("/proyek")
 	private String proyek(Model model) {
 		List<ProyekModel> list = proyekService.getAllProyek();
@@ -33,8 +41,12 @@ public class ProyekController {
 		return "list_proyek";
 	}
 	
-	//Detail Proyek
-	
+	/**
+	 * Fitur Melihat Detail Proyek
+	 * @param id idProyek
+	 * @param model Model
+	 * @return Halaman HTML detail_proyek
+	 */
 	@RequestMapping(value = "/proyek-detail/{id}", method = RequestMethod.GET)
 	private String detailProyek(@PathVariable long id, Model model) {
 		ProyekModel proyek = proyekService.getProyekById(id).get();
@@ -49,8 +61,33 @@ public class ProyekController {
 				}
 			}
 		}
-		model.addAttribute("listPegawai", pegawaiProyek);
+		//Performa dalam Proyek (4 Bulan Terakhir)
+		List<KehadiranModel> kehadiranProyek = kehadiranService.get_all_kehadiran_by_proyek(proyek);
+		int persentasePerforma = 0;
+		int totalHadir = 0;
+		int totalSakit = 0;
+		int totalIzin = 0;
+		int totalAlfa =0;
+		if (kehadiranProyek.size() == 0) {
+			model.addAttribute("performaErr_Msg",
+					"Performa belum bisa dihitung, tambahkan data kehadiran terlebih dahulu !");
+		} else if (kehadiranProyek.size() == 1) {
+			totalHadir=kehadiranProyek.get(0).getJumlah_kehadiran();
+			totalSakit=kehadiranProyek.get(0).getJumlah_sakit();
+			totalIzin=kehadiranProyek.get(0).getJumlah_izin();
+			totalAlfa=kehadiranProyek.get(0).getJumlah_absen();
+			persentasePerforma = 100;
+		} else {
+			int kehadiranSebelum = kehadiranProyek.get(1).getJumlah_kehadiran();
+			int kehadiranSesudah = kehadiranProyek.get(0).getJumlah_kehadiran();
+			persentasePerforma = (kehadiranSesudah - kehadiranSebelum) / kehadiranSebelum * 100;
+		}
+		model.addAttribute("kehadiranPegawai", kehadiranProyek);
+		model.addAttribute("persentasePerforma", persentasePerforma);
 		
+		
+		
+		model.addAttribute("listPegawai", pegawaiProyek);
 		return "detail_proyek";
 	}
 	
