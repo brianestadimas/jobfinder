@@ -193,8 +193,6 @@
                 <th>Insentif</th>
                 <th>Penambahan Lain</th>
                 <th>Pengurangan Lain</th>
-                <th style="display:none"></th>
-                <th style="display:none"></th>
             </thead>
             <tbody>
                <tr th:each="pegawaiProyek : ${listPegawai}">
@@ -207,9 +205,6 @@
                     <td th:text="${pegawaiProyek.tunjangan_tetap}"></td>
                     <td th:text="${pegawaiProyek.tunjangan_tidak_tetap}"></td>
                     <td th:text="${pegawaiProyek.bpjstk}"></td>
-                    <td style="display:none"><input type="hidden" th:field="*{daftar_kehadiran[__${itemStat.index}__].pegawai_outsourcing}"></td>
-                    <td style="display:none"><input type="hidden" th:field="*{daftar_kehadiran[__${itemStat.index}__].id}"></td>
-                </tr>
             <tfoot>
                 <th>NIP</th>
                 <th>Nama Pegawai</th>
@@ -220,8 +215,6 @@
                 <th>Insentif</th>
                 <th>Penambahan Lain</th>
                 <th>Pengurangan Lain</th>
-                <th style="display:none"></th>
-                <th style="display:none"></th>
             </tfoot>
 
             </tbody>
@@ -501,7 +494,7 @@ $(document).ready(function() {
         autoWidth: true,
         columnDefs: [
         { "width": "180px", "targets": [0,1] },
-        { "width": "130px", "targets": [2,3,4,5,6,7,8,9] },
+        { "width": "130px", "targets": [2,3,4,5,6,7] },
         ],
         "scrollY": "500px",
         "sScrollX": "100%",
