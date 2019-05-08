@@ -41,7 +41,6 @@ public class KehadiranModel implements Serializable{
 	@JsonIgnore
 	private ProyekModel proyek;
 	
-	
 	@NotNull
 	@Column(name="judul_kehadiran",nullable = false)
 	private String judul_kehadiran;
@@ -151,8 +150,6 @@ public class KehadiranModel implements Serializable{
 		this.jumlah_off = jumlah_off;
 	}
 
-
-	
 	public PegawaiOutsourcingModel getPegawai_outsourcing() {
 		return pegawai_outsourcing;
 	}
@@ -176,14 +173,4 @@ public class KehadiranModel implements Serializable{
 	public void setJumlah_lain_lain(int jumlah_lain_lain) {
 		this.jumlah_lain_lain = jumlah_lain_lain;
 	}
-
-//	public ProdukModel getProduk() {
-//		return produk;
-//	}
-//
-//	public void setProduk(ProdukModel produk) {
-//		this.produk = produk;
-//	}
-
-
 }
