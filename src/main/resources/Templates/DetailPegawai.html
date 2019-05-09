@@ -402,7 +402,31 @@
                             </div>                      
                         </div>
                     </div>
-                </div>    
+                </div>   
+                <div class="form-group col-md-4">
+                <label for="inputProyek">Proyek</label>
+                        <select class="form-control" id="inputProyek" name="proyek">
+                          <option th:each="dp: ${daftar_proyek}"  th:value="${dp}" th:text="${dp.nama_proyek}">aaaaaa
+                          </option>
+                      </select>
+                      </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputJoinDate">Tanggal Feedback</label>
+                      <input type="Date" class="form-control getdate" th:field="${feedback.tanggal_pengisian_feedback}" name="tanggal"/>
+                    </div>
+                    <div class="form-row">
+                      <div class="col-md-12"></div>
+                      <div class="form-group col-md-12">
+                        <label for="inputEndDate">Feedback</label>
+                      <input type="text" class="form-control" th:field="${feedback.feedback}" name="feedback"></textarea>
+                      </div>
+                    </div>
+                    <div class="col-sm-12"></div>
+                    <input style="display: none" type="Date" th:field="${feedback.id}"  class="form-control" name="feedback"/>
+                  </form>
+                <p>
+                </p>
+                </div> 
 
 
 
