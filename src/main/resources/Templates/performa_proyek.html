@@ -149,6 +149,10 @@ canvas {
 </div>
 </div>
 <div class="blankspace">
+<!-- 
+<div id="dataperforma" type=text style="display: none" th:each="kehadiran : ${kehadiranProyek}">
+    < -->
+
 	<script type="text/javascript" src="/media/js/site.js?_=994321fabf3873df746bb8bbccd1886a"></script>
 	<script type="text/javascript" src="/media/js/dynamic.php?comments-page=extensions%2Fbuttons%2Fexamples%2Fstyling%2Fbootstrap.html" async></script>
 	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -176,16 +180,22 @@ canvas {
 
 $(document).ready(function() {
     // Setup - add a text input to each footer cell
+
+    var kehadiran;
+    for (i = 0; i < [[${kehadiranProyek}]].length-1; i++) {
+      kehadiran += [[${kehadiranProyek.totalKehadiran[i]}]] + ",";
+    } 
+    kehadiran += [[${kehadiranProyek.totalKehadiran[[[${kehadiranProyek}]].length]}]];
+
+    console.log(kehadiran);
+
     var barChartData = {
             labels: ['January', 'February', 'March', 'Dota'],
             datasets: [{
                 label: 'Kehadiran',
                 backgroundColor: '#9ADBF9',
                 data: [
-                    98,
-                    22,
-                    34,
-                    41
+                    kehadiran
                 ]
             }, {
                 label: 'Sakit',
