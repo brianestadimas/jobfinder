@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.ProyekModel;
@@ -63,7 +64,14 @@ public class ProyekController {
 				}
 			}
 		}
+		model.addAttribute("listPegawai", pegawaiProyek);
+		return "detail_proyek";
+	}
+	
+	@RequestMapping(value = "/performa-proyek/{id}", method = RequestMethod.GET)
+	private String performaProyek(@PathVariable long id, Model model) {
 		// Performa dalam Proyek (4 Bulan Terakhir)
+		ProyekModel proyek = proyekService.getProyekById(id).get();
 		List<PerformaWrapper> kehadiranProyek = kehadiranService.get_all_kehadiran_by_proyek(proyek);
 		int persentasePerforma = 0;
 		if (kehadiranProyek.isEmpty()) {
@@ -76,14 +84,20 @@ public class ProyekController {
 			int kehadiranSesudah = kehadiranProyek.get(0).getTotalKehadiran();
 			persentasePerforma = (kehadiranSesudah - kehadiranSebelum) / kehadiranSebelum * 100;
 		}
-		model.addAttribute("kehadiranPegawai", kehadiranProyek);
+		model.addAttribute("kehadiranProyek", kehadiranProyek);
 		model.addAttribute("persentasePerforma", persentasePerforma);
-		model.addAttribute("listPegawai", pegawaiProyek);
-		return "detail_proyek";
+		return "performa_proyek";
 	}
 
 	// Delete Proyek
 
+	/**
+	 * Fitur Hapus Proyek
+	 * 
+	 * @param id    idProyek
+	 * @param model Model
+	 * @return Halaman HTML list_proyek
+	 */
 	@RequestMapping(value = "/proyek-hapus/{id}", method = RequestMethod.GET)
 	private String deleteProyek(@PathVariable(value = "id") long id, Model model) {
 
@@ -101,8 +115,12 @@ public class ProyekController {
 		return "list_proyek";
 	}
 
-	// Add Proyek
-
+	/**
+	 * Fitur Menambah Proyek : GET Request
+	 * 
+	 * @param model Model
+	 * @return Halaman HTML tambah_proyek
+	 */
 	@RequestMapping(value = "/proyek-tambah", method = RequestMethod.GET)
 	public String addProyekGET(Model model) {
 		ProyekModel proyek = new ProyekModel();
@@ -111,18 +129,33 @@ public class ProyekController {
 		return "tambah_proyek";
 	}
 
+	/**
+	 * Fitur Menambah Proyek : POST Request
+	 * 
+	 * @param model
+	 * @param proyek
+	 * @return
+	 */
+	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	@RequestMapping(value = "/proyek-tambah", method = RequestMethod.POST)
 	public String addProyekPost(Model model, @ModelAttribute ProyekModel proyek) {
 		proyekService.addProyek(proyek);
-
 		List<ProyekModel> list = proyekService.getAllProyek();
-		model.addAttribute("listProyek", list);
 
+		// UBAH INI KE REDIRECT ATTRIBUTE
+		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		model.addAttribute("listProyek", list);
 		return "list_proyek";
 	}
+	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-	// Ubah Proyek
-
+	/**
+	 * Fitur Mengubah Proyek : GET Request
+	 * 
+	 * @param id    idProyek
+	 * @param model Model
+	 * @return Halaman HTML ubah_proyek
+	 */
 	@RequestMapping(value = "/proyek-ubah/{id}", method = RequestMethod.GET)
 	private String ubahProyekGET(@PathVariable(value = "id") long id, Model model) {
 		ProyekModel proyekLama = proyekService.getProyekById(id).get();
@@ -131,25 +164,29 @@ public class ProyekController {
 		return "ubah_proyek";
 	}
 
+	/**
+	 * Fitur Ubah Proyek : POST Request
+	 * @param id idProyek
+	 * @param proyek Proyek
+	 * @param model Model
+	 * @return Redirect HTML detail_proyek
+	 */
 	@RequestMapping(value = "/proyek-ubah/{id}", method = RequestMethod.POST)
-	private String ubahProyekPost(@PathVariable(value = "id") long id, ProyekModel proyek, Model model) {
-
+	private String ubahProyekPost(@PathVariable(value = "id") long id, ProyekModel proyek, Model model, RedirectAttributes redir) {
 		proyekService.updateProyek(id, proyek);
-
-		model.addAttribute("proyek", proyek);
-
-		List<PegawaiOutsourcingModel> pegawaiOutsourcing = pegawaiService.getAllPegawai();
-		List<PegawaiOutsourcingModel> pegawaiProyek = new ArrayList<PegawaiOutsourcingModel>();
-		for (int i = 0; i < pegawaiOutsourcing.size(); i++) {
-			if ((pegawaiOutsourcing.get(i)).getProyek() != null) {
-				if ((pegawaiOutsourcing.get(i).getProyek().getId()) == (proyek.getId())) {
-					pegawaiProyek.add(pegawaiOutsourcing.get(i));
-				}
-			}
-		}
-		model.addAttribute("listPegawai", pegawaiProyek);
-
-		return "detail_proyek";
+		String nama_proyek = proyek.getNama_proyek();
+//		model.addAttribute("proyek", proyek);
+//		List<PegawaiOutsourcingModel> pegawaiOutsourcing = pegawaiService.getAllPegawai();
+//		List<PegawaiOutsourcingModel> pegawaiProyek = new ArrayList<PegawaiOutsourcingModel>();
+//		for (int i = 0; i < pegawaiOutsourcing.size(); i++) {
+//			if ((pegawaiOutsourcing.get(i)).getProyek() != null) {
+//				if ((pegawaiOutsourcing.get(i).getProyek().getId()) == (proyek.getId())) {
+//					pegawaiProyek.add(pegawaiOutsourcing.get(i));
+//				}
+//			}
+//		}
+		redir.addFlashAttribute("ubahSukses_msg", "Proyek " + nama_proyek + " berhasil diubah!");
+		return "redirect:/proyek-detail/{id}";
 	}
 
 	// Ubah Pegawai Proyek
@@ -174,7 +211,6 @@ public class ProyekController {
 			listPegawai.addListPegawai(pegawaiProyek.get(i));
 		}
 		model.addAttribute("listPegawai", listPegawai);
-
 		return "ubah_pegawai_proyek";
 	}
 
