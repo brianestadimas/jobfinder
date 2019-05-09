@@ -5,6 +5,7 @@ import java.util.List;
 import com.apap.HrPayrollSystem.Model.KehadiranModel;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.ProyekModel;
+import com.apap.HrPayrollSystem.Utility.PerformaWrapper;
 
 public interface KehadiranService {
 
@@ -16,5 +17,5 @@ public interface KehadiranService {
 
 	List<KehadiranModel> get_all_kehadiran_by_pegawai(PegawaiOutsourcingModel pegawai);
 
-	List<KehadiranModel> get_all_kehadiran_by_proyek(ProyekModel proyek);
+	List<PerformaWrapper> get_all_kehadiran_by_proyek(ProyekModel proyek);
 }
