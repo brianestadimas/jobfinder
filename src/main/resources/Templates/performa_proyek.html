@@ -183,9 +183,9 @@ $(document).ready(function() {
 
     var kehadiran;
     for (i = 0; i < [[${kehadiranProyek}]].length-1; i++) {
-      kehadiran += [[${kehadiranProyek.totalKehadiran[i]}]] + ",";
+      kehadiran += [[${kehadiranProyek[i].totalKehadiran}]] + ",";
     } 
-    kehadiran += [[${kehadiranProyek.totalKehadiran[[[${kehadiranProyek}]].length]}]];
+    kehadiran += [[${kehadiranProyek[[[${kehadiranProyek}]].length]}]].totalKehadiran;
 
     console.log(kehadiran);
 
