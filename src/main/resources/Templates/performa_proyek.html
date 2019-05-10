@@ -186,7 +186,7 @@ $(document).ready(function() {
     console.log(kehadiran);
 
     var barChartData = {
-            labels: ['January', 'February', 'March', 'Dota'],
+            labels: [kehadiran, 'February', 'March', 'Dota'],
             datasets: [{
                 label: 'Kehadiran',
                 backgroundColor: '#9ADBF9',
@@ -197,7 +197,7 @@ $(document).ready(function() {
                 label: 'Sakit',
                 backgroundColor: '#F9CD9A',
                 data: [
-                    14,
+                    kehadiran,
                     22,
                     33,
                     14
@@ -206,7 +206,7 @@ $(document).ready(function() {
                 label: 'Izin',
                 backgroundColor: '#FFA41C',
                 data: [
-                    14,
+                    kehadiran,
                     22,
                     33,
                     14
