@@ -179,13 +179,9 @@ canvas {
 <script>
 
 $(document).ready(function() {
-    // Setup - add a text input to each footer cell
+    /*<![CDATA[*/
 
-    var kehadiran;
-    for (i = 0; i < [[${kehadiranProyek}]].length-1; i++) {
-      kehadiran += [[${kehadiranProyek[i].totalKehadiran}]] + ",";
-    } 
-    kehadiran += [[${kehadiranProyek[[[${kehadiranProyek}]].length]}]].totalKehadiran;
+    var kehadiran = /*[[${kehadiranProyek[0].totalKehadiran}]]*/ 'default';
 
     console.log(kehadiran);
 
@@ -318,7 +314,7 @@ $(function(){
         } );
     } );
 } );
-
+/*]]>*/
 </script>
 
 </html>
