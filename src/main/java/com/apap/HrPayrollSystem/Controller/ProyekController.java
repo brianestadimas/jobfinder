@@ -67,7 +67,7 @@ public class ProyekController {
 		model.addAttribute("listPegawai", pegawaiProyek);
 		return "detail_proyek";
 	}
-	
+
 	@RequestMapping(value = "/performa-proyek/{id}", method = RequestMethod.GET)
 	private String performaProyek(@PathVariable long id, Model model) {
 		// Performa dalam Proyek (4 Bulan Terakhir)
@@ -83,7 +83,10 @@ public class ProyekController {
 			int kehadiranSebelum = kehadiranProyek.get(1).getTotalKehadiran();
 			int kehadiranSesudah = kehadiranProyek.get(0).getTotalKehadiran();
 			persentasePerforma = (kehadiranSesudah - kehadiranSebelum) / kehadiranSebelum * 100;
+			if (persentasePerforma == 0)
+				persentasePerforma = 100;
 		}
+		model.addAttribute("proyek", proyek);
 		model.addAttribute("kehadiranProyek", kehadiranProyek);
 		model.addAttribute("persentasePerforma", persentasePerforma);
 		return "performa_proyek";
@@ -166,13 +169,15 @@ public class ProyekController {
 
 	/**
 	 * Fitur Ubah Proyek : POST Request
-	 * @param id idProyek
+	 * 
+	 * @param id     idProyek
 	 * @param proyek Proyek
-	 * @param model Model
+	 * @param model  Model
 	 * @return Redirect HTML detail_proyek
 	 */
 	@RequestMapping(value = "/proyek-ubah/{id}", method = RequestMethod.POST)
-	private String ubahProyekPost(@PathVariable(value = "id") long id, ProyekModel proyek, Model model, RedirectAttributes redir) {
+	private String ubahProyekPost(@PathVariable(value = "id") long id, ProyekModel proyek, Model model,
+			RedirectAttributes redir) {
 		proyekService.updateProyek(id, proyek);
 		String nama_proyek = proyek.getNama_proyek();
 //		model.addAttribute("proyek", proyek);

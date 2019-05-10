@@ -195,7 +195,7 @@ public class PelamarController {
 		command.setSelectedRadioGender(arsip_pelamar.getGender());
 		command.setSelectedRadioMarital(arsip_pelamar.getStatus_marital());
 		command.setPengalamanList(pengalamanService.getAllPengalamanByPelamar(arsip_pelamar));
-		
+
 		System.out.println(command.getSelectedRadioGender());
 		System.out.println(command.getSelectedRadioMarital());
 
@@ -283,7 +283,7 @@ public class PelamarController {
 			pelamar.setStatus_marital(command.getSelectedRadioMarital());
 
 			pelamarService.updatePelamar(pelamar);
-			
+
 			for (PengalamanPelamarModel pp : command.getPengalamanList()) {
 				pp.setPelamar_id(pelamar);
 				pengalamanService.updatePengalaman(pp);
@@ -298,7 +298,7 @@ public class PelamarController {
 	private String deletePelamar(@RequestParam("id") Long[] ids, Model model) {
 		List<PengalamanPelamarModel> arsip_pengalaman = pengalamanService.getAllPengalaman();
 		if (ids.length == 0) {
-			//BElom BISA HANDLING
+			// BElom BISA HANDLING
 			model.addAttribute("deleteError_msg", "Centang Pelamar yang akan dihapus terlebih dahulu!");
 		} else {
 			for (Long id : ids) {
@@ -349,12 +349,13 @@ public class PelamarController {
 		Optional<ProyekModel> proyek = proyekService.getProyekById(Long.parseLong(stringProyek));
 		Date join_date = Date.valueOf(req.getParameter("join_date"));
 		Date end_date = Date.valueOf(req.getParameter("end_date"));
+		boolean is_assigned = true;
 
 		for (int i = 0; i < daftar_pegawai.getDaftar_pegawai().size(); i++) {
 			daftar_pegawai.getDaftar_pegawai().get(i).setProyek(proyek.get());
 			daftar_pegawai.getDaftar_pegawai().get(i).setJoin_date(join_date);
-			;
 			daftar_pegawai.getDaftar_pegawai().get(i).setEnd_date(end_date);
+			daftar_pegawai.getDaftar_pegawai().get(i).setStatus(is_assigned);
 		}
 		pegawaiService.assignAll(daftar_pegawai.getDaftar_pegawai());
 		List<PegawaiOutsourcingModel> list = pegawaiService.getAllPegawai();

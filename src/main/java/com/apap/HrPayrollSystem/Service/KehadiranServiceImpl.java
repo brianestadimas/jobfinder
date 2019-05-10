@@ -42,16 +42,16 @@ public class KehadiranServiceImpl implements KehadiranService {
 
 	@Override
 	public List<KehadiranModel> get_all_kehadiran_by_pegawai(PegawaiOutsourcingModel pegawai) {
-		List<KehadiranModel> kehadiran_pelamar = new ArrayList<KehadiranModel>();
+		List<KehadiranModel> kehadiran_pegawai = new ArrayList<KehadiranModel>();
 		for (int i = kehadiran_Db.findAll().size() - 1; i >= 0; i--) {
 			KehadiranModel kehadiran = kehadiran_Db.findAll().get(i);
-			if (kehadiran_pelamar.size() == 4) {
+			if (kehadiran_pegawai.size() == 4) {
 				break;
 			} else if (kehadiran.getPegawai_outsourcing().equals(pegawai)) {
-				kehadiran_pelamar.add(kehadiran);
+				kehadiran_pegawai.add(kehadiran);
 			}
 		}
-		return kehadiran_pelamar;
+		return kehadiran_pegawai;
 	}
 
 	@Override
@@ -64,6 +64,7 @@ public class KehadiranServiceImpl implements KehadiranService {
 				all_proyek.add(kehadiran);
 			}
 		}
+		System.out.println("Jumlah Semua Kehadiran Dalam Proyek:" + all_proyek.size());
 //		KehadiranModel kehadiran_sementara= new KehadiranModel();
 //		for (int j = 0; j > all_proyek.size() ; j++) {
 //			KehadiranModel k1 = all_proyek.get(j);
@@ -79,11 +80,15 @@ public class KehadiranServiceImpl implements KehadiranService {
 			if (performaSementara.getKehadiranList().isEmpty()) {
 				performaSementara.getKehadiranList().add(hadirProyek);
 				performaSementara.setJudulKehadiran(hadirProyek.getJudul_kehadiran());
+				listPerforma.add(performaSementara);
 			} else if (performaSementara.getJudulKehadiran().equals(hadirProyek.getJudul_kehadiran())) {
 				performaSementara.getKehadiranList().add(hadirProyek);
+
 			} else {
-				listPerforma.add(performaSementara);
 				performaSementara = new PerformaWrapper();
+				performaSementara.getKehadiranList().add(hadirProyek);
+				performaSementara.setJudulKehadiran(hadirProyek.getJudul_kehadiran());
+				listPerforma.add(performaSementara);
 			}
 
 		}

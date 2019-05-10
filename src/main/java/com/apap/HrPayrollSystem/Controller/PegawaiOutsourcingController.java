@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.apap.HrPayrollSystem.Model.FeedbackModel;
 import com.apap.HrPayrollSystem.Model.KehadiranModel;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.ProdukModel;
 import com.apap.HrPayrollSystem.Model.ProyekModel;
 import com.apap.HrPayrollSystem.Model.RiwayatKerjaPegawaiModel;
+import com.apap.HrPayrollSystem.Service.FeedbackService;
 import com.apap.HrPayrollSystem.Service.KehadiranService;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
 import com.apap.HrPayrollSystem.Service.ProdukService;
@@ -42,6 +44,8 @@ public class PegawaiOutsourcingController {
 	private RiwayatKerjaPegawaiService riwayatService;
 	@Autowired
 	private KehadiranService kehadiranService;
+	@Autowired
+	private FeedbackService feedback_service;
 
 	/**
 	 * Fitur Melihat Daftar Pegawai
@@ -95,11 +99,25 @@ public class PegawaiOutsourcingController {
 			int kehadiranSebelum = kehadiranPegawai.get(1).getJumlah_kehadiran();
 			int kehadiranSesudah = kehadiranPegawai.get(0).getJumlah_kehadiran();
 			persentasePerforma = (kehadiranSesudah - kehadiranSebelum) / kehadiranSebelum * 100;
+			if (persentasePerforma==0)
+				persentasePerforma=100;
 		}
+
 		model.addAttribute("kehadiranPegawai", kehadiranPegawai);
 		model.addAttribute("persentasePerforma", persentasePerforma);
+		
+		System.out.println("Kehadiran Pegawai size"+kehadiranPegawai.size());
+		System.out.println("Performa"+persentasePerforma);
+		
 
 		// Model Attribute detail pegawai
+
+		// get feedback
+		List<FeedbackModel> list_feedback_pegawai = feedback_service.get_feedback_by_id_pegawai(id);
+
+		// riwayatService.getAllRiwayat(nip);
+		model.addAttribute("list_of_feedback", list_feedback_pegawai);
+
 		model.addAttribute("expiredStatus", expiredStatus);
 		model.addAttribute("pegawai", pegawai);
 		model.addAttribute("riwayatPegawai", rTemp);
@@ -224,4 +242,28 @@ public class PegawaiOutsourcingController {
 		model.addAttribute("notifikasi_sukses", "Berhasil Melakukan assignment terhadap pegawai dengan nama : " + name);
 		return "ListPegawai";
 	}
+
+	@RequestMapping(value = "/pegawai-detail/{id}/feedback/submit", method = RequestMethod.POST)
+	private String feedbackSubmit(@PathVariable(value = "id") long id, @ModelAttribute FeedbackModel feedback,
+			Model model, HttpServletRequest req) {
+		feedback.setPegawai_outsourcing(pegawaiService.getPegawaiById(id));
+		feedback.setProyek(proyekService.getProyekByName(req.getParameter("proyek")));
+
+		feedback_service.save_feedback(feedback);
+
+		return "redirect:/pegawai-detail/" + id;
+	}
+
+	@RequestMapping(value = "/pegawai-detail/{id}/feedback/update", method = RequestMethod.GET)
+	private String feedbackUpdate(@PathVariable(value = "id") long id, Model model) {
+
+		return "";
+	}
+
+	@RequestMapping(value = "/pegawai-detail/{id}/feedback/update/submit", method = RequestMethod.GET)
+	private String feedbackUpdateSubmit() {
+
+		return "";
+	}
+
 }
