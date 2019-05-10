@@ -99,18 +99,16 @@ public class PegawaiOutsourcingController {
 			int kehadiranSebelum = kehadiranPegawai.get(1).getJumlah_kehadiran();
 			int kehadiranSesudah = kehadiranPegawai.get(0).getJumlah_kehadiran();
 			persentasePerforma = (kehadiranSesudah - kehadiranSebelum) / kehadiranSebelum * 100;
-			if (persentasePerforma==0)
-				persentasePerforma=100;
+
 		}
-
+		if (persentasePerforma == 0) {
+			model.addAttribute("persentasePerforma", "Stabil");
+		} else if (persentasePerforma > 0) {
+			model.addAttribute("persentasePerforma", "Meningkat" + persentasePerforma + "%");
+		} else {
+			model.addAttribute("persentasePerforma", "Menurun" + persentasePerforma + "%");
+		}
 		model.addAttribute("kehadiranPegawai", kehadiranPegawai);
-		model.addAttribute("persentasePerforma", persentasePerforma);
-		
-		System.out.println("Kehadiran Pegawai size"+kehadiranPegawai.size());
-		System.out.println("Performa"+persentasePerforma);
-		
-
-		// Model Attribute detail pegawai
 
 		// get feedback
 		List<FeedbackModel> list_feedback_pegawai = feedback_service.get_feedback_by_id_pegawai(id);

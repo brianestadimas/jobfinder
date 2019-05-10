@@ -83,12 +83,18 @@ public class ProyekController {
 			int kehadiranSebelum = kehadiranProyek.get(1).getTotalKehadiran();
 			int kehadiranSesudah = kehadiranProyek.get(0).getTotalKehadiran();
 			persentasePerforma = (kehadiranSesudah - kehadiranSebelum) / kehadiranSebelum * 100;
-			if (persentasePerforma == 0)
-				persentasePerforma = 100;
 		}
+
+		if (persentasePerforma == 0) {
+			model.addAttribute("persentasePerforma", "Stabil");
+		} else if (persentasePerforma > 0) {
+			model.addAttribute("persentasePerforma", "Meningkat" + persentasePerforma + "%");
+		} else {
+			model.addAttribute("persentasePerforma", "Menurun" + persentasePerforma + "%");
+		}
+
 		model.addAttribute("proyek", proyek);
 		model.addAttribute("kehadiranProyek", kehadiranProyek);
-		model.addAttribute("persentasePerforma", persentasePerforma);
 		return "performa_proyek";
 	}
 
