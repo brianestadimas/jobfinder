@@ -180,46 +180,39 @@ canvas {
 
 $(document).ready(function() {
     /*<![CDATA[*/
+    var label;
+    var kehadiran;
+    var sakit;
+    var izin;
+    var absen;
 
-    var kehadiran = /*[[${kehadiranProyek[0].totalKehadiran}]]*/ 'default';
-
+    for (int i=0; i<[[${kehadiranProyek.length}]]-1; i++){
+        label[i] = [[${kehadiranProyek[i].judulKehadiran}]];
+        kehadiran[i] = [[${kehadiranProyek[i].totalKehadiran}]];
+        sakit[i] = [[${kehadiranProyek[i].totalSakit}]];
+        izin[i] = [[${kehadiranProyek[i].totalIzin}]];
+        absen[i] = [[${kehadiranProyek[i].totalAlfa}]];
+    }
     console.log(kehadiran);
 
     var barChartData = {
-            labels: [kehadiran, 'February', 'March', 'Dota'],
+            labels: label,
             datasets: [{
                 label: 'Kehadiran',
                 backgroundColor: '#9ADBF9',
-                data: [
-                    kehadiran
-                ]
+                data: kehadiran,
             }, {
                 label: 'Sakit',
                 backgroundColor: '#F9CD9A',
-                data: [
-                    kehadiran,
-                    22,
-                    33,
-                    14
-                ]
+                data: sakit,
             }, {
                 label: 'Izin',
                 backgroundColor: '#FFA41C',
-                data: [
-                    kehadiran,
-                    22,
-                    33,
-                    14
-                ]
+                data: izin,
             }, {
                 label: 'Tanpa Keterangan',
                 backgroundColor: '#FFB19F',
-                data: [
-                    12,
-                    21,
-                    31,
-                    42
-                ]
+                data: absen,
             }]
 
         };
