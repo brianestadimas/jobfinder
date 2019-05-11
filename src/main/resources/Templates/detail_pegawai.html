@@ -346,7 +346,7 @@
         <div class="boxContainer" style="overflow-x:auto;">
             <img src="img/icon_building.png" style="max-width:5%;margin-top: -10px">
             <h4 style="display: inline; margin-left: 10px">Ulasan</h4>
-            <button class="btn btn-info btn-large" style="float: right; margin-right: 10px;" onclick="myFunction()">Tambah</button>
+            <button class="tambah btn btn-info btn-large" style="float: right; margin-right: 10px;" onclick="myFunction()">Tambah</button>
             <hr></hr>
             <!--dropdown filter based on product-->
             <table id="example4"  class="table table-striped table-bordered" style="width: 100%">
@@ -385,30 +385,30 @@
     <h4 style="display: inline; margin-left: 10px">Tambah Feedback</h4>
                 <hr>
 <div class="col-md-12"></div>
-
-      <div class="form-group col-md-4">
+<div class="form-row">
+      <div class="form-group col-md-2">
         <label for="inputProyek">Proyek</label>
         <select class="form-control" id="inputProyek" name="proyek">
           <option th:each="dp: ${daftar_proyek}"  th:value="${dp}" th:text="${dp.nama_proyek}">aaaaaa
           </option>
       </select>
       </div>
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-2">
       <label for="inputJoinDate">Tanggal Feedback</label>
       <input type="Date" class="form-control getdate" th:field="${feedback.tanggal_pengisian_feedback}" name="tanggal"/>
     </div>
-    <div class="form-row">
-      <div class="col-md-12"></div>
-      <div class="form-group col-md-12">
+    
+      <div class="form-group col-md-7">
         <label for="inputEndDate">Feedback</label>
       <input type="text" class="form-control" th:field="${feedback.feedback}" name="feedback"></textarea>
       </div>
-    </div>
-    <div class="col-sm-12"></div>
+    <div class="col-md-1"></div>
     <input style="display: none" type="Date" th:field="${feedback.id}"  class="form-control" name="feedback"/>
-
+    <button type="submit" class="btn btn-success btn-large" style="margin-left: 5px; margin-top: 23px">Simpan</button>
+</div>
+</div>
 <div class="col-sm-12">
-<button type="submit" class="btn btn-success btn-large" style="margin-left: 0px">Simpan</button>
+
   </form>
 </div>
 </div>
@@ -445,7 +445,11 @@
     </html>
     <script>
 
-    function myFunction() {
+    $('.tambah').click(function(e){
+        e.preventDefault();
+    });
+
+    function myFunction(e) {
       var x = document.getElementById("myDIV");
       if (x.style.display === "block") {
         x.style.display = "none";

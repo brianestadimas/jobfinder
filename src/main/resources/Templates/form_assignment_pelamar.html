@@ -140,8 +140,13 @@
         <tbody>
             <tr th:each="wrapper, itemStat : *{wrapper.daftar_pegawai}">
                 <td th:text="${nama_pelamar[itemStat.index]}"></td>
+<<<<<<< HEAD
                 <td><select style="width:100%" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].produk}">
                   <option th:each="dp: ${daftar_produk}"  th:value="${dp}"  th:text="${dp.nama_produk}"></option>
+=======
+                <td><select th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].produk}">
+	                <option th:each="dp: ${daftar_produk}"  th:value="${dp.id}"  th:text="${dp.nama_produk}"></option>
+>>>>>>> fa8939b30b84d0f11779087b99e24ea73e881414
                 </select></td>
                 <td><input style="width:100%" type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].jabatan}" name="jabatan"></td>
                 <td><input style="width:100%" type="number" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].nip}" name="nip"></td>
