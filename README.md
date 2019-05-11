@@ -53,19 +53,19 @@ Dimas :
 
 [] Constraint Start dan End date proyek
 
-[x] Ubah proyek autofill region
+[] Ubah proyek autofill region
 
-[x] Size kolom
+[] Size kolom
 
-[x] Search hanya untuk kolom tertentu
+[] Search hanya untuk kolom tertentu
 
-[x] seragamkan front end
+[] seragamkan front end
 
-[x] seluruh tombol sudah diimplementasikan bisa dipencet
+[] seluruh tombol sudah diimplementasikan bisa dipencet
 
-[x] Notifikasi ketika proyek sudah di buat,ubah,hapus
+[] Notifikasi ketika proyek sudah di buat,ubah,hapus
 
-[x] Notifikasi ketika regulasi pegawai sudah diganti
+[] Notifikasi ketika regulasi pegawai sudah diganti
 
 [] Modal ketika hapus proyek
 
