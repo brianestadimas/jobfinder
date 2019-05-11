@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+
+</head>
+
+<style>
+
+	#style{
+		display:flex;
+	}
+
+</style>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	
+	<div id="style">
+		<h2>Nama :</h2>
+		<h2 th:text="${akun.name}"></h2>
+	</div>
+	
+	<div id="style">
+		<h2>Username :</h2>
+		<h2 th:text="${akun.username}"></h2>
+	</div>
+	
+	<div id="style">
+		<h2>Role :</h2>
+		<h2 th:text="${akun.role}"></h2>
+	</div>	
+	
+	<a th:href="@{/my-account/update}">Ubah Password</a>
+	
+
+</body>
+
+<footer>
+
+
+
+</footer>
+
+
+
+</html>

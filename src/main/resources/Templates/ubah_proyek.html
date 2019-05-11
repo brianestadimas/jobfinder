@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css">
+  <link href="css/style.css" rel="stylesheet">
+  <title></title>
+</head>
+<style>
+.boxContainer{
+  background-color:#fdfdfd;
+  border-radius: 10px;
+  padding:20px 16px;
+  margin:0px 20px;
+  box-shadow:0 0px 9px 0 rgba(0,0,0,0.16),0 2px 0px 0 rgba(0,0,0,0.12)
+}
+.boxContainer2{
+  background-color:#fdfdfd;
+  border-radius: 10px;
+  padding:20px 16px 20px 20px;
+  margin:20px 20px;
+}
+thead th{
+  background-color : #6B757F;
+  color:#FFFFFF;
+}
+.blankspace{
+  margin-top: 20px;
+}
+</style>
+<nav class="navbar navbar-default" style="box-shadow:0 0px 2px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);">
+    <div class="navbar-header">
+        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        
+    </div>
+    <a class="navbar-brand" href="#">
+	  <img th:src="@{img/ss(3).png}" style=" max-width:90%; display: inline-block; margin-top: -16px; opacity: 0.7;">
+	</a>
+
+    <div id="navbarCollapse" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+        	<li><a href="#" style="font-weight:bold; margin-left: -34px; font-size: 16px">SIMOS</a></li>
+            <li class="active" style="display: inline;"><a th:href="@{/}">Beranda</a></li>
+            <li><a href="/pelamar/">Pelamar</a></li>
+            <li><a href="/pegawai">Pegawai</a></li>
+            <li><a href="/proyek">Proyek</a></li>
+        </ul>
+    </div></nav>
+<body>
+
+<div class="blankspace">
+<div class="boxContainer2" style="overflow-x:auto;">
+<img src="img/icon_building.png" style="max-width:5%;margin-top: -10px">
+<h2 style="display: inline; margin-left: 10px">Ubah Proyek</h2>
+<form th:action="@{'/proyek-ubah/' + ${proyekLama.id}}" th:object="${proyek}" method="POST">
+<hr></hr>
+    <div>
+        <input type="hidden" class="form-control" name="jenis_proyek" th:value="${proyekLama.jenis_proyek}" required>
+    </div>
+    <div class="form-group col-md-6">
+        <label for="inputAddress">Nama Proyek *</label>
+        <input type="text" class="form-control" name="nama_proyek" th:value="${proyekLama.nama_proyek}" required>
+    </div>
+    <div class="form-group col-md-6">
+        <label for="inputAddress">Region *</label>
+        <input id="tags" type="text" class="form-control" name="region" th:value="${proyekLama.region}" required>
+    </div>
+    <div class="form-group col-md-6">
+        <label for="inputAddress">Nomor Kontrak *</label>
+        <input type="text" class="form-control" name="nomor_kontrak" th:value="${proyekLama.nomor_kontrak}" required>
+    </div>
+    <div class="form-group col-md-12">
+        <label for="inputAddress">Deskripsi Proyek</label>
+        <input type="text" class="form-control" name="deskripsi_proyek" th:value="${proyekLama.deskripsi_proyek}">
+    </div>
+    <div class="form-group col-md-6">
+        <label for="inputAddress">Nama CP *</label>
+        <input type="text" class="form-control" name="nama_cp" th:value="${proyekLama.nama_cp}" required>
+    </div>
+    <div class="form-group col-md-6">
+        <label for="inputAddress">No Telp CP *</label>
+        <input type="number" class="form-control" name="no_telp_cp" th:value="${proyekLama.no_telp_cp}" required>
+    </div>
+    <div class="col-sm-12"></div> 
+    <div class="form-group col-md-3">
+      <label for="inputAddress">Start Date *</label>
+      <input type="Date" class="form-control" name="start_date_kontrak" th:value="${proyekLama.start_date_kontrak}" required>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="inputCity">End Date</label>
+        <input type="Date" name="end_date_kontrak" class="form-control" th:value="${proyekLama.end_date_kontrak}" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputAddress">Nilai Kontrak (Rp)</label>
+        <input type="number" class="form-control" name="nilai_kontrak" th:value="${proyekLama.nilai_kontrak}" placeholder="500000000">
+    </div>
+    <div class="form-group col-md-6">
+        <label for="inputAddress">NPWP</label>
+        <input type="text" class="form-control" name="NPWP_klien" th:value="${proyekLama.NPWP_klien}" placeholder="12345678912">
+    </div>
+    <div class="form-row"></div>
+    <div class="form-group col-md-6">
+        <label for="inputAddress">Nomor Rekening</label>
+        <input type="number" class="form-control" name="no_rekening" th:value="${proyekLama.no_rekening}" placeholder="12345678912">
+    </div>
+    </div>
+    <div class="col-sm-12"></div>
+      <button class="btn btn-primary btn-large" style="float: right;" type="submit">Submit</button>
+      <button class="btn btn-info btn-danger" style="float: right; margin-right: 10px;">Batalkan</button>
+  </form>
+<p>
+</p></div>
+</form>
+</div>
+</div>
+
+  <script type="text/javascript" src="/media/js/site.js?_=994321fabf3873df746bb8bbccd1886a"></script>
+  <script type="text/javascript" src="/media/js/dynamic.php?comments-page=extensions%2Fbuttons%2Fexamples%2Fstyling%2Fbootstrap.html" async></script>
+  <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.bootstrap.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript" class="init"></script>
+</body>
+
+<footer>
+</footer>
+
+<script>
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+
+    var table = $('#example2').DataTable( {
+      "scrollY": "500px",
+      "sScrollX": "100%",
+      "sScrollXInner": "100%",
+      "scrollCollapse": true,
+
+    } );
+
+  table.buttons().container()
+    .appendTo( '#example_wrapper .col-sm-12:eq(0)' );
+  } );
+
+    $('#example tfoot th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
+    // DataTable
+    var docDefinition = {
+     pageSize: 'A4',
+  };
+
+  $('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+  });
+
+
+function Download(){
+  var x = $('example').children();
+  var fullText = "";
+    $.each(x, function(index, value) {
+       //console.log(value);
+        fullText+=$(this).context.innerText + ",";
+        console.log($(this).context.innerText);
+    });
+    
+    var docDefinition2 = {
+  content: [
+    fullText
+  ]
+    };
+    // this is just a simulation of the open event, replacing it with print produces the same result
+  var docDefinition = { content: [
+    {text:'Liat var docDefinition sama docDefinition2 di javascript Download(), baca dokumentasi',fontSize:20},
+    {text:'Dokumentasi di http://pdfmake.org',fontSize:15},
+    {text:'-dimas',fontSize:15},
+    ] 
+  };
+
+  pdfMake.createPdf(docDefinition).download('gg.pdf');
+};
+    
+$(function(){
+  var table2 = $('#example').DataTable();
+ 
+    // Apply the search
+    table2.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+} );
+
+$(function() {
+    var availableTags = [
+     "SIMEULUE","ACEH SINGKIL","ACEH SELATAN","ACEH TENGGARA","ACEH TIMUR","ACEH TENGAH","ACEH BARAT","ACEH BESAR","PIDIE","BIREUEN","ACEH UTARA","ACEH BARAT DAYA","GAYO LUES","ACEH TAMIANG","NAGAN RAYA","ACEH JAYA","BENER MERIAH","PIDIE JAYA","BANDA ACEH","SABANG","LANGSA","LHOKSEUMAWE","SUBULUSSALAM","NIAS","MANDAILING NATAL","TAPANULI SELATAN","TAPANULI TENGAH","TAPANULI UTARA","TOBA SAMOSIR","LABUHAN BATU","ASAHAN","SIMALUNGUN","DAIRI","KARO","DELI SERDANG","LANGKAT","NIAS SELATAN","HUMBANG HASUNDUTAN","PAKPAK BHARAT","SAMOSIR","SERDANG BEDAGAI","BATU BARA","PADANG LAWAS UTARA","PADANG LAWAS","LABUHAN BATU SELATAN","LABUHAN BATU UTARA","NIAS UTARA","NIAS BARAT","SIBOLGA","TANJUNG BALAI","PEMATANG SIANTAR","TEBING TINGGI","MEDAN","BINJAI","PADANGSIDIMPUAN","GUNUNGSITOLI","KEPULAUAN MENTAWAI","PESISIR SELATAN","SOLOK","SIJUNJUNG","TANAH DATAR","PADANG PARIAMAN","AGAM","LIMA PULUH PASAMAN","SOLOK SELATAN","DHARMASRAYA","PASAMAN BARAT","PADANG","SOLOK","SAWAH LUNTO","PADANG PANJANG","BUKITTINGGI","PAYAKUMBUH","PARIAMAN","KUANTAN SINGINGI","INDRAGIRI HULU","INDRAGIRI HILIR","PELALAWAN","SIAK","KAMPAR","ROKAN HULU","BENGKALIS","ROKAN HILIR","KEPULAUAN MERANTI","PEKANBARU","DUMAI","KERINCI","MERANGIN","SAROLANGUN","BATANG HARI","MUARO JAMBI","TANJUNG JABUNG TIMUR","TANJUNG JABUNG BARAT","TEBO","BUNGO","JAMBI","SUNGAI PENUH","OGAN KOMERING ULU","OGAN KOMERING ILIR","MUARA ENIM","LAHAT","MUSI RAWAS","MUSI BANYUASIN","BANYU ASIN","OGAN KOMERING ULU SELATAN","OGAN KOMERING ULU TIMUR","OGAN ILIR","EMPAT LAWANG","PENUKAL ABAB LEMATANG ILIR","MUSI RAWAS UTARA","PALEMBANG","PRABUMULIH","PAGAR ALAM","LUBUKLINGGAU","BENGKULU SELATAN","REJANG LEBONG","BENGKULU UTARA","KAUR","SELUMA","MUKOMUKO","LEBONG","KEPAHIANG","BENGKULU TENGAH","BENGKULU","LAMPUNG BARAT","TANGGAMUS","LAMPUNG SELATAN","LAMPUNG TIMUR","LAMPUNG TENGAH","LAMPUNG UTARA","WAY KANAN","TULANGBAWANG","PESAWARAN","PRINGSEWU","MESUJI","TULANG BAWANG BARAT","PESISIR BARAT","BANDAR LAMPUNG","METRO","BANGKA","BELITUNG","BANGKA BARAT","BANGKA TENGAH","BANGKA SELATAN","BELITUNG TIMUR","PANGKAL PINANG","KARIMUN","BINTAN","NATUNA","LINGGA","KEPULAUAN ANAMBAS","BATAM","TANJUNG PINANG","KEPULAUAN SERIBU","JAKARTA SELATAN","JAKARTA TIMUR","JAKARTA PUSAT","JAKARTA BARAT","JAKARTA UTARA","BOGOR","SUKABUMI","CIANJUR","BANDUNG","GARUT","TASIKMALAYA","CIAMIS","KUNINGAN","CIREBON","MAJALENGKA","SUMEDANG","INDRAMAYU","SUBANG","PURWAKARTA","KARAWANG","BEKASI","BANDUNG BARAT","PANGANDARAN","BOGOR","SUKABUMI","BANDUNG","CIREBON","BEKASI","DEPOK","CIMAHI","TASIKMALAYA","BANJAR","CILACAP","BANYUMAS","PURBALINGGA","BANJARNEGARA","KEBUMEN","PURWOREJO","WONOSOBO","MAGELANG","BOYOLALI","KLATEN","SUKOHARJO","WONOGIRI","KARANGANYAR","SRAGEN","GROBOGAN","BLORA","REMBANG","PATI","KUDUS","JEPARA","DEMAK","SEMARANG","TEMANGGUNG","KENDAL","BATANG","PEKALONGAN","PEMALANG","TEGAL","BREBES","MAGELANG","SURAKARTA","SALATIGA","SEMARANG","PEKALONGAN","TEGAL","KULON PROGO","BANTUL","GUNUNG KIDUL","SLEMAN","YOGYAKARTA","PACITAN","PONOROGO","TRENGGALEK","TULUNGAGUNG","BLITAR","KEDIRI","MALANG","LUMAJANG","JEMBER","BANYUWANGI","BONDOWOSO","SITUBONDO","PROBOLINGGO","PASURUAN","SIDOARJO","MOJOKERTO","JOMBANG","NGANJUK","MADIUN","MAGETAN","NGAWI","BOJONEGORO","TUBAN","LAMONGAN","GRESIK","BANGKALAN","SAMPANG","PAMEKASAN","SUMENEP","KEDIRI","BLITAR","MALANG","PROBOLINGGO","PASURUAN","MOJOKERTO","MADIUN","SURABAYA","BATU","PANDEGLANG","LEBAK","TANGERANG","SERANG","TANGERANG","CILEGON","SERANG","TANGERANG SELATAN","JEMBRANA","TABANAN","BADUNG","GIANYAR","KLUNGKUNG","BANGLI","KARANG ASEM","BULELENG","DENPASAR","LOMBOK BARAT","LOMBOK TENGAH","LOMBOK TIMUR","SUMBAWA","DOMPU","BIMA","SUMBAWA BARAT","LOMBOK UTARA","MATARAM","BIMA","SUMBA BARAT","SUMBA TIMUR","KUPANG","TIMOR TENGAH SELATAN","TIMOR TENGAH UTARA","BELU","ALOR","LEMBATA","FLORES TIMUR","SIKKA","ENDE","NGADA","MANGGARAI","ROTE NDAO","MANGGARAI BARAT","SUMBA TENGAH","SUMBA BARAT DAYA","NAGEKEO","MANGGARAI TIMUR","SABU RAIJUA","MALAKA","KUPANG","SAMBAS","BENGKAYANG","LANDAK","MEMPAWAH","SANGGAU","KETAPANG","SINTANG","KAPUAS HULU","SEKADAU","MELAWI","KAYONG UTARA","KUBU RAYA","PONTIANAK","SINGKAWANG","ARINGIN BARAT","ARINGIN TIMUR","KAPUAS","BARITO SELATAN","BARITO UTARA","SUKAMARA","LAMANDAU","SERUYAN","KATINGAN","PULANG PISAU","GUNUNG MAS","BARITO TIMUR","MURUNG RAYA","PALANGKA RAYA","TANAH LAUT","BARU","BANJAR","BARITO KUALA","TAPIN","HULU SUNGAI SELATAN","HULU SUNGAI TENGAH","HULU SUNGAI UTARA","TABALONG","TANAH BUMBU","BALANGAN","BANJARMASIN","BANJAR BARU","PASER","KUTAI BARAT","KUTAI KARTANEGARA","KUTAI TIMUR","BERAU","PENAJAM PASER UTARA","MAHAKAM HULU","BALIKPAPAN","SAMARINDA","BONTANG","MALINAU","BULUNGAN","TANA TIDUNG","NUNUKAN","TARAKAN","BOLAANG MONGONDOW","MINAHASA","KEPULAUAN SANGIHE","KEPULAUAN TALAUD","MINAHASA SELATAN","MINAHASA UTARA","BOLAANG MONGONDOW UTARA","SIAU TAGULANDANG BIARO","MINAHASA TENGGARA","BOLAANG MONGONDOW SELATAN","BOLAANG MONGONDOW TIMUR","MANADO","BITUNG","TOMOHON","OBAGU","BANGGAI KEPULAUAN","BANGGAI","MOROWALI","POSO","DONGGALA","TOLI-TOLI","BUOL","PARIGI MOUTONG","TOJO UNA-UNA","SIGI","BANGGAI LAUT","MOROWALI UTARA","PALU","KEPULAUAN SELAYAR","BULUKUMBA","BANTAENG","JENEPONTO","TAKALAR","GOWA","SINJAI","MAROS","PANGKAJENE DAN KEPULAUAN","BARRU","BONE","SOPPENG","WAJO","SIDENRENG RAPPANG","PINRANG","ENREKANG","LUWU","TANA TORAJA","LUWU UTARA","LUWU TIMUR","TORAJA UTARA","MAKASSAR","PAREPARE","PALOPO","BUTON","MUNA","KONAWE","KOLAKA","KONAWE SELATAN","BOMBANA","WAKATOBI","KOLAKA UTARA","BUTON UTARA","KONAWE UTARA","KOLAKA TIMUR","KONAWE KEPULAUAN","MUNA BARAT","BUTON TENGAH","BUTON SELATAN","KENDARI","BAUBAU","BOALEMO","GORONTALO","POHUWATO","BONE BOLANGO","GORONTALO UTARA","GORONTALO","MAJENE","POLEWALI MANDAR","MAMASA","MAMUJU","MAMUJU UTARA","MAMUJU TENGAH","MALUKU TENGGARA BARAT","MALUKU TENGGARA","MALUKU TENGAH","BURU","KEPULAUAN ARU","SERAM BAGIAN BARAT","SERAM BAGIAN TIMUR","MALUKU BARAT DAYA","BURU SELATAN","AMBON","TUAL","HALMAHERA BARAT","HALMAHERA TENGAH","KEPULAUAN SULA","HALMAHERA SELATAN","HALMAHERA UTARA","HALMAHERA TIMUR","PULAU MOROTAI","PULAU TALIABU","TERNATE","TIDORE KEPULAUAN","FAKFAK","KAIMANA","TELUK WONDAMA","TELUK BINTUNI","MANOKWARI","SORONG SELATAN","SORONG","RAJA AMPAT","TAMBRAUW","MAYBRAT","MANOKWARI SELATAN","PEGUNUNGAN ARFAK","SORONG","MERAUKE","JAYAWIJAYA","JAYAPURA","NABIRE","KEPULAUAN YAPEN","BIAK NUMFOR","PANIAI","PUNCAK JAYA","MIMIKA","BOVEN DIGOEL","MAPPI","ASMAT","YAHUKIMO","PEGUNUNGAN BINTANG","TOLIKARA","SARMI","KEEROM","WAROPEN","SUPIORI","MAMBERAMO RAYA","NDUGA","LANNY JAYA","MAMBERAMO TENGAH","YALIMO","PUNCAK","DOGIYAI","INTAN JAYA","DEIYAI","JAYAPURA"
+    ];
+    $("#tags").autocomplete({
+      source: availableTags
+    });
+  } );
+
+</script>
+
+</html>

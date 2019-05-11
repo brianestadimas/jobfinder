@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+
+</head>
+
+<style>
+
+
+
+</style>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<a th:href="@{/produk/tambah}">Tambah Produk</a>
+	<table>
+		<thead>
+			<tr>
+				<th>No. </th>
+				<th>Nama Produk </th>
+				<th>Tindakan</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="produk,iteration : *{produk_produk}">
+				<td th:text="${iteration.count}"></td>
+				<td th:text="${produk.nama_produk}"></td>
+				<td>
+				<a type="button" th:href="@{'/produk/update/'+${produk.id}}">Ubah Produk</a>
+				
+				</td>
+			</tr>
+		</tbody>	
+	</table>
+
+
+
+
+
+
+
+</body>
+
+<footer>
+
+
+
+</footer>
+
+
+
+</html>

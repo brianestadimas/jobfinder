@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css">
+	<link href="css/style.css" rel="stylesheet">
+	<title></title>
+</head>
+<style>
+.boxContainer{
+	background-color:#fdfdfd;
+	border-radius: 10px;
+	padding:20px 16px;
+	margin:0px 20px;
+	box-shadow:0 0px 9px 0 rgba(0,0,0,0.16),0 2px 0px 0 rgba(0,0,0,0.12)
+}
+.boxContainer2{
+	background-color:#fdfdfd;
+	border-radius: 10px;
+	padding:20px 16px 20px 20px;
+	margin:20px 20px;
+}
+thead th{
+	background-color : #6B757F;
+	color:#FFFFFF;
+}
+.blankspace{
+	margin-top: 20px;
+}
+</style>
+<nav class="navbar navbar-default" style="box-shadow:0 0px 2px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);">
+    <div class="navbar-header">
+        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        
+    </div>
+    <a class="navbar-brand" href="#">
+	  <img src="img/ss(3).png" style=" max-width:90%; display: inline-block; margin-top: -16px; opacity: 0.7;">
+	</a>
+
+    <div id="navbarCollapse" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+        	<li><a href="#" style="font-weight:bold; margin-left: -34px; font-size: 16px">SIMOS</a></li>
+            <li class="active" style="display: inline;"><a href="#">Beranda</a></li>
+            <li><a href="#">Pelamar</a></li>
+            <li><a href="#">Pegawai</a></li>
+            <li><a href="#">Proyek</a></li>
+            <li><a href="#">Absensi</a></li>
+        </ul>
+    </div></nav>
+<body>
+<div class="blankspace">
+	<div class="boxContainer2">
+		<img src="img/icon_human_resources.png" style="max-width:5%; margin-top: -10px; margin-left: -10px">
+        <h2 style="display: inline; margin-left: 10px">Halaman Detail</h2>
+        <p>Lorem ipsum informasi tambahan..</p>
+        <hr>
+    <p><a href="#" class="btn btn-warning btn-large" style="float: right; margin-right: 5px;">Ubah</a>
+    <a href="#" onClick="Download()" class="btn btn-info btn-large" style="float: right; margin-right: 10px;">Download PDF</a></p>
+
+	<div class="row" style="padding-right: 20px;padding-left: 20px">
+    <div class="span12">
+        <ul class="nav nav-tabs">
+            <li><a data-toggle="tab" href="#tab-1">Specification</a></li>
+            <li class="active"><a data-toggle="tab" href="#tab-2">Key Features</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="tab-1" class="tab-pane fade in active">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th>Brand</th>
+                            <td>Lenovo</td>
+                        </tr>
+                        <tr>
+                            <th>OS</th>
+                            <td>Windows 8</td>
+                        </tr>
+                        <tr>
+                            <th>Processor</th>
+                            <td>1.5 GHz Dual Core</td>
+                        </tr>
+                        <tr>
+                            <th>Memory</th>
+                            <td>2 GB RAM</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="tab-2" href="#tab-2" class="tab-pane fade">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Windows 8 OS</td>
+                        </tr>
+                        <tr>
+                            <td>Intel Dual Core Processor</td>
+                        </tr>
+                        <tr>
+                            <td>18.5 Inch LED Screen</td>
+                        </tr>
+                        <tr>
+                            <td>Integrated Graphics</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<div class="blankspace">
+<div class="boxContainer">
+<img src="img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
+<h2 style="display: inline; margin-left: 10px">Pegawai Outsourcing</h2>
+<a href="#" class="btn btn-success btn-large" style="float: right;">Assign Dipilih</a>
+<a href="#" onClick="" class="btn btn-info btn-danger" style="float: right; margin-right: 10px;">Hapus</a>
+<a href="#" onClick="" class="btn btn-info btn-large" style="float: right; margin-right: 10px;">Tambah</a>
+<p>
+<table id="example" class="table table-striped table-bordered" style="width:100%;">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Tiger Nixon</td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>2011/04/25</td>
+                <td>$320,800</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Garrett Winters</td>
+                <td>Accountant</td>
+                <td>Tokyo</td>
+                <td>63</td>
+                <td>2011/07/25</td>
+                <td>$170,750</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Ashton Cox</td>
+                <td>Junior Technical Author</td>
+                <td>San Francisco</td>
+                <td>66</td>
+                <td>2009/01/12</td>
+                <td>$86,000</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Cedric Kelly</td>
+                <td>Senior Javascript Developer</td>
+                <td>Edinburgh</td>
+                <td>22</td>
+                <td>2012/03/29</td>
+                <td>$433,060</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Airi Satou</td>
+                <td>Accountant</td>
+                <td>Tokyo</td>
+                <td>33</td>
+                <td>2008/11/28</td>
+                <td>$162,700</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Brielle Williamson</td>
+                <td>Integration Specialist</td>
+                <td>New York</td>
+                <td>61</td>
+                <td>2012/12/02</td>
+                <td>$372,000</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Herrod Chandler</td>
+                <td>Sales Assistant</td>
+                <td>San Francisco</td>
+                <td>59</td>
+                <td>2012/08/06</td>
+                <td>$137,500</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Rhona Davidson</td>
+                <td>Integration Specialist</td>
+                <td>Tokyo</td>
+                <td>55</td>
+                <td>2010/10/14</td>
+                <td>$327,900</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Colleen Hurst</td>
+                <td>Javascript Developer</td>
+                <td>San Francisco</td>
+                <td>39</td>
+                <td>2009/09/15</td>
+                <td>$205,500</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Sonya Frost</td>
+                <td>Software Engineer</td>
+                <td>Edinburgh</td>
+                <td>23</td>
+                <td>2008/12/13</td>
+                <td>$103,600</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Jena Gaines</td>
+                <td>Office Manager</td>
+                <td>London</td>
+                <td>30</td>
+                <td>2008/12/19</td>
+                <td>$90,560</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Quinn Flynn</td>
+                <td>Support Lead</td>
+                <td>Edinburgh</td>
+                <td>22</td>
+                <td>2013/03/03</td>
+                <td>$342,000</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Charde Marshall</td>
+                <td>Regional Director</td>
+                <td>San Francisco</td>
+                <td>36</td>
+                <td>2008/10/16</td>
+                <td>$470,600</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Haley Kennedy</td>
+                <td>Senior Marketing Designer</td>
+                <td>London</td>
+                <td>43</td>
+                <td>2012/12/18</td>
+                <td>$313,500</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Tatyana Fitzpatrick</td>
+                <td>Regional Director</td>
+                <td>London</td>
+                <td>19</td>
+                <td>2010/03/17</td>
+                <td>$385,750</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Michael Silva</td>
+                <td>Marketing Designer</td>
+                <td>London</td>
+                <td>66</td>
+                <td>2012/11/27</td>
+                <td>$198,500</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Paul Byrd</td>
+                <td>Chief Financial Officer (CFO)</td>
+                <td>New York</td>
+                <td>64</td>
+                <td>2010/06/09</td>
+                <td>$725,000</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Gloria Little</td>
+                <td>Systems Administrator</td>
+                <td>New York</td>
+                <td>59</td>
+                <td>2009/04/10</td>
+                <td>$237,500</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Bradley Greer</td>
+                <td>Software Engineer</td>
+                <td>London</td>
+                <td>41</td>
+                <td>2012/10/13</td>
+                <td>$132,000</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Dai Rios</td>
+                <td>Personnel Lead</td>
+                <td>Edinburgh</td>
+                <td>35</td>
+                <td>2012/09/26</td>
+                <td>$217,500</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Jenette Caldwell</td>
+                <td>Development Lead</td>
+                <td>New York</td>
+                <td>30</td>
+                <td>2011/09/03</td>
+                <td>$345,000</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Yuri Berry</td>
+                <td>Chief Marketing Officer (CMO)</td>
+                <td>New York</td>
+                <td>40</td>
+                <td>2009/06/25</td>
+                <td>$675,000</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Caesar Vance</td>
+                <td>Pre-Sales Support</td>
+                <td>New York</td>
+                <td>21</td>
+                <td>2011/12/12</td>
+                <td>$106,450</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Doris Wilder</td>
+                <td>Sales Assistant</td>
+                <td>Sidney</td>
+                <td>23</td>
+                <td>2010/09/20</td>
+                <td>$85,600</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Angelica Ramos</td>
+                <td>Chief Executive Officer (CEO)</td>
+                <td>London</td>
+                <td>47</td>
+                <td>2009/10/09</td>
+                <td>$1,200,000</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Gavin Joyce</td>
+                <td>Developer</td>
+                <td>Edinburgh</td>
+                <td>42</td>
+                <td>2010/12/22</td>
+                <td>$92,575</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Jennifer Chang</td>
+                <td>Regional Director</td>
+                <td>Singapore</td>
+                <td>28</td>
+                <td>2010/11/14</td>
+                <td>$357,650</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Brenden Wagner</td>
+                <td>Software Engineer</td>
+                <td>San Francisco</td>
+                <td>28</td>
+                <td>2011/06/07</td>
+                <td>$206,850</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Fiona Green</td>
+                <td>Chief Operating Officer (COO)</td>
+                <td>San Francisco</td>
+                <td>48</td>
+                <td>2010/03/11</td>
+                <td>$850,000</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Shou Itou</td>
+                <td>Regional Marketing</td>
+                <td>Tokyo</td>
+                <td>20</td>
+                <td>2011/08/14</td>
+                <td>$163,000</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Michelle House</td>
+                <td>Integration Specialist</td>
+                <td>Sidney</td>
+                <td>37</td>
+                <td>2011/06/02</td>
+                <td>$95,400</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Suki Burks</td>
+                <td>Developer</td>
+                <td>London</td>
+                <td>53</td>
+                <td>2009/10/22</td>
+                <td>$114,500</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Prescott Bartlett</td>
+                <td>Technical Author</td>
+                <td>London</td>
+                <td>27</td>
+                <td>2011/05/07</td>
+                <td>$145,000</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+            <tr>
+                <td>Donna Snider</td>
+                <td>Customer Support</td>
+                <td>New York</td>
+                <td>27</td>
+                <td>2011/01/25</td>
+                <td>$112,000</td>
+                <td><button type="button" class="btn btn-success">Assign</button></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+</div>
+
+<div class="blankspace">
+<div class="boxContainer">
+<img src="img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
+<h2 style="display: inline; margin-left: 10px">Assign Pegawai</h2>
+<a href="#" class="btn btn-primary btn-large" style="float: right;">Submit</a>
+<a href="#" onClick="" class="btn btn-info btn-danger" style="float: right; margin-right: 10px;">Batalkan</a>
+<p>
+<table id="example2" class="table table-striped table-bordered" style="width:100%;">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Position</th>
+                <th>Office</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Tiger Nixon</td>
+                <td><input type="text" class="inputan" id="row-1-age" name="row-1-age" value="61"></td>
+                <td><input type="text" id="row-1-position" name="row-1-position" value="System Architect"></td>
+                <td><select size="1" id="row-1-office" name="row-1-office">
+                    <option value="Edinburgh" selected="selected">
+                        Edinburgh
+                    </option>
+                    <option value="London">
+                        London
+                    </option>
+                    <option value="New York">
+                        New York
+                    </option>
+                    <option value="San Francisco">
+                        San Francisco
+                    </option>
+                    <option value="Tokyo">
+                        Tokyo
+                    </option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Garrett Winters</td>
+                <td><input type="text" id="row-2-age" name="row-2-age" value="63"></td>
+                <td><input type="text" id="row-2-position" name="row-2-position" value="Accountant"></td>
+                <td><select size="1" id="row-2-office" name="row-2-office">
+                    <option value="Edinburgh">
+                        Edinburgh
+                    </option>
+                    <option value="London">
+                        London
+                    </option>
+                    <option value="New York">
+                        New York
+                    </option>
+                    <option value="San Francisco">
+                        San Francisco
+                    </option>
+                    <option value="Tokyo" selected="selected">
+                        Tokyo
+                    </option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Ashton Cox</td>
+                <td><input type="text" id="row-3-age" name="row-3-age" value="66"></td>
+                <td><input type="text" id="row-3-position" name="row-3-position" value="Junior Technical Author"></td>
+                <td><select size="1" id="row-3-office" name="row-3-office">
+                    <option value="Edinburgh">
+                        Edinburgh
+                    </option>
+                    <option value="London">
+                        London
+                    </option>
+                    <option value="New York">
+                        New York
+                    </option>
+                    <option value="San Francisco" selected="selected">
+                        San Francisco
+                    </option>
+                    <option value="Tokyo">
+                        Tokyo
+                    </option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Cedric Kelly</td>
+                <td><input type="text" id="row-4-age" name="row-4-age" value="22"></td>
+                <td><input type="text" id="row-4-position" name="row-4-position" value="Senior Javascript Developer"></td>
+                <td><select size="1" id="row-4-office" name="row-4-office">
+                    <option value="Edinburgh" selected="selected">
+                        Edinburgh
+                    </option>
+                    <option value="London">
+                        London
+                    </option>
+                    <option value="New York">
+                        New York
+                    </option>
+                    <option value="San Francisco">
+                        San Francisco
+                    </option>
+                    <option value="Tokyo">
+                        Tokyo
+                    </option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Airi Satou</td>
+                <td><input type="text" id="row-5-age" name="row-5-age" value="33"></td>
+                <td><input type="text" id="row-5-position" name="row-5-position" value="Accountant"></td>
+                <td><select size="1" id="row-5-office" name="row-5-office">
+                    <option value="Edinburgh">
+                        Edinburgh
+                    </option>
+                    <option value="London">
+                        London
+                    </option>
+                    <option value="New York">
+                        New York
+                    </option>
+                    <option value="San Francisco">
+                        San Francisco
+                    </option>
+                    <option value="Tokyo" selected="selected">
+                        Tokyo
+                    </option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Brielle Williamson</td>
+                <td><input type="text" id="row-6-age" name="row-6-age" value="61"></td>
+                <td><input type="text" id="row-6-position" name="row-6-position" value="Integration Specialist"></td>
+                <td><select size="1" id="row-6-office" name="row-6-office">
+                    <option value="Edinburgh">
+                        Edinburgh
+                    </option>
+                    <option value="London">
+                        London
+                    </option>
+                    <option value="New York" selected="selected">
+                        New York
+                    </option>
+                    <option value="San Francisco">
+                        San Francisco
+                    </option>
+                    <option value="Tokyo">
+                        Tokyo
+                    </option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Herrod Chandler</td>
+                <td><input type="text" id="row-7-age" name="row-7-age" value="59"></td>
+                <td><input type="text" id="row-7-position" name="row-7-position" value="Sales Assistant"></td>
+                <td><select size="1" id="row-7-office" name="row-7-office">
+                    <option value="Edinburgh">
+                        Edinburgh
+                    </option>
+                    <option value="London">
+                        London
+                    </option>
+                    <option value="New York">
+                        New York
+                    </option>
+                    <option value="San Francisco" selected="selected">
+                        San Francisco
+                    </option>
+                    <option value="Tokyo">
+                        Tokyo
+                    </option>
+                </select></td>
+            </tr>
+                    </tbody>
+	    </table>
+	</div>
+	</div>
+
+	<div class="blankspace">
+	<div class="boxContainer2">
+        <h2 style="display: inline;">Button Tambahan</h2>
+        <hr>
+    <p><a href="#" class="btn btn-danger btn-large" style="float: right; margin-right: 5px;" data-toggle="modal" data-target="#myModal">Konfirmasi Hapus (POP-up) </a>
+   	<a href="#" class="btn btn-success btn-large" style="float: center; margin-right: 5px;">Submit</a>
+    <a href="#" class="btn btn-danger btn-large" style="float: center; margin-right: 5px;" >Batalkan</a>
+    <a href="#" onClick="Download()" class="btn btn-info btn-large" style="float: left; margin-right: 10px;">< Kembali</a></p>
+	<!-- The Modal -->
+	  <div class="modal" id="myModal">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	      
+	        <!-- Modal Header -->
+	        <div class="modal-header">
+	          <h4 class="modal-title">Modal Heading</h4>
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        </div>
+	        
+	        <!-- Modal body -->
+	        <div class="modal-body">
+	          Modal body..
+	        </div>
+	        
+	        <!-- Modal footer -->
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+	        </div>
+	        
+	      </div>
+	    </div>
+	</div>
+	</div>
+	</div>
+	<div>
+
+	<div class="blankspace">
+	<div class="boxContainer2">
+	<h2 style="display: inline;">Form Pendaftaran</h2>
+	<hr>
+	<form>
+	  <div class="form-row">
+	    <div class="form-group col-md-6">
+	      <label for="inputEmail4">Email</label>
+	      <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+	    </div>
+	    <div class="form-group col-md-6">
+	      <label for="inputPassword4">Password</label>
+	      <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+	    </div>
+	  </div>
+	  <div class="form-group col-md-6">
+	    <label for="inputAddress">Address</label>
+	    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+	  </div>
+	  <div class="form-group col-md-6">
+	    <label for="inputAddress2">Address 2</label>
+	    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+	  </div>
+	  <div class="form-row">
+	    <div class="form-group col-md-6">
+	      <label for="inputCity">City</label>
+	      <input type="text" class="form-control" id="inputCity">
+	    </div>
+	    <div class="form-group col-md-4">
+	      <label for="inputState">State</label>
+	      <select id="inputState" class="form-control">
+	        <option selected>Choose...</option>
+	        <option>...</option>
+	      </select>
+	    </div>
+	    <div class="form-group col-md-2">
+	      <label for="inputZip">Zip</label>
+	      <input type="text" class="form-control" id="inputZip">
+	    </div>
+	  </div>
+	  <button type="submit" class="btn btn-primary" style="margin-left: 10px;">Submit</button>
+	</form>
+	</div>
+	</div>
+
+	<script type="text/javascript" src="/media/js/site.js?_=994321fabf3873df746bb8bbccd1886a"></script>
+	<script type="text/javascript" src="/media/js/dynamic.php?comments-page=extensions%2Fbuttons%2Fexamples%2Fstyling%2Fbootstrap.html" async></script>
+	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.bootstrap.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
+	<script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" class="init"></script>
+</body>
+
+<footer>
+</footer>
+
+<script>
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+
+    var table = $('#example').DataTable( {
+    	"scrollY": "500px",
+    	"sScrollX": "100%",
+    	"sScrollXInner": "100%",
+        select: {
+                        style: 'multi',
+                        },
+	  	"scrollCollapse": true,
+		"lengthMenu": [[10, 50, 100, -1], [10, 50, 100, "All"]],
+		buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print',
+        ],
+   	} );
+
+	table.buttons().container()
+		.appendTo( '#example_wrapper .col-sm-12:eq(0)' );
+	} );
+
+    $('#example tbody').on( 'click', 'tr', function () {
+        $(this).toggleClass('active');
+    } );
+
+    $('#example tfoot th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
+    // DataTable
+    var docDefinition = {
+ 		 pageSize: 'A4',
+ 	};
+
+ 	$('#myModal').on('shown.bs.modal', function () {
+	  $('#myInput').trigger('focus')
+	});
+
+
+function Download(){
+	var x = $('example').children();
+	var fullText = "";
+    $.each(x, function(index, value) {
+       //console.log(value);
+        fullText+=$(this).context.innerText + ",";
+        console.log($(this).context.innerText);
+    });
+    
+    var docDefinition2 = {
+	content: [
+		fullText
+	]
+    };
+  	// this is just a simulation of the open event, replacing it with print produces the same result
+	var docDefinition = { content: [
+		{text:'Liat var docDefinition sama docDefinition2 di javascript Download(), baca dokumentasi',fontSize:20},
+		{text:'Dokumentasi di http://pdfmake.org',fontSize:15},
+		{text:'-dimas',fontSize:15},
+		] 
+	};
+
+	pdfMake.createPdf(docDefinition).download('gg.pdf');
+};
+   	
+$(function(){
+	var table2 = $('#example').DataTable();
+ 
+    // Apply the search
+    table2.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+} );
+
+</script>
+
+</html>
