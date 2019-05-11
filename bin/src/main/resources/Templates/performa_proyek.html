@@ -82,24 +82,11 @@ canvas {
 <p>
     <div style="width: 75%; margin:auto;">
 
-        <div id="myDIV" class="boxContainer4 myDIV">
-		<h4> Performa Kehadiran </h4>
-        <hr></hr>
+        <div class="boxContainer4">
+
         <canvas id="canvas" style="display: inline-block;"></canvas>
         <h5 style="font-weight: bold; display: inline-block; " > Performa : </h5>
-        <h4 th:if="${Meningkat}==true" th:text="${persentasePerforma}" style="font-weight: bold; display: inline-block; color: green"> </h4>
-        <h4 th:if="${Meningkat}==false" th:text="${persentasePerforma}" style="font-weight: bold; display: inline-block; color: red"></h4>
-        </div>
-    </div>
-
-    <div style="width: 75%; margin:auto;">
-
-        <div id="myDIV2" class="boxContainer4" style="display:none">
-
-        <h4> Belum Terdapat Kehadiran Proyek </h4>
-        <hr></hr>
-        <a class="btn btn-primary btn-large"  style="margin-right: 10px;" th:href="@{'/proyek/'+${proyek.id}+'/kehadiran/tambah'}" id="tambah_absensi" >
-       Tambah Kehadiran</a>
+        <h4 style="font-weight: bold; display: inline-block; color: green"> Meningkat 32% </h4>
         </div>
     </div>
 
@@ -109,8 +96,9 @@ canvas {
 
 <div class="blankspace">
 <div class="boxContainer">
-<a th:href="@{'/proyek-ubah/' + ${proyek.id}}" class="btn btn-warning btn-large" style="float: right; margin-right: 5px; margin-bottom: -10px;">Ubah Feedback<br></a>
-<h4 style="display: inline; margin-left: 10px">Ulasan Proyek</h4>
+<img src="img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
+<p><a th:href="@{'/proyek-ubah/' + ${proyek.id}}" class="btn btn-warning btn-large" style="float: right; margin-right: 5px; margin-bottom: -10px;">Ubah Feedback<br></a>
+<h3 style="display: inline; margin-left: 10px">Feedback Pegawai Proyek</h3>
 
 <hr></hr>
 <table id="example" class="table table-striped table-bordered" style="width:100%;">
@@ -132,8 +120,34 @@ canvas {
     </tbody>
 </table>
 </div>
+
+
 <div class="blankspace">
-<a class="btn btn-danger btn-large" th:href="@{'/proyek/'+ ${proyek_id}}" style="margin-left: 20px">Kembali</a>
+<div class="boxContainer" style="overflow-x:auto;">
+<img src="img/icon_building.png" style="max-width:5%;margin-top: -10px">
+<h3 style="display: inline; margin-left: 10px">Tambah Proyek</h3>
+<form th:action="@{/proyek-tambah}" th:object="${proyek}" method="POST">
+<hr></hr>
+    <div class="form-group col-lg-2">
+      <label for="inputAddress">Tanggal</label>
+      <input type="Date" class="form-control" name="start_date_kontrak" placeholder="1234 Main St" required>
+    </div>
+    <div class="form-group col-lg-2">
+        <label for="inputAddress">Nama Pegawai</label>
+        <input type="text" class="form-control" name="nama_proyek" placeholder="PT ABC Jakarta" required>
+    </div>
+    <div class="form-group col-lg-7">
+        <label for="inputAddress">Feedback</label>
+        <input type="text" class="form-control" name="nama_proyek" placeholder="PT ABC Jakarta" required>
+    </div>
+    <div class="form-group col-lg-1"></div>
+      <button class="btn btn-primary btn-large" style="float: right; margin-top: 8px;" type="submit">Tambahkan</button>
+  </form>
+<p>
+</p></div>
+</form>
+</div>
+</div>
 <div class="blankspace">
 <!-- 
 <div id="dataperforma" type=text style="display: none" th:each="kehadiran : ${kehadiranProyek}">
@@ -162,34 +176,24 @@ canvas {
 <footer>
 </footer>
 
-<script th:inline="javascript">
+<script>
 
 $(document).ready(function() {
     /*<![CDATA[*/
-    var label = [];
-    var kehadiran = [];
-    var sakit =[];
-    var izin =[];
-    var absen = [];
+    var label;
+    var kehadiran;
+    var sakit;
+    var izin;
+    var absen;
 
-    var y = [[${panjangKehadiran}]];
-
-    if (y>0){
-    	var z = /*[[${kehadiranProyek}]]*/;
-        for (i=0; i<y; i++){
-        	label[i]=z[y-1-i].judulKehadiran;
-        	kehadiran[i]=z[y-1-i].totalKehadiran;
-        	izin[i]=z[y-1-i].totalIzin;
-            absen[i]=z[y-1-i].totalAlfa;
-            sakit[i]=z[y-1-i].totalSakit;
-        }
+    for (int i=0; i<[[${kehadiranProyek.length}]]-1; i++){
+        label[i] = [[${kehadiranProyek[i].judulKehadiran}]];
+        kehadiran[i] = [[${kehadiranProyek[i].totalKehadiran}]];
+        sakit[i] = [[${kehadiranProyek[i].totalSakit}]];
+        izin[i] = [[${kehadiranProyek[i].totalIzin}]];
+        absen[i] = [[${kehadiranProyek[i].totalAlfa}]];
     }
-    else{
-        var toHide = document.getElementById("myDIV");
-        toHide.style.display = "none";
-        var toShow = document.getElementById("myDIV2");
-        toShow.style.display = "block";
-    }
+    console.log(kehadiran);
 
     var barChartData = {
             labels: label,
@@ -221,6 +225,10 @@ $(document).ready(function() {
                     legend: {
                         position: 'top',
                     },
+                    title: {
+                        display: true,
+                        text: 'Performa Absensi Pegawai'
+                    }
                 }
             });
 

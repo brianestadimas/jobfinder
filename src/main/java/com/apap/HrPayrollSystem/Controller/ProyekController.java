@@ -73,26 +73,31 @@ public class ProyekController {
 		// Performa dalam Proyek (4 Bulan Terakhir)
 		ProyekModel proyek = proyekService.getProyekById(id).get();
 		List<PerformaWrapper> kehadiranProyek = kehadiranService.get_all_kehadiran_by_proyek(proyek);
-		int persentasePerforma = 0;
+		double persentase = 0.0;
 		if (kehadiranProyek.isEmpty()) {
-			model.addAttribute("performaErr_Msg",
-					"Performa belum bisa dihitung, tambahkan data kehadiran terlebih dahulu !");
 		} else if (kehadiranProyek.size() == 1) {
-			persentasePerforma = 100;
+			persentase = 100;
 		} else {
-			int kehadiranSebelum = kehadiranProyek.get(1).getTotalKehadiran();
-			int kehadiranSesudah = kehadiranProyek.get(0).getTotalKehadiran();
-			persentasePerforma = (kehadiranSesudah - kehadiranSebelum) / kehadiranSebelum * 100;
+			double kehadiranSebelum = kehadiranProyek.get(1).getTotalKehadiran();
+			double kehadiranSesudah = kehadiranProyek.get(0).getTotalKehadiran();
+			persentase = (kehadiranSesudah - kehadiranSebelum) / kehadiranSebelum * 100;
+			System.out.println(persentase);
+			
 		}
-
+		int persentasePerforma = (int) persentase;
 		if (persentasePerforma == 0) {
 			model.addAttribute("persentasePerforma", "Stabil");
+			model.addAttribute("Meningkat", true);
 		} else if (persentasePerforma > 0) {
-			model.addAttribute("persentasePerforma", "Meningkat" + persentasePerforma + "%");
+			model.addAttribute("persentasePerforma", "Meningkat " + persentasePerforma + "%");
+			model.addAttribute("Meningkat", true);
 		} else {
-			model.addAttribute("persentasePerforma", "Menurun" + persentasePerforma + "%");
+			model.addAttribute("persentasePerforma", "Menurun " + persentasePerforma + "%");
+			model.addAttribute("Meningkat", false);
 		}
-
+		int panjangKehadiran = kehadiranProyek.size();
+		
+		model.addAttribute("panjangKehadiran", panjangKehadiran);
 		model.addAttribute("proyek", proyek);
 		model.addAttribute("kehadiranProyek", kehadiranProyek);
 		return "performa_proyek";
