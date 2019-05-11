@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.apap.HrPayrollSystem.Model.AccountModel;
 import com.apap.HrPayrollSystem.Model.GajiModel;
 import com.apap.HrPayrollSystem.Model.KehadiranModel;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.ProyekModel;
+import com.apap.HrPayrollSystem.Service.AccountService;
 import com.apap.HrPayrollSystem.Model.VariableGajiModel;
 import com.apap.HrPayrollSystem.Service.GajiService;
 import com.apap.HrPayrollSystem.Service.KehadiranService;
@@ -40,12 +42,13 @@ public class KehadiranController {
 	private GajiService gaji_service;
 	@Autowired
 	private VariableGajiService variable_service;
-	
+	@Autowired
+	private AccountService akun_service;
+
 	
 	//List All Kehadiran
 	@RequestMapping(value="/proyek/{proyek_id}/kehadiran",method=RequestMethod.GET)
-	private String daftarKehadiranProyek(@PathVariable(value="proyek_id") long proyek_id, Model model) {
-		
+	private String daftarKehadiranProyek(@PathVariable(value="proyek_id") long proyek_id, Model model ,HttpServletRequest req ) {	
 		List<KehadiranModel> get_all_kehadiran = kehadiran_service.get_all_kehadiran();
 		List<String> kehadiran_proyek_ini = new ArrayList<String>();
 		String nama_proyek = proyek_service.getProyekById(proyek_id).get().getNama_proyek();
@@ -63,6 +66,9 @@ public class KehadiranController {
 				}
 			}
 		}
+		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
+		model.addAttribute("user", user);
+
 		//TO DO render
 		model.addAttribute("nama_proyek_ini", nama_proyek);
 		model.addAttribute("id_proyek", proyek_id);
@@ -75,7 +81,7 @@ public class KehadiranController {
 	@RequestMapping(value="/proyek/{proyek_id}/kehadiran/{judul_kehadiran}", method=RequestMethod.GET)
 	private String detailKehadiranProyek(@PathVariable(value="proyek_id") long proyek_id,
 										 @PathVariable(value="judul_kehadiran") String judul_kehadiran,
-										 Model model) {
+										 Model model,HttpServletRequest req ) {
 		
 		List<KehadiranModel> get_all_kehadiran = kehadiran_service.get_all_kehadiran();
 		List<KehadiranModel> detail_kehadiran_proyek_ini = new ArrayList<KehadiranModel>();
@@ -93,7 +99,9 @@ public class KehadiranController {
 			nip_pegawai_proyek.add(detail_kehadiran_proyek_ini.get(i).getPegawai_outsourcing().getNip());
 			nama_pegawai_proyek.add(detail_kehadiran_proyek_ini.get(i).getPegawai_outsourcing().getPelamar_id().getNama_lengkap());
 		}
-		
+		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
+		model.addAttribute("user", user);
+
 		model.addAttribute("judul_kehadiran", judul_kehadiran);
 		model.addAttribute("jumlah_hari_kerja", detail_kehadiran_proyek_ini.get(0).getJumlah_hari_kerja());
 		model.addAttribute("nip_pegawai",nip_pegawai_proyek);
@@ -157,7 +165,7 @@ public class KehadiranController {
 									daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_kehadiran()+
 									daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_off()+
 									daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_sakit()) {
-				System.out.println("hai tayo :))");
+				
 				String msg = "Terdapat kehadiran dengan jumlah komponen kehadiran tidak sama dengan jumlah hari kerja";
 				redir.addFlashAttribute("fail_notif",msg);
 				return "redirect:/proyek/{proyek_id}/kehadiran/tambah";
@@ -166,29 +174,27 @@ public class KehadiranController {
 		}
 		kehadiran_service.save_all_kehadiran(daftar_daftar_kehadiran.getDaftar_kehadiran());
 
-		List<KehadiranModel> get_all_kehadiran = kehadiran_service.get_all_kehadiran();
-		List<String> kehadiran_proyek_ini = new ArrayList<String>();
-		String nama_proyek = proyek_service.getProyekById(proyek_id).get().getNama_proyek();
-		
-		for(int i = 0 ; i < get_all_kehadiran.size() ; i++) {
-			if(get_all_kehadiran.get(i).getProyek().getId() == proyek_id) {
-				if(kehadiran_proyek_ini.isEmpty()) {
-					kehadiran_proyek_ini.add(get_all_kehadiran.get(i).getJudul_kehadiran());
-				}
-				else {
-					String judul_kehadiran_kehadiran = get_all_kehadiran.get(i).getJudul_kehadiran();
-					if(!(kehadiran_proyek_ini.contains(judul_kehadiran_kehadiran))) {
-						kehadiran_proyek_ini.add(get_all_kehadiran.get(i).getJudul_kehadiran());
-					}
-				}
-			}
-		}
+//		List<KehadiranModel> get_all_kehadiran = kehadiran_service.get_all_kehadiran();
+//		List<String> kehadiran_proyek_ini = new ArrayList<String>();
+//		String nama_proyek = proyek_service.getProyekById(proyek_id).get().getNama_proyek();
+//		
+//		for(int i = 0 ; i < get_all_kehadiran.size() ; i++) {
+//			if(get_all_kehadiran.get(i).getProyek().getId() == proyek_id) {
+//				if(kehadiran_proyek_ini.isEmpty()) {
+//					kehadiran_proyek_ini.add(get_all_kehadiran.get(i).getJudul_kehadiran());
+//				}
+//				else {
+//					String judul_kehadiran_kehadiran = get_all_kehadiran.get(i).getJudul_kehadiran();
+//					if(!(kehadiran_proyek_ini.contains(judul_kehadiran_kehadiran))) {
+//						kehadiran_proyek_ini.add(get_all_kehadiran.get(i).getJudul_kehadiran());
+//					}
+//				}
+//			}
+//		}
 		//TO DO render
-		model.addAttribute("nama_proyek_ini", nama_proyek);
-		model.addAttribute("id_proyek", proyek_id);
-		model.addAttribute("list_of_kehadiran",kehadiran_proyek_ini);		
+		model.addAttribute("id_proyek", proyek_id);	
 		model.addAttribute("notifikasi_sukses","Berhasil Menambahkan Kehadiran dengan judul "+judul_kehadiran);	
-		return "list_kehadiran";
+		return "redirect:/proyek/"+proyek_id+"/kehadiran";
 	}
 	
 	//Update Kehadiran
@@ -201,7 +207,6 @@ public class KehadiranController {
 		List<KehadiranModel> detail_kehadiran_proyek_ini = new ArrayList<KehadiranModel>();
 		List<String> nip_pegawai_proyek = new ArrayList<String>();
 		List<String> nama_pegawai_proyek = new ArrayList<String>();
-		List<PegawaiOutsourcingModel> pegawai_pegawai_proyek_ini = new ArrayList<PegawaiOutsourcingModel>();
 		for(int i = 0 ; i < get_all_kehadiran.size() ; i++) {
 			if(get_all_kehadiran.get(i).getProyek().getId() == proyek_id && get_all_kehadiran.get(i).getJudul_kehadiran().equals(judul_kehadiran)) {
 					detail_kehadiran_proyek_ini.add(get_all_kehadiran.get(i));
@@ -254,29 +259,11 @@ public class KehadiranController {
 				}
 			}
 			kehadiran_service.save_all_kehadiran(daftar_daftar_kehadiran.getDaftar_kehadiran());				
-			List<KehadiranModel> get_all_kehadiran = kehadiran_service.get_all_kehadiran();
-			List<String> kehadiran_proyek_ini = new ArrayList<String>();
-			String nama_proyek = proyek_service.getProyekById(proyek_id).get().getNama_proyek();
-								
-			for(int i = 0 ; i < get_all_kehadiran.size() ; i++) {
-				if(get_all_kehadiran.get(i).getProyek().getId() == proyek_id) {
-					if(kehadiran_proyek_ini.isEmpty()) {
-						kehadiran_proyek_ini.add(get_all_kehadiran.get(i).getJudul_kehadiran());
-					}
-				else {
-					String judul_kehadiran_kehadiran = get_all_kehadiran.get(i).getJudul_kehadiran();
-					if(!(kehadiran_proyek_ini.contains(judul_kehadiran_kehadiran))) {
-						kehadiran_proyek_ini.add(get_all_kehadiran.get(i).getJudul_kehadiran());
-							}
-						}
-					}
-				}
+			
 								//TO DO render
-				model.addAttribute("nama_proyek_ini", nama_proyek);
 				model.addAttribute("id_proyek", proyek_id);
-				model.addAttribute("list_of_kehadiran",kehadiran_proyek_ini);
 				model.addAttribute("notifikasi_sukses","Berhasil Mengubah Kehadiran dengan judul "+judul_kehadiran);
-				return "list_kehadiran";
+				return "redirect:/proyek/"+proyek_id+"/kehadiran";
 			}
 	
 	//Hapus Kehadiran
@@ -294,29 +281,11 @@ public class KehadiranController {
 	for(int i = 0 ; i < kehadiran_yang_dihapus.size() ; i++) {
 		kehadiran_service.delete_kehadiran(kehadiran_yang_dihapus.get(i));
 	}
-	get_all_kehadiran = kehadiran_service.get_all_kehadiran();
-	List<String> kehadiran_proyek_ini = new ArrayList<String>();
-	String nama_proyek = proyek_service.getProyekById(proyek_id).get().getNama_proyek();
 	
-	for(int i = 0 ; i < get_all_kehadiran.size() ; i++) {
-		if(get_all_kehadiran.get(i).getProyek().getId() == proyek_id) {
-			if(kehadiran_proyek_ini.isEmpty()) {
-				kehadiran_proyek_ini.add(get_all_kehadiran.get(i).getJudul_kehadiran());
-			}
-			else {
-				String judul_kehadiran_kehadiran = get_all_kehadiran.get(i).getJudul_kehadiran();
-				if(!(kehadiran_proyek_ini.contains(judul_kehadiran_kehadiran))) {
-					kehadiran_proyek_ini.add(get_all_kehadiran.get(i).getJudul_kehadiran());
-				}
-			}
-		}
-	}
 	//TO DO render
-	model.addAttribute("nama_proyek_ini", nama_proyek);
 	model.addAttribute("id_proyek", proyek_id);
-	model.addAttribute("list_of_kehadiran",kehadiran_proyek_ini);
 	model.addAttribute("notifikasi_sukses","Berhasil Menghapus Kehadiran dengan judul "+judul_kehadiran);
-	return "list_kehadiran";
+	return "redirect:/proyek/"+proyek_id+"/kehadiran";
 	}
 	
 	
@@ -415,7 +384,7 @@ public class KehadiranController {
 								    @ModelAttribute PenggajianWrapper daftar_penggajian, 
 									HttpServletRequest req,
 								    Model model) {
-		VariableGajiModel variable = variable_service.get_by_id(1).get();
+		VariableGajiModel variable = variable_service.getVariableGaji();
 		List<Penggajian> daftar_rekap_gaji = new ArrayList<Penggajian>();
 		List<GajiModel> daftar_gaji = new ArrayList<GajiModel>();
 		List<PegawaiOutsourcingModel> daftar_pegawai = new ArrayList<PegawaiOutsourcingModel>();

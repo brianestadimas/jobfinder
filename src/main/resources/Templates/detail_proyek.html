@@ -35,35 +35,16 @@ thead th{
     display:none;
 }
 </style>
-<nav class="navbar navbar-default" style="box-shadow:0 0px 2px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);">
-    <div class="navbar-header">
-        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        
-    </div>
-    <a class="navbar-brand" href="#">
-	  <img th:src="@{img/ss(3).png}" style=" max-width:90%; display: inline-block; margin-top: -16px; opacity: 0.7;">
-	</a>
 
-    <div id="navbarCollapse" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-        	<li><a href="#" style="font-weight:bold; margin-left: -34px; font-size: 16px">SIMOS</a></li>
-            <li class="active" style="display: inline;"><a th:href="@{/}">Beranda</a></li>
-            <li><a href="/pelamar/">Pelamar</a></li>
-            <li><a href="/pegawai">Pegawai</a></li>
-            <li><a href="/proyek">Proyek</a></li>
-        </ul>
-    </div></nav>
 <body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
 <div class="blankspace">
 	<div class="boxContainer2">
         <img src="img/icon_building.png" style="max-width:5%; margin-top: -10px; margin-left: -10px">
         <h2 style="display: inline; margin-left: 10px" th:text="${proyek.nama_proyek}"></h2>
+                <div th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" id="kelola-akun">
         <p><a th:href="@{'/proyek-ubah/' + ${proyek.id}}" class="btn btn-warning btn-large" style="float: right; margin-right: 5px; margin-bottom: 10px;">Ubah Detail<br></a>
+        </div>
         <p th:text="${proyek.deskripsi_proyek}"></p>
 
         <hr>
@@ -135,7 +116,9 @@ thead th{
                 </table>
             </div>
     <p><button class="btn btn-primary btn-large" style="float: left; margin-right: 5px; margin-bottom: 10px;"><i class="fa fa-bar-chart"></i> Performa <br> Absensi</button><p>
+    <div th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" id="kelola-akun">
     <p><button class="btn btn-info btn-large" style="float: left; margin-right: 5px; margin-bottom: 10px;"><i class="fa fa-calendar-check-o"></i> Kelola <br> Absensi</button><p>
+    </div>
     </div>
     <p><button th:if="${proyek.jenis_proyek}=='umum'" class="btn btn-success btn-large" style="float: left; margin-right: 5px; margin-bottom: 10px;"><i class="fa fa-balance-scale"></i> Kelola <br> Gaji</button><p>
     </div>
@@ -148,7 +131,9 @@ thead th{
 <div class="boxContainer">
 <img src="img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
 <h2 style="display: inline; margin-left: 10px">Pegawai Proyek</h2>
+<div th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" id="kelola-akun">
 <a href="#" th:href="@{'/proyek-pegawai/' + ${proyek.id}}" class="btn btn-warning btn-large" style="float: right;">Ubah Regulasi</a>
+</div>
 <p>
 <table id="example" class="table table-striped table-bordered" style="width:100%;">
         <thead>

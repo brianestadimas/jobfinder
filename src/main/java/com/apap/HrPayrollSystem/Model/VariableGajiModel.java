@@ -23,10 +23,7 @@ public class VariableGajiModel {
 	
 	@Column(name="BPJSK",nullable = true)
 	private int BPJSK;
-	
-	@Column(name="default_potongan",nullable = true)
-	private int default_potongan;
-	
+		
 	@Column(name="persenan_pph",nullable = true)
 	private int persenan_pph;
 	
@@ -60,14 +57,6 @@ public class VariableGajiModel {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public int getDefault_potongan() {
-		return default_potongan;
-	}
-
-	public void setDefault_potongan(int default_potongan) {
-		this.default_potongan = default_potongan;
 	}
 
 	public int getPersenan_pph() {

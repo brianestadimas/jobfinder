@@ -38,10 +38,15 @@ thead th{
 <div class="boxContainer">
 <img src="img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
 <h2 style="display: inline; margin-left: 10px">Pegawai Outsourcing</h2>
+<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
 <a href="#" onClick="" id="berhentiButton" class="btn btn-info btn-large" style="float: right; margin-right: 10px;">Berhenti Assign</a>
-			<a href="#" class="btn btn-success btn-large" id="assignButton" onClick=""
-				style="float: right; margin-right: 10px;">Assign Dipilih</a>
+</div>
+<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
+<a href="#" class="btn btn-success btn-large" id="assignButton" onClick="" style="float: right; margin-right: 10px;">Assign Dipilih</a>
+</div>
+<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
 <a href="#" onClick="" id="hapusButton" class="btn btn-info btn-danger" style="float: right; margin-right: 10px;">Hapus</a>
+</div>
 
 <p>
 <h2 class="alert alert-success" th:if="${notifikasi_sukses!=null}"
@@ -52,10 +57,11 @@ thead th{
                 <th></th>
                 <th>Nama</th>
                 <th>Region</th>
+                <th>Status</th>
                 <th>Produk</th>
                 <th>Jabatan</th>
                 <th>Project</th>
-                <th>Status</th>
+
                 <!-- <th></th>
                 <th></th> -->
                 
@@ -69,6 +75,9 @@ thead th{
 				</td> 
                 <td th:text="${pegawai.pelamar_id.region}"></td>
                 
+                <td th:if="${pegawai.status}">Not Available</td>
+                <td th:unless="${pegawai.status}">Available</td>
+                
                 <td th:if="${pegawai.status}" th:text="${pegawai.produk.nama_produk}"></td>
                 <td th:unless="${pegawai.status}">None</td>
                 
@@ -78,8 +87,7 @@ thead th{
                 <td th:if="${pegawai.status}"th:text="${pegawai.proyek.nama_proyek}"></td>
                 <td th:unless="${pegawai.status}">None</td>
                 
-                <td th:if="${pegawai.status}">Not Available</td>
-                <td th:unless="${pegawai.status}">Available</td>
+
                 <!-- <td><button type="button" class="btn btn-success">Assign</button></td>
                 <td><button type="button" class="btn btn-warning">Berhenti Assign</button></td> -->
             </tr>
@@ -88,12 +96,12 @@ thead th{
         <tfoot>
             <tr>
                 <th></th>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
+                <th>Nama</th>
+                <th>Region</th>
+                <th>Status</th>
+                <th>Produk</th>
+                <th>Jabatan</th>
+                <th>Project</th>
                 <!-- <th></th>
                 <th></th> -->
             </tr>
@@ -166,10 +174,11 @@ $(document).ready(function() {
 	
 	$('#berhentiButton').click(function() {
 		var parameters = "";
-		$.each($("input[name='id']:checked"), function(){            
+		$.each($("input[name='id']:checked"), function(){
 			parameters += "id=" + $(this).val() + "&";
         });
-		
+		var urls = "/pegawai-berhenti-assign?" + parameters;
+		console.log(parameters);
 		  $.ajax({
 			    type: "POST",
 			    url: "/pegawai-berhenti-assign?" + parameters,

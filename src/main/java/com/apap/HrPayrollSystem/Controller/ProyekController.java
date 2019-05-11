@@ -3,6 +3,8 @@ package com.apap.HrPayrollSystem.Controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,10 +12,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.apap.HrPayrollSystem.Model.AccountModel;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.ProyekModel;
+import com.apap.HrPayrollSystem.Service.AccountService;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
 import com.apap.HrPayrollSystem.Service.ProyekService;
 import com.apap.HrPayrollSystem.Utility.PegawaiProyekWrapper;
@@ -24,19 +27,24 @@ public class ProyekController {
 	private ProyekService proyekService;
 	@Autowired
 	private PegawaiOutsourcingService pegawaiService;
+	@Autowired
+	private AccountService akun_service;
+
 	
 	@RequestMapping("/proyek")
-	private String proyek(Model model) {
+	private String proyek(Model model,HttpServletRequest req) {
 		List<ProyekModel> list = proyekService.getAllProyek();
 		model.addAttribute("listProyek", list);
-		
+		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
+		model.addAttribute("user", user);
+
 		return "list_proyek";
 	}
 	
 	//Detail Proyek
 	
 	@RequestMapping(value = "/proyek-detail/{id}", method = RequestMethod.GET)
-	private String detailProyek(@PathVariable long id, Model model) {
+	private String detailProyek(@PathVariable long id, Model model,HttpServletRequest req ) {
 		ProyekModel proyek = proyekService.getProyekById(id).get();
 		model.addAttribute("proyek", proyek);
 
@@ -49,6 +57,9 @@ public class ProyekController {
 				}
 			}
 		}
+		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
+		model.addAttribute("user", user);
+
 		model.addAttribute("listPegawai", pegawaiProyek);
 		
 		return "detail_proyek";
@@ -64,13 +75,14 @@ public class ProyekController {
 			if ((pegawaiOutsourcing.get(i)).getProyek() != null) {
 				if ((pegawaiOutsourcing.get(i).getProyek().getId())==(id)){
 					pegawaiOutsourcing.get(i).setProyek(null);
+					//cek lagi true itu available atau tidak
 					pegawaiOutsourcing.get(i).setStatus(true);
 				}
 			}
 		}
 		
 		proyekService.deleteById(id);
-		return "list_proyek";
+		return "redirect:/proyek";
 	}
 	
 	//Add Proyek
@@ -87,10 +99,9 @@ public class ProyekController {
 	public String addProyekPost(Model model, @ModelAttribute ProyekModel proyek) {
 		proyekService.addProyek(proyek);
 		
-		List<ProyekModel> list = proyekService.getAllProyek();
-		model.addAttribute("listProyek", list);
 		
-		return "list_proyek";
+		
+		return "redirect:/proyek";
 	}
 
 	//Ubah Proyek
@@ -122,7 +133,7 @@ public class ProyekController {
 		}
 		model.addAttribute("listPegawai", pegawaiProyek);
 		
-		return "detail_proyek";
+		return "redirect:/proyek-detail/"+id;
 	}
 
 	//Ubah Pegawai Proyek
@@ -167,7 +178,7 @@ public class ProyekController {
 		
 		model.addAttribute("proyek", proyek);
 		model.addAttribute("listPegawai", pegawaiProyek);
-		return "detail_proyek";
+		return "redirect:/proyek-detail/"+id;
 	}
 
 }

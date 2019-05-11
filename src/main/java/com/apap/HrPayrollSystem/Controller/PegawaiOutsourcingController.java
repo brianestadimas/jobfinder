@@ -2,6 +2,7 @@ package com.apap.HrPayrollSystem.Controller;
 
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,13 +18,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.apap.HrPayrollSystem.Model.AccountModel;
 import com.apap.HrPayrollSystem.Model.FeedbackModel;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.ProdukModel;
 import com.apap.HrPayrollSystem.Model.ProyekModel;
 import com.apap.HrPayrollSystem.Model.RiwayatKerjaPegawaiModel;
+import com.apap.HrPayrollSystem.Service.AccountService;
 import com.apap.HrPayrollSystem.Service.FeedbackService;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
 import com.apap.HrPayrollSystem.Service.ProdukService;
@@ -43,27 +47,28 @@ public class PegawaiOutsourcingController {
 	private RiwayatKerjaPegawaiService riwayatService;
 	@Autowired
 	private FeedbackService feedback_service;
+	@Autowired
+	private AccountService akun_service;
+
 
 	
 	@RequestMapping("/pegawai")
-	private String pegawai(Model model) {
+	private String pegawai(Model model,
+			HttpServletRequest req) {
 		List<PegawaiOutsourcingModel> list = pegawaiService.getAllPegawai();
+		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
+		model.addAttribute("user", user);
 		model.addAttribute("listPegawai", list);
-		
-		
 		return "ListPegawai";
 	}
 	
 	@RequestMapping(value = "/pegawai-detail/{id}", method = RequestMethod.GET)
-	private String detailPegawain(@PathVariable long id, Model model) {
+	private String detailPegawain(@PathVariable long id, Model model, HttpServletRequest req) {
 		PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(id);
 		Boolean expiredStatus= true;
 		
 		
-		System.out.println("MASOOOOEEKKKKKK SINIII");
-		System.out.println(pegawai.getJoin_date());
-		
-		
+	
 		List<RiwayatKerjaPegawaiModel> rKerja= riwayatService.getAllRiwayat();
 		List<RiwayatKerjaPegawaiModel>	rTemp = new ArrayList<RiwayatKerjaPegawaiModel>();
 	
@@ -75,10 +80,6 @@ public class PegawaiOutsourcingController {
 		Date date = new Date();
 		long satuHari = 86400000;
 		long hariKe14 = pegawai.getEnd_date().getTime() -  14*satuHari;
-		System.out.println(hariKe14);
-		System.out.println(pegawai.getEnd_date());
-		System.out.println(date.getTime());
-		System.out.println(date.getTime() - hariKe14);
 		if(date.getTime() >  hariKe14) {
 			expiredStatus=true; //kalau mendekati end date
 		}else {
@@ -86,9 +87,10 @@ public class PegawaiOutsourcingController {
 		}
 		//get feedback
 		List<FeedbackModel> list_feedback_pegawai = feedback_service.get_feedback_by_id_pegawai(id);
-					
-		
+		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
+		model.addAttribute("user", user);		
 		//riwayatService.getAllRiwayat(nip);
+		model.addAttribute("daftar_proyek", proyekService.getAllProyek());
 		model.addAttribute("list_of_feedback", list_feedback_pegawai);
 		model.addAttribute("expiredStatus", expiredStatus);
 		model.addAttribute("pegawai", pegawai);
@@ -138,7 +140,7 @@ public class PegawaiOutsourcingController {
 				pegawaiService.deletePegawaiById(id);
 				
 			}
-			return "ListPegawai";
+			return "redirect:/pegawai";
 		} catch(Exception e) {
 			return null;
 		}
@@ -149,7 +151,6 @@ public class PegawaiOutsourcingController {
 	private String berhentiPegawai(@RequestParam("id") Long[] ids, Model model) {
 //		List<RiwayatKerjaPegawaiModel> riwayatKerjaPegawai = new List();
 		try {
-		System.out.println("MASUKKKKKK");
 			for(Long id : ids) {
 				System.out.println(id);
 				pegawaiService.updatePegawaiStatusById(id);
@@ -176,7 +177,7 @@ public class PegawaiOutsourcingController {
 				
 				//riwayatService.addRiwayat(id);
 			}
-			return "ListPegawai";
+			return "redirect:/pegawai";
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 			return null;
@@ -226,7 +227,7 @@ public class PegawaiOutsourcingController {
 	
 	//Assign Pegawai Post
 	@RequestMapping(value="/pegawai/assign/submit", method=RequestMethod.POST)
-	private String assignPegawaiSubmit(@ModelAttribute AssignmentWrapper daftar_pegawai, HttpServletRequest req, Model model) throws ParseException {
+	private String assignPegawaiSubmit(@ModelAttribute AssignmentWrapper daftar_pegawai, HttpServletRequest req, Model model, RedirectAttributes redir) throws ParseException {
 		String stringProyek = req.getParameter("proyek");
 		Optional<ProyekModel> proyek = proyekService.getProyekById(Long.parseLong(stringProyek));
 //		System.out.println(stringProyek);
@@ -235,6 +236,16 @@ public class PegawaiOutsourcingController {
 		boolean is_assigned = true;
 		String name = "";
 		for(int i=0; i<daftar_pegawai.getDaftar_pegawai().size(); i++) {
+			if(join_date.before(proyek.get().getStart_date_kontrak()) || end_date.after(proyek.get().getEnd_date_kontrak()) || join_date.after(end_date)) {
+				String msg = "Terdapat pegawai dengan start date lebih kecil daripada start-date proyek atau end-date lebih besar dari end date proyek atau join-date lebih besar daripada end-date";
+				redir.addFlashAttribute("fail_notif",msg);
+				String ids = "";
+				for(int j = 0 ; j < daftar_pegawai.getDaftar_pegawai().size() ; j++) {
+					ids+= "id="+daftar_pegawai.getDaftar_pegawai().get(i).getPelamar_id().getId()+"&";
+				}
+				return "redirect:/pegawai/assign?"+ids;
+				
+			}
 			daftar_pegawai.getDaftar_pegawai().get(i).setProyek(proyek.get());
 			daftar_pegawai.getDaftar_pegawai().get(i).setJoin_date(join_date);
 			daftar_pegawai.getDaftar_pegawai().get(i).setEnd_date(end_date);
@@ -243,40 +254,40 @@ public class PegawaiOutsourcingController {
 		}
 		
 		pegawaiService.assignAll(daftar_pegawai.getDaftar_pegawai());
-		
-		List<PegawaiOutsourcingModel> list = pegawaiService.getAllPegawai();
-		model.addAttribute("listPegawai", list);
 		model.addAttribute("notifikasi_sukses","Berhasil Melakukan assignment terhadap pegawai dengan nama : " + name);
-		return "ListPegawai";
+		return "redirect:/pegawai";
 	}
 	
 
 	@RequestMapping(value="/pegawai-detail/{id}/feedback/submit", method=RequestMethod.POST)
-	private String feedbackSubmit(@PathVariable(value="id") long id, @ModelAttribute FeedbackModel feedback, Model model, HttpServletRequest req ) {
-		feedback.setPegawai_outsourcing(pegawaiService.getPegawaiById(id));
-		feedback.setProyek(proyekService.getProyekByName(req.getParameter("proyek")));
-		
+	private String feedbackSubmit(@PathVariable(value="id") long id, @ModelAttribute FeedbackModel feedback, Model model, HttpServletRequest req ) throws ParseException {
 		feedback_service.save_feedback(feedback);
-		
 		return "redirect:/pegawai-detail/"+id;
 	}
 	
-	@RequestMapping(value="/pegawai-detail/{id}/feedback/update", method=RequestMethod.GET)
-	private String feedbackUpdate(@PathVariable(value="id") long id, Model model) {
-		
-		
-		
-		return "";
+	@RequestMapping(value="/pegawai-detail/{id_pegawai}/feedback/update/{id_feedback}", method=RequestMethod.GET)
+	private String feedbackUpdate(@PathVariable(value="id_pegawai") long id_pegawai,@PathVariable(value="id_feedback") long id_feedback, Model model) {
+		FeedbackModel updated_feedback = feedback_service.get_feedback_by_id(id_feedback);
+		List<ProyekModel> daftar_proyek = proyekService.getAllProyek();
+		model.addAttribute("id", id_pegawai);
+		model.addAttribute("daftar_proyek", daftar_proyek);
+		model.addAttribute("feedback", updated_feedback);
+		return "form_update_feedback";
 	}
 	
-	@RequestMapping(value="/pegawai-detail/{id}/feedback/update/submit", method=RequestMethod.GET)
-	private String feedbackUpdateSubmit() {
-		
-		
-		
-		return "";
+	@RequestMapping(value="/pegawai-detail/{id}/feedback/update/submit", method=RequestMethod.POST)
+	private String feedbackUpdateSubmit(@ModelAttribute FeedbackModel feedback,@PathVariable(value="id") long id ,Model model, HttpServletRequest req ) {
+		System.out.println("tayo");
+		feedback_service.save_feedback(feedback);
+		return "redirect:/pegawai-detail/"+id;
 	}
 	
+	@RequestMapping(value="/pegawai-detail/{id_pegawai}/feedback/delete/{id_feedback}",method=RequestMethod.GET)
+	private String feedbackDelete(@PathVariable(value="id_pegawai") long id_pegawai, @PathVariable(value="id_feedback") long id_feedback, Model model) {
+		System.out.println("ujang");
+		feedback_service.delete_feedback(id_feedback);
+		return "redirect:/pegawai-detail/"+id_pegawai;
+	}
 	
 	
 }

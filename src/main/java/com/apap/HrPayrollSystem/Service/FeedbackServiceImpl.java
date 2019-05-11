@@ -42,6 +42,18 @@ public class FeedbackServiceImpl implements FeedbackService{
 		feedback_db.save(feedback);
 	}
 
+	@Override
+	public FeedbackModel get_feedback_by_id(long id_feedback) {
+		// TODO Auto-generated method stub
+		return feedback_db.findById(id_feedback).get();
+	}
+
+	@Override
+	public void delete_feedback(long id_feedback) {
+		// TODO Auto-generated method stub
+		feedback_db.delete(feedback_db.findById(id_feedback).get());
+	}
+
 	
 	
 }

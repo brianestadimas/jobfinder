@@ -74,41 +74,49 @@
     <div class="form-row">
       <div class="col-md-12"></div>
     <div class="form-group col-md-4">
-      <h4 for="inputJoinDate">Brian Estadimas</h4>
+      <h4 for="inputJoinDate" th:text="${feedback.pegawai_outsourcing.pelamar_id.nama_lengkap}">Brian Estadimas</h4>
     </div>
     <div class="form-group col-md-4">
-      <h4 for="inputJoinDate">16032323</h4>
-    </div>     
+      <h4 for="inputJoinDate" th:text="${feedback.pegawai_outsourcing.nip}">16032323</h4>
+    </div> 
+</div>        
 <div class="col-md-12"></div>
 
       <div class="form-group col-md-4">
         <label for="inputProyek">Proyek</label>
-        <select class="form-control" id="inputProyek" name="proyek">
+        <select class="form-control" id="inputProyek" th:field="${feedback.proyek}" name="proyek">
           <option th:each="dp: ${daftar_proyek}"  th:value="${dp.id}" th:text="${dp.nama_proyek}">aaaaaa
           </option>
       </select>
       </div>
     <div class="form-group col-md-4">
       <label for="inputJoinDate">Tanggal Feedback</label>
-      <input type="Date" class="form-control getdate" name="join_date"/>
+      <input type="Date" class="form-control getdate" th:value="${feedback.tanggal_pengisian_feedback}" th:field="${feedback.tanggal_pengisian_feedback}" name="tanggal_pengisian_feedback"/>
     </div>
     <div class="form-row">
       <div class="col-md-12"></div>
       <div class="form-group col-md-12">
         <label for="inputEndDate">Feedback</label>
-      <input type="text" class="form-control" name="end_date"></textarea>
+      <input type="text" class="form-control" th:field="${feedback.feedback}" name="feedback">
       </div>
     </div>
-    <div class="col-sm-12"></div>
+    <div class="col-sm-12">
+    	<input type="hidden" th:field="${feedback.id}">
+    	<input type="hidden" th:field="${feedback.pegawai_outsourcing}">
+    	</div>
+    </div>
+		<div class="blankspace">
+		<button type="submit" class="btn btn-success btn-large" style="margin-left: 20px">Simpan</button>
+		<a class="btn btn-danger btn-large" th:href="@{'/pegawai-detail/'+${feedback.pegawai_outsourcing.id}}">Batalkan</a>
+		</div>
   </form>
 <p>
 </p>
 </div>
-</div>
 
-<div class="blankspace">
-<button type="submit" class="btn btn-success btn-large" style="margin-left: 20px">Simpan</button>
-<a class="btn btn-danger btn-large" th:href="@{'/proyek/'+${proyek_id}+'/kehadiran'}">Batalkan</a>
+
+
+
 <div class="blankspace">
 
     <script type="text/javascript" src="/media/js/site.js?_=994321fabf3873df746bb8bbccd1886a"></script>
@@ -127,7 +135,7 @@
     <script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" class="init"></script>
-
+</div>
 </body>
 <footer>
 

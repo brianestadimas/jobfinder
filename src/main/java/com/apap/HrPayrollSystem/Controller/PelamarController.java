@@ -18,12 +18,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.apap.HrPayrollSystem.Model.AccountModel;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.PelamarModel;
 import com.apap.HrPayrollSystem.Model.PengalamanPelamarModel;
 import com.apap.HrPayrollSystem.Model.ProdukModel;
 import com.apap.HrPayrollSystem.Model.ProyekModel;
+import com.apap.HrPayrollSystem.Service.AccountService;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
 import com.apap.HrPayrollSystem.Service.PelamarService;
 import com.apap.HrPayrollSystem.Service.PengalamanPelamarService;
@@ -40,15 +43,18 @@ import com.apap.HrPayrollSystem.Utility.AssignmentWrapper;
 public class PelamarController {
     
 	@Autowired
-	ProyekService proyekService;
+	private ProyekService proyekService;
 	@Autowired
-	PelamarService pelamarService;
+	private PelamarService pelamarService;
 	@Autowired
-	PengalamanPelamarService pengalamanService;
+	private PengalamanPelamarService pengalamanService;
 	@Autowired
-	ProdukService produkService;
+	private ProdukService produkService;
     @Autowired
-	PegawaiOutsourcingService pegawaiService;
+	private PegawaiOutsourcingService pegawaiService;
+    @Autowired
+	private AccountService akun_service;
+
 	
 	/**
 	 * Fitur pendaftaran pelamar : GET formulir pendaftaran
@@ -139,7 +145,7 @@ public class PelamarController {
 		List<PelamarModel> arsip_pelamar = pelamarService.getAllPelamar();
 		model.addAttribute("daftarSukses_msg", "Pelamar " + pelamar.getNama_lengkap() + " sukses didaftarkan!");
 		model.addAttribute("listPelamar", arsip_pelamar);
-		return "pelamar-view";
+		return "redirect:/pelamar/";
 	}
 
 	/**
@@ -149,15 +155,28 @@ public class PelamarController {
 	 * @return Halaman HTML list pelamar
 	 */
 	@RequestMapping(value = "pelamar/", method = RequestMethod.GET)
-	private String getPelamar(Model model) {
-		List<PelamarModel> arsip_pelamar = pelamarService.getAllPelamar();
-		model.addAttribute("listPelamar", arsip_pelamar);
+	private String getPelamar(Model model,HttpServletRequest req) {
+		List<PelamarModel> pelamar_belum_assign = new ArrayList<PelamarModel>();
+		List<PelamarModel> pelamar_sudah_assign = new ArrayList<PelamarModel>();
+		for(int i = 0 ; i < pegawaiService.getAllPegawai().size() ; i++) {
+			pelamar_sudah_assign.add(pegawaiService.getAllPegawai().get(i).getPelamar_id());
+		}
+		for(int i = 0 ; i < pelamarService.getAllPelamar().size();i++) {
+			if(!pelamar_sudah_assign.contains(pelamarService.getAllPelamar().get(i))) {
+				pelamar_belum_assign.add(pelamarService.getAllPelamar().get(i));
+			}
+		}
+		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
+		model.addAttribute("user", user);
+		model.addAttribute("listPelamar", pelamar_belum_assign);
 		return "pelamar-view";
 	}
 
 	@RequestMapping(value = "pelamar/detail/{id}", method = RequestMethod.GET)
-	private String getPelamarDetail(@PathVariable(value = "id") long id, Model model) {
+	private String getPelamarDetail(@PathVariable(value = "id") long id, Model model ,HttpServletRequest req ) {
 		PelamarModel arsip_pelamar = pelamarService.getPelamarById(id);
+		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
+		model.addAttribute("user", user);
 		model.addAttribute("pelamar", arsip_pelamar);
 		return "pelamar-detail";
 	}
@@ -358,7 +377,7 @@ public class PelamarController {
 	
 	//Assign Pegawai Post
 	@RequestMapping(value="/pelamar/assign/submit", method=RequestMethod.POST)
-	private String assignPelamarSubmit(@ModelAttribute AssignmentWrapper daftar_pegawai, HttpServletRequest req, Model model) throws ParseException {
+	private String assignPelamarSubmit(@ModelAttribute AssignmentWrapper daftar_pegawai, HttpServletRequest req, Model model, RedirectAttributes redir) throws ParseException {
 		String stringProyek = req.getParameter("proyek");
 		Optional<ProyekModel> proyek = proyekService.getProyekById(Long.parseLong(stringProyek));
 		Date join_date = Date.valueOf(req.getParameter("join_date"));
@@ -366,6 +385,16 @@ public class PelamarController {
 		boolean is_assigned = true;
 		String name = "";
 		for(int i=0; i<daftar_pegawai.getDaftar_pegawai().size(); i++) {
+			if(join_date.before(proyek.get().getStart_date_kontrak()) || end_date.after(proyek.get().getEnd_date_kontrak()) || join_date.after(end_date)) {
+				String msg = "Terdapat pegawai dengan start date lebih kecil daripada start-date proyek atau end-date lebih besar dari end date proyek atau join-date lebih besar daripada end-date";
+				redir.addFlashAttribute("fail_notif",msg);
+				String ids = "";
+				for(int j = 0 ; j < daftar_pegawai.getDaftar_pegawai().size() ; j++) {
+					ids+= "id="+daftar_pegawai.getDaftar_pegawai().get(i).getPelamar_id().getId()+"&";
+				}
+				return "redirect:/pelamar/assign?"+ids;
+				
+			}
 			daftar_pegawai.getDaftar_pegawai().get(i).setProyek(proyek.get());
 			daftar_pegawai.getDaftar_pegawai().get(i).setJoin_date(join_date);;
 			daftar_pegawai.getDaftar_pegawai().get(i).setEnd_date(end_date);
@@ -375,9 +404,7 @@ public class PelamarController {
 		
 		pegawaiService.assignAll(daftar_pegawai.getDaftar_pegawai());
 		
-		List<PegawaiOutsourcingModel> list = pegawaiService.getAllPegawai();
-		model.addAttribute("listPegawai", list);
-		model.addAttribute("notifikasi_sukses","Berhasil Melakukan assignment terhadap pelamar dengan nama : " + name);
-		return "ListPegawai";
+		model.addAttribute("notifikasi_sukses","Berhasil Melakukan assignment terhadap pegawai dengan nama : " + name);
+		return "redirect:/pegawai";
 	}
 }

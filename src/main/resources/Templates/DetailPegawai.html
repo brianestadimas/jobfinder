@@ -123,9 +123,10 @@
             </nav>
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                
+                <div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
                    <a th:href="'/pegawai/ubah/'+${pegawai.id}" class="btn btn-info btn-large"
                         style="float: right; margin-top:10px ; margin-right: 50px;">Ubah</a>
+                    </div>
                     <div class="tablecontainer">
                         <table style="width:100%" id="table" class="table table-striped table-bordered dataTable">
                             <tbody>
@@ -280,15 +281,13 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                    	<!-- <div class="card-body" style="display: flex; flex-direction:row;"> 
-             				<form th:action="@{/pegawai/ubah}" method="GET">
-			    				<input type=hidden name="idPegawai" th:value="${pegawai.id}" />
-			    				<button value="submit" class="btn  btn-primary" style="margin-right:1rem;margin-top:0.5rem;">Ubah</button>
-			 				</form>
-						</div> -->
+             
                     
+                     <div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
+                    	<a th:href="'/pegawai/ubah/'+${pegawai.id}" onClick="" class="btn btn-info btn-large" style="float: right; margin-top:10px ; margin-right: 50px;">Ubah</a>
+                   	</div>
                     
-                     <a th:href="'/pegawai/ubah/'+${pegawai.id}" onClick="" class="btn btn-info btn-large" style="float: right; margin-top:10px ; margin-right: 50px;">Ubah</a>
+                     
                     <div class="tablecontainer">
                         <table class="table table-striped table-bordered">
                             <tbody>
@@ -371,11 +370,11 @@
                 		<div id="feedback">
                 			<div id="header-ulasan">
                 				<h2>Ulasan Pegawai</h2>
-                			<button id="tambah-ulasan">Tambahkan Ulasan</button> 
+                			
                 				
                 			</div>
     						<div id="tabel-ulasan">
-    							<form id="list_ulasan">
+    						
     								<table  class="table order-list" >
     									<thead>
 	    								<tr id="header-tabel">
@@ -388,22 +387,50 @@
     								<tbody>
     									<tr id="body-tabel-ulasan" th:each="feedback, itemStat : *{list_of_feedback}">
     										<td th:text="${feedback.tanggal_pengisian_feedback}">tanggal</td>
-    										<td th:text="${feedback.proyek.id}">proyek</td>
+    										<td th:text="${feedback.proyek.nama_proyek}">proyek</td>
     										<td th:text="${feedback.feedback}">feedback</td>
     										<td>
-    											<a>Ubah</a>
-    											<a>Hapus</a>
+    											<a th:href="'/pegawai-detail/'+${feedback.pegawai_outsourcing.id}+'/feedback/update/'+${feedback.id}">Ubah</a>
+												<a th:href="'/pegawai-detail/'+${feedback.pegawai_outsourcing.id}+'/feedback/delete/'+${feedback.id}">Hapus</a>
     										</td>
     									</tr>
     								</tbody>
     								</table>
     								
-    							</form>
+    				
     						</div>               		
                 		</div>
                 	</div>
                 </div>    
+                
+                
+            
+				 <div class="form-group col-md-4">
+                <form th:action="'/pegawai-detail/'+${pegawai.id}+'/feedback/submit'" method="post" th:object="${feedback}">
+                	<label for="inputProyek">Proyek</label>
+                        <select class="form-control" id="inputProyek" name="proyek">
+                          <option th:each="dp: ${daftar_proyek}"  th:value="${dp.id}" th:text="${dp.nama_proyek}">aaaaaa
+                          </option>
+                      </select>
+                      </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputJoinDate">Tanggal Feedback</label>
+                      <input type="Date" class="form-control getdate" name="tanggal_pengisian_feedback"/>
+                    </div>
+                    <div class="form-row">
+                      <div class="col-md-12"></div>
+                      <div class="form-group col-md-12">
+                        <label for="inputEndDate">Feedback</label>
+                      <input type="text" class="form-control"  name="feedback"></textarea>
+                      </div>
+                    </div>
+                    <input type="hidden" name="pegawai_outsourcing" th:value="${pegawai.id}">
+                    <button type="submit">tambah ulasan</button>
+                </form>
+                
 
+     
+				
 
 
                 <script src="./detailPegawaiOutsourcing_files/jquery.min.js"></script>

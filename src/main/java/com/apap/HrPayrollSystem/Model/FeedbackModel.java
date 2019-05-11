@@ -84,6 +84,14 @@ public class FeedbackModel implements Serializable{
 		this.tanggal_pengisian_feedback = tanggal_pengisian_feedback;
 	}
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 
 	
 	

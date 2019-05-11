@@ -47,7 +47,6 @@ public class PegawaiOutsourcingServiceImpl implements PegawaiOutsourcingService 
 		// TODO Auto-generated method stub
 		PegawaiOutsourcingModel obj = pegawaiOutsourcingDb.getOne(id);
 		obj.setStatus(false);
-		
 		pegawaiOutsourcingDb.save(obj);
 		pegawaiOutsourcingDb.flush();
 		

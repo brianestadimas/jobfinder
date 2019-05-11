@@ -46,12 +46,18 @@ thead th {
 			<img src="img/icon_human_resources.png"
 				style="max-width: 5%; margin-top: -10px">
 			<h2 style="display: inline; margin-left: 10px">Pelamar</h2>
+						<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
 			<a href="#" class="btn btn-success btn-large" id="assignButton" onClick=""
-				style="float: right; margin-right: 10px;">Assign Dipilih</a> <a
-				href="#" onClick="" id="hapusButton" class="btn btn-info btn-danger"
-				style="float: right; margin-right: 10px;">Hapus</a> <a href="#"
-				onClick="" class="btn btn-info btn-large"
+				style="float: right; margin-right: 10px;">Assign Dipilih</a> 
+				</div>
+				<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">	
+				<a href="#" onClick="" id="hapusButton" class="btn btn-info btn-danger"
+					style="float: right; margin-right: 10px;">Hapus</a> 
+				</div>
+				<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
+				<a href="#" onClick="" class="btn btn-info btn-large"
 				style="float: right; margin-right: 10px;">Tambah</a>
+				</div>
 			<p>
 			<h6 class="alert alert-danger" th:if="${listPelamar==null}"
 								th:text="'Belum ada pelamar, daftarkan sekarang juga!'"></h6>
