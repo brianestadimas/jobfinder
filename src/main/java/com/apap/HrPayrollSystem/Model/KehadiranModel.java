@@ -177,13 +177,5 @@ public class KehadiranModel implements Serializable{
 		this.jumlah_lain_lain = jumlah_lain_lain;
 	}
 
-//	public ProdukModel getProduk() {
-//		return produk;
-//	}
-//
-//	public void setProduk(ProdukModel produk) {
-//		this.produk = produk;
-//	}
-
 
 }

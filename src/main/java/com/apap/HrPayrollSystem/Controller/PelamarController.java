@@ -1,9 +1,8 @@
 package com.apap.HrPayrollSystem.Controller;
 
-import java.time.Year;
 import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +10,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,18 +18,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.apap.HrPayrollSystem.Model.AccountModel;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.PelamarModel;
 import com.apap.HrPayrollSystem.Model.PengalamanPelamarModel;
 import com.apap.HrPayrollSystem.Model.ProdukModel;
 import com.apap.HrPayrollSystem.Model.ProyekModel;
+import com.apap.HrPayrollSystem.Service.AccountService;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
 import com.apap.HrPayrollSystem.Service.PelamarService;
 import com.apap.HrPayrollSystem.Service.PengalamanPelamarService;
 import com.apap.HrPayrollSystem.Service.ProdukService;
 import com.apap.HrPayrollSystem.Service.ProyekService;
 import com.apap.HrPayrollSystem.Utility.AssignmentWrapper;
+import com.apap.HrPayrollSystem.Utility.FormCommand;
 /**
  * Controller kelas Pelamar
  * 
@@ -40,15 +44,18 @@ import com.apap.HrPayrollSystem.Utility.AssignmentWrapper;
 public class PelamarController {
     
 	@Autowired
-	ProyekService proyekService;
+	private ProyekService proyekService;
 	@Autowired
-	PelamarService pelamarService;
+	private PelamarService pelamarService;
 	@Autowired
-	PengalamanPelamarService pengalamanService;
+	private PengalamanPelamarService pengalamanService;
 	@Autowired
-	ProdukService produkService;
+	private ProdukService produkService;
     @Autowired
-	PegawaiOutsourcingService pegawaiService;
+	private PegawaiOutsourcingService pegawaiService;
+    @Autowired
+	private AccountService akun_service;
+
 	
 	/**
 	 * Fitur pendaftaran pelamar : GET formulir pendaftaran
@@ -123,23 +130,35 @@ public class PelamarController {
 	 * @return Halaman HTML data pelamar
 	 */
 	@RequestMapping(value = "pelamar/daftar", params = { "submitPelamar" }, method = RequestMethod.POST)
-	private String daftarPelamarPost(@ModelAttribute PelamarModel pelamar, @ModelAttribute FormCommand command,
-			Model model) {
+	private String daftarPelamarPost(@ModelAttribute PelamarModel pelamar, @ModelAttribute FormCommand command,HttpServletRequest req,
+			Model model, RedirectAttributes redir) {
 		String produkResult = "";
-		for (String produk : command.getSelectedCheckboxProduk()) {
-			produkResult += produk + ",";
+		if (command.checkForNull() == true) {
+			model.addAttribute("pelamar", pelamar);
+			model.addAttribute("command", command);
+			model.addAttribute("daftarError_msg", command.checkForNullMsg());
+			return "pelamar-daftar";
+		} else {
+			for (String produk : command.getSelectedCheckboxProduk()) {
+				produkResult += produk + ",";
+			}
+			pelamar.setProduk_dilamar(produkResult.substring(0, produkResult.length() - 1));
+			pelamar.setGender(command.getSelectedRadioGender());
+			pelamar.setStatus_marital(command.getSelectedRadioMarital());
+			pelamarService.addPelamar(pelamar);
+			for (PengalamanPelamarModel pp : command.getPengalamanList()) {
+				pp.setPelamar_id(pelamar);
+				pengalamanService.addPengalaman(pp);
+			}
+			AccountModel user = akun_service.findByUsername(req.getRemoteUser());
+			if(user.getRole().equals("pelamar")) {
+				 SecurityContextHolder.getContext().setAuthentication(null);
+				return "redirect:/login"; 
+			}
+			redir.addFlashAttribute("daftarSukses_msg",
+					"Pelamar " + pelamar.getNama_lengkap() + " sukses didaftarkan !");
+			return "redirect:/pelamar/";
 		}
-		pelamar.setProduk_dilamar(produkResult.substring(0, produkResult.length() - 1));
-
-		pelamarService.addPelamar(pelamar);
-		for (PengalamanPelamarModel pp : command.getPengalamanList()) {
-			pp.setPelamar_id(pelamar);
-			pengalamanService.addPengalaman(pp);
-		}
-		List<PelamarModel> arsip_pelamar = pelamarService.getAllPelamar();
-		model.addAttribute("daftarSukses_msg", "Pelamar " + pelamar.getNama_lengkap() + " sukses didaftarkan!");
-		model.addAttribute("listPelamar", arsip_pelamar);
-		return "pelamar-view";
 	}
 
 	/**
@@ -149,16 +168,31 @@ public class PelamarController {
 	 * @return Halaman HTML list pelamar
 	 */
 	@RequestMapping(value = "pelamar/", method = RequestMethod.GET)
-	private String getPelamar(Model model) {
-		List<PelamarModel> arsip_pelamar = pelamarService.getAllPelamar();
-		model.addAttribute("listPelamar", arsip_pelamar);
+	private String getPelamar(Model model,HttpServletRequest req) {
+		List<PelamarModel> pelamar_belum_assign = new ArrayList<PelamarModel>();
+		List<PelamarModel> pelamar_sudah_assign = new ArrayList<PelamarModel>();
+		for(int i = 0 ; i < pegawaiService.getAllPegawai().size() ; i++) {
+			pelamar_sudah_assign.add(pegawaiService.getAllPegawai().get(i).getPelamar_id());
+		}
+		for(int i = 0 ; i < pelamarService.getAllPelamar().size();i++) {
+			if(!pelamar_sudah_assign.contains(pelamarService.getAllPelamar().get(i))) {
+				pelamar_belum_assign.add(pelamarService.getAllPelamar().get(i));
+			}
+		}
+		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
+		model.addAttribute("user", user);
+		model.addAttribute("listPelamar", pelamar_belum_assign);
 		return "pelamar-view";
 	}
 
 	@RequestMapping(value = "pelamar/detail/{id}", method = RequestMethod.GET)
-	private String getPelamarDetail(@PathVariable(value = "id") long id, Model model) {
+	private String getPelamarDetail(@PathVariable(value = "id") long id, Model model ,HttpServletRequest req ) {
 		PelamarModel arsip_pelamar = pelamarService.getPelamarById(id);
+		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
+		List<PengalamanPelamarModel> arsip_pengalaman = pengalamanService.getAllPengalamanByPelamar(arsip_pelamar);
+		model.addAttribute("user", user);
 		model.addAttribute("pelamar", arsip_pelamar);
+		model.addAttribute("list_pengalaman", arsip_pengalaman);
 		return "pelamar-detail";
 	}
 
@@ -175,6 +209,8 @@ public class PelamarController {
 		PelamarModel arsip_pelamar = pelamarService.getPelamarById(id);
 		command.setSelectedCheckboxProduk(arsip_pelamar.getProduk_dilamar().split(","));
 		command.setPengalamanList(pengalamanService.getAllPengalamanByPelamar(arsip_pelamar));
+		command.setSelectedRadioGender(arsip_pelamar.getGender());
+		command.setSelectedRadioMarital(arsip_pelamar.getStatus_marital());
 
 		// Tambah attribute ke dalam model
 		model.addAttribute("command", command);
@@ -243,25 +279,39 @@ public class PelamarController {
 	 */
 	@RequestMapping(value = "pelamar/ubah/{id}", params = { "submitPelamarUbah" }, method = RequestMethod.POST)
 	private String ubahPelamarPost(@PathVariable(value = "id") long id, @ModelAttribute PelamarModel pelamar,
-			@ModelAttribute FormCommand command, Model model) {
-		System.out.println(pelamar.getNama_lengkap());
-		System.out.println(command.getSelectedCheckboxProduk());
-		String produkResult = "";
-		for (String produk : command.getSelectedCheckboxProduk()) {
-			produkResult += produk + ",";
-		}
-		pelamar.setProduk_dilamar(produkResult);
-		pelamarService.updatePelamar(pelamar);
+			@ModelAttribute FormCommand command, Model model, RedirectAttributes redir) {
 		String nama_pelamar = pelamar.getNama_lengkap();
-		model.addAttribute("pelamar",pelamar);
-		model.addAttribute("suksesUbah_msg", "Pelamar " + nama_pelamar + " berhasil diubah!");
-		return "pelamar-detail";
+		String produkResult = "";
+		if (command.checkForNull() == true) {
+			model.addAttribute("pelamar", pelamar);
+			model.addAttribute("command", command);
+			model.addAttribute("ubahError_msg", command.checkForNullMsg());
+			return "pelamar-ubah";
+		} else {
+			for (String produk : command.getSelectedCheckboxProduk()) {
+				produkResult += produk + ",";
+			}
+			pelamar.setProduk_dilamar(produkResult.substring(0, produkResult.length() - 1));
+			pelamar.setGender(command.getSelectedRadioGender());
+			pelamar.setStatus_marital(command.getSelectedRadioMarital());
+
+			pelamarService.updatePelamar(pelamar);
+
+			for (PengalamanPelamarModel pp : command.getPengalamanList()) {
+				pp.setPelamar_id(pelamar);
+				pengalamanService.updatePengalaman(pp);
+			}
+
+			redir.addFlashAttribute("ubahSukses_msg", "Pelamar " + nama_pelamar + " berhasil diubah!");
+			return "redirect:/pelamar/detail/{id}";
+		}
+
 	}
 
 	@RequestMapping(value = "/pelamar/hapus", method = RequestMethod.POST)
 	private String deletePelamar(@RequestParam("id") Long[] ids, Model model) {
 		List<PengalamanPelamarModel> arsip_pengalaman = pengalamanService.getAllPengalaman();
-		if (ids == null) {
+		if (ids.length == 0) {
 			model.addAttribute("deleteError_msg", "Centang Pelamar yang akan dihapus terlebih dahulu!");
 		} else {
 			for (Long id : ids) {
@@ -312,7 +362,7 @@ public class PelamarController {
 
 	@ModelAttribute("list_tahun")
 	public List<String> getTahunValues() {
-		int minYear = Year.now().getValue() - 60;
+		int minYear = Year.now().getValue() - 48;
 		int maxYear = Year.now().getValue() + 10;
 		List<String> values = new ArrayList<String>();
 		for (int i = minYear; i <= maxYear; i++) {
@@ -329,15 +379,8 @@ public class PelamarController {
 		AssignmentWrapper wrapper = new AssignmentWrapper();
 		List<ProdukModel> daftar_produk = produkService.getAllProduk();
 		List<ProyekModel> daftar_proyek = proyekService.getAllProyek();
-		
 		wrapper.setDaftar_proyek(daftar_proyek);
-		
 		List<String> nama_pelamar = new ArrayList<String>();
-		
-//		ids = new long[2];
-//		ids[0] = (long) 2;
-//		ids[1] = (long) 3;
-//		System.out.println(ids.length);
 		
 		for(int i=0; i<ids.length; i++) {
 			PelamarModel pelamar = pelamarService.getPelamarById(ids[i]);
@@ -346,7 +389,6 @@ public class PelamarController {
 			
 			wrapper.add_pegawai(pegawai);
 			nama_pelamar.add(pelamar.getNama_lengkap());
-			System.out.println(wrapper.getDaftar_pegawai().get(i).getPelamar_id().getNama_lengkap());
 		}
 		
 		model.addAttribute("wrapper", wrapper);
@@ -358,7 +400,7 @@ public class PelamarController {
 	
 	//Assign Pegawai Post
 	@RequestMapping(value="/pelamar/assign/submit", method=RequestMethod.POST)
-	private String assignPelamarSubmit(@ModelAttribute AssignmentWrapper daftar_pegawai, HttpServletRequest req, Model model) throws ParseException {
+	private String assignPelamarSubmit(@ModelAttribute AssignmentWrapper daftar_pegawai, HttpServletRequest req, Model model, RedirectAttributes redir) throws ParseException {
 		String stringProyek = req.getParameter("proyek");
 		Optional<ProyekModel> proyek = proyekService.getProyekById(Long.parseLong(stringProyek));
 		Date join_date = Date.valueOf(req.getParameter("join_date"));
@@ -366,6 +408,16 @@ public class PelamarController {
 		boolean is_assigned = true;
 		String name = "";
 		for(int i=0; i<daftar_pegawai.getDaftar_pegawai().size(); i++) {
+			if(join_date.before(proyek.get().getStart_date_kontrak()) || end_date.after(proyek.get().getEnd_date_kontrak()) || join_date.after(end_date)) {
+				String msg = "Terdapat pegawai dengan start date lebih kecil daripada start-date proyek atau end-date lebih besar dari end date proyek atau join-date lebih besar daripada end-date";
+				redir.addFlashAttribute("fail_notif",msg);
+				String ids = "";
+				for(int j = 0 ; j < daftar_pegawai.getDaftar_pegawai().size() ; j++) {
+					ids+= "id="+daftar_pegawai.getDaftar_pegawai().get(i).getPelamar_id().getId()+"&";
+				}
+				return "redirect:/pelamar/assign?"+ids;
+				
+			}
 			daftar_pegawai.getDaftar_pegawai().get(i).setProyek(proyek.get());
 			daftar_pegawai.getDaftar_pegawai().get(i).setJoin_date(join_date);;
 			daftar_pegawai.getDaftar_pegawai().get(i).setEnd_date(end_date);
@@ -375,9 +427,7 @@ public class PelamarController {
 		
 		pegawaiService.assignAll(daftar_pegawai.getDaftar_pegawai());
 		
-		List<PegawaiOutsourcingModel> list = pegawaiService.getAllPegawai();
-		model.addAttribute("listPegawai", list);
-		model.addAttribute("notifikasi_sukses","Berhasil Melakukan assignment terhadap pelamar dengan nama : " + name);
-		return "ListPegawai";
+		model.addAttribute("notifikasi_sukses","Berhasil Melakukan assignment terhadap pegawai dengan nama : " + name);
+		return "redirect:/pegawai";
 	}
 }

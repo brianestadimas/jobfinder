@@ -46,8 +46,6 @@ INSERT INTO `account` (`id`, `name`, `password`, `role`, `username`) VALUES
 --
 -- Indexes for table `account`
 --
-ALTER TABLE `account`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables

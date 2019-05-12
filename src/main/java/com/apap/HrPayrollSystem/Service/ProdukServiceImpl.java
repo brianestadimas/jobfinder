@@ -46,6 +46,12 @@ public class ProdukServiceImpl implements ProdukService{
 		return produkDb.findById(id).get();
 	}
 	
+	@Override
+	public void deleteProdukById(long id) {
+		
+		 produkDb.delete(produkDb.findById(id).get());
+	}
+
 
 
 }

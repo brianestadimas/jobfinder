@@ -96,15 +96,15 @@ thead th{
 				</div>
 				<div id="data-data">
 					<h3>Pelamar : </h3>
-					<h3>number</h3>
+					<h3 th:text="${#lists.size(pelamar)}+'/5000'"></h3>
 				</div>
 				<div id="data-data">
 					<h3>Pegawai : </h3>
-					<h3>number</h3>
+					<h3 th:text="${#lists.size(pegawai)}+'/3000'"></h3>
 				</div>
 				<div id="data-data">
 					<h3>Proyek : </h3>
-					<h3>number</h3>
+					<h3 th:text="${#lists.size(proyek)}+' Proyek'"></h3>
 				</div>
 				
 			</div>		
@@ -139,9 +139,9 @@ thead th{
 		</div>
 		<div style="padding-top:2%" id="status-db-dan-kelola-proyek">
 			<div>
-				<a th:if="${peran=='manager' or peran=='busdev' or peran=='admin'}" type="button" th:href="@{'/produk'}">Kelola Produk</a>
+				<a th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" type="button" th:href="@{'/produk'}">Kelola Produk</a>
 				<div id="status-db">
-					<button id="button-di-home">Variable Gaji</button>
+					<a id="button-di-home" th:href="@{/variable-gaji}">Variable Gaji</a>
 					<button id="button-di-home">Lihat User Manual</button>
 				</div>
 			</div>

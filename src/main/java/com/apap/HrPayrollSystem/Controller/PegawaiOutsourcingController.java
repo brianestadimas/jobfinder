@@ -17,12 +17,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.apap.HrPayrollSystem.Model.AccountModel;
+import com.apap.HrPayrollSystem.Model.FeedbackModel;
+import com.apap.HrPayrollSystem.Model.KehadiranModel;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.ProdukModel;
 import com.apap.HrPayrollSystem.Model.ProyekModel;
 import com.apap.HrPayrollSystem.Model.RiwayatKerjaPegawaiModel;
+import com.apap.HrPayrollSystem.Service.AccountService;
+import com.apap.HrPayrollSystem.Service.FeedbackService;
+import com.apap.HrPayrollSystem.Service.KehadiranService;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
 import com.apap.HrPayrollSystem.Service.ProdukService;
 import com.apap.HrPayrollSystem.Service.ProyekService;
@@ -39,26 +46,41 @@ public class PegawaiOutsourcingController {
 	private ProdukService produkService;
 	@Autowired
 	private RiwayatKerjaPegawaiService riwayatService;
+	@Autowired
+	private KehadiranService kehadiranService;
+	@Autowired
+	private FeedbackService feedback_service;
+	@Autowired
+	private AccountService akun_service;
 
-	
+
+	/**
+	 * Fitur Melihat Daftar Pegawai
+	 * 
+	 * @param model Model
+	 * @return Halaman HTML ListPegawai
+	 */	
 	@RequestMapping("/pegawai")
-	private String pegawai(Model model) {
+	private String pegawai(Model model,
+			HttpServletRequest req) {
 		List<PegawaiOutsourcingModel> list = pegawaiService.getAllPegawai();
+		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
+		model.addAttribute("user", user);
 		model.addAttribute("listPegawai", list);
-		
-		
 		return "ListPegawai";
 	}
 	
+	/**
+	 * Fitur Melihat Detail Pegawai
+	 * 
+	 * @param id    idPegawai
+	 * @param model Model
+	 * @return Halaman HTML DetailPegawai
+	 */	
 	@RequestMapping(value = "/pegawai-detail/{id}", method = RequestMethod.GET)
-	private String detailPegawain(@PathVariable long id, Model model) {
+	private String detailPegawain(@PathVariable long id, Model model, HttpServletRequest req) {
 		PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(id);
 		Boolean expiredStatus= true;
-		
-		
-		System.out.println("MASOOOOEEKKKKKK SINIII");
-		System.out.println(pegawai.getJoin_date());
-		
 		
 		List<RiwayatKerjaPegawaiModel> rKerja= riwayatService.getAllRiwayat();
 		List<RiwayatKerjaPegawaiModel>	rTemp = new ArrayList<RiwayatKerjaPegawaiModel>();
@@ -71,19 +93,57 @@ public class PegawaiOutsourcingController {
 		Date date = new Date();
 		long satuHari = 86400000;
 		long hariKe14 = pegawai.getEnd_date().getTime() -  14*satuHari;
-		System.out.println(hariKe14);
-		System.out.println(pegawai.getEnd_date());
-		System.out.println(date.getTime());
-		System.out.println(date.getTime() - hariKe14);
 		if(date.getTime() >  hariKe14) {
 			expiredStatus=true; //kalau mendekati end date
 		}else {
 			expiredStatus=false; //kalau belum dekat end date
 		}
+		// Performa Pegawai
+		List<KehadiranModel> kehadiranPegawai = kehadiranService.get_all_kehadiran_by_pegawai(pegawai);
+		double persentase = 0.0;
+		if (kehadiranPegawai.size() == 0) {
+			model.addAttribute("performaErr_Msg",
+			"Performa belum bisa dihitung, tambahkan data kehadiran terlebih dahulu !");
+		} else if (kehadiranPegawai.size() == 1) {
+			persentase = 100;
+		} else {
+			double kehadiranSebelum = kehadiranPegawai.get(1).getJumlah_kehadiran();
+			double kehadiranSesudah = kehadiranPegawai.get(0).getJumlah_kehadiran();
+			persentase = (kehadiranSesudah - kehadiranSebelum) / kehadiranSebelum * 100;
 
-	
-		
-		//riwayatService.getAllRiwayat(nip);
+		}
+		int persentasePerforma = (int) persentase;
+			if (persentasePerforma == 0) {
+				model.addAttribute("persentasePerforma", "Stabil");
+				model.addAttribute("Meningkat",true);
+			} else if (persentasePerforma > 0) {
+				model.addAttribute("persentasePerforma", "Meningkat" + persentasePerforma + "%");
+				model.addAttribute("Meningkat",true);
+			} else {
+				model.addAttribute("persentasePerforma", "Menurun " + persentasePerforma + "%");
+				model.addAttribute("Meningkat",false);
+
+			}
+			List<ProyekModel> daftar_proyek = new ArrayList<ProyekModel>();
+			for (int x=0; x<rKerja.size(); x++) {
+				daftar_proyek.add(rKerja.get(x).getProyek());
+			}
+			if (pegawai.getProyek()!=null) {
+				daftar_proyek.add(pegawai.getProyek());
+			}
+			model.addAttribute("kehadiranPegawai", kehadiranPegawai);
+			int panjangKehadiran = kehadiranPegawai.size();
+			
+			model.addAttribute("panjangKehadiran", panjangKehadiran);
+			
+			
+		//get feedback
+		List<FeedbackModel> list_feedback_pegawai = feedback_service.get_feedback_by_id_pegawai(id);
+		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
+		model.addAttribute("user", user);		
+		model.addAttribute("kehadiranPegawai", kehadiranPegawai);
+		model.addAttribute("daftar_proyek", daftar_proyek);
+		model.addAttribute("list_of_feedback", list_feedback_pegawai);
 		model.addAttribute("expiredStatus", expiredStatus);
 		model.addAttribute("pegawai", pegawai);
 		model.addAttribute("riwayatPegawai", rTemp);
@@ -97,17 +157,11 @@ public class PegawaiOutsourcingController {
 	private String ubahPegawai(@PathVariable(value = "id") long id, Model model) {
 		PegawaiOutsourcingModel pegawaiLama = pegawaiService.getPegawaiById(id);
 		List<ProdukModel> produkList = produkService.getAllProduk();
-		List<ProdukModel> produkList2 = produkList.subList(1, produkList.size());
+		List<ProdukModel> produkList2 = produkList.subList(1, produkList.size());//maksudnya apa REEEEEEEEEEEEEEEEE
 		//List<ProdukModel> produkAvail = produkList.get(1);
 		//List<PelamarModel> pelamarList = pelamarService
-		
 		model.addAttribute("pegawai", pegawaiLama);
 		model.addAttribute("produk", produkList2);
-	
-		
-		
-		
-		
 		return "UbahPegawai";
 	
 	}
@@ -116,11 +170,8 @@ public class PegawaiOutsourcingController {
     public RedirectView submitUbahPegawai(@PathVariable(value="id") long id, @ModelAttribute PegawaiOutsourcingModel pegawaiBaru, Model model) {	
 		System.out.println(pegawaiBaru.getPkwt());
 		pegawaiService.updatePegawai(id,pegawaiBaru);
-		
-		
 		model.addAttribute("pegawai", pegawaiBaru);
 		return new RedirectView("/pegawai-detail/"+id);
-
     }
 	
 	
@@ -132,7 +183,7 @@ public class PegawaiOutsourcingController {
 				pegawaiService.deletePegawaiById(id);
 				
 			}
-			return "ListPegawai";
+			return "redirect:/pegawai";
 		} catch(Exception e) {
 			return null;
 		}
@@ -143,57 +194,36 @@ public class PegawaiOutsourcingController {
 	private String berhentiPegawai(@RequestParam("id") Long[] ids, Model model) {
 //		List<RiwayatKerjaPegawaiModel> riwayatKerjaPegawai = new List();
 		try {
-		System.out.println("MASUKKKKKK");
 			for(Long id : ids) {
-				System.out.println(id);
-				pegawaiService.updatePegawaiStatusById(id);
+				if(pegawaiService.getPegawaiById(id).getStatus() == true) {
+					pegawaiService.updatePegawaiStatusById(id);
+					
+					
+					/*
+					 * Untuk nambah Riwayat Kerja
+					 */
+					
+					RiwayatKerjaPegawaiModel rBaru = new RiwayatKerjaPegawaiModel();
+					
+					PegawaiOutsourcingModel temp = pegawaiService.getPegawaiById(id);
+					
+					rBaru.setPegawai_outsourcing_id(temp);
+					rBaru.setProyek(temp.getProyek());
+					rBaru.setProduk(temp.getProduk());
+					rBaru.setJoin_date(temp.getJoin_date());
+					rBaru.setEnd_date(temp.getEnd_date());
+					riwayatService.addRiwayat(rBaru);
+					
+					//riwayatService.addRiwayat(id);
+				}
 				
-				
-				/*
-				 * Untuk nambah Riwayat Kerja
-				 */
-				
-				RiwayatKerjaPegawaiModel rBaru = new RiwayatKerjaPegawaiModel();
-				
-				PegawaiOutsourcingModel temp = pegawaiService.getPegawaiById(id);
-				
-				rBaru.setPegawai_outsourcing_id(temp);
-				rBaru.setProyek(temp.getProyek());
-				rBaru.setProduk(temp.getProduk());
-				rBaru.setJoin_date(temp.getJoin_date());
-				rBaru.setEnd_date(temp.getEnd_date());
-//				System.out.println("==SAVING RIWAYAT==");
-//				System.out.println(rBaru.getEnd_date());
-//				System.out.println(rBaru.getProduk().getNama_produk());
-				riwayatService.addRiwayat(rBaru);
-				
-				
-				//riwayatService.addRiwayat(id);
 			}
-			return "ListPegawai";
+			return "redirect:/pegawai";
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
-			return null;
+			return "redirect:/pegawai";
 		}
 	}
-
-//	@RequestMapping(value = "/pegawai-berhenti-assign", method = RequestMethod.POST)
-//	private String berhentiPegawai(@RequestParam("id") Long[] ids, Model model) {
-//		
-//		try {
-//			System.out.println("MASUKKKKKK");
-//			for(Long id : ids) {
-//				System.out.println(id);
-//				pegawaiService.updatePegawaiStatusById(id);
-//				riwayatService.addRiwayat(id);
-//			}
-//			return "ListPegawai";
-//		} catch(Exception e) {
-//			System.out.println(e.getMessage());
-//			return null;
-//		}
-//		
-//	}
 	
 	//Assign Pegawai Get
 	@RequestMapping(value = "/pegawai/assign", method = RequestMethod.GET)
@@ -208,8 +238,7 @@ public class PegawaiOutsourcingController {
 			PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(ids[i]);
 			wrapper.add_pegawai(pegawai);
 			nama_pegawai.add(pegawai.getPelamar_id().getNama_lengkap());
-			System.out.println(wrapper.getDaftar_pegawai().get(i).getPelamar_id().getNama_lengkap());
-		}
+			}
 		
 		model.addAttribute("wrapper", wrapper);
 		model.addAttribute("daftar_produk", daftar_produk);
@@ -220,7 +249,7 @@ public class PegawaiOutsourcingController {
 	
 	//Assign Pegawai Post
 	@RequestMapping(value="/pegawai/assign/submit", method=RequestMethod.POST)
-	private String assignPegawaiSubmit(@ModelAttribute AssignmentWrapper daftar_pegawai, HttpServletRequest req, Model model) throws ParseException {
+	private String assignPegawaiSubmit(@ModelAttribute AssignmentWrapper daftar_pegawai, HttpServletRequest req, Model model, RedirectAttributes redir) throws ParseException {
 		String stringProyek = req.getParameter("proyek");
 		Optional<ProyekModel> proyek = proyekService.getProyekById(Long.parseLong(stringProyek));
 //		System.out.println(stringProyek);
@@ -229,18 +258,57 @@ public class PegawaiOutsourcingController {
 		boolean is_assigned = true;
 		String name = "";
 		for(int i=0; i<daftar_pegawai.getDaftar_pegawai().size(); i++) {
+			if(join_date.before(proyek.get().getStart_date_kontrak()) || end_date.after(proyek.get().getEnd_date_kontrak()) || join_date.after(end_date)) {
+				String msg = "Terdapat pegawai dengan start date lebih kecil daripada start-date proyek atau end-date lebih besar dari end date proyek atau join-date lebih besar daripada end-date";
+				redir.addFlashAttribute("fail_notif",msg);
+				String ids = "";
+				for(int j = 0 ; j < daftar_pegawai.getDaftar_pegawai().size() ; j++) {
+					ids+= "id="+daftar_pegawai.getDaftar_pegawai().get(i).getPelamar_id().getId()+"&";
+				}
+				return "redirect:/pegawai/assign?"+ids;
+				
+			}
 			daftar_pegawai.getDaftar_pegawai().get(i).setProyek(proyek.get());
 			daftar_pegawai.getDaftar_pegawai().get(i).setJoin_date(join_date);
 			daftar_pegawai.getDaftar_pegawai().get(i).setEnd_date(end_date);
 			daftar_pegawai.getDaftar_pegawai().get(i).setStatus(is_assigned);
 			name+= daftar_pegawai.getDaftar_pegawai().get(i).getPelamar_id().getNama_lengkap()+",";
 		}
-		
 		pegawaiService.assignAll(daftar_pegawai.getDaftar_pegawai());
-		
-		List<PegawaiOutsourcingModel> list = pegawaiService.getAllPegawai();
-		model.addAttribute("listPegawai", list);
-		model.addAttribute("notifikasi_sukses","Berhasil Melakukan assignment terhadap pegawai dengan nama : " + name);
-		return "ListPegawai";
+		model.addAttribute("notifikasi_sukses","Berhasil Melakukan assignment terhadap pegawai dengan nama : " + name.substring(0,name.length()-1));
+		return "redirect:/pegawai";
 	}
+	
+
+	@RequestMapping(value="/pegawai-detail/{id}/feedback/submit", method=RequestMethod.POST)
+	private String feedbackSubmit(@PathVariable(value="id") long id, @ModelAttribute FeedbackModel feedback, Model model, HttpServletRequest req ) throws ParseException {
+		feedback_service.save_feedback(feedback);
+		return "redirect:/pegawai-detail/"+id;
+	}
+	
+	@RequestMapping(value="/pegawai-detail/{id_pegawai}/feedback/update/{id_feedback}", method=RequestMethod.GET)
+	private String feedbackUpdate(@PathVariable(value="id_pegawai") long id_pegawai,@PathVariable(value="id_feedback") long id_feedback, Model model) {
+		FeedbackModel updated_feedback = feedback_service.get_feedback_by_id(id_feedback);
+		List<ProyekModel> daftar_proyek = proyekService.getAllProyek();
+		model.addAttribute("id", id_pegawai);
+		model.addAttribute("daftar_proyek", daftar_proyek);
+		model.addAttribute("feedback", updated_feedback);
+		return "form_update_feedback";
+	}
+	
+	@RequestMapping(value="/pegawai-detail/{id}/feedback/update/submit", method=RequestMethod.POST)
+	private String feedbackUpdateSubmit(@ModelAttribute FeedbackModel feedback,@PathVariable(value="id") long id ,Model model, HttpServletRequest req ) {
+		System.out.println("tayo");
+		feedback_service.save_feedback(feedback);
+		return "redirect:/pegawai-detail/"+id;
+	}
+	
+	@RequestMapping(value="/pegawai-detail/{id_pegawai}/feedback/delete/{id_feedback}",method=RequestMethod.GET)
+	private String feedbackDelete(@PathVariable(value="id_pegawai") long id_pegawai, @PathVariable(value="id_feedback") long id_feedback, Model model) {
+		System.out.println("ujang");
+		feedback_service.delete_feedback(id_feedback);
+		return "redirect:/pegawai-detail/"+id_pegawai;
+	}
+	
+	
 }

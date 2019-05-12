@@ -36,8 +36,10 @@ thead th{
 <br/>
 <div class="blankspace">
 <div class="boxContainer" style="overflow-x:auto;">
-<img src="img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
-<h2 style="display: inline; margin-left: 10px">Assign Pegawai</h2>
+<img src="/img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
+<h2 style="display: inline; margin-left: 10px">Assign Pelamar</h2>
+	<h2 class="alert alert-fail" th:if="${fail_notif!=null}"
+					th:text="${fail_notif}"></h2>
 <form th:action="'/pelamar/assign/submit'" method="post" th:object="${wrapper}">
 
     <div class="form-row">
@@ -81,7 +83,7 @@ thead th{
         <tbody>
             <tr th:each="wrapper, itemStat : *{wrapper.daftar_pegawai}">
                 <td th:text="${nama_pelamar[itemStat.index]}"></td>
-                <td><select th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].produk.id}">
+                <td><select th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].produk}">
 	                <option th:each="dp: ${daftar_produk}"  th:value="${dp.id}"  th:text="${dp.nama_produk}"></option>
                 </select></td>
                 <td><input type="text" th:field="*{wrapper.daftar_pegawai[__${itemStat.index}__].jabatan}" name="jabatan"></td>

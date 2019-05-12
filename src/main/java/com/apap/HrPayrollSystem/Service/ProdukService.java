@@ -12,4 +12,5 @@ public interface ProdukService {
 	List<ProdukModel> getAllProduk();
 	void saveProduk(ProdukModel produk);
 	ProdukModel getProdukById(long id);
+	void  deleteProdukById(long id);
 }

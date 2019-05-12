@@ -6,14 +6,20 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" />
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css" />
 <link href="css/style.css" rel="stylesheet" />
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css"
+	rel="stylesheet" type="text/css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js"
+	type="text/javascript"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+
 <title></title>
 </head>
 <style>
@@ -41,10 +47,14 @@ thead th {
 .blankspace {
 	margin-top: 20px;
 }
+.requiredField {
+	color: red;
+}
+
 </style>
 
 <body>
-<nav th:replace="fragments/fragment :: navbar"></nav>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
 	<div class="blankspace">
 		<div class="boxContainer2">
 			<!-- Belum muncul -->
@@ -59,17 +69,17 @@ thead th {
 					th:field="*{tunjangan_tetap}"> <input type="hidden"
 					id="tunjangan_tidak_tetap" name="tunjangan_tidak_tetap"
 					th:field="*{tunjangan_tidak_tetap}"> <input type="hidden"
-					name="jaminan" th:field="*{jaminan}">  <input
-					type="hidden" name="nama_sekolah"
-					th:field="*{pelamar_id.nama_sekolah}"> <input type="hidden"
-					name="pendidikan_terakhir"
+					name="jaminan" th:field="*{jaminan}"> <input type="hidden"
+					name="nama_sekolah" th:field="*{pelamar_id.nama_sekolah}">
+				<input type="hidden" name="pendidikan_terakhir"
 					th:field="*{pelamar_id.pendidikan_terakhir}"> <input
 					type="hidden" name="jurusan" th:field="*{pelamar_id.jurusan}">
 				<input type="hidden" name="apply_date"
 					th:field="*{pelamar_id.apply_date}"> <input type="hidden"
-					name="tempat_sekolah" th:field="*{pelamar_id.tempat_sekolah}"> <input
-					type="hidden" name="join_date" th:field="*{join_date}"> <input
-					type="hidden" name="tempat_sekolah" th:field="*{end_date}">
+					name="tempat_sekolah" th:field="*{pelamar_id.tempat_sekolah}">
+				<input type="hidden" name="join_date" th:field="*{join_date}">
+				<input type="hidden" name="tempat_sekolah" th:field="*{end_date}">
+					
 
 				<input type="hidden" name="id" th:field="${pegawai.pelamar_id.id}">
 
@@ -81,10 +91,8 @@ thead th {
 					<div class="form-group col-md-6">
 						<label for="nip">NIP</label> <input 
 							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-						    type = "number"
-						    maxlength = "3"
-							class="form-control" id="nip" th:field="*{nip}" name="nip"
-							required />
+						    type="number" maxlength="16" class="form-control" id="nip"
+							th:field="*{nip}" name="nip" required />
 					</div>
 					<div class="form-group col-md-6">
 						<label for="no_arsip">Nomor Arsip</label> <input type="text"
@@ -171,19 +179,11 @@ thead th {
 					<div class="form-group col-md-4"></div>
 				</div>
 				<div class="form-row">
-<!-- 					<div class="form-group col-md-6">
-						<label for="telepon">Telepon</label> <input type="text"
-							class="form-control" id="telepon"
-							placeholder="Masukkan Nomor Telepon"
-							th:field="*{pelamar_id.nomor_handphone}" required />
-					</div> -->
 					<div class="form-group col-md-6">
 						<label for="nomor_Whatsapp">Nomor Whatsapp</label> <input
 							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-						    type = "number"
-						    maxlength = "3"
-							class="form-control" id="nomor_Whatsapp"
-							placeholder="Masukkan Nomor Whatsapp"
+							type="number" maxlength="12" class="form-control"
+							id="nomor_Whatsapp" placeholder="Masukkan Nomor Whatsapp"
 							th:field="*{pelamar_id.nomor_whatsapp}" />
 					</div>
 
@@ -194,9 +194,8 @@ thead th {
 						<label for="telepon_orang_terdekat">Nomor Telepon Orang
 							Terdekat</label> <input 
 							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-						    type = "number"
-						    maxlength = "3" 
-							class="form-control" id="telepon_orang_terdekat"
+						    type="number" maxlength="12" class="form-control"
+							id="telepon_orang_terdekat"
 							placeholder="Masukkan Nomor Telepon Orang Terdekat"
 							th:field="*{pelamar_id.telepon_orang_terdekat}" />
 					</div>
@@ -217,24 +216,20 @@ thead th {
 
 				<div class="form-row">
 					<div class="form-group col-md-12">
-						<label for="no_ktp">No.KTP</label> <input 
-						  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-						    type = "number"
-						    maxlength = "3"
-							class="form-control" id="no_ktp" placeholder="Masukkan Nomor KTP"
-							th:field="*{pelamar_id.no_ktp}" required />
-							
+						<label for="no_ktp">No.KTP</label> <input
+							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+							type="number" maxlength="16" class="form-control" id="no_ktp"
+							placeholder="Masukkan Nomor KTP" th:field="*{pelamar_id.no_ktp}"
+							required />							
 					</div>
 
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="pkwt">No.PKWT</label> <input 
-						oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-						    type = "number"
-						    maxlength = "3"
-							class="form-control" id="pkwt" placeholder="Masukkan PKWT"
-							th:field="*{pkwt}" required />
+						<label for="pkwt">No.PKWT</label> <input
+							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+							type="number" class="form-control" id="pkwt"
+							placeholder="Masukkan PKWT" th:field="*{pkwt}" required />
 					</div>
 					<div class="form-group col-md-6">
 						<label for="npwp">No.NPWP</label> <input type="text"
@@ -275,15 +270,12 @@ thead th {
 							placeholder="Masukkan Nama Bank" th:field="*{nama_bank}" />
 					</div>
 					<div class="form-group col-md-6">
-						<label for="no_rekening">No.Rekening</label> <input 
-						oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-						    type = "number"
-						    maxlength = "3"
-							class="form-control" id="no_rekening"
+						<label for="no_rekening">No.Rekening</label> <input
+							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+							type="number" maxlength="3" class="form-control" id="no_rekening"
 							placeholder="Masukkan Nomor Rekening" th:field="*{no_rekening}" />
 					</div>
-					<br>
-					<br>
+					<br><br>
 				</div>
 
 
@@ -298,8 +290,11 @@ thead th {
 
 					<div class="form-group col-md-6">
 						<label for="namaLengkap">Nama Proyek</label> <input type="text"
-							class="form-control" id="proyek" placeholder=""
+							th:if="${pegawai.status}" class="form-control" id="proyek" placeholder=""
 							th:value="${pegawai.proyek.nama_proyek}" disabled />
+							<input th:unless="${pegawai.status}" class="form-control" id="proyek" placeholder=""
+							th:value="None" disabled/>
+							
 
 					</div>
 
@@ -317,31 +312,33 @@ thead th {
 
 				<div class="form-row">
 					<div class="form-group col-md-4">
-						<label for="nama_produk"> Produk </label> <select
-							th:if="${pegawai.status}" id="produk" class="form-control" th:field="*{produk}" >
-							<!-- <option  th:value= "*{produk.id}" th:field="*{produk.nama_produk}" disabled selected></option>  -->
-							<option th:each="produk: ${produk}" th:value="${produk.id}" th:text="${produk.nama_produk}">Wireframe</option>
-						</select>
-						 <select th:unless="${pegawai.status}" id="produk"
+						<label for="nama_produk"> Produk </label> 
+						<select th:if="${pegawai.status}" id="produk" class="form-control"
+							th:field="${pegawai.produk}">
+							<option th:each="produk: ${produk}" th:value="${produk.id}"
+								th:text="${produk.nama_produk}">Wireframe</option>
+						</select> 
+						<select th:unless="${pegawai.status}" id="produk"
 							class="form-control">
 							<option th:unless="${pegawai.status}"
-								th:text="${pegawai.produk.nama_produk}" th:value="*{produk.id}"
+								th:text="${pegawai.produk.nama_produk}" th:value="${produk.id}"
 								th:selected="${pegawai.produk.nama_produk}" disabled></option>
-						<!-- 	th:field="*{produk.nama_produk}" --> 
 						</select>
 					</div>
 
 
 					<div class="form-group col-md-2" th:if="${pegawai.status}">
- 						<label for="jabatan">Jabatan</label> 
- 						<input type="text" class="form-control" id="jabatan" name="jabatan" th:field="${pegawai.jabatan}"/>
+ 						<label for="jabatan">Jabatan</label> <input type="text"
+							class="form-control" id="jabatan" name="jabatan"
+							th:field="${pegawai.jabatan}" />
 					</div>
 
 					<div class="form-group col-md-2" th:unless="${pegawai.status}">
- 						<label for="jabatan">Jabatan</label> 
- 						<input type="text" class="form-control" id="jabatan" name="jabatan" value="None" disabled>
- 						<input th:field="${pegawai.jabatan}" hidden />
-					</div> 
+ 						<label for="jabatan">Jabatan</label> <input type="text"
+							class="form-control" id="jabatan" name="jabatan" value="None"
+							disabled> <input th:field="${pegawai.jabatan}" hidden />
+					</div>
+ 
 
 
 					<div class="form-group col-md-6">
@@ -354,11 +351,11 @@ thead th {
 					
 					<div class="form-row">
 					<div class="form-group col-md-12">
-						<button class="btn btn-primary btn-large" style="float: right;"
-							type="submit">Simpan</button>
-						<button class="btn btn-info btn-danger"
-							style="float: right; margin-right: 10px;">Batalkan</button>
-					</div>
+							<button class="btn btn-primary btn-large" style="float: right;"
+								type="submit">Simpan</button>
+							<button class="btn btn-info btn-danger" th:href="'/pegawai-detail/'+${pegawai.id}"
+								style="float: right; margin-right: 10px;">Batalkan</button>
+						</div>
 					</div>
 
 
@@ -406,15 +403,186 @@ thead th {
 	<script type="text/javascript" language="javascript"
 		src="../../../../examples/resources/demo.js"></script>
 	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-		crossorigin="anonymous"></script>
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript" class="init"></script>
 </body>
 
 <footer></footer>
 
 <script>
+var start = document.getElementById('join_date');
+var end = document.getElementById('end_date');
+
+start.addEventListener('change', function() {
+	if (start.value)
+		end.min = start.value;
+}, false);
+end.addEventLiseter('change', function() {
+	if (end.value)
+		start.max = end.value;
+}, false);
+
+$(document).ready(function() {
+	$('#nomor_handphone').mask('0000-0000-0000');
+	$('#telp_rumah').mask('000-0000-0000');
+	$('#telp_orang_terdekat').mask('0000-0000-0000');
+	$('#nomor_whatsapp').mask('0000-0000-0000');
+	$('#no_ktp').mask('0000000000000000');
+});
+
+var text_max = 255;
+$('#count_message').html(text_max + '/255 Karakter');
+
+$('#alamat').keyup(function() {
+	var text_length = $('#alamat').val().length;
+	var text_remaining = text_max - text_length;
+	$('#count_message').html(text_remaining + '/255 Karakter');
+});
+
+var today = new Date(new Date().getFullYear(), new Date().getMonth(),
+		new Date().getDate());
+$('#datepicker1').datepicker({
+	uiLibrary : 'bootstrap4',
+	format : 'yyyy-mm-dd',
+	minDate : today,
+});
+
+$('#datepicker2').datepicker({
+	uiLibrary : 'bootstrap4',
+	format : 'yyyy-mm-dd',
+	maxDate : today
+});
+$(function() {
+	var availableTags = [ "SIMEULUE", "ACEH SINGKIL", "ACEH SELATAN",
+			"ACEH TENGGARA", "ACEH TIMUR", "ACEH TENGAH", "ACEH BARAT",
+			"ACEH BESAR", "PIDIE", "BIREUEN", "ACEH UTARA",
+			"ACEH BARAT DAYA", "GAYO LUES", "ACEH TAMIANG", "NAGAN RAYA",
+			"ACEH JAYA", "BENER MERIAH", "PIDIE JAYA", "BANDA ACEH",
+			"SABANG", "LANGSA", "LHOKSEUMAWE", "SUBULUSSALAM", "NIAS",
+			"MANDAILING NATAL", "TAPANULI SELATAN", "TAPANULI TENGAH",
+			"TAPANULI UTARA", "TOBA SAMOSIR", "LABUHAN BATU", "ASAHAN",
+			"SIMALUNGUN", "DAIRI", "KARO", "DELI SERDANG", "LANGKAT",
+			"NIAS SELATAN", "HUMBANG HASUNDUTAN", "PAKPAK BHARAT",
+			"SAMOSIR", "SERDANG BEDAGAI", "BATU BARA",
+			"PADANG LAWAS UTARA", "PADANG LAWAS", "LABUHAN BATU SELATAN",
+			"LABUHAN BATU UTARA", "NIAS UTARA", "NIAS BARAT", "SIBOLGA",
+			"TANJUNG BALAI", "PEMATANG SIANTAR", "TEBING TINGGI", "MEDAN",
+			"BINJAI", "PADANGSIDIMPUAN", "GUNUNGSITOLI",
+			"KEPULAUAN MENTAWAI", "PESISIR SELATAN", "SOLOK", "SIJUNJUNG",
+			"TANAH DATAR", "PADANG PARIAMAN", "AGAM", "LIMA PULUH PASAMAN",
+			"SOLOK SELATAN", "DHARMASRAYA", "PASAMAN BARAT", "PADANG",
+			"SOLOK", "SAWAH LUNTO", "PADANG PANJANG", "BUKITTINGGI",
+			"PAYAKUMBUH", "PARIAMAN", "KUANTAN SINGINGI", "INDRAGIRI HULU",
+			"INDRAGIRI HILIR", "PELALAWAN", "SIAK", "KAMPAR", "ROKAN HULU",
+			"BENGKALIS", "ROKAN HILIR", "KEPULAUAN MERANTI", "PEKANBARU",
+			"DUMAI", "KERINCI", "MERANGIN", "SAROLANGUN", "BATANG HARI",
+			"MUARO JAMBI", "TANJUNG JABUNG TIMUR", "TANJUNG JABUNG BARAT",
+			"TEBO", "BUNGO", "JAMBI", "SUNGAI PENUH", "OGAN KOMERING ULU",
+			"OGAN KOMERING ILIR", "MUARA ENIM", "LAHAT", "MUSI RAWAS",
+			"MUSI BANYUASIN", "BANYU ASIN", "OGAN KOMERING ULU SELATAN",
+			"OGAN KOMERING ULU TIMUR", "OGAN ILIR", "EMPAT LAWANG",
+			"PENUKAL ABAB LEMATANG ILIR", "MUSI RAWAS UTARA", "PALEMBANG",
+			"PRABUMULIH", "PAGAR ALAM", "LUBUKLINGGAU", "BENGKULU SELATAN",
+			"REJANG LEBONG", "BENGKULU UTARA", "KAUR", "SELUMA",
+			"MUKOMUKO", "LEBONG", "KEPAHIANG", "BENGKULU TENGAH",
+			"BENGKULU", "LAMPUNG BARAT", "TANGGAMUS", "LAMPUNG SELATAN",
+			"LAMPUNG TIMUR", "LAMPUNG TENGAH", "LAMPUNG UTARA",
+			"WAY KANAN", "TULANGBAWANG", "PESAWARAN", "PRINGSEWU",
+			"MESUJI", "TULANG BAWANG BARAT", "PESISIR BARAT",
+			"BANDAR LAMPUNG", "METRO", "BANGKA", "BELITUNG",
+			"BANGKA BARAT", "BANGKA TENGAH", "BANGKA SELATAN",
+			"BELITUNG TIMUR", "PANGKAL PINANG", "KARIMUN", "BINTAN",
+			"NATUNA", "LINGGA", "KEPULAUAN ANAMBAS", "BATAM",
+			"TANJUNG PINANG", "KEPULAUAN SERIBU", "JAKARTA SELATAN",
+			"JAKARTA TIMUR", "JAKARTA PUSAT", "JAKARTA BARAT",
+			"JAKARTA UTARA", "BOGOR", "SUKABUMI", "CIANJUR", "GARUT",
+			"TASIKMALAYA", "CIAMIS", "KUNINGAN", "CIREBON", "MAJALENGKA",
+			"SUMEDANG", "INDRAMAYU", "SUBANG", "PURWAKARTA", "KARAWANG",
+			"BEKASI", "BANDUNG BARAT", "PANGANDARAN", "BOGOR", "SUKABUMI",
+			"BANDUNG", "CIREBON", "BEKASI", "DEPOK", "CIMAHI",
+			"TASIKMALAYA", "BANJAR", "CILACAP", "BANYUMAS", "PURBALINGGA",
+			"BANJARNEGARA", "KEBUMEN", "PURWOREJO", "WONOSOBO", "MAGELANG",
+			"BOYOLALI", "KLATEN", "SUKOHARJO", "WONOGIRI", "KARANGANYAR",
+			"SRAGEN", "GROBOGAN", "BLORA", "REMBANG", "PATI", "KUDUS",
+			"JEPARA", "DEMAK", "SEMARANG", "TEMANGGUNG", "KENDAL",
+			"BATANG", "PEKALONGAN", "PEMALANG", "TEGAL", "BREBES",
+			"MAGELANG", "SURAKARTA", "SALATIGA", "SEMARANG", "PEKALONGAN",
+			"TEGAL", "KULON PROGO", "BANTUL", "GUNUNG KIDUL", "SLEMAN",
+			"YOGYAKARTA", "PACITAN", "PONOROGO", "TRENGGALEK",
+			"TULUNGAGUNG", "BLITAR", "KEDIRI", "MALANG", "LUMAJANG",
+			"JEMBER", "BANYUWANGI", "BONDOWOSO", "SITUBONDO",
+			"PROBOLINGGO", "PASURUAN", "SIDOARJO", "MOJOKERTO", "JOMBANG",
+			"NGANJUK", "MADIUN", "MAGETAN", "NGAWI", "BOJONEGORO", "TUBAN",
+			"LAMONGAN", "GRESIK", "BANGKALAN", "SAMPANG", "PAMEKASAN",
+			"SUMENEP", "KEDIRI", "BLITAR", "MALANG", "PROBOLINGGO",
+			"PASURUAN", "MOJOKERTO", "MADIUN", "SURABAYA", "BATU",
+			"PANDEGLANG", "LEBAK", "SERANG", "TANGERANG", "CILEGON",
+			"SERANG", "TANGERANG SELATAN", "JEMBRANA", "TABANAN", "BADUNG",
+			"GIANYAR", "KLUNGKUNG", "BANGLI", "KARANG ASEM", "BULELENG",
+			"DENPASAR", "LOMBOK BARAT", "LOMBOK TENGAH", "LOMBOK TIMUR",
+			"SUMBAWA", "DOMPU", "BIMA", "SUMBAWA BARAT", "LOMBOK UTARA",
+			"MATARAM", "BIMA", "SUMBA BARAT", "SUMBA TIMUR", "KUPANG",
+			"TIMOR TENGAH SELATAN", "TIMOR TENGAH UTARA", "BELU", "ALOR",
+			"LEMBATA", "FLORES TIMUR", "SIKKA", "ENDE", "NGADA",
+			"MANGGARAI", "ROTE NDAO", "MANGGARAI BARAT", "SUMBA TENGAH",
+			"SUMBA BARAT DAYA", "NAGEKEO", "MANGGARAI TIMUR",
+			"SABU RAIJUA", "MALAKA", "KUPANG", "SAMBAS", "BENGKAYANG",
+			"LANDAK", "MEMPAWAH", "SANGGAU", "KETAPANG", "SINTANG",
+			"KAPUAS HULU", "SEKADAU", "MELAWI", "KAYONG UTARA",
+			"KUBU RAYA", "PONTIANAK", "SINGKAWANG", "ARINGIN BARAT",
+			"ARINGIN TIMUR", "KAPUAS", "BARITO SELATAN", "BARITO UTARA",
+			"SUKAMARA", "LAMANDAU", "SERUYAN", "KATINGAN", "PULANG PISAU",
+			"GUNUNG MAS", "BARITO TIMUR", "MURUNG RAYA", "PALANGKA RAYA",
+			"TANAH LAUT", "BARU", "BANJAR", "BARITO KUALA", "TAPIN",
+			"HULU SUNGAI SELATAN", "HULU SUNGAI TENGAH",
+			"HULU SUNGAI UTARA", "TABALONG", "TANAH BUMBU", "BALANGAN",
+			"BANJARMASIN", "BANJAR BARU", "PASER", "KUTAI BARAT",
+			"KUTAI KARTANEGARA", "KUTAI TIMUR", "BERAU",
+			"PENAJAM PASER UTARA", "MAHAKAM HULU", "BALIKPAPAN",
+			"SAMARINDA", "BONTANG", "MALINAU", "BULUNGAN", "TANA TIDUNG",
+			"NUNUKAN", "TARAKAN", "BOLAANG MONGONDOW", "MINAHASA",
+			"KEPULAUAN SANGIHE", "KEPULAUAN TALAUD", "MINAHASA SELATAN",
+			"MINAHASA UTARA", "BOLAANG MONGONDOW UTARA",
+			"SIAU TAGULANDANG BIARO", "MINAHASA TENGGARA",
+			"BOLAANG MONGONDOW SELATAN", "BOLAANG MONGONDOW TIMUR",
+			"MANADO", "BITUNG", "TOMOHON", "OBAGU", "BANGGAI KEPULAUAN",
+			"BANGGAI", "MOROWALI", "POSO", "DONGGALA", "TOLI-TOLI", "BUOL",
+			"PARIGI MOUTONG", "TOJO UNA-UNA", "SIGI", "BANGGAI LAUT",
+			"MOROWALI UTARA", "PALU", "KEPULAUAN SELAYAR", "BULUKUMBA",
+			"BANTAENG", "JENEPONTO", "TAKALAR", "GOWA", "SINJAI", "MAROS",
+			"PANGKAJENE DAN KEPULAUAN", "BARRU", "BONE", "SOPPENG", "WAJO",
+			"SIDENRENG RAPPANG", "PINRANG", "ENREKANG", "LUWU",
+			"TANA TORAJA", "LUWU UTARA", "LUWU TIMUR", "TORAJA UTARA",
+			"MAKASSAR", "PAREPARE", "PALOPO", "BUTON", "MUNA", "KONAWE",
+			"KOLAKA", "KONAWE SELATAN", "BOMBANA", "WAKATOBI",
+			"KOLAKA UTARA", "BUTON UTARA", "KONAWE UTARA", "KOLAKA TIMUR",
+			"KONAWE KEPULAUAN", "MUNA BARAT", "BUTON TENGAH",
+			"BUTON SELATAN", "KENDARI", "BAUBAU", "BOALEMO", "GORONTALO",
+			"POHUWATO", "BONE BOLANGO", "GORONTALO UTARA", "GORONTALO",
+			"MAJENE", "POLEWALI MANDAR", "MAMASA", "MAMUJU",
+			"MAMUJU UTARA", "MAMUJU TENGAH", "MALUKU TENGGARA BARAT",
+			"MALUKU TENGGARA", "MALUKU TENGAH", "BURU", "KEPULAUAN ARU",
+			"SERAM BAGIAN BARAT", "SERAM BAGIAN TIMUR",
+			"MALUKU BARAT DAYA", "BURU SELATAN", "AMBON", "TUAL",
+			"HALMAHERA BARAT", "HALMAHERA TENGAH", "KEPULAUAN SULA",
+			"HALMAHERA SELATAN", "HALMAHERA UTARA", "HALMAHERA TIMUR",
+			"PULAU MOROTAI", "PULAU TALIABU", "TERNATE",
+			"TIDORE KEPULAUAN", "FAKFAK", "KAIMANA", "TELUK WONDAMA",
+			"TELUK BINTUNI", "MANOKWARI", "SORONG SELATAN", "SORONG",
+			"RAJA AMPAT", "TAMBRAUW", "MAYBRAT", "MANOKWARI SELATAN",
+			"PEGUNUNGAN ARFAK", "SORONG", "MERAUKE", "JAYAWIJAYA",
+			"JAYAPURA", "NABIRE", "KEPULAUAN YAPEN", "BIAK NUMFOR",
+			"PANIAI", "PUNCAK JAYA", "MIMIKA", "BOVEN DIGOEL", "MAPPI",
+			"ASMAT", "YAHUKIMO", "PEGUNUNGAN BINTANG", "TOLIKARA", "SARMI",
+			"KEEROM", "WAROPEN", "SUPIORI", "MAMBERAMO RAYA", "NDUGA",
+			"LANNY JAYA", "MAMBERAMO TENGAH", "YALIMO", "PUNCAK",
+			"DOGIYAI", "INTAN JAYA", "DEIYAI", "JAYAPURA" ];
+	$(".tags").autocomplete({
+		source : availableTags
+	});
+});
+
+
 	$(document).ready(
 			function() {
 				// Setup - add a text input to each footer cell

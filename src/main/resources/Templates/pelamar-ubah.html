@@ -20,6 +20,9 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js"
 	type="text/javascript"></script>
+	<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+	
 </head>
 <style>
 .requiredField {
@@ -43,16 +46,13 @@
 }
 
 .hrCustom {
-	display: block;
-	margin-before: 0.5em;
-	margin-after: 0.5em;
-	margin-start: auto;
-	margin-end: 1em;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
 	overflow: hidden;
 	background-color: black;
-	border-width: 1.5px;
+	border-width: 0, 1.5px;
 	margin-top: 5px;
-	margin-bottom: 1rem;
 }
 
 .hrCustom2 {
@@ -66,15 +66,22 @@
 	border-width: 0, 75px;
 	margin-top: 1rem;
 	margin-bottom: 0.75rem;
+	margin-after: 0.5em;
+	margin-before: 0.5em;
+	
 }
 
 .card-title {
 	margin-bottom: 1.5rem
 }
 
-.table {
+.card {
+	margin-top: 1rem;
+}
+
+.card-header {
 	text-align: center;
-	vertical-align: middle !important;
+
 }
 </style>
 
@@ -90,8 +97,10 @@
 			</small>
 		</h2>
 		<hr class="hrCustom">
+				<h6 class="alert alert-danger" th:if="${ubahError_msg!=null}"
+			th:text="${ubahError_msg}"></h6>
 		<div class="row">
-			<div class="col-xs-12 col-sm-auto">
+			<div class="col-xs-auto col-xl-10">
 				<form th:action="@{'/pelamar/ubah/'} + ${pelamar.id}"
 					th:object="${pelamar}" method="POST">
 					<input type="hidden" th:field="*{id}" name="id">
@@ -105,19 +114,20 @@
 								</label>
 								<div class="col-sm-auto">
 									<input class="form-control" required="required"
-										th:field="*{apply_date}" id="datepicker1">
+										th:field="*{apply_date}" id="datepicker1"
+										onkeypress="return false;">
 								</div>
 							</div>
 							<fieldset class="form-group">
 								<div class="row">
-									<legend class="col-form-label col-sm-4 col-md-2 pt-0">
-										Posisi yang diinginkan<span class="requiredField"> *</span>
+									<legend class="col-form-label col-sm-4 col-md-3 col-lg-2 pt-0">
+										Posisi yang diinginkan<span class="requiredField">*</span>
 									</legend>
 									<div class="col-xs-12">
 										<ul class="form-check">
 											<li th:each="checkboxValue: ${checkbox_produk}"
 												class="form-check form-check-inline"><input
-												class="form-check-input" type="checkbox"
+												class="form-check-input" name="produk" type="checkbox"
 												th:field="${command.selectedCheckboxProduk}"
 												th:value="${checkboxValue}" /> <label
 												th:for="${#ids.prev('selectedCheckboxProduk')}"
@@ -135,7 +145,9 @@
 								<div class="col-sm-auto">
 									<input type="text" class="form-control" id="nama_lengkap"
 										placeholder="Nama Lengkap" th:field="*{nama_lengkap}"
-										required="required">
+										required="required" aria-describedby="namaLengkapHelpBlock"
+										maxlength="100"> <small id="namaLengkapHelpBlock"
+										class="form-text text-muted">cth: Budi Budiman</small>
 								</div>
 							</div>
 							<div class="form-group row">
@@ -143,7 +155,10 @@
 									class="col-form-label col-sm-4 col-md-2">Nama Panggilan</label>
 								<div class="col-sm-auto">
 									<input type="text" class="form-control" id="nama_panggilan"
-										placeholder="Nama Panggilan" th:field="*{nama_panggilan}">
+										placeholder="Nama Panggilan" th:field="*{nama_panggilan}"
+										aria-describedby="namaPanggilanHelpBlock"> <small
+										id="namaPanggilanHelpBlock" class="form-text text-muted">cth:
+										Budi</small>
 								</div>
 							</div>
 							<fieldset class="form-group">
@@ -152,12 +167,14 @@
 										Jenis Kelamin<span class="requiredField"> *</span>
 									</legend>
 									<div class="col-sm-auto">
-										<ul class="form-check">
+										<ul class="form-check-inline">
 											<li th:each="radioValue: ${radio_gender}"
 												class="form-check form-check-inline"><input
 												class="form-check-input" type="radio"
-												th:field="${pelamar.gender}" th:value="${radioValue}" /> <label
-												th:for="${#ids.prev('gender')}" th:text="${radioValue}"></label></li>
+												th:field="${command.selectedRadioGender}"
+												th:value="${radioValue}" /> <label
+												th:for="${#ids.prev('selectedRadioGender')}"
+												th:text="${radioValue}"></label></li>
 										</ul>
 									</div>
 								</div>
@@ -168,7 +185,8 @@
 									class="requiredField"> *</span></label>
 								<div class="col-sm-auto">
 									<input class="form-control" required="required"
-										th:field="*{tanggal_lahir}" id="datepicker2">
+										th:field="*{tanggal_lahir}" id="datepicker2"
+										onkeypress="return false;">
 								</div>
 							</div>
 							<div class="form-group row">
@@ -198,9 +216,9 @@
 											<li th:each="radioValue: ${radio_statusNikah}"
 												class="form-check form-check-inline"><input
 												class="form-check-input" type="radio"
-												th:field="${pelamar.status_marital}"
+												th:field="${command.selectedRadioMarital}"
 												th:value="${radioValue}" /> <label
-												th:for="${#ids.prev('status_marital')}"
+												th:for="${#ids.prev('selectedRadioMarital')}"
 												th:text="${radioValue}"></label></li>
 										</ul>
 									</div>
@@ -209,36 +227,72 @@
 							<div class="form-group row">
 								<label for="alamat" class="col-sm-4 col-md-2 col-form-label">Alamat<span
 									class="requiredField"> *</span></label>
-								<div class="col-sm-5">
+								<div class="col-sm-4">
 									<textarea class="form-control" id="alamat" required="required"
-										rows="3" th:field="*{alamat}"></textarea>
+										rows="5" th:field="*{alamat}"
+										placeholder="Tuliskan alamat lengkap (jalan, kelurahan, kecamatan, kota/kabupaten, provinsi, dan kode pos)!"
+										maxlength="255" aria-describedby="count_message"></textarea>
+									<small class="form-text text-muted float-right"
+										id="count_message"></small>
 								</div>
 							</div>
 							<div class="form-group row">
-								<label for="region" class="col-sm-4 col-md-2 col-form-label">Region</label>
+								<label for="region" class="col-sm-4 col-md-2 col-form-label">Region<span
+									class="requiredField">*</span></label>
 								<div class="col-sm-auto">
-									<input class="form-control" id="tags" th:field="*{region}"
-										th:value="${pelamar.region}">
+									<input type="search" class="form-control tags"
+										th:field="*{region}" required="required"
+										placeholder="Cari Region" aria-describedby="regionHelpBlock">
+									<small id="regionHelpBlock" class="form-text text-muted">Cari
+										sesuai Kota/Kabupaten</small>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="email" class="col-form-label col-sm-4 col-md-2">E-mail</label>
+								<div class="col-sm-auto">
+									<input type="email" class="form-control" id="email"
+										placeholder="Alamat e-mail" th:field="*{email}"
+										aria-describedby="emailHelpBlock"> <small
+										id="emailHelpBlock" class="form-text text-muted"> cth
+										: budi.budiman@yahoo.com</small>
 								</div>
 							</div>
 							<div class="form-grup row">
-					<!-- 			<div class="form-group col-sm-auto">
-									<label for="no_handphone" class="col-form-label">No.
-										Handphone<span class="requiredField"> *</span>
-									</label> <input type="text" class="form-control" id="nomor_handphone"
-										placeholder="Nomor Handphone" th:field="*{nomor_handphone}"
-										required="required">
-								</div> -->
+					<div class="form-group col-sm-auto">
+														<label for="no_handphone" class="col-form-label">No.
+					Handphone<span class="requiredField">*</span>
+														</label> <input type="text" class="form-control" id="nomor_handphone"
+															placeholder="Nomor Handphone" th:field="*{nomor_handphone}"
+					required="required" aria-describedby="hpHelpBlock"
+															minlength="11"> <small id="hpHelpBlock"
+															class="form-text text-muted"> cth : 0812xxxxxxxx</small>
+													</div>
+
 								<div class="form-group col-sm-auto">
 									<label for="nama_lengkap" class="col-form-label">Telp.
 										Rumah</label> <input type="text" class="form-control" id="telp_rumah"
-										placeholder="Nomor Telepon Rumah" th:field="*{telepon_rumah}">
+										placeholder="Nomor Telepon Rumah" th:field="*{telepon_rumah}"
+										aria-describedby="telpRumahHelpBlock" minlength="10">
+									<small id="telpRumahHelpBlock" class="form-text text-muted">
+										cth : 02158xxxxxx</small>
+
 								</div>
 							</div>
 							<div class="form-group row">
-								<label for="telepon_orang_terdekat"
+								<label for="telp_orang_terdekat"
 									class="col-form-label col-sm-4 col-md-2">No. Telp.
-									Keluarga<span class="requiredField"> *</span>
+									Orang Terdekat<span class="requiredField">*</span>
+								</label>
+								<div class="col-sm-auto">
+									<input type="text" class="form-control"
+								id="telp_orang_terdekat"
+										placeholder="Nomor Telp. Orang Terdekat"
+										th:field="*{telepon_orang_terdekat}" required="required"
+										aria-describedby="telpOrangTerdekatHelpBlock" minlength="10">
+									<small id="telpOrangTerdekatHelpBlock"
+										class="form-text text-muted"> cth : 0812xxxxxxxx,
+										02158xxxxxx</small>
+
 								</label>
 								<div class="col-sm-auto">
 									<input type="text" class="form-control"
@@ -251,7 +305,10 @@
 									class="col-form-label col-sm-4 col-md-2">No. WhatsApp </label>
 								<div class="col-sm-auto">
 									<input type="text" class="form-control" id="nomor_whatsapp"
-										placeholder="Nomor WhatsApp" th:field="*{nomor_whatsapp}">
+										placeholder="Nomor WhatsApp" th:field="*{nomor_whatsapp}"
+										aria-describedby="nomorWAHelpBlock" minlength="11"><small
+										id="nomorWAHelpBlock" class="form-text text-muted">
+										cth : 0812xxxxxxxx</small>
 								</div>
 							</div>
 							<hr class="hrCustom2">
@@ -263,7 +320,9 @@
 								<div class="col-sm-auto">
 									<input type="text" class="form-control" id="no_ktp"
 										placeholder="Nomor KTP" th:field="*{no_ktp}"
-										required="required">
+										required="required" aria-describedby="ktpHelpBlock"
+										minlength="16"> <small id="ktpHelpBlock"
+										class="form-text text-muted"> cth : 3017xxxxxxxxxxxx</small>
 								</div>
 							</div>
 							<hr class="hrCustom2">
@@ -297,18 +356,24 @@
 								<div class="col-sm-auto">
 									<input type="text" class="form-control"
 										placeholder="Nama Sekolah" th:field="*{nama_sekolah}"
-										required="required">
+										required="required" maxlength="50"
+										aria-describedby="namaSekolahHelpBlock"><small
+										id="namaSekolahHelpBlock" class="form-text text-muted">
+										cth : SMAN 68, Universitas Indonesia, dll</small>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label for="tempat_sekolah"
-									class="col-form-label col-sm-4 col-md-2">Tempat Sekolah<span
+									class="col-form-label col-sm-4 col-md-2">Lokasi Sekolah<span
 									class="requiredField"> *</span>
 								</label>
 								<div class="col-sm-auto">
-									<input type="text" class="form-control"
-										placeholder="Tempat Sekolah" th:field="*{tempat_sekolah}"
-										required="required">
+									<input type="search" class="form-control tags"
+										placeholder="Cari Lokasi Sekolah" th:field="*{tempat_sekolah}"
+										required="required" maxlength="50"
+										aria-describedby="tempatSekolahHelpBlock"><small
+										id="tempatSekolahHelpBlock" class="form-text text-muted">
+										Cari sesuai Kabupaten/Kota</small>
 								</div>
 							</div>
 							<div class="form-group row">
@@ -316,7 +381,10 @@
 								</label>
 								<div class="col-sm-auto">
 									<input type="text" class="form-control" id="jurusan"
-										placeholder="Jurusan yang Diambil" th:field="*{jurusan}">
+										placeholder="Jurusan yang Diambil" th:field="*{jurusan}"
+										maxlength="50" aria-describedby="jurusanHelpBlock"><small
+										id="jurusanHelpBlock" class="form-text text-muted">
+										cth : IPA, Akuntansi, dll</small>
 								</div>
 							</div>
 							<div class="form-group row">
@@ -337,84 +405,123 @@
 							<h5 class="card-title">Riwayat Pekerjaan</h5>
 							<p>
 								Tuliskan <b>3</b> riwayat pekerjaan Anda yang paling terakhir.
+								Jika tidak ada, isilah kolom <em>Nama Perusahaan</em> dan <em>Alasan</em>
+								dengan menuliskan <b>Tidak Ada</b>.
 							</p>
 							<p>
-								Jika belum ada, isilah kolom <em>Nama Perusahaan</em> dan <em>Alasan</em>
-								dengan menuliskan <b>Tidak Ada</b>
-							</p>
+								Gunakan tombol <b>Tambah Riwayat</b> untuk menambah kolom
+								riwayat dan <b>Hapus</b> untuk menghapus riwayat.
+
 							<h6 class="alert alert-danger" th:if="${deleteLimit_msg!=null}"
 								th:text="${deleteLimit_msg}"></h6>
 							<h6 class="alert alert-danger" th:if="${limit_msg!=null}"
 								th:text="${limit_msg}"></h6>
 
-							<div class="table-responsive">
-								<table class="table table-bordered w-auto align-middle">
-									<thead>
-										<tr>
-											<th scope="col" rowspan="2">No.</th>
-											<th scope="col" rowspan="2">Nama Perusahaan</th>
-											<th scope="col" rowspan="2">Tahun Terakhir</th>
-											<th scope="col" colspan="2">Lama Bekerja</th>
-											<th scope="col" rowspan="2">Jabatan</th>
-											<th scope="col" rowspan="2">Alasan Berhenti</th>
-											<th scope="col" rowspan="2">Action</th>
-										</tr>
-										<tr>
-											<th scope="col">Tahun</th>
-											<th scope="col">Bulan</th>
-										</tr>
-
-									</thead>
-									<tbody>
-										<tr th:each="np, iterationStatus : ${command.pengalamanList}">
-
-
-											<th scope="row" th:text="${iterationStatus.index}+1"></th>
-											<td style="height: 3rem"><input class="form-control"
-												type="text" required="required"
-												th:field="${command.pengalamanList[__${iterationStatus.index}__].nama_perusahaan}">
-											</td>
-											<td style="height: 3rem"><select class="form-control"
-												id="tahun_terakhir"
-												th:field="${command.pengalamanList[__${iterationStatus.index}__].tahun_terakhir}"><option
-														th:each="val : ${list_tahun}" th:value="${val}"
+							<div class="col-lg-10">
+								<div class="card"
+									th:each="np, iterationStatus : ${command.pengalamanList}">
+									<div class="card-header">
+										<h6
+											th:text="'Riwayat Pekerjaan '+ ${iterationStatus.index + 1}"></h6>
+									</div>
+									<div class="card-body">
+										<div class="form-group row">
+											<label for="nama_perusahaan"
+												class="col-sm-4 col-xl-3 col-form-label">Nama
+												Perusahaan<span class="requiredField">*</span>
+											</label>
+											<div class="col-sm-auto">
+												<input class="form-control" type="text" required="required"
+													id="nama_perusahaan"
+													th:field="${command.pengalamanList[__${iterationStatus.index}__].nama_perusahaan}"
+													maxlength="100" placeholder="Nama Perusahaan"
+													aria-describedby="namaPerusahaanHelpBlock"><small
+													id="namaPerusahaanHelpBlock" class="form-text text-muted">
+													cth : PT. Maju Mundur</small>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="tahun_terakhir"
+												class="col-sm-4 col-xl-3 col-form-label">Tahun
+												Terakhir </label>
+											<div class="col-sm-auto">
+												<select class="form-control" id="tahun_terakhir"
+													th:field="${command.pengalamanList[__${iterationStatus.index}__].tahun_terakhir}">
+													<option selected value="" hidden="hidden">-Pilih
+														Tahun-</option>
+													<option th:each="val : ${list_tahun}" th:value="${val}"
 														th:text="${val}"></option>
-											</select></td>
-											<td style="height: 3rem"><select class="form-control"
-												id="tahun_bekerja"
-												th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}"><option
+												</select>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="tahun_bekerja"
+												class="col-sm-4 col-xl-3 col-form-label">Lama
+												Bekerja (Tahun) </label>
+											<div class="col-sm-auto">
+												<select class="form-control" id="tahun_bekerja"
+													th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}"><option
 														th:each="val : ${list_tahunBekerja}" th:value="${val}"
-														th:text="${val}"></option></select></td>
-											<td style="height: 3rem"><select class="form-control"
-												id="bulan_bekerja"
-												th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaBulan_bekerja}"><option
-														th:each="val : ${list_bulanBekerja}" th:value="${val}"
-														th:text="${val}"></option></select></td>
-											<td style="height: 3rem"><input class="form-control"
-												type="text"
-												th:field="${command.pengalamanList[__${iterationStatus.index}__].jabatan}"></td>
-											<td style="height: 3rem"><input class="form-control"
-												type="text" required="required"
-												th:field="${command.pengalamanList[__${iterationStatus.index}__].alasan_berhenti}"></td>
-											<td><input type="hidden"
-												th:field="${command.pengalamanList[__${iterationStatus.index}__].id}">
-												<button type="submit" class="btn btn-warning"
-													name="deleteEntryUbah" th:value="${iterationStatus.index}">Hapus</button>
-											</td>
-										</tr>
-									</tbody>
-									<tfoot>
-										<tr>
-											<td scope="col" colspan="8">
-												<button type="submit" class="btn btn-secondary"
-													name="addEntryUbah" th:value="${command}+${pelamar}">Tambah
-													Pengalaman</button>
-											</td>
-										</tr>
-									</tfoot>
-								</table>
-							</div>
-							<br>
+
+														th:text="${val}"></option>
+											</select>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="bulan_bekerja"
+												class="col-sm-4 col-xl-3 col-form-label">Lama
+												Bekerja (Bulan) </label>
+											<div class="col-sm-auto">
+												<select class="form-control" id="bulan_bekerja"
+													th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaBulan_bekerja}"><option
+											
+														th:each="val : ${list_tahunBekerja}" th:value="${val}"
+														th:text="${val}"></option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="jabatan" class="col-sm-4 col-xl-3 col-form-label">Jabatan
+											</label>
+											<div class="col-sm-auto">
+												<input class="form-control" type="text" id="jabatan"
+													th:field="${command.pengalamanList[__${iterationStatus.index}__].jabatan}"
+													maxlength="50" placeholder="Jabatan"
+													aria-describedby="jabatanHelpBlock"><small
+													id="jabatanBlock" class="form-text text-muted"> cth
+													: Admin, Ketua Regu</small>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="alasan_berhenti"
+												class="col-sm-4 col-xl-3 col-form-label">Alasan
+												Berhenti<span class="requiredField">*</span>
+											</label>
+											<div class="col-sm-4">
+												<textarea class="form-control alasan_berhenti"
+													required="required" id="alasan_berhenti" rows="4"
+													th:field="${command.pengalamanList[__${iterationStatus.index}__].alasan_berhenti}"
+													maxlength="255"
+													placeholder="Tuliskan alasan berhenti dari pekerjaan!"></textarea>
+											</div>
+										</div>
+										<input type="hidden"
+											th:field="${command.pengalamanList[__${iterationStatus.index}__].id}">
+										<button type="submit" class="btn btn-warning"
+											name="deleteEntryUbah" th:value="${iterationStatus.index}">Hapus
+											Riwayat</button>
+									</div>
+								</div>
+								<div style="text-align: center; margin-top: 1rem">
+									<button type="submit" class="btn btn-secondary"
+										name="addEntryUbah" th:value="${command}+${pelamar}">Tambah
+										Riwayat</button>
+								</div>
+														
+														
+														
+														</div>							</div>
+							<hr class="hrCustom2">
 							<button type="button" class="btn btn-primary" data-toggle="modal"
 								data-target="#myModal">Simpan</button>
 
@@ -454,6 +561,24 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 <script>
+$(document).ready(function() {
+	$('#nomor_handphone').mask('0000-0000-0000');
+	$('#telp_rumah').mask('000-0000-0000');
+	$('#telp_orang_terdekat').mask('0000-0000-0000');
+	$('#nomor_whatsapp').mask('0000-0000-0000');
+	$('#no_ktp').mask('0000000000000000');
+});
+
+var text_max = 255;
+$('#count_message').html(text_max + '/255 Karakter');
+
+$('#alamat').keyup(function() {
+	var text_length = $('#alamat').val().length;
+	var text_remaining = text_max - text_length;
+
+	$('#count_message').html(text_remaining + '/255 Karakter');
+});
+
 	var today = new Date(new Date().getFullYear(), new Date().getMonth(),
 			new Date().getDate());
 	$('#datepicker1').datepicker({
@@ -593,7 +718,7 @@
 				"KEEROM", "WAROPEN", "SUPIORI", "MAMBERAMO RAYA", "NDUGA",
 				"LANNY JAYA", "MAMBERAMO TENGAH", "YALIMO", "PUNCAK",
 				"DOGIYAI", "INTAN JAYA", "DEIYAI", "JAYAPURA" ];
-		$("#tags").autocomplete({
+		$(".tags").autocomplete({
 			source : availableTags
 		});
 	});

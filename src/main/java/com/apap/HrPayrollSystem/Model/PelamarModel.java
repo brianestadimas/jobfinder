@@ -51,10 +51,6 @@ public class PelamarModel implements Serializable{
 	@Column(name="no_ktp",nullable = false)
 	private String no_ktp;
 	
-	@Size(max=16)
-	@Column(name="telepon",nullable = false)
-	private String telepon;
-	
 	@NotNull
 	@Size(max=16)
 	@Column(name="nomor_handphone",nullable = false)
@@ -124,15 +120,7 @@ public class PelamarModel implements Serializable{
 	@Column(name="apply_date",nullable = false)
 	private Date apply_date;
 
-	//Relationship One to Many (1 pelamar memiliki N history (jumlahnya 3 kan kl di mock up))
-	//by aji -> relation ke pengalaman pelamar ada di model pengalaman pelamar nya
 
-//	    @OneToOne(mappedBy = "pelamar", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//	    private PegawaiOutsourcingModel pegawai_Outsourcing;
-//	    @OneToMany(mappedBy="pengalaman_pelamar", cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-//	    private PengalamanPelamarModel pengalaman_Pelamar;
-	
-	
 	public long getId() {
 		return id;
 	}
@@ -187,14 +175,6 @@ public class PelamarModel implements Serializable{
 
 	public void setNo_ktp(String no_ktp) {
 		this.no_ktp = no_ktp;
-	}
-
-	public String getTelepon() {
-		return telepon;
-	}
-
-	public void setTelepon(String telepon) {
-		this.telepon = telepon;
 	}
 
 	public String getAgama() {

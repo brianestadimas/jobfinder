@@ -37,7 +37,11 @@ thead th{
 <div class="boxContainer">
 <img src="img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
 <h2 style="display: inline; margin-left: 10px">Proyek</h2>
-<button href="proyek-tambah" class="btn btn-info btn-large" style="float: right; margin-right: 10px;">Tambah</button>
+<h2 class="alert alert-success" th:if="${sukses_menambahkan!=null}"
+					th:text="${sukses_menambahkan}"></h2>
+<div th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" id="kelola-akun">
+<a th:href="@{/proyek-tambah}" class="btn btn-info btn-large" style="float: right; margin-right: 10px;">Tambah</a>
+</div>
 <p>
 <table id="example" class="table table-striped table-bordered" style="width:100%;">
 		<thead>
