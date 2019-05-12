@@ -156,8 +156,8 @@
                                 <td style="width:100%" th:text="${pegawai.pelamar_id.region}"></td>
                             </tr>
                             <tr>
-                                <td style="width:50%">Telepon</td>
-                                <td style="width:100%" th:text="${pegawai.pelamar_id.telepon}"></td>
+                                <td style="width:50%">No Handphone</td>
+                                <td style="width:100%" th:text="${pegawai.pelamar_id.nomor_handphone}"></td>
                             </tr>
                             <tr>
                                 <td style="width:50%">No Whatsapp</td>
@@ -338,10 +338,29 @@
                 </div>
             </div>
         </div>
-        <br>
+    </div>
 
 <div id="menu2" class="menu2 tab-pane fade">
+<div style="width: 75%; margin:auto;">
 
+                <div id="myDIV" class="boxContainer4 myDIV">
+                <h4> Performa Kehadiran </h4>
+                <hr></hr>
+                <canvas id="canvas" style="display: inline-block;"></canvas>
+                <h5 style="font-weight: bold; display: inline-block; " > Performa : </h5>
+                <h4 th:if="${Meningkat}==true" th:text="${persentasePerforma}" style="font-weight: bold; display: inline-block; color: green"> </h4>
+                <h4 th:if="${Meningkat}==false" th:text="${persentasePerforma}" style="font-weight: bold; display: inline-block; color: red"></h4>
+                </div>
+
+            <div style="width: 75%; margin:auto;">
+
+                <div id="myDIV2" class="boxContainer4" style="display:none">
+
+                <h4> Belum Terdapat Kehadiran Pegawai </h4>
+                </div>
+            </div>
+
+        </div>
     <div class="data2 blankspace">
         <div class="boxContainer" style="overflow-x:auto;">
             <img src="img/icon_building.png" style="max-width:5%;margin-top: -10px">
@@ -349,6 +368,8 @@
             <button class="tambah btn btn-info btn-large" style="float: right; margin-right: 10px;" onclick="myFunction()">Tambah</button>
             <hr></hr>
             <!--dropdown filter based on product-->
+               
+
             <table id="example4"  class="table table-striped table-bordered" style="width: 100%">
                 <thead>
                     <th>Tanggal</th>
@@ -443,8 +464,8 @@
 
     </footer>
     </html>
-    <script>
-
+    <script th:inline="javascript">
+    /*<![CDATA[*/
     $('.tambah').click(function(e){
         e.preventDefault();
     });
@@ -459,7 +480,65 @@
         
         // $( "div.menu2" ).replaceWith('<div id="menu2" class="menu2 tab-pane fade in active">' + y +'');
     } 
-        $(document).ready(function() {
+    $(document).ready(function() {
+
+    var label = [];
+    var kehadiran = [];
+    var sakit =[];
+    var izin =[];
+    var absen = [];
+
+    var y = [[${panjangKehadiran}]];
+
+    if (y>0){
+        var z = /*[[${kehadiranProyek}]]*/;
+        for (i=0; i<y; i++){
+            label[i]=z[y-1-i].judulKehadiran;
+            kehadiran[i]=z[y-1-i].totalKehadiran;
+            izin[i]=z[y-1-i].totalIzin;
+            absen[i]=z[y-1-i].totalAlfa;
+            sakit[i]=z[y-1-i].totalSakit;
+        }
+    }
+    else{
+        var toHide = document.getElementById("myDIV");
+        toHide.style.display = "none";
+        var toShow = document.getElementById("myDIV2");
+        toShow.style.display = "block";
+    }
+
+    var barChartData = {
+            labels: label,
+            datasets: [{
+                label: 'Kehadiran',
+                backgroundColor: '#9ADBF9',
+                data: kehadiran,
+            }, {
+                label: 'Sakit',
+                backgroundColor: '#F9CD9A',
+                data: sakit,
+            }, {
+                label: 'Izin',
+                backgroundColor: '#FFA41C',
+                data: izin,
+            }, {
+                label: 'Tanpa Keterangan',
+                backgroundColor: '#FFB19F',
+                data: absen,
+            }]
+
+        };
+            var ctx = document.getElementById('canvas').getContext('2d');
+            window.myBar = new Chart(ctx, {
+                type: 'bar',
+                data: barChartData,
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                }
+            });
     // Setup - add a text input to each footer cell
     $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
         $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
@@ -504,5 +583,5 @@
 
 
 
-
+/*]]>*/
   </script>

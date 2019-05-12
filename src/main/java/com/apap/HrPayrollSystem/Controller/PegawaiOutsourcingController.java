@@ -89,32 +89,48 @@ public class PegawaiOutsourcingController {
 		}
 		// Performa Pegawai
 		List<KehadiranModel> kehadiranPegawai = kehadiranService.get_all_kehadiran_by_pegawai(pegawai);
-		int persentasePerforma = 0;
+		double persentase = 0.0;
 		if (kehadiranPegawai.size() == 0) {
 			model.addAttribute("performaErr_Msg",
 					"Performa belum bisa dihitung, tambahkan data kehadiran terlebih dahulu !");
 		} else if (kehadiranPegawai.size() == 1) {
-			persentasePerforma = 100;
+			persentase = 100;
 		} else {
-			int kehadiranSebelum = kehadiranPegawai.get(1).getJumlah_kehadiran();
-			int kehadiranSesudah = kehadiranPegawai.get(0).getJumlah_kehadiran();
-			persentasePerforma = (kehadiranSesudah - kehadiranSebelum) / kehadiranSebelum * 100;
+			double kehadiranSebelum = kehadiranPegawai.get(1).getJumlah_kehadiran();
+			double kehadiranSesudah = kehadiranPegawai.get(0).getJumlah_kehadiran();
+			persentase = (kehadiranSesudah - kehadiranSebelum) / kehadiranSebelum * 100;
 
 		}
+		int persentasePerforma = (int) persentase;
 		if (persentasePerforma == 0) {
 			model.addAttribute("persentasePerforma", "Stabil");
+			model.addAttribute("Meningkat",true);
 		} else if (persentasePerforma > 0) {
-			model.addAttribute("persentasePerforma", "Meningkat" + persentasePerforma + "%");
+			model.addAttribute("persentasePerforma", "Meningkat " + persentasePerforma + "%");
+			model.addAttribute("Meningkat",true);
 		} else {
-			model.addAttribute("persentasePerforma", "Menurun" + persentasePerforma + "%");
+			model.addAttribute("persentasePerforma", "Menurun " + persentasePerforma + "%");
+			model.addAttribute("Meningkat",false);
+		}
+		
+		List<ProyekModel> daftar_proyek = new ArrayList<ProyekModel>();
+		for (int x=0; x<rKerja.size(); x++) {
+			daftar_proyek.add(rKerja.get(x).getProyek());
+		}
+		if (pegawai.getProyek()!=null) {
+			daftar_proyek.add(pegawai.getProyek());
 		}
 		model.addAttribute("kehadiranPegawai", kehadiranPegawai);
 
+		int panjangKehadiran = kehadiranPegawai.size();
+		
+		model.addAttribute("panjangKehadiran", panjangKehadiran);
 		// get feedback
 		List<FeedbackModel> list_feedback_pegawai = feedback_service.get_feedback_by_id_pegawai(id);
 
 		// riwayatService.getAllRiwayat(nip);
 		model.addAttribute("list_of_feedback", list_feedback_pegawai);
+		model.addAttribute("daftar_proyek", daftar_proyek);
 
 		model.addAttribute("expiredStatus", expiredStatus);
 		model.addAttribute("pegawai", pegawai);
