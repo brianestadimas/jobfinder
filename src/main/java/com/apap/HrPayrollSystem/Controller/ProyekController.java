@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.apap.HrPayrollSystem.Model.AccountModel;
+import com.apap.HrPayrollSystem.Model.FeedbackModel;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.ProyekModel;
 import com.apap.HrPayrollSystem.Service.AccountService;
+import com.apap.HrPayrollSystem.Service.FeedbackService;
 import com.apap.HrPayrollSystem.Service.KehadiranService;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
 import com.apap.HrPayrollSystem.Service.ProyekService;
@@ -34,6 +36,8 @@ public class ProyekController {
 	private AccountService akun_service;
 	@Autowired
 	private KehadiranService kehadiranService;
+	@Autowired
+	private FeedbackService feedback_service;
 
 	
 	@RequestMapping("/proyek")
@@ -56,7 +60,7 @@ public class ProyekController {
 		List<PegawaiOutsourcingModel> pegawaiProyek = new ArrayList<PegawaiOutsourcingModel>();
 		for (int i=0; i<pegawaiOutsourcing.size(); i++){
 			if ((pegawaiOutsourcing.get(i)).getProyek() != null) {
-				if ((pegawaiOutsourcing.get(i).getProyek().getId())==(proyek.getId())){
+				if ((pegawaiOutsourcing.get(i).getProyek().getId())==(proyek.getId()) && pegawaiOutsourcing.get(i).getStatus() == true ){
 					pegawaiProyek.add(pegawaiOutsourcing.get(i));
 				}
 			}
@@ -74,26 +78,39 @@ public class ProyekController {
 		// Performa dalam Proyek (4 Bulan Terakhir)
 		ProyekModel proyek = proyekService.getProyekById(id).get();
 		List<PerformaWrapper> kehadiranProyek = kehadiranService.get_all_kehadiran_by_proyek(proyek);
-		int persentasePerforma = 0;
+		double persentase = 0.0;
 		if (kehadiranProyek.isEmpty()) {
 			model.addAttribute("performaErr_Msg",
 					"Performa belum bisa dihitung, tambahkan data kehadiran terlebih dahulu !");
 		} else if (kehadiranProyek.size() == 1) {
-			persentasePerforma = 100;
+			persentase = 100;
 		} else {
-			int kehadiranSebelum = kehadiranProyek.get(1).getTotalKehadiran();
-			int kehadiranSesudah = kehadiranProyek.get(0).getTotalKehadiran();
-			persentasePerforma = (kehadiranSesudah - kehadiranSebelum) / kehadiranSebelum * 100;
+			double kehadiranSebelum = kehadiranProyek.get(1).getTotalKehadiran();
+			double kehadiranSesudah = kehadiranProyek.get(0).getTotalKehadiran();
+			persentase = (kehadiranSesudah - kehadiranSebelum) / kehadiranSebelum * 100;
 		}
-
+		int persentasePerforma = (int) persentase;
 		if (persentasePerforma == 0) {
 			model.addAttribute("persentasePerforma", "Stabil");
+			model.addAttribute("Meningkat", true);
 		} else if (persentasePerforma > 0) {
-			model.addAttribute("persentasePerforma", "Meningkat" + persentasePerforma + "%");
+			model.addAttribute("persentasePerforma", "Meningkat " + persentasePerforma + "%");
+			model.addAttribute("Meningkat", true);
 		} else {
-			model.addAttribute("persentasePerforma", "Menurun" + persentasePerforma + "%");
+			model.addAttribute("persentasePerforma", "Menurun " + persentasePerforma + "%");
+			model.addAttribute("Meningkat", false);
 		}
-
+		int panjangKehadiran = kehadiranProyek.size();
+		List<FeedbackModel> feedback_proyek =  new ArrayList<FeedbackModel>();
+		for(int i = 0 ; i < feedback_service.get_all_feedback().size() ; i++) {
+			for(int j = 0 ; j < kehadiranProyek.get(1).getKehadiranList().size() ; j++) {
+				if(feedback_service.get_all_feedback().get(i).getPegawai_outsourcing().equals(kehadiranProyek.get(1).getKehadiranList().get(j).getPegawai_outsourcing())) {
+					feedback_proyek.add(feedback_service.get_all_feedback().get(i));
+				}
+			}
+		}
+		model.addAttribute("feedback_proyek", feedback_proyek);
+		model.addAttribute("panjangKehadiran", panjangKehadiran);
 		model.addAttribute("proyek", proyek);
 		model.addAttribute("kehadiranProyek", kehadiranProyek);
 		return "performa_proyek";
@@ -116,8 +133,7 @@ public class ProyekController {
 			if ((pegawaiOutsourcing.get(i)).getProyek() != null) {
 				if ((pegawaiOutsourcing.get(i).getProyek().getId())==(id)){
 					pegawaiOutsourcing.get(i).setProyek(null);
-					//cek lagi true itu available atau tidak
-					pegawaiOutsourcing.get(i).setStatus(true);
+					pegawaiOutsourcing.get(i).setStatus(false);
 				}
 			}
 		}
@@ -136,8 +152,14 @@ public class ProyekController {
 	}
 	
 	@RequestMapping(value = "/proyek-tambah", method = RequestMethod.POST)
-	public String addProyekPost(Model model, @ModelAttribute ProyekModel proyek) {
+	public String addProyekPost(Model model, @ModelAttribute ProyekModel proyek,
+			RedirectAttributes redir) {
+		if(proyek.getEnd_date_kontrak().before(proyek.getStart_date_kontrak())) {
+			redir.addFlashAttribute("fail_notif", "Tanggal mulai proyek harus lebih kecil dari tanggal berakhir proyek");
+			return "redirect:/proyek-tambah";
+		}
 		proyekService.addProyek(proyek);
+		model.addAttribute("sukses_menambahkan", "proyek dengan nama "+proyek.getNama_proyek()+"berhasil ditambahkan");
 		return "redirect:/proyek";
 	}
 

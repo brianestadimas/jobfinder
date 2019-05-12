@@ -9,4 +9,10 @@ public interface VariableGajiService {
 	
 	//Update
 	void updateVariableGaji(VariableGajiModel newVarGaji);
+
+	//Save
+	void saveVariableGaji(VariableGajiModel varGaji);
+	
+	//null checker
+	boolean checkNull();
 }

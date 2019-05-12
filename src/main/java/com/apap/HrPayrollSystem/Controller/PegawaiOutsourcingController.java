@@ -100,25 +100,41 @@ public class PegawaiOutsourcingController {
 		}
 		// Performa Pegawai
 		List<KehadiranModel> kehadiranPegawai = kehadiranService.get_all_kehadiran_by_pegawai(pegawai);
-		int persentasePerforma = 0;
+		double persentase = 0.0;
 		if (kehadiranPegawai.size() == 0) {
 			model.addAttribute("performaErr_Msg",
 			"Performa belum bisa dihitung, tambahkan data kehadiran terlebih dahulu !");
 		} else if (kehadiranPegawai.size() == 1) {
-			persentasePerforma = 100;
+			persentase = 100;
 		} else {
-			int kehadiranSebelum = kehadiranPegawai.get(1).getJumlah_kehadiran();
-			int kehadiranSesudah = kehadiranPegawai.get(0).getJumlah_kehadiran();	
-			persentasePerforma = (kehadiranSesudah - kehadiranSebelum) / kehadiranSebelum * 100;
+			double kehadiranSebelum = kehadiranPegawai.get(1).getJumlah_kehadiran();
+			double kehadiranSesudah = kehadiranPegawai.get(0).getJumlah_kehadiran();
+			persentase = (kehadiranSesudah - kehadiranSebelum) / kehadiranSebelum * 100;
+
 		}
-		
+		int persentasePerforma = (int) persentase;
 			if (persentasePerforma == 0) {
 				model.addAttribute("persentasePerforma", "Stabil");
+				model.addAttribute("Meningkat",true);
 			} else if (persentasePerforma > 0) {
 				model.addAttribute("persentasePerforma", "Meningkat" + persentasePerforma + "%");
+				model.addAttribute("Meningkat",true);
 			} else {
-				model.addAttribute("persentasePerforma", "Menurun" + persentasePerforma + "%");
+				model.addAttribute("persentasePerforma", "Menurun " + persentasePerforma + "%");
+				model.addAttribute("Meningkat",false);
+
 			}
+			List<ProyekModel> daftar_proyek = new ArrayList<ProyekModel>();
+			for (int x=0; x<rKerja.size(); x++) {
+				daftar_proyek.add(rKerja.get(x).getProyek());
+			}
+			if (pegawai.getProyek()!=null) {
+				daftar_proyek.add(pegawai.getProyek());
+			}
+			model.addAttribute("kehadiranPegawai", kehadiranPegawai);
+			int panjangKehadiran = kehadiranPegawai.size();
+			
+			model.addAttribute("panjangKehadiran", panjangKehadiran);
 			
 			
 		//get feedback
@@ -126,7 +142,7 @@ public class PegawaiOutsourcingController {
 		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
 		model.addAttribute("user", user);		
 		model.addAttribute("kehadiranPegawai", kehadiranPegawai);
-		model.addAttribute("daftar_proyek", proyekService.getAllProyek());
+		model.addAttribute("daftar_proyek", daftar_proyek);
 		model.addAttribute("list_of_feedback", list_feedback_pegawai);
 		model.addAttribute("expiredStatus", expiredStatus);
 		model.addAttribute("pegawai", pegawai);
@@ -141,7 +157,7 @@ public class PegawaiOutsourcingController {
 	private String ubahPegawai(@PathVariable(value = "id") long id, Model model) {
 		PegawaiOutsourcingModel pegawaiLama = pegawaiService.getPegawaiById(id);
 		List<ProdukModel> produkList = produkService.getAllProduk();
-		List<ProdukModel> produkList2 = produkList.subList(1, produkList.size());
+		List<ProdukModel> produkList2 = produkList.subList(1, produkList.size());//maksudnya apa REEEEEEEEEEEEEEEEE
 		//List<ProdukModel> produkAvail = produkList.get(1);
 		//List<PelamarModel> pelamarList = pelamarService
 		model.addAttribute("pegawai", pegawaiLama);
@@ -179,31 +195,33 @@ public class PegawaiOutsourcingController {
 //		List<RiwayatKerjaPegawaiModel> riwayatKerjaPegawai = new List();
 		try {
 			for(Long id : ids) {
-				pegawaiService.updatePegawaiStatusById(id);
+				if(pegawaiService.getPegawaiById(id).getStatus() == true) {
+					pegawaiService.updatePegawaiStatusById(id);
+					
+					
+					/*
+					 * Untuk nambah Riwayat Kerja
+					 */
+					
+					RiwayatKerjaPegawaiModel rBaru = new RiwayatKerjaPegawaiModel();
+					
+					PegawaiOutsourcingModel temp = pegawaiService.getPegawaiById(id);
+					
+					rBaru.setPegawai_outsourcing_id(temp);
+					rBaru.setProyek(temp.getProyek());
+					rBaru.setProduk(temp.getProduk());
+					rBaru.setJoin_date(temp.getJoin_date());
+					rBaru.setEnd_date(temp.getEnd_date());
+					riwayatService.addRiwayat(rBaru);
+					
+					//riwayatService.addRiwayat(id);
+				}
 				
-				
-				/*
-				 * Untuk nambah Riwayat Kerja
-				 */
-				
-				RiwayatKerjaPegawaiModel rBaru = new RiwayatKerjaPegawaiModel();
-				
-				PegawaiOutsourcingModel temp = pegawaiService.getPegawaiById(id);
-				
-				rBaru.setPegawai_outsourcing_id(temp);
-				rBaru.setProyek(temp.getProyek());
-				rBaru.setProduk(temp.getProduk());
-				rBaru.setJoin_date(temp.getJoin_date());
-				rBaru.setEnd_date(temp.getEnd_date());
-				riwayatService.addRiwayat(rBaru);
-				
-				
-				//riwayatService.addRiwayat(id);
 			}
 			return "redirect:/pegawai";
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
-			return null;
+			return "redirect:/pegawai";
 		}
 	}
 	

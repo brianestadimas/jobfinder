@@ -21,8 +21,8 @@
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js"
 	type="text/javascript"></script>
 <script
-src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-	
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+
 </head>
 <style>
 .requiredField {
@@ -74,11 +74,6 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 	margin-bottom: 1.5rem
 }
 
-.table {
-	text-align: center;
-	vertical-align: middle !important;
-}
-
 .card {
 	margin-top: 1rem;
 }
@@ -87,51 +82,57 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 	text-align: center;
 }
 
+.table {
+	text-align: center;
+	vertical-align: middle !important;
+}
 </style>
 
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<!-- 	<nav th:replace="fragments/fragment :: navbar"></nav> -->
 	<div class="container-fluid"
 		style="margin-left: 1rem; margin-top: 1rem">
 		<h6 class="alert alert-danger" th:if="${daftarError_msg!=null}"
-		th:text="${daftarError_msg}"></h6>
-		<h2 style="margin-top: 1rem">
-			Form Pendaftaran <small class="titleHelp">( Tanda <span
-				class="requiredField">*</span> Berarti Wajib Diisi )
-			</small>
-		</h2>
-		<hr class="hrCustom">
+			th:text="${daftarError_msg}"></h6>
 		<div class="row">
-			<div class="col-xs-12 col-sm-auto">
+			<div class="col-xs-auto col-xl-10">
+				<h2 style="margin-top: 1rem">
+					Form Pendaftaran <small class="titleHelp">( Tanda <span
+						class="requiredField"> *</span> Berarti Wajib Diisi )
+					</small>
+				</h2>
+				<hr class="hrCustom">
+
 				<form th:action="@{'/pelamar/daftar/'}" th:object="${pelamar}"
 					method="POST">
 					<div class="card">
 						<div class="card-body">
-
 							<div class="form-group row">
 								<label for="tanggal_daftar"
 									class="col-sm-4 col-md-2 col-form-label">Tanggal
-									Pendaftaran<span class="requiredField"> *</span>
+									Pendaftaran<span class="requiredField">*</span>
 								</label>
 								<div class="col-sm-auto">
 									<input class="form-control" required="required"
-										th:field="*{apply_date}" id="datepicker1" readonly>
+										th:field="*{apply_date}" id="datepicker1"
+										onkeypress="return false;">
 								</div>
 							</div>
 							<fieldset class="form-group">
 								<div class="row">
-									<legend class="col-form-label col-sm-4 col-md-2 pt-0">
-										Posisi yang diinginkan<span class="requiredField"> *</span>
+									<legend class="col-form-label col-sm-4 col-md-3 col-lg-2 pt-0">
+										Posisi yang diinginkan<span class="requiredField">*</span>
 									</legend>
 									<div class="col-xs-12">
 										<ul class="form-check">
 											<li th:each="checkboxValue: ${checkbox_produk}"
 												class="form-check form-check-inline"><input
-												class="form-check-input" type="checkbox"
+												class="form-check-input" name="produk" type="checkbox"
 												th:field="${command.selectedCheckboxProduk}"
 												th:value="${checkboxValue}" /> <label
 												th:for="${#ids.prev('selectedCheckboxProduk')}"
-												th:text="${checkboxValue}" required="required"></label></li>
+												th:text="${checkboxValue}"></label></li>
 										</ul>
 									</div>
 								</div>
@@ -141,11 +142,13 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 							<div class="form-group row">
 								<label for="nama_lengkap"
 									class="col-form-label col-sm-4 col-md-2">Nama Lengkap<span
-									class="requiredField"> *</span></label>
+									class="requiredField">*</span></label>
 								<div class="col-sm-auto">
 									<input type="text" class="form-control" id="nama_lengkap"
 										placeholder="Nama Lengkap" th:field="*{nama_lengkap}"
-										required="required">
+										required="required" aria-describedby="namaLengkapHelpBlock"
+										maxlength="100"> <small id="namaLengkapHelpBlock"
+										class="form-text text-muted">cth: Budi Budiman</small>
 								</div>
 							</div>
 							<div class="form-group row">
@@ -153,18 +156,21 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 									class="col-form-label col-sm-4 col-md-2">Nama Panggilan</label>
 								<div class="col-sm-auto">
 									<input type="text" class="form-control" id="nama_panggilan"
-										placeholder="Nama Panggilan" th:field="*{nama_panggilan}">
+										placeholder="Nama Panggilan" th:field="*{nama_panggilan}"
+										aria-describedby="namaPanggilanHelpBlock" maxlength="50">
+									<small id="namaPanggilanHelpBlock" class="form-text text-muted">cth:
+										Budi</small>
 								</div>
 							</div>
 							<fieldset class="form-group">
 								<div class="row">
 									<legend class="col-form-label col-sm-4 col-md-2 pt-0">
-										Jenis Kelamin<span class="requiredField"> *</span>
+										Jenis Kelamin<span class="requiredField">*</span>
 									</legend>
 									<div class="col-sm-auto">
 										<ul class="form-check-inline">
 											<li th:each="radioValue: ${radio_gender}"
-												class="form-check form-check-inline"><input
+												class="form-check-inline"><input
 												class="form-check-input" type="radio"
 												th:field="${command.selectedRadioGender}"
 												th:value="${radioValue}" /> <label
@@ -177,10 +183,11 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 							<div class="form-group row">
 								<label for="tanggal_lahir"
 									class=" col-sm-4 col-md-2 col-form-label">Tanggal Lahir<span
-									class="requiredField"> *</span></label>
+									class="requiredField">*</span></label>
 								<div class="col-sm-auto">
 									<input class="form-control" required="required"
-										th:field="*{tanggal_lahir}" id="datepicker2" readonly>
+										th:field="*{tanggal_lahir}" id="datepicker2"
+										onkeypress="return false;">
 								</div>
 							</div>
 							<div class="form-group row">
@@ -202,12 +209,12 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 							<fieldset class="form-group">
 								<div class="row">
 									<legend class="col-form-label col-sm-4 col-md-2 pt-0">
-										Status Pernikahan<span class="requiredField"> *</span>
+										Status Pernikahan<span class="requiredField">*</span>
 									</legend>
 									<div class="col-sm-auto">
-										<ul class="form-check">
+										<ul class="form-check-inline">
 											<li th:each="radioValue: ${radio_statusNikah}"
-												class="form-check form-check-inline"><input
+												class="form-check-inline"><input
 												class="form-check-input" type="radio"
 												th:field="${command.selectedRadioMarital}"
 												th:value="${radioValue}" /> <label
@@ -219,10 +226,11 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 							</fieldset>
 							<div class="form-group row">
 								<label for="alamat" class="col-sm-4 col-md-2 col-form-label">Alamat<span
-									class="requiredField"> *</span></label>
-								<div class="col-sm-5">
+									class="requiredField">*</span></label>
+								<div class="col-sm-4">
 									<textarea class="form-control" id="alamat" required="required"
-										rows="5" th:field="*{alamat}" placeholder="Tuliskan alamat lengkap (jalan, kelurahan, kecamatan, kota/kabupaten, provinsi, dan kode pos)!"
+										rows="5" th:field="*{alamat}"
+										placeholder="Tuliskan alamat lengkap (jalan, kelurahan, kecamatan, kota/kabupaten, provinsi, dan kode pos)!"
 										maxlength="255" aria-describedby="count_message"></textarea>
 									<small class="form-text text-muted float-right"
 										id="count_message"></small>
@@ -237,15 +245,16 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 										placeholder="Cari Region" aria-describedby="regionHelpBlock">
 									<small id="regionHelpBlock" class="form-text text-muted">Cari
 										sesuai Kota/Kabupaten</small>
+								</div>
+							</div>
+							<div class="form-group row">
 								<label for="email" class="col-form-label col-sm-4 col-md-2">E-mail</label>
+								<div class="col-sm-auto">
 									<input type="email" class="form-control" id="email"
 										placeholder="Alamat e-mail" th:field="*{email}"
 										aria-describedby="emailHelpBlock"> <small
 										id="emailHelpBlock" class="form-text text-muted"> cth
 										: budi.budiman@yahoo.com</small>
-										
-								<div class="col-sm-auto">
-									<input type="search" class="form-control" id="tags" th:field="*{region}" required="required" placeholder="">
 								</div>
 							</div>
 							<div class="form-grup row">
@@ -268,9 +277,9 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 								</div>
 							</div>
 							<div class="form-group row">
-								<label for="telepon_orang_terdekat"
+								<label for="telp_orang_terdekat"
 									class="col-form-label col-sm-4 col-md-2">No. Telp.
-									Orang Terdekat<span class="requiredField"> *</span>
+									Orang Terdekat<span class="requiredField">*</span>
 								</label>
 								<div class="col-sm-auto">
 									<input type="text" class="form-control"
@@ -298,7 +307,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 							<h5 class="card-title">Nomor Identitas</h5>
 							<div class="form-group row">
 								<label for="no_ktp" class="col-form-label col-sm-4 col-md-2">No.
-									KTP<span class="requiredField"> *</span>
+									KTP<span class="requiredField">*</span>
 								</label>
 								<div class="col-sm-auto">
 									<input type="text" class="form-control" id="no_ktp"
@@ -313,7 +322,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 							<div class="form-group row">
 								<label for="pendidikan_terakhir"
 									class="col-sm-4 col-md-2 col-form-label">Pendidikan
-									Terakhir<span class="requiredField"> *</span>
+									Terakhir<span class="requiredField">*</span>
 								</label>
 								<div class="col-sm-auto">
 									<select class="form-control" id="pendidikan_terakhir"
@@ -334,7 +343,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 							<div class="form-group row">
 								<label for="nama_sekolah"
 									class="col-form-label col-sm-4 col-md-2">Nama Sekolah<span
-									class="requiredField"> *</span>
+									class="requiredField">*</span>
 								</label>
 								<div class="col-sm-auto">
 									<input type="text" class="form-control"
@@ -347,8 +356,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 							</div>
 							<div class="form-group row">
 								<label for="tempat_sekolah"
-									class="col-form-label col-sm-4 col-md-2">Tempat Sekolah<span
-									class="requiredField"> *</span>
+									class="col-form-label col-sm-4 col-md-2">Lokasi Sekolah<span
+									class="requiredField">*</span>
 								</label>
 								<div class="col-sm-auto">
 									<input type="search" class="form-control tags"
@@ -373,7 +382,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 							<div class="form-group row">
 								<label for="lulusan_tahun"
 									class="col-sm-4 col-md-2 col-form-label">Lulus Tahun<span
-									class="requiredField"> *</span></label>
+									class="requiredField">*</span></label>
 								<div class="col-sm-auto">
 									<select class="form-control" id="lulusan_tahun"
 										th:field="*{lulusan_tahun}" required="required">
@@ -388,18 +397,16 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 							<h5 class="card-title">Riwayat Pekerjaan</h5>
 							<p>
 								Tuliskan <b>3</b> riwayat pekerjaan Anda yang paling terakhir.
+								Jika tidak ada, isilah kolom <em>Nama Perusahaan</em> dan <em>Alasan
+									Berhenti</em> dengan menuliskan <b>Tidak Ada</b>.
 							</p>
 							<p>
-									Jika tidak ada, isilah kolom <em>Nama Perusahaan</em> dan <em>Alasan
-									Berhenti</em> dengan menuliskan <b>Tidak Ada</b>. Gunakan tombol <b>Tambah Riwayat</b> untuk menambah kolom
-									riwayat dan <b>Hapus Riwayat</b> untuk menghapus riwayat.
-									
-							</p>
+								Gunakan tombol <b>Tambah Riwayat</b> untuk menambah kolom
+								riwayat dan <b>Hapus Riwayat</b> untuk menghapus riwayat.
 							<h6 class="alert alert-danger" th:if="${deleteLimit_msg!=null}"
 								th:text="${deleteLimit_msg}"></h6>
 							<h6 class="alert alert-danger" th:if="${limit_msg!=null}"
 								th:text="${limit_msg}"></h6>
-
 							<div class="col-lg-10">
 								<div class="card"
 									th:each="np, iterationStatus : ${command.pengalamanList}">
@@ -434,7 +441,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 														Tahun-</option>
 													<option th:each="val : ${list_tahun}" th:value="${val}"
 														th:text="${val}"></option>
-							</select>
+												</select>
 											</div>
 										</div>
 										<div class="form-group row">
@@ -445,7 +452,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 												<select class="form-control" id="tahun_bekerja"
 													th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}"><option
 														th:each="val : ${list_tahunBekerja}" th:value="${val}"
-							th:text="${val}"></option>
+														th:text="${val}"></option>
 												</select>
 											</div>
 										</div>
@@ -457,7 +464,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 												<select class="form-control" id="bulan_bekerja"
 													th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaBulan_bekerja}"><option
 														th:each="val : ${list_bulanBekerja}" th:value="${val}"
-							th:text="${val}"></option>
+														th:text="${val}"></option>
 												</select>
 											</div>
 										</div>
@@ -499,12 +506,10 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 							<hr class="hrCustom2">
 							<button type="button" class="btn btn-primary" data-toggle="modal"
 								data-target="#myModal">Simpan</button>
-
 							<!-- The Modal -->
 							<div class="modal fade" id="myModal">
 								<div class="modal-dialog modal-dialog-centered">
 									<div class="modal-content">
-
 										<!-- Modal Header -->
 										<div class="modal-header">
 											<h4 class="modal-title">Pendaftaran Pelamar</h4>
@@ -513,7 +518,6 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 										<!-- Modal body -->
 										<div class="modal-body">Apakah Anda yakin untuk
 											menyimpan?</div>
-
 										<!-- Modal footer -->
 										<div class="modal-footer">
 											<button type="submit" class="btn btn-danger"
@@ -534,6 +538,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 </body>
 <script>
 	$(document).ready(function() {
@@ -543,16 +548,15 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 		$('#nomor_whatsapp').mask('0000-0000-0000');
 		$('#no_ktp').mask('0000000000000000');
 	});
-	
+
 	var text_max = 255;
 	$('#count_message').html(text_max + '/255 Karakter');
-	
+
 	$('#alamat').keyup(function() {
 		var text_length = $('#alamat').val().length;
 		var text_remaining = text_max - text_length;
 		$('#count_message').html(text_remaining + '/255 Karakter');
 	});
-
 
 	var today = new Date(new Date().getFullYear(), new Date().getMonth(),
 			new Date().getDate());
@@ -610,11 +614,11 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 				"NATUNA", "LINGGA", "KEPULAUAN ANAMBAS", "BATAM",
 				"TANJUNG PINANG", "KEPULAUAN SERIBU", "JAKARTA SELATAN",
 				"JAKARTA TIMUR", "JAKARTA PUSAT", "JAKARTA BARAT",
-				"JAKARTA UTARA", "BOGOR", "SUKABUMI", "CIANJUR", "BANDUNG",
-				"GARUT", "TASIKMALAYA", "CIAMIS", "KUNINGAN", "CIREBON",
-				"MAJALENGKA", "SUMEDANG", "INDRAMAYU", "SUBANG", "PURWAKARTA",
-				"KARAWANG", "BEKASI", "BANDUNG BARAT", "PANGANDARAN", "BOGOR",
-				"SUKABUMI", "BANDUNG", "CIREBON", "BEKASI", "DEPOK", "CIMAHI",
+				"JAKARTA UTARA", "BOGOR", "SUKABUMI", "CIANJUR", "GARUT",
+				"TASIKMALAYA", "CIAMIS", "KUNINGAN", "CIREBON", "MAJALENGKA",
+				"SUMEDANG", "INDRAMAYU", "SUBANG", "PURWAKARTA", "KARAWANG",
+				"BEKASI", "BANDUNG BARAT", "PANGANDARAN", "BOGOR", "SUKABUMI",
+				"BANDUNG", "CIREBON", "BEKASI", "DEPOK", "CIMAHI",
 				"TASIKMALAYA", "BANJAR", "CILACAP", "BANYUMAS", "PURBALINGGA",
 				"BANJARNEGARA", "KEBUMEN", "PURWOREJO", "WONOSOBO", "MAGELANG",
 				"BOYOLALI", "KLATEN", "SUKOHARJO", "WONOGIRI", "KARANGANYAR",
@@ -631,16 +635,15 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 				"LAMONGAN", "GRESIK", "BANGKALAN", "SAMPANG", "PAMEKASAN",
 				"SUMENEP", "KEDIRI", "BLITAR", "MALANG", "PROBOLINGGO",
 				"PASURUAN", "MOJOKERTO", "MADIUN", "SURABAYA", "BATU",
-				"PANDEGLANG", "LEBAK", "TANGERANG", "SERANG", "TANGERANG",
-				"CILEGON", "SERANG", "TANGERANG SELATAN", "JEMBRANA",
-				"TABANAN", "BADUNG", "GIANYAR", "KLUNGKUNG", "BANGLI",
-				"KARANG ASEM", "BULELENG", "DENPASAR", "LOMBOK BARAT",
-				"LOMBOK TENGAH", "LOMBOK TIMUR", "SUMBAWA", "DOMPU", "BIMA",
-				"SUMBAWA BARAT", "LOMBOK UTARA", "MATARAM", "BIMA",
-				"SUMBA BARAT", "SUMBA TIMUR", "KUPANG", "TIMOR TENGAH SELATAN",
-				"TIMOR TENGAH UTARA", "BELU", "ALOR", "LEMBATA",
-				"FLORES TIMUR", "SIKKA", "ENDE", "NGADA", "MANGGARAI",
-				"ROTE NDAO", "MANGGARAI BARAT", "SUMBA TENGAH",
+				"PANDEGLANG", "LEBAK", "SERANG", "TANGERANG", "CILEGON",
+				"SERANG", "TANGERANG SELATAN", "JEMBRANA", "TABANAN", "BADUNG",
+				"GIANYAR", "KLUNGKUNG", "BANGLI", "KARANG ASEM", "BULELENG",
+				"DENPASAR", "LOMBOK BARAT", "LOMBOK TENGAH", "LOMBOK TIMUR",
+				"SUMBAWA", "DOMPU", "BIMA", "SUMBAWA BARAT", "LOMBOK UTARA",
+				"MATARAM", "BIMA", "SUMBA BARAT", "SUMBA TIMUR", "KUPANG",
+				"TIMOR TENGAH SELATAN", "TIMOR TENGAH UTARA", "BELU", "ALOR",
+				"LEMBATA", "FLORES TIMUR", "SIKKA", "ENDE", "NGADA",
+				"MANGGARAI", "ROTE NDAO", "MANGGARAI BARAT", "SUMBA TENGAH",
 				"SUMBA BARAT DAYA", "NAGEKEO", "MANGGARAI TIMUR",
 				"SABU RAIJUA", "MALAKA", "KUPANG", "SAMBAS", "BENGKAYANG",
 				"LANDAK", "MEMPAWAH", "SANGGAU", "KETAPANG", "SINTANG",
@@ -693,7 +696,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js">
 				"KEEROM", "WAROPEN", "SUPIORI", "MAMBERAMO RAYA", "NDUGA",
 				"LANNY JAYA", "MAMBERAMO TENGAH", "YALIMO", "PUNCAK",
 				"DOGIYAI", "INTAN JAYA", "DEIYAI", "JAYAPURA" ];
-		$("#tags").autocomplete({
+		$(".tags").autocomplete({
 			source : availableTags
 		});
 	});

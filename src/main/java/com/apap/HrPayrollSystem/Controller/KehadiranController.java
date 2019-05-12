@@ -49,10 +49,10 @@ public class KehadiranController {
 	//List All Kehadiran
 	@RequestMapping(value="/proyek/{proyek_id}/kehadiran",method=RequestMethod.GET)
 	private String daftarKehadiranProyek(@PathVariable(value="proyek_id") long proyek_id, Model model ,HttpServletRequest req ) {	
+		gaji_service.delete_all(gaji_service.get_all());
 		List<KehadiranModel> get_all_kehadiran = kehadiran_service.get_all_kehadiran();
 		List<String> kehadiran_proyek_ini = new ArrayList<String>();
 		String nama_proyek = proyek_service.getProyekById(proyek_id).get().getNama_proyek();
-		
 		for(int i = 0 ; i < get_all_kehadiran.size() ; i++) {
 			if(get_all_kehadiran.get(i).getProyek().getId() == proyek_id) {
 				if(kehadiran_proyek_ini.isEmpty()) {
@@ -456,7 +456,7 @@ public class KehadiranController {
 		model.addAttribute("variable", variable);
 		
 		
-		return "rekap_penggajian";
+		return "detail_penggajian";
 	}
 	
 	@RequestMapping(value="/proyek/{proyek_id}/kehadiran/penggajian_submit",method=RequestMethod.POST)

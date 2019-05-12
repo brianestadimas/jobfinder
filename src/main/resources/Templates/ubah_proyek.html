@@ -36,7 +36,7 @@ thead th{
 <nav th:replace="fragments/fragment :: navbar"></nav>
 <div class="blankspace">
 <div class="boxContainer2" style="overflow-x:auto;">
-<img src="img/icon_building.png" style="max-width:5%;margin-top: -10px">
+<img src="/img/icon_building.png" style="max-width:5%;margin-top: -10px">
 <h2 style="display: inline; margin-left: 10px">Ubah Proyek</h2>
 <form th:action="@{'/proyek-ubah/' + ${proyekLama.id}}" th:object="${proyek}" method="POST">
 <hr></hr>

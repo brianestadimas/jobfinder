@@ -1,9 +1,8 @@
 package com.apap.HrPayrollSystem.Controller;
 
-import java.time.Year;
 import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +10,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -130,7 +130,7 @@ public class PelamarController {
 	 * @return Halaman HTML data pelamar
 	 */
 	@RequestMapping(value = "pelamar/daftar", params = { "submitPelamar" }, method = RequestMethod.POST)
-	private String daftarPelamarPost(@ModelAttribute PelamarModel pelamar, @ModelAttribute FormCommand command,
+	private String daftarPelamarPost(@ModelAttribute PelamarModel pelamar, @ModelAttribute FormCommand command,HttpServletRequest req,
 			Model model, RedirectAttributes redir) {
 		String produkResult = "";
 		if (command.checkForNull() == true) {
@@ -149,6 +149,11 @@ public class PelamarController {
 			for (PengalamanPelamarModel pp : command.getPengalamanList()) {
 				pp.setPelamar_id(pelamar);
 				pengalamanService.addPengalaman(pp);
+			}
+			AccountModel user = akun_service.findByUsername(req.getRemoteUser());
+			if(user.getRole().equals("pelamar")) {
+				 SecurityContextHolder.getContext().setAuthentication(null);
+				return "redirect:/login"; 
 			}
 			redir.addFlashAttribute("daftarSukses_msg",
 					"Pelamar " + pelamar.getNama_lengkap() + " sukses didaftarkan !");

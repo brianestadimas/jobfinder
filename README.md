@@ -39,151 +39,40 @@ Thymeleaf sebagai frontend
 
 ## Cara Mulai Mengerjakan
 
-1. Clone ke pc/laptop (git clone <url>) jangan lupa add remote, git add remote <nama_remote> <url>
-2. Import project lewat STS
-3. Tunggu STS configurasi otomatis
-4. Bikin branch baru dengan nama usecase kalian (git branch <nama_use_case>)
-5. Pindah ke branch tersebut (git checkout <nama_branch_yang_tadi_dibuat>)
-6. Mulai Mengerjakan
-7. Jika sudah, push ke branch kalian (git status -> git add . -> git commit -m "commit messages", -> git push <nama_remote> <branch_kalian>)
+1. Pull dari master
+2. Drop semua table dengan db yg ada di application.properties
+3. run program
+4. import account.sql
+
+
 
 ## TODO
 
-Dimas : 
+no owner
+notifikasi menambahkan proyek
+pegawai outsourcing controller line 160 maksudnya apa
+informasi server
+kelola gaji di detail proyek maksudnya apa
+tombol2 di kehadiran kok gitu?
+check image
+abis penggajian kemana
+nasib dari proyek dan produk di feedback/riwayat abis kedua itu dihapus
+hasil penggajian pdf nya harusnya landscape
+hasil penggajian ada E nya
+apakah kehadiran yg udah di gaji mau ditandain?
+front end akun
+kalau pegawai dihapus, apakah semua riwayat nya juga kehapus?
+reorder id kalau ada yg kehapus dan jadi berantakan
+print format
+apakah riwayat kerja bisa dihapus dan di ubah?
+cek notifikasi apa aja yg kurang
 
-[] Constraint Start dan End date proyek
+nael
+daftar pelamar diubah ke bootstrap 3.7 malah berantakan
 
-[] Ubah proyek autofill region
+dimas
+di ubah pegawai nge bug bagian tab nya
 
-[] Size kolom
-
-[] Search hanya untuk kolom tertentu
-
-[] seragamkan front end
-
-[] seluruh tombol sudah diimplementasikan bisa dipencet
-
-[] Notifikasi ketika proyek sudah di buat,ubah,hapus
-
-[] Notifikasi ketika regulasi pegawai sudah diganti
-
-[] Modal ketika hapus proyek
-
-Nael :
-
-Nael :
-
-[] Konsistensi
-
-[X] Ketika ada error saat pengisian, notifikasi error nya di bagian mana
-
-[X] Max length
-
-[X] Hapus Pelamar debug
-
-[X] Penamaan button
-
-[X] seluruh tombol sudah diimplementasikan bisa dipencet
-
-[X] Notifikasi ketika pelamar/pegawai sudah di buat,ubah,hapus
-
-[X] Modal ketika hapus pelamar/pegawai
-
-[] Modal berhenti assign pegawai
-
-[] Implement backend performa(grafik stuffs)
-
-Aji :
-
-[x] Constraint number
-
-[x] Status ketika assign
-
-[x] debug usecase 4&7
-
-[] Style Front end //Tunggu dimas
-
-[x] Constraint jumlah hari kerja 
-
-[] Filter&Search dari kehadiran //Tungg dimas
-
-[x] seluruh tombol sudah diimplementasikan bisa dipencet
-
-[x] implement login 
-
-[x] implement logout 
-
-[x] implement manage account
-
-[x] implement manage product
-
-[x] Notifikasi ketika berhasil bikin kehadiran, hapus kehadiran, ubah kehadiran, berhasil assign 
-
-[] printable format untuk kehadiran perjudul
-
-[x] Bug ketika pada proyek kedua dan lebih, saat akan menambahkan kehadiran daftar pegawai tidak kerender
-
-[] Implement back end penggajian
-
-[] Implement back end feedback
-
-Savira/Athifah : 
-
-[] Busdev
-	
-	[] Menambah proyek
-	
-	[] Menghapus proyek
-	
-	[] Mengubah proyek
-	
-[] HR
-
-	[] Mendaftar pelamar
-	
-	[] Ubah pelamar
-	
-	[] assign pelamar
-	
-	[] ubah data pegawai
-	
-	[] assign pegawai
-
-	[] membuat kehadiran
-
-	[] mengubah kehadiran
-
-	[] menghapus kehadiran
-
-	[] penggajian
-
-[] Viewer
-
-	[] melihat daftar pelamar
-
-	[] melihat daftar pegawai
-
-	[] melihat daftar proyek
-
-	[] melihat daftar kehadiran
-
-	[] melihat detail pelamar
-
-	[] melihat detail pegawai
-
-	[] melihat detail proyek
-
-	[] melihat detail kehadiran
-
-//bisa cek file home.html dan homeController.java untuk referensi pengerjaan	
-
-TASK BELUM YG ADA AMBIL :
-
-[] Printable format buat detail pelamar yg ingin diajukan
-
-[] If else buat pelamar, jika sudah jadi pegawai maka nama pelamar tersebut di hidden dari list of pelamar
-
-[] counter2 di home
 
 
 ##FLow iterasi 2

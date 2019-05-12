@@ -193,8 +193,6 @@ thead th {
 					buttons : [ 'copy', 'csv', 'excel', 'pdf', 'print' ]
 				});
 
-								});
-
 				table.buttons().container().appendTo(
 						'#example_wrapper .col-sm-12:eq(0)');
 			});
@@ -232,7 +230,7 @@ thead th {
 			url : "/pelamar/assign?" + parameters,
 			dataType : "json",
 			success : function(result) {
-				
+
 			}
 		});
 		window.location.href = urls;
@@ -240,7 +238,6 @@ thead th {
 		location.replace(urls);
 
 	});
-
 
 	$('#berhentiButton').click(function() {
 		var parameters = "";
@@ -270,7 +267,7 @@ thead th {
 
 	$('#example tfoot th').each(function() {
 		var title = $(this).text();
-		$(this).html('<input type="text" placeholder="Search '+title+'" />');
+		$(this).html('<input type="text" placeholder="Cari '+title+'" />');
 	});
 	// DataTable
 	var docDefinition = {
@@ -326,5 +323,6 @@ thead th {
 		});
 	});
 </script>
+
 
 </html>

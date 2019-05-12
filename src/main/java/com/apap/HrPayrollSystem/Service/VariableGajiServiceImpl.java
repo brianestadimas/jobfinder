@@ -32,4 +32,19 @@ public class VariableGajiServiceImpl implements VariableGajiService{
 		return variableGajiDb.getOne((long) 1);
 	}
 
+	@Override
+	public void saveVariableGaji(VariableGajiModel varGaji) {
+		// TODO Auto-generated method stub
+		variableGajiDb.save(varGaji);
+	}
+
+	@Override
+	public boolean checkNull() {
+		// TODO Auto-generated method stub
+		if(variableGajiDb.existsById((long)1)) {
+			return false;
+		}
+		return true;
+	}
+
 }

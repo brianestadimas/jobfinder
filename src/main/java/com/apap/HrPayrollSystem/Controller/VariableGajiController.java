@@ -20,10 +20,21 @@ public class VariableGajiController {
 	//detail variable gaji
 	@RequestMapping(value="/variable-gaji",method=RequestMethod.GET)
 	private String detailVariableGaji(Model model) {
-		VariableGajiModel variableGaji = variableGajiService.getVariableGaji();
 		
-		model.addAttribute("variableGaji", variableGaji);
+		//cek jika null maka
+		if(variableGajiService.checkNull()) {
+			return "form_inisiasi_variable_gaji";
+		}
+		VariableGajiModel variable_gaji = variableGajiService.getVariableGaji();
+		model.addAttribute("variableGaji", variable_gaji);
 		return "variable_gaji";
+	}
+	
+	@RequestMapping(value="/variable-gaji/submit",method=RequestMethod.POST)
+	private String submitVariableGaji(@ModelAttribute VariableGajiModel variableGaji, Model model) {
+		variableGajiService.saveVariableGaji(variableGaji);
+		
+		return "redirect:/variable-gaji";
 	}
 	
 	//update variable gaji

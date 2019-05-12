@@ -29,6 +29,18 @@ public class GajiServiceImpl implements GajiService {
 		gaji_db.save(gaji);
 	}
 
+	@Override
+	public void delete_all(List<GajiModel> gaji) {
+		// TODO Auto-generated method stub
+		gaji_db.deleteAll(gaji);
+	}
+
+	@Override
+	public List<GajiModel> get_all() {
+		// TODO Auto-generated method stub
+		return gaji_db.findAll();
+	}
+
 	
 	
 }

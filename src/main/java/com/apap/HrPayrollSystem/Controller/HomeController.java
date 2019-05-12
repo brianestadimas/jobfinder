@@ -44,10 +44,13 @@ public class HomeController {
 			}
 		}
 		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
-
+		if(user.getRole().equals("pelamar")) {
+			return "redirect:/pelamar/daftar";
+		}
 		model.addAttribute("user", user);
 		model.addAttribute("pelamar", pelamar_belum_assign);
 		model.addAttribute("proyek",list_of_proyek);
+		model.addAttribute("pegawai", pegawaiService.getAllPegawai());
 		return"home";
 	}
 	
