@@ -49,38 +49,48 @@ Thymeleaf sebagai frontend
 ## TODO
 
 no owner
+
 notifikasi menambahkan proyek
+
 pegawai outsourcing controller line 160 maksudnya apa
-informasi server
+
 kelola gaji di detail proyek maksudnya apa
+
 tombol2 di kehadiran kok gitu?
+
 check image
+
 abis penggajian kemana
+
 nasib dari proyek dan produk di feedback/riwayat abis kedua itu dihapus
+
 hasil penggajian pdf nya harusnya landscape
+
 hasil penggajian ada E nya
+
 apakah kehadiran yg udah di gaji mau ditandain?
+
 front end akun
+
 kalau pegawai dihapus, apakah semua riwayat nya juga kehapus?
+
 reorder id kalau ada yg kehapus dan jadi berantakan
+
 print format
+
 apakah riwayat kerja bisa dihapus dan di ubah?
+
 cek notifikasi apa aja yg kurang
 
+
 nael
+
 daftar pelamar diubah ke bootstrap 3.7 malah berantakan
 
+
 dimas
+
 di ubah pegawai nge bug bagian tab nya
-
-
-
-##FLow iterasi 2
-
-UC 9
-list of kehadiran -> do payment -> rekap(ubah kehadiran)[Modal notifikasi] -> form penggajian
-
-
 
 
 ## Version Control
