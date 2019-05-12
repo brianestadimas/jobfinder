@@ -33,6 +33,7 @@ import com.apap.HrPayrollSystem.Service.PengalamanPelamarService;
 import com.apap.HrPayrollSystem.Service.ProdukService;
 import com.apap.HrPayrollSystem.Service.ProyekService;
 import com.apap.HrPayrollSystem.Utility.AssignmentWrapper;
+import com.apap.HrPayrollSystem.Utility.FormCommand;
 /**
  * Controller kelas Pelamar
  * 
@@ -130,22 +131,29 @@ public class PelamarController {
 	 */
 	@RequestMapping(value = "pelamar/daftar", params = { "submitPelamar" }, method = RequestMethod.POST)
 	private String daftarPelamarPost(@ModelAttribute PelamarModel pelamar, @ModelAttribute FormCommand command,
-			Model model) {
+			Model model, RedirectAttributes redir) {
 		String produkResult = "";
-		for (String produk : command.getSelectedCheckboxProduk()) {
-			produkResult += produk + ",";
+		if (command.checkForNull() == true) {
+			model.addAttribute("pelamar", pelamar);
+			model.addAttribute("command", command);
+			model.addAttribute("daftarError_msg", command.checkForNullMsg());
+			return "pelamar-daftar";
+		} else {
+			for (String produk : command.getSelectedCheckboxProduk()) {
+				produkResult += produk + ",";
+			}
+			pelamar.setProduk_dilamar(produkResult.substring(0, produkResult.length() - 1));
+			pelamar.setGender(command.getSelectedRadioGender());
+			pelamar.setStatus_marital(command.getSelectedRadioMarital());
+			pelamarService.addPelamar(pelamar);
+			for (PengalamanPelamarModel pp : command.getPengalamanList()) {
+				pp.setPelamar_id(pelamar);
+				pengalamanService.addPengalaman(pp);
+			}
+			redir.addFlashAttribute("daftarSukses_msg",
+					"Pelamar " + pelamar.getNama_lengkap() + " sukses didaftarkan !");
+			return "redirect:/pelamar/";
 		}
-		pelamar.setProduk_dilamar(produkResult.substring(0, produkResult.length() - 1));
-
-		pelamarService.addPelamar(pelamar);
-		for (PengalamanPelamarModel pp : command.getPengalamanList()) {
-			pp.setPelamar_id(pelamar);
-			pengalamanService.addPengalaman(pp);
-		}
-		List<PelamarModel> arsip_pelamar = pelamarService.getAllPelamar();
-		model.addAttribute("daftarSukses_msg", "Pelamar " + pelamar.getNama_lengkap() + " sukses didaftarkan!");
-		model.addAttribute("listPelamar", arsip_pelamar);
-		return "redirect:/pelamar/";
 	}
 
 	/**
@@ -176,8 +184,10 @@ public class PelamarController {
 	private String getPelamarDetail(@PathVariable(value = "id") long id, Model model ,HttpServletRequest req ) {
 		PelamarModel arsip_pelamar = pelamarService.getPelamarById(id);
 		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
+		List<PengalamanPelamarModel> arsip_pengalaman = pengalamanService.getAllPengalamanByPelamar(arsip_pelamar);
 		model.addAttribute("user", user);
 		model.addAttribute("pelamar", arsip_pelamar);
+		model.addAttribute("list_pengalaman", arsip_pengalaman);
 		return "pelamar-detail";
 	}
 
@@ -194,6 +204,8 @@ public class PelamarController {
 		PelamarModel arsip_pelamar = pelamarService.getPelamarById(id);
 		command.setSelectedCheckboxProduk(arsip_pelamar.getProduk_dilamar().split(","));
 		command.setPengalamanList(pengalamanService.getAllPengalamanByPelamar(arsip_pelamar));
+		command.setSelectedRadioGender(arsip_pelamar.getGender());
+		command.setSelectedRadioMarital(arsip_pelamar.getStatus_marital());
 
 		// Tambah attribute ke dalam model
 		model.addAttribute("command", command);
@@ -262,25 +274,39 @@ public class PelamarController {
 	 */
 	@RequestMapping(value = "pelamar/ubah/{id}", params = { "submitPelamarUbah" }, method = RequestMethod.POST)
 	private String ubahPelamarPost(@PathVariable(value = "id") long id, @ModelAttribute PelamarModel pelamar,
-			@ModelAttribute FormCommand command, Model model) {
-		System.out.println(pelamar.getNama_lengkap());
-		System.out.println(command.getSelectedCheckboxProduk());
-		String produkResult = "";
-		for (String produk : command.getSelectedCheckboxProduk()) {
-			produkResult += produk + ",";
-		}
-		pelamar.setProduk_dilamar(produkResult);
-		pelamarService.updatePelamar(pelamar);
+			@ModelAttribute FormCommand command, Model model, RedirectAttributes redir) {
 		String nama_pelamar = pelamar.getNama_lengkap();
-		model.addAttribute("pelamar",pelamar);
-		model.addAttribute("suksesUbah_msg", "Pelamar " + nama_pelamar + " berhasil diubah!");
-		return "pelamar-detail";
+		String produkResult = "";
+		if (command.checkForNull() == true) {
+			model.addAttribute("pelamar", pelamar);
+			model.addAttribute("command", command);
+			model.addAttribute("ubahError_msg", command.checkForNullMsg());
+			return "pelamar-ubah";
+		} else {
+			for (String produk : command.getSelectedCheckboxProduk()) {
+				produkResult += produk + ",";
+			}
+			pelamar.setProduk_dilamar(produkResult.substring(0, produkResult.length() - 1));
+			pelamar.setGender(command.getSelectedRadioGender());
+			pelamar.setStatus_marital(command.getSelectedRadioMarital());
+
+			pelamarService.updatePelamar(pelamar);
+
+			for (PengalamanPelamarModel pp : command.getPengalamanList()) {
+				pp.setPelamar_id(pelamar);
+				pengalamanService.updatePengalaman(pp);
+			}
+
+			redir.addFlashAttribute("ubahSukses_msg", "Pelamar " + nama_pelamar + " berhasil diubah!");
+			return "redirect:/pelamar/detail/{id}";
+		}
+
 	}
 
 	@RequestMapping(value = "/pelamar/hapus", method = RequestMethod.POST)
 	private String deletePelamar(@RequestParam("id") Long[] ids, Model model) {
 		List<PengalamanPelamarModel> arsip_pengalaman = pengalamanService.getAllPengalaman();
-		if (ids == null) {
+		if (ids.length == 0) {
 			model.addAttribute("deleteError_msg", "Centang Pelamar yang akan dihapus terlebih dahulu!");
 		} else {
 			for (Long id : ids) {
@@ -331,7 +357,7 @@ public class PelamarController {
 
 	@ModelAttribute("list_tahun")
 	public List<String> getTahunValues() {
-		int minYear = Year.now().getValue() - 60;
+		int minYear = Year.now().getValue() - 48;
 		int maxYear = Year.now().getValue() + 10;
 		List<String> values = new ArrayList<String>();
 		for (int i = minYear; i <= maxYear; i++) {
@@ -348,15 +374,8 @@ public class PelamarController {
 		AssignmentWrapper wrapper = new AssignmentWrapper();
 		List<ProdukModel> daftar_produk = produkService.getAllProduk();
 		List<ProyekModel> daftar_proyek = proyekService.getAllProyek();
-		
 		wrapper.setDaftar_proyek(daftar_proyek);
-		
 		List<String> nama_pelamar = new ArrayList<String>();
-		
-//		ids = new long[2];
-//		ids[0] = (long) 2;
-//		ids[1] = (long) 3;
-//		System.out.println(ids.length);
 		
 		for(int i=0; i<ids.length; i++) {
 			PelamarModel pelamar = pelamarService.getPelamarById(ids[i]);
@@ -365,7 +384,6 @@ public class PelamarController {
 			
 			wrapper.add_pegawai(pegawai);
 			nama_pelamar.add(pelamar.getNama_lengkap());
-			System.out.println(wrapper.getDaftar_pegawai().get(i).getPelamar_id().getNama_lengkap());
 		}
 		
 		model.addAttribute("wrapper", wrapper);

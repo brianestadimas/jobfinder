@@ -405,7 +405,7 @@
                 
                 
             
-				 <div class="form-group col-md-4">
+				 <div class="form-group col-md-2">
                 <form th:action="'/pegawai-detail/'+${pegawai.id}+'/feedback/submit'" method="post" th:object="${feedback}">
                 	<label for="inputProyek">Proyek</label>
                         <select class="form-control" id="inputProyek" name="proyek">
@@ -413,19 +413,18 @@
                           </option>
                       </select>
                       </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-2">
                       <label for="inputJoinDate">Tanggal Feedback</label>
                       <input type="Date" class="form-control getdate" name="tanggal_pengisian_feedback"/>
                     </div>
                     <div class="form-row">
-                      <div class="col-md-12"></div>
-                      <div class="form-group col-md-12">
+                      <div class="form-group col-md-7">
                         <label for="inputEndDate">Feedback</label>
                       <input type="text" class="form-control"  name="feedback"></textarea>
                       </div>
                     </div>
                     <input type="hidden" name="pegawai_outsourcing" th:value="${pegawai.id}">
-                    <button type="submit">tambah ulasan</button>
+                    <button type="submit" class="btn btn-success btn-large" style="margin-left: 5px; margin-top: 23px">tambah ulasan</button>
                 </form>
                 
 

@@ -27,12 +27,6 @@ public class KehadiranWrapper {
 		this.daftar_pegawai_outsourcing.add(pegawai_outsourcing);
 	}
 
-
-	
-	
-
-
-
 	public List<PegawaiOutsourcingModel> getDaftar_pegawai_outsourcing() {
 		return daftar_pegawai_outsourcing;
 	}
