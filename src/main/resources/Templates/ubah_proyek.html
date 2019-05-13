@@ -96,8 +96,10 @@ thead th{
     </div>
     </div>
     <div class="col-sm-12"></div>
-      <button class="btn btn-primary btn-large" style="float: right;" type="submit">Submit</button>
-      <button class="btn btn-info btn-danger" style="float: right; margin-right: 10px;">Batalkan</button>
+  </div>
+    <div class="col-sm-12">
+      <button class="btn btn-success btn-large" style="margin-left: 20px;" type="submit">Simpan</button>
+      <a class="btn btn-danger btn-large" th:href="@{'/proyek/detail/'+${proyek_id}+''}">Kembali</a>
   </form>
 <p>
 </p></div>
@@ -118,7 +120,6 @@ thead th{
   <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
   <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
   <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
-  <script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script type="text/javascript" class="init"></script>
 </body>
