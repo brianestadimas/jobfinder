@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<style>
+        
+        #header{
+                font-size: 125%;
+                text-align: center;
+        }
+				#Header-Kehadiran {
+    		display: flex;
+    		justify-content: space-between;
+
+		}
+
+		#judul-kehadiran {
+    		align-items: center;
+    		display: flex;
+   
+		}
+
+		#hari-kerja-kehadiran {
+    		display: flex;
+    		align-items: center;
+		}
+		#input_box{
+			outline: 0;
+  			border-width: 0 0 2px;
+  			border-color: black;
+  			font-size:24px;
+		}
+</style>
+<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css">
+		<link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div  style="padding:1%">
+        <form action="#" th:action="'/proyek/'+${proyek_id}+'/kehadiran/'+${judul_kehadiran}+'/penggajian2'" method="post" th:object="${daftar_kehadiran}">
+                <img src="/img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
+                <h1 style="font-size:300%">Form Ubah Kehadiran</h1>
+                <hr>
+                <h2 class="alert alert-warning" th:if="${fail_notif!=null}"
+				th:text="${fail_notif}"></h2>	
+                <div id="Header-Kehadiran">
+	                <div id="judul-kehadiran">
+	                	<h3>Judul Absensi :</h3>
+	                	<input id="input_box" type="text" th:value="${judul_kehadiran}" name="judul_absensi" >
+	                </div>
+	                <div id="hari-kerja-kehadiran">
+	                	<h3>Hari Kerja :</h3>
+	                	<input  id="input_box" type="number" th:value="${jumlah_hari_kerja}" name="jumlah_hari_kerja" >
+        			</div>
+        		</div>
+                <h2>Daftar Pegawai</h2>
+        
+                <!--dropdown filter based on product-->
+                <table class="table table-striped table-bordered" style="width:100%;">
+                        <thead>
+                                <tr id="header">
+                                        <th>NIP</th>
+                                        <th>Nama Pegawai</th>
+                                        <th>Hadir</th>
+                                        <th>Sakit</th>
+                                        <th>Izin</th>
+                                        <th>Alfa</th>
+                                        <th>Libur</th>
+                                        <th>Cuti</th>
+                                        <th>Lain-Lain</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr id="test1" th:each="daftar_kehadiran, itemStat : *{daftar_kehadiran}">
+                                        <td th:text="${nip_pegawai[itemStat.index]}">wuRYYYYYYYYYY</td>
+                                        <td th:text="${nama_pegawai[itemStat.index]}">wuRYYYYYYYYYY</td>
+                                        <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_kehadiran}" name="jumlah_hadir"></td>
+                                        <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_sakit}" name="jumlah_sakit"></td>
+                                        <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_izin}" name="jumlah_izin"></td>
+                                        <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_absen}" name="jumlah_alfa"></td>
+                                        <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_off}" name="jumlah_libur"></td>
+                                        <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_cuti}" name="jumlah_cuti"></td>
+                                        <td><input type="number" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_lain_lain}" name="jumlah_lain_lain"></td>
+                                		<td style="display:none"><input type="hidden" th:field="*{daftar_kehadiran[__${itemStat.index}__].pegawai_outsourcing}"></td>
+                                		<td style="display:none"><input type="hidden" th:field="*{daftar_kehadiran[__${itemStat.index}__].id}"></td>
+                                </tr>
+                                
+        
+        
+                        </tbody>
+                </table>        
+                <h3 th:text="'Jumlah Pegawai Proyek : '+${#lists.size(nama_pegawai)}"></h3> 
+                <hr>
+                <input class="btn btn-success btn-large" type="submit" value="SIMPAN">
+                <a class="btn btn-danger btn-large" th:href="@{'/proyek/'+${proyek_id}+'/kehadiran'}">BATAL</a>
+        </form>
+
+</div>
+
+
+
+
+</body>
+<footer>
+
+</footer>
+</html>

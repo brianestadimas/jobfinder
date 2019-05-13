@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<style>
+
+
+
+</style>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<a th:href="@{/account/add}">Tambah Akun</a>
+	<table>
+		<thead>
+			<tr>
+				<th>No. </th>
+				<th>Nama </th>
+				<th>Username </th>
+				<th>Peran </th>
+				<th>Tindakan </th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="akun,iteration : *{akun_akun}">
+				<td th:text="${iteration.count}"></td>
+				<td th:text="${akun.name}"></td>
+				<td th:text="${akun.username}"></td>
+				<td th:text="${akun.role}"></td>
+				<td>
+					<a type="button" th:href="@{'/account/update/'+${akun.id}}">Ubah Akun</a>
+					<a type="button" th:href="@{'/account/delete/'+${akun.id}}">Hapus Akun</a>
+				</td>
+			</tr>
+		</tbody>	
+	</table>
+
+
+
+
+
+
+
+</body>
+
+<footer>
+
+
+
+</footer>
+
+
+
+</html>
