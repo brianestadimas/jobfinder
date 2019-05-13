@@ -328,6 +328,7 @@ public class PelamarController {
 				pelamarService.deletePelamar(arsip_pelamar);
 			}
 		}
+		model.addAttribute("deleteSukses_msg", "Pelamar berhasil dihapus");
 		return "pelamar-view";
 	}
 
