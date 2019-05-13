@@ -32,50 +32,54 @@ thead th{
 }
 </style>
 
-<body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
+
 <div class="blankspace">
-<div class="boxContainer2" style="overflow-x:auto;">
-<img src="/img/icon_building.png" style="max-width:5%;margin-top: -10px">
+<img src="img/icon_building.png" style="max-width:5%;margin-top: -10px">
 <h2 style="display: inline; margin-left: 10px">Ubah Proyek</h2>
+<hr></hr>
+<h2 class="alert alert-fail" th:if="${fail_notif!=null}"
+          th:text="${fail_notif}"></h2>
+<div class="boxContainer2" style="overflow-x:auto;">
 <form th:action="@{'/proyek-ubah/' + ${proyekLama.id}}" th:object="${proyek}" method="POST">
+  <h4> Melengkapi Data </h4>
 <hr></hr>
     <div>
         <input type="hidden" class="form-control" name="jenis_proyek" th:value="${proyekLama.jenis_proyek}" required>
     </div>
     <div class="form-group col-md-6">
         <label for="inputAddress">Nama Proyek *</label>
-        <input type="text" class="form-control" name="nama_proyek" th:value="${proyekLama.nama_proyek}" required>
+        <input type="text" class="form-control" name="nama_proyek" maxlength="30" th:value="${proyekLama.nama_proyek}" required>
     </div>
     <div class="form-group col-md-6">
         <label for="inputAddress">Region *</label>
-        <input type="text" class="form-control" name="region" th:value="${proyekLama.region}" required>
+        <input type="text" class="form-control" name="region" maxlength="50" th:value="${proyekLama.region}" required>
     </div>
     <div class="form-group col-md-6">
         <label for="inputAddress">Nomor Kontrak *</label>
-        <input type="text" class="form-control" name="nomor_kontrak" th:value="${proyekLama.nomor_kontrak}" required>
+        <input type="text" class="form-control" name="nomor_kontrak" maxlength="40" th:value="${proyekLama.nomor_kontrak}" required>
     </div>
     <div class="form-group col-md-12">
         <label for="inputAddress">Deskripsi Proyek</label>
-        <input type="text" class="form-control" name="deskripsi_proyek" th:value="${proyekLama.deskripsi_proyek}">
+        <input type="text" class="form-control" name="deskripsi_proyek" maxlength="255" th:value="${proyekLama.deskripsi_proyek}">
     </div>
     <div class="form-group col-md-6">
         <label for="inputAddress">Nama CP *</label>
-        <input type="text" class="form-control" name="nama_cp" th:value="${proyekLama.nama_cp}" required>
+        <input type="text" class="form-control" name="nama_cp" maxlength="30" th:value="${proyekLama.nama_cp}" required>
     </div>
     <div class="form-group col-md-6">
         <label for="inputAddress">No Telp CP *</label>
-        <input type="number" class="form-control" name="no_telp_cp" th:value="${proyekLama.no_telp_cp}" required>
+        <input type="number" class="form-control" name="no_telp_cp" maxlength="16" th:value="${proyekLama.no_telp_cp}" required>
     </div>
     <div class="col-sm-12"></div> 
     <div class="form-group col-md-3">
       <label for="inputAddress">Start Date *</label>
-      <input type="Date" class="form-control" name="start_date_kontrak" th:value="${proyekLama.start_date_kontrak}" required>
+      <input type="Date" class="form-control" id="StartDate" name="start_date_kontrak" th:value="${proyekLama.start_date_kontrak}" required>
     </div>
     <div class="form-row">
       <div class="form-group col-md-3">
-        <label for="inputCity">End Date</label>
-        <input type="Date" name="end_date_kontrak" class="form-control" th:value="${proyekLama.end_date_kontrak}" required>
+        <label for="inputCity">End Date *</label>
+        <input type="Date" name="end_date_kontrak" id="EndDate" class="form-control EndDate" th:value="${proyekLama.end_date_kontrak}" required>
       </div>
       <div class="form-group col-md-6">
         <label for="inputAddress">Nilai Kontrak (Rp)</label>
@@ -83,17 +87,19 @@ thead th{
     </div>
     <div class="form-group col-md-6">
         <label for="inputAddress">NPWP</label>
-        <input type="text" class="form-control" name="NPWP_klien" th:value="${proyekLama.NPWP_klien}" placeholder="12345678912">
+        <input type="text" class="form-control" name="NPWP_klien" maxlength="30" th:value="${proyekLama.NPWP_klien}" placeholder="12345678912">
     </div>
     <div class="form-row"></div>
     <div class="form-group col-md-6">
         <label for="inputAddress">Nomor Rekening</label>
-        <input type="number" class="form-control" name="no_rekening" th:value="${proyekLama.no_rekening}" placeholder="12345678912">
+        <input type="number" class="form-control" name="no_rekening" maxlength="" th:value="${proyekLama.no_rekening}" placeholder="12345678912">
     </div>
     </div>
     <div class="col-sm-12"></div>
-      <button class="btn btn-primary btn-large" style="float: right;" type="submit">Submit</button>
-      <button class="btn btn-info btn-danger" style="float: right; margin-right: 10px;">Batalkan</button>
+  </div>
+    <div class="col-sm-12">
+      <button class="btn btn-success btn-large" style="margin-left: 20px;" type="submit">Simpan</button>
+      <a class="btn btn-danger btn-large" th:href="@{'/proyek/detail/'+${proyek_id}+''}">Kembali</a>
   </form>
 <p>
 </p></div>
@@ -114,7 +120,6 @@ thead th{
   <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
   <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
   <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
-  <script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script type="text/javascript" class="init"></script>
 </body>
@@ -123,6 +128,10 @@ thead th{
 </footer>
 
 <script>
+  $( "#StartDate" ).change(function() {
+    var x = $( "#StartDate" ).val();
+    $( "input.EndDate" ).replaceWith('<input type="Date" id="EndDate" class="EndDate form-control" th:value="${proyekLama.end_date_kontrak}" name="end_date_kontrak" id="inputCity" min="' + x + '"required>');
+  });
 $(document).ready(function() {
     // Setup - add a text input to each footer cell
 

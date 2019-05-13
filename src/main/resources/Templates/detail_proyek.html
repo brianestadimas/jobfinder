@@ -38,16 +38,18 @@ thead th{
 
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
-<div class="blankspace">
-	<div class="boxContainer2">
+        <div class="blankspace">
         <img src="/img/icon_building.png" style="max-width:5%; margin-top: -10px; margin-left: -10px">
         <h2 style="display: inline; margin-left: 10px" th:text="${proyek.nama_proyek}"></h2>
+
         <h2 class="alert alert-success" th:if="${ubahSukses_msg!=null}"
-					th:text="${ubahSukses_msg}"></h2>
+                    th:text="${ubahSukses_msg}"></h2>
+
+	<div class="boxContainer2">
                 <div th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" id="kelola-akun">
-        <p><a th:href="@{'/proyek-ubah/' + ${proyek.id}}" class="btn btn-warning btn-large" style="float: right; margin-right: 5px; margin-bottom: 10px;">Ubah Detail<br></a>
+        <a th:href="@{'/proyek/ubah/' + ${proyek.id}}" class="btn btn-warning btn-large" style="float: right; margin-right: 5px; margin-bottom: -40px;">Ubah Detail</a>
         </div>
-        <p th:text="${proyek.deskripsi_proyek}"></p>
+        <p th:text="${proyek.deskripsi_proyek}">
 
         <hr>
         
