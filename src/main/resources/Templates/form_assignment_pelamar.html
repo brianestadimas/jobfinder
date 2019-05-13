@@ -38,8 +38,8 @@ thead th{
 <div class="boxContainer" style="overflow-x:auto;">
 <img src="/img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
 <h2 style="display: inline; margin-left: 10px">Assign Pelamar</h2>
-	<h2 class="alert alert-fail" th:if="${fail_notif!=null}"
-					th:text="${fail_notif}"></h2>
+	<h5 class="alert alert-danger"  th:if="${fail_notif!=null}"
+					th:text="${fail_notif}"></h5>
 <form th:action="'/pelamar/assign/submit'" method="post" th:object="${wrapper}">
 
     <div class="form-row">
@@ -54,13 +54,13 @@ thead th{
     <div class="col-sm-12"></div> 
     <div class="form-group col-md-3">
       <label for="inputJoinDate">Join Date</label>
-      <input type="Date" class="form-control getdate" name="join_date"/>
+      <input type="Date" id="StartDate" class="form-control" name="join_date"/>
     </div>
     <div class="col-sm-12"></div>
     <div class="form-row">
       <div class="form-group col-md-3">
         <label for="inputEndDate">End Date</label>
-      <input type="Date" class="form-control getdate" name="end_date"/>
+      <input type="Date" class="form-control EndDate" name="end_date"/>
       </div>
     </div>
     <div class="col-sm-12"></div>
@@ -129,6 +129,10 @@ thead th{
 </footer>
 
 <script>
+$( "#StartDate" ).change(function() {
+    var x = $( "#StartDate" ).val();
+    $( "input.EndDate" ).replaceWith('<input type="Date" id="EndDate" class="EndDate form-control" name="end_date" min="' + x + '"required>');
+  });
 $(document).ready(function() {
     // Setup - add a text input to each footer cell
 

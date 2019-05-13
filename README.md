@@ -1,12 +1,22 @@
 # HR and Payroll System
 
 URL : 
+Pelamar
+
+Pegawai
+
+Proyek
 daftar : /proyek
 detail : /proyek-detail/1
 ubah : /pegawai-ubah/1
 tambah : /proyek-tambah/
 hapus : /pegawai-hapus?id=1
 
+Kehadiran
+
+Produk
+
+Akun
 
 
 # HR and Payroll System
@@ -50,48 +60,58 @@ Thymeleaf sebagai frontend
 
 no owner
 
-notifikasi menambahkan proyek
+anti cenayang security
 
-pegawai outsourcing controller line 160 maksudnya apa
+maxlength untuk input yg string sesuai dengan model//nanti
 
-kelola gaji di detail proyek maksudnya apa
+pegawai outsourcing controller line 160 maksudnya apa? biar no produk gk keambil, bakal berlaku buat proyek juga
 
-tombol2 di kehadiran kok gitu?
+abis penggajian kemana? ke list absensi proyek
 
-check image
+kalau pegawai dihapus, apakah semua riwayat dan feedback nya juga kehapus? kehapus
 
-abis penggajian kemana
+apakah riwayat kerja bisa dihapus dan di ubah? gk bisa
 
-nasib dari proyek dan produk di feedback/riwayat abis kedua itu dihapus
+tombol2 di kehadiran kok gitu? bisa jadi miss pas merge
 
-hasil penggajian pdf nya harusnya landscape
+kelola gaji di detail proyek maksudnya apa? garubeji
 
-hasil penggajian ada E nya
+nasib dari proyek dan produk di feedback/riwayat abis kedua itu dihapus? 
 
 apakah kehadiran yg udah di gaji mau ditandain?
 
-front end akun
+front end akun//tinggal hias/design
 
-kalau pegawai dihapus, apakah semua riwayat nya juga kehapus?
-
-reorder id kalau ada yg kehapus dan jadi berantakan
-
-print format
-
-apakah riwayat kerja bisa dihapus dan di ubah?
+front end login//tinggal hias/design
 
 cek notifikasi apa aja yg kurang
 
+modal modal
+
+cek view
+
+check image
+
+print format//pelamar sama pegawai (DONE)
 
 nael
 
-daftar pelamar diubah ke bootstrap 3.7 malah berantakan
-
-
 dimas
+boostrap tidak pakai 3.3.7 alternatif lainnya :) cari cara si navbar nya jadi selaras dengan yg lain
+	UbahPegawai.html
+	pelamar-daftar.html
+	DetailPegawai.html harusnya pake yg 3.30, cek pas mock UAT
+	pelamar-detail.html //harusnya udah bener
+	pelamar-ubah.html //harusnya udah bener
 
-di ubah pegawai nge bug bagian tab nya
-
+aji
+hasil penggajian ada E nya
+jika proyek unik, gk ada penggajian 
+reorder id kalau ada yg kehapus dan jadi berantakan
+ngubah pake fragment semua html
+playaround dengan csrf nya
+samain end point
+hapus pegawai
 
 ## Version Control
 
@@ -109,6 +129,7 @@ gitlab
 	* @param model   Model
 	* @return Halaman HTML detail pelamar
 */
+
 
 ## Authors
 

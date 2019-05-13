@@ -1,283 +1,336 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css">
-	<link href="css/style.css" rel="stylesheet">
-	<title></title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css">
+<link href="css/style.css" rel="stylesheet">
+<title></title>
 </head>
 <style>
-.boxContainer{
-	background-color:#fdfdfd;
+.boxContainer {
+	background-color: #fdfdfd;
 	border-radius: 10px;
-	padding:20px 16px;
-	margin:0px 20px;
-	box-shadow:0 0px 9px 0 rgba(0,0,0,0.16),0 2px 0px 0 rgba(0,0,0,0.12)
+	padding: 20px 16px;
+	margin: 0px 20px;
+	box-shadow: 0 0px 9px 0 rgba(0, 0, 0, 0.16), 0 2px 0px 0
+		rgba(0, 0, 0, 0.12)
 }
-.boxContainer2{
-	background-color:#fdfdfd;
+
+.boxContainer2 {
+	background-color: #fdfdfd;
 	border-radius: 10px;
-	padding:20px 16px 20px 20px;
-	margin:20px 20px;
+	padding: 20px 16px 20px 20px;
+	margin: 20px 20px;
 }
-thead th{
-	background-color : #6B757F;
-	color:#FFFFFF;
+
+thead th {
+	background-color: #6B757F;
+	color: #FFFFFF;
 }
-.blankspace{
+
+.blankspace {
 	margin-top: 20px;
 }
 </style>
 
 <body>
-<nav th:replace="fragments/fragment :: navbar"></nav>
-<div class="blankspace">
-<div class="boxContainer">
-<img src="img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
-<h2 style="display: inline; margin-left: 10px">Pegawai Outsourcing</h2>
-<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
-<a href="#" onClick="" id="berhentiButton" class="btn btn-info btn-large" style="float: right; margin-right: 10px;">Berhenti Assign</a>
-</div>
-<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
-<a href="#" class="btn btn-success btn-large" id="assignButton" onClick="" style="float: right; margin-right: 10px;">Assign Dipilih</a>
-</div>
-<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
-<a href="#" onClick="" id="hapusButton" class="btn btn-info btn-danger" style="float: right; margin-right: 10px;">Hapus</a>
-</div>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<div class="blankspace">
+		<div class="boxContainer">
+			<img src="img/icon_human_resources.png"
+				style="max-width: 5%; margin-top: -10px">
+			<h2 style="display: inline; margin-left: 10px">Pegawai
+				Outsourcing</h2>
+			<div>
+				<!-- 				th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" -->
+				<!-- 				id="kelola-akun"> -->
+				<a href="#" onClick="" id="berhentiButton"
+					class="btn btn-info btn-large"
+					style="float: right; margin-right: 10px;">Berhenti Assign</a>
+			</div>
+			<div>
+				<!-- 				th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" -->
+				<!-- 				id="kelola-akun"> -->
+				<a href="#" class="btn btn-success btn-large" id="assignButton"
+					onClick="" style="float: right; margin-right: 10px;">Assign
+					Dipilih</a>
+			</div>
+			<div>
+				<!-- 				th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" -->
+				<!-- 				id="kelola-akun"> -->
+				<a href="#" onClick="" id="hapusButton"
+					class="btn btn-info btn-danger"
+					style="float: right; margin-right: 10px;">Hapus</a>
+			</div>
 
-<p>
-<h2 class="alert alert-success" th:if="${notifikasi_sukses!=null}"
+			<p>
+			<h2 class="alert alert-success" th:if="${notifikasi_sukses!=null}"
 				th:text="${notifikasi_sukses}"></h2>
-<table id="example" class="table table-striped table-bordered " style="width:100%;">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Nama</th>
-                <th>Region</th>
-                <th>Status</th>
-                <th>Produk</th>
-                <th>Jabatan</th>
-                <th>Project</th>
+			<h5 class="alert alert-danger" id="tes2" style="display: none">Belum
+				ada pelamar dipilih</h5>
+			<table id="example" class="table table-striped table-bordered "
+				style="width: 100%;">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Nama</th>
+						<th>Region</th>
+						<th>Status</th>
+						<th>Produk</th>
+						<th>Jabatan</th>
+						<th>Project</th>
 
-                <!-- <th></th>
+						<!-- <th></th>
                 <th></th> -->
-                
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="pegawai : ${listPegawai}" th:id="'row' + ${pegawai.id}">
-                <td><input type="checkbox" class="checkbox" name="id" th:value="${pegawai.id}"></td> 
-				<td>
-				<a th:href="@{'/pegawai-detail/' + ${pegawai.id}}" th:text="${pegawai.pelamar_id.nama_lengkap}"></a>
-				</td> 
-                <td th:text="${pegawai.pelamar_id.region}"></td>
-                
-                <td th:if="${pegawai.status}">Not Available</td>
-                <td th:unless="${pegawai.status}">Available</td>
-                
-                <td th:if="${pegawai.status}" th:text="${pegawai.produk.nama_produk}"></td>
-                <td th:unless="${pegawai.status}">None</td>
-                
-                <td th:if="${pegawai.status}" th:text="${pegawai.jabatan}"></td>
-                <td th:unless="${pegawai.status}">None</td>
-                
-                <td th:if="${pegawai.status}"th:text="${pegawai.proyek.nama_proyek}"></td>
-                <td th:unless="${pegawai.status}">None</td>
-                
 
-                <!-- <td><button type="button" class="btn btn-success">Assign</button></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="pegawai : ${listPegawai}"
+						th:id="'row' + ${pegawai.id}">
+						<td><input type="checkbox" class="checkbox" name="id"
+							th:value="${pegawai.id}"></td>
+						<td><a th:href="@{'/pegawai-detail/' + ${pegawai.id}}"
+							th:text="${pegawai.pelamar_id.nama_lengkap}"></a></td>
+						<td th:text="${pegawai.pelamar_id.region}"></td>
+
+						<td th:if="${pegawai.status}">Not Available</td>
+						<td th:unless="${pegawai.status}">Available</td>
+
+						<td th:if="${pegawai.status}"
+							th:text="${pegawai.produk.nama_produk}"></td>
+						<td th:unless="${pegawai.status}">None</td>
+
+						<td th:if="${pegawai.status}" th:text="${pegawai.jabatan}"></td>
+						<td th:unless="${pegawai.status}">None</td>
+
+						<td th:if="${pegawai.status}"
+							th:text="${pegawai.proyek.nama_proyek}"></td>
+						<td th:unless="${pegawai.status}">None</td>
+
+
+						<!-- <td><button type="button" class="btn btn-success">Assign</button></td>
                 <td><button type="button" class="btn btn-warning">Berhenti Assign</button></td> -->
-            </tr>
-            
-        </tbody>
-        <tfoot>
-            <tr>
-                <th></th>
-                <th>Nama</th>
-                <th>Region</th>
-                <th>Status</th>
-                <th>Produk</th>
-                <th>Jabatan</th>
-                <th>Project</th>
-                <!-- <th></th>
-                <th></th> -->
-            </tr>
-        </tfoot>
-    </table>
-</div>
-</div>
+					</tr>
 
-	<script type="text/javascript" src="/media/js/site.js?_=994321fabf3873df746bb8bbccd1886a"></script>
-	<script type="text/javascript" src="/media/js/dynamic.php?comments-page=extensions%2Fbuttons%2Fexamples%2Fstyling%2Fbootstrap.html" async></script>
-	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.bootstrap.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
-	<script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th></th>
+						<th>Nama</th>
+						<th>Region</th>
+						<th>Status</th>
+						<th>Produk</th>
+						<th>Jabatan</th>
+						<th>Project</th>
+						<!-- <th></th>
+                <th></th> -->
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+
+	<script type="text/javascript"
+		src="/media/js/site.js?_=994321fabf3873df746bb8bbccd1886a"></script>
+	<script type="text/javascript"
+		src="/media/js/dynamic.php?comments-page=extensions%2Fbuttons%2Fexamples%2Fstyling%2Fbootstrap.html"
+		async></script>
+	<script type="text/javascript" language="javascript"
+		src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script type="text/javascript" language="javascript"
+		src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript"
+		src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript" language="javascript"
+		src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" language="javascript"
+		src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.bootstrap.min.js"></script>
+	<script type="text/javascript" language="javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+	<script type="text/javascript" language="javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+	<script type="text/javascript" language="javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+	<script type="text/javascript" language="javascript"
+		src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+	<script type="text/javascript" language="javascript"
+		src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+	<script type="text/javascript" language="javascript"
+		src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
+	<script type="text/javascript" language="javascript"
+		src="../../../../examples/resources/demo.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript" class="init"></script>
 </body>
 
-<footer>
-</footer>
+<footer> </footer>
 
 <script>
-$(document).ready(function() {
-    
+	$(document).ready(
+			function() {
 
-    var table = $('#example').DataTable( {
-    	"scrollY": "500px",
-    	"sScrollX": "100%",
-    	"sScrollXInner": "100%",
-	  	"scrollCollapse": true,
-		"lengthMenu": [ [10, 50, 100, -1], [10, 50, 100, "All"] ],
-		buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-   	} );
-    
-    
-	table.buttons().container()
-		.appendTo( '#example_wrapper .col-sm-12:eq(0)' );
-	} );
-	
+				var table = $('#example')
+						.DataTable(
+								{
+									"scrollY" : "500px",
+									"sScrollX" : "100%",
+									"sScrollXInner" : "100%",
+									"scrollCollapse" : true,
+									"lengthMenu" : [ [ 10, 50, 100, -1 ],
+											[ 10, 50, 100, "All" ] ],
+									buttons : [ 'copy', 'csv', 'excel', 'pdf',
+											'print' ]
+								});
+
+				table.buttons().container().appendTo(
+						'#example_wrapper .col-sm-12:eq(0)');
+			});
+
 	$('#hapusButton').click(function() {
 		var parameters = "";
-		$.each($("input[name='id']:checked"), function(){            
+		$.each($("input[name='id']:checked"), function() {
 			parameters += "id=" + $(this).val() + "&";
-        });
-		
-		  $.ajax({
-			    type: "POST",
-			    url: "/pegawai-hapus?" + parameters,
-			    dataType: "json",
-			    success: function(result){
-			    	
-			    }
-			}); 
-		  
-		 $.each($("input[name='id']:checked"), function(){           
-	    	$('#row' + $(this).val()).hide();
-	     });
-		  
+		});
+		if (parameters == "") {
+			var y = document.getElementById("tes2");
+			y.style.display = "block";
+
+		} else {
+			var urls = "/pegawai-hapus?" + parameters;
+			$.ajax({
+				type : "POST",
+				url : "/pegawai-hapus?" + parameters,
+				dataType : "json",
+				success : function(result) {
+					var x = document.getElementById("tes2");
+					x.style.display = "none";
+				},
+			});
+			window.location.href = urls;
+			location.replace(urls);
+		}
+
+		// 		$.each($("input[name='id']:checked"), function() {
+		// 			$('#row' + $(this).val()).hide();
+		// 		});
+
 	});
-	
+
 	$('#berhentiButton').click(function() {
 		var parameters = "";
-		$.each($("input[name='id']:checked"), function(){
+		$.each($("input[name='id']:checked"), function() {
 			parameters += "id=" + $(this).val() + "&";
-        });
-		var urls = "/pegawai-berhenti-assign?" + parameters;
-		console.log(parameters);
-		  $.ajax({
-			    type: "POST",
-			    url: "/pegawai-berhenti-assign?" + parameters,
-			    dataType: "json",
-			    success: function(result){
-			    	
-			    }
-			}); 
-		  
-		  $.ajax({
-			    type: "GET",
-			    url: "/getPegawaiOutsourcing",
-			    dataType: "json",
-			    success: function(result){
-			    	location.reload(true);
-			    }
-		  }); 
-		  
-	});
-	
-	
-    
-    $('#example tfoot th').each( function () {
-        var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-    } );
-    // DataTable
-    var docDefinition = {
- 		 pageSize: 'A4',
- 	};
+		});
 
- 	$('#myModal').on('shown.bs.modal', function () {
-	  $('#myInput').trigger('focus')
-	});
+		if (parameters == "") {
+			var y = document.getElementById("tes2");
+			y.style.display = "block";
 
+		} else {
+			var urls = "/pegawai-berhenti-assign?" + parameters;
+			$.ajax({
+				type : "POST",
+				url : "/pegawai-berhenti-assign?" + parameters,
+				dataType : "json",
+				success : function(result) {
+					var x = document.getElementById("tes2");
+					x.style.display = "none";
 
-function Download(){
-	var x = $('example').children();
-	var fullText = "";
-    $.each(x, function(index, value) {
-       //console.log(value);
-        fullText+=$(this).context.innerText + ",";
-        console.log($(this).context.innerText);
-    });
-    
-    var docDefinition2 = {
-	content: [
-		fullText
-	]
-    };
-  	// this is just a simulation of the open event, replacing it with print produces the same result
-	var docDefinition = { content: [
-		{text:'Liat var docDefinition sama docDefinition2 di javascript Download(), baca dokumentasi',fontSize:20},
-		{text:'Dokumentasi di http://pdfmake.org',fontSize:15},
-		{text:'-dimas',fontSize:15},
-		] 
-	};
+				},
 
-	pdfMake.createPdf(docDefinition).download('gg.pdf');
-};
-   	
-$(function(){
-	var table2 = $('#example').DataTable();
- 
-    // Apply the search
-    table2.columns().every( function () {
-        var that = this;
- 
-        $( 'input', this.footer() ).on( 'keyup change', function () {
-            if ( that.search() !== this.value ) {
-                that
-                    .search( this.value )
-                    .draw();
-            }
-        } );
-    } );
-} );
-
-$('#assignButton').click(function() {
-	var parameters = "";
-	$.each($("input[name='id']:checked"), function() {
-		parameters += "id=" + $(this).val() + "&";
-	});
-	var urls = "/pegawai/assign?" + parameters;
-	console.log(parameters);
-	$.ajax({
-		type : "POST",
-		url : "/pegawai/assign?" + parameters,
-		dataType : "json",
-		success : function(result) {
-			
+			});
+			window.location.href = urls;
+			location.replace(urls);
 		}
 	});
-	window.location.href = urls;
-	console.log(urls);
-	location.replace(urls);
 
-});
+	$('#example tfoot th').each(function() {
+		var title = $(this).text();
+		$(this).html('<input type="text" placeholder="Search '+title+'" />');
+	});
+	// DataTable
+	var docDefinition = {
+		pageSize : 'A4',
+	};
 
+	$('#myModal').on('shown.bs.modal', function() {
+		$('#myInput').trigger('focus')
+	});
+
+	function Download() {
+		var x = $('example').children();
+		var fullText = "";
+		$.each(x, function(index, value) {
+			//console.log(value);
+			fullText += $(this).context.innerText + ",";
+			console.log($(this).context.innerText);
+		});
+
+		var docDefinition2 = {
+			content : [ fullText ]
+		};
+		// this is just a simulation of the open event, replacing it with print produces the same result
+		var docDefinition = {
+			content : [
+					{
+						text : 'Liat var docDefinition sama docDefinition2 di javascript Download(), baca dokumentasi',
+						fontSize : 20
+					}, {
+						text : 'Dokumentasi di http://pdfmake.org',
+						fontSize : 15
+					}, {
+						text : '-dimas',
+						fontSize : 15
+					}, ]
+		};
+
+		pdfMake.createPdf(docDefinition).download('gg.pdf');
+	};
+
+	$(function() {
+		var table2 = $('#example').DataTable();
+
+		// Apply the search
+		table2.columns().every(function() {
+			var that = this;
+
+			$('input', this.footer()).on('keyup change', function() {
+				if (that.search() !== this.value) {
+					that.search(this.value).draw();
+				}
+			});
+		});
+	});
+
+	$('#assignButton').click(function() {
+		var parameters = "";
+		$.each($("input[name='id']:checked"), function() {
+			parameters += "id=" + $(this).val() + "&";
+		});
+		var urls = "/pegawai/assign?" + parameters;
+		console.log(parameters);
+		$.ajax({
+			type : "POST",
+			url : "/pegawai/assign?" + parameters,
+			dataType : "json",
+			success : function(result) {
+
+			}
+		});
+		window.location.href = urls;
+		console.log(urls);
+		location.replace(urls);
+
+	});
 </script>
 
 </html>

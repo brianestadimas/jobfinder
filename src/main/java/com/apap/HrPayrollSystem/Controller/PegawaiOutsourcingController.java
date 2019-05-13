@@ -126,7 +126,13 @@ public class PegawaiOutsourcingController {
 			}
 			List<ProyekModel> daftar_proyek = new ArrayList<ProyekModel>();
 			for (int x=0; x<rKerja.size(); x++) {
-				daftar_proyek.add(rKerja.get(x).getProyek());
+				//if ada yg sama jgn tambahin
+				if(daftar_proyek.isEmpty()) {
+					daftar_proyek.add(rKerja.get(x).getProyek());
+				}
+				if(!daftar_proyek.contains(rKerja.get(x).getProyek())) {
+					daftar_proyek.add(rKerja.get(x).getProyek());
+				}
 			}
 			if (pegawai.getProyek()!=null) {
 				daftar_proyek.add(pegawai.getProyek());
@@ -175,24 +181,25 @@ public class PegawaiOutsourcingController {
     }
 	
 	
-	@RequestMapping(value = "/pegawai-hapus", method = RequestMethod.POST)
-	private String deletePegawai(@RequestParam("id") Long[] ids, Model model) {
-		
-		try {
-			for(Long id : ids) {
-				pegawaiService.deletePegawaiById(id);
-				
-			}
-			return "redirect:/pegawai";
-		} catch(Exception e) {
-			return null;
-		}
-		
-	}
+//	@RequestMapping(value = "/pegawai-hapus", method = RequestMethod.POST)
+//	private String deletePegawai(@RequestParam("id") Long[] ids, Model model) {
+//		
+//		try {
+//			for(Long id : ids) {
+//				pegawaiService.deletePegawaiById(id);
+//				
+//			}
+//			return "redirect:/pegawai";
+//		} catch(Exception e) {
+//			return null;
+//		}
+//		
+//	}
 
-	@RequestMapping(value = "/pegawai-berhenti-assign", method = RequestMethod.POST)
-	private String berhentiPegawai(@RequestParam("id") Long[] ids, Model model) {
+	@RequestMapping(value = "/pegawai-berhenti-assign", method = RequestMethod.GET)
+	private String berhentiPegawai(@RequestParam("id") Long[] ids, Model model, RedirectAttributes redir) {
 //		List<RiwayatKerjaPegawaiModel> riwayatKerjaPegawai = new List();
+		String notif = "Berhasil memberhentikan pegawai dari proyek ";
 		try {
 			for(Long id : ids) {
 				if(pegawaiService.getPegawaiById(id).getStatus() == true) {
@@ -213,17 +220,50 @@ public class PegawaiOutsourcingController {
 					rBaru.setJoin_date(temp.getJoin_date());
 					rBaru.setEnd_date(temp.getEnd_date());
 					riwayatService.addRiwayat(rBaru);
-					
+					notif += pegawaiService.getPegawaiById(id).getPelamar_id().getNama_lengkap()+",";
 					//riwayatService.addRiwayat(id);
 				}
 				
 			}
+			redir.addFlashAttribute("notifikasi_sukses", notif);
 			return "redirect:/pegawai";
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 			return "redirect:/pegawai";
 		}
 	}
+	
+	@RequestMapping(value = "/pegawai-hapus", method = RequestMethod.GET)
+	private String hapusPegawai(@RequestParam("id") Long[] ids, Model model, RedirectAttributes redir) {
+//		List<RiwayatKerjaPegawaiModel> riwayatKerjaPegawai = new List();
+		try {
+			for(Long id : ids) {
+				PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(id);
+				for(int i = 0 ; i < feedback_service.get_all_feedback().size() ; i++) {
+					if(feedback_service.get_all_feedback().get(i).getPegawai_outsourcing().equals(pegawai)) {
+						feedback_service.delete_feedback(feedback_service.get_all_feedback().get(i).getId());
+					}
+				}
+				for(int i = 0 ; i < riwayatService.getAllRiwayat().size() ; i++) {
+					if(riwayatService.getAllRiwayat().get(i).getPegawai_outsourcing_id().equals(pegawai)) {
+						riwayatService.deleteRiwayat(riwayatService.getAllRiwayat().get(i));
+					}
+				}
+				for(int i = 0 ; i < kehadiranService.get_all_kehadiran().size(); i++) {
+					if(kehadiranService.get_all_kehadiran().get(i).getPegawai_outsourcing().equals(pegawai)) {
+						kehadiranService.delete_kehadiran(kehadiranService.get_all_kehadiran().get(i));
+					}
+				}
+				pegawaiService.deletePegawaiById(id);
+			}
+			redir.addFlashAttribute("notifikasi_sukses", "Berhasil menghapus pegawai");
+			return "redirect:/pegawai";
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+			return "redirect:/pegawai";
+		}
+	}
+	
 	
 	//Assign Pegawai Get
 	@RequestMapping(value = "/pegawai/assign", method = RequestMethod.GET)

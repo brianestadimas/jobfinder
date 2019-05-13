@@ -174,26 +174,9 @@ public class KehadiranController {
 		}
 		kehadiran_service.save_all_kehadiran(daftar_daftar_kehadiran.getDaftar_kehadiran());
 
-//		List<KehadiranModel> get_all_kehadiran = kehadiran_service.get_all_kehadiran();
-//		List<String> kehadiran_proyek_ini = new ArrayList<String>();
-//		String nama_proyek = proyek_service.getProyekById(proyek_id).get().getNama_proyek();
-//		
-//		for(int i = 0 ; i < get_all_kehadiran.size() ; i++) {
-//			if(get_all_kehadiran.get(i).getProyek().getId() == proyek_id) {
-//				if(kehadiran_proyek_ini.isEmpty()) {
-//					kehadiran_proyek_ini.add(get_all_kehadiran.get(i).getJudul_kehadiran());
-//				}
-//				else {
-//					String judul_kehadiran_kehadiran = get_all_kehadiran.get(i).getJudul_kehadiran();
-//					if(!(kehadiran_proyek_ini.contains(judul_kehadiran_kehadiran))) {
-//						kehadiran_proyek_ini.add(get_all_kehadiran.get(i).getJudul_kehadiran());
-//					}
-//				}
-//			}
-//		}
+
 		//TO DO render
-		model.addAttribute("id_proyek", proyek_id);	
-		model.addAttribute("notifikasi_sukses","Berhasil Menambahkan Kehadiran dengan judul "+judul_kehadiran);	
+		redir.addFlashAttribute("notifikasi_sukses","Berhasil Menambahkan Kehadiran dengan judul "+judul_kehadiran);	
 		return "redirect:/proyek/"+proyek_id+"/kehadiran";
 	}
 	
@@ -236,8 +219,8 @@ public class KehadiranController {
 											HttpServletRequest req,
 											Model model) {
 								
-			int jumlah_hari_kerja = Integer.parseInt(req.getParameter("jumlah_hari_kerja"));
-			String judul_kehadiran = String.valueOf(req.getParameter("judul_absensi"));
+		int jumlah_hari_kerja = Integer.parseInt(req.getParameter("jumlah_hari_kerja"));
+		String judul_kehadiran = String.valueOf(req.getParameter("judul_absensi"));
 			ProyekModel proyek = new ProyekModel();
 			for(int i = 0 ; i < proyek_service.getAllProyek().size() ; i++) {
 				if(proyek_service.getAllProyek().get(i).getId() == proyek_id) {
