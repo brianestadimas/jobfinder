@@ -89,7 +89,9 @@
 </style>
 
 <body>
+	<div th:if="${role=='manager' or role=='hr' or role=='admin' or role=='viewer' or role=='busdev'}">
 	<nav th:replace="fragments/fragment :: navbar"></nav>
+	</div>
 	<!-- 	<nav th:replace="fragments/fragment :: navbar"></nav> -->
 	<div class="container-fluid"
 		style="margin-left: 1rem; margin-top: 1rem">
@@ -258,22 +260,27 @@
 								</div>
 							</div>
 							<div class="form-grup row">
-								<div class="form-group col-sm-auto">
-									<label for="no_handphone" class="col-form-label">No.
+								<label for="no_handphone" class="col-form-label col-sm-4 col-md-2">No.
 										Handphone<span class="requiredField">*</span>
-									</label> <input type="text" class="form-control" id="nomor_handphone"
+									</label> 
+									<div class="col-sm-auto">
+									<input type="text" class="form-control" id="nomor_handphone"
 										placeholder="Nomor Handphone" th:field="*{nomor_handphone}"
 										required="required" aria-describedby="hpHelpBlock"
 										minlength="11"> <small id="hpHelpBlock"
 										class="form-text text-muted"> cth : 0812xxxxxxxx</small>
 								</div>
-								<div class="form-group col-sm-auto">
-									<label for="nama_lengkap" class="col-form-label">Telp.
-										Rumah</label> <input type="text" class="form-control" id="telp_rumah"
+								</div>
+								
+									<label for="nama_lengkap" class="col-form-label col-sm-4 col-md-2">Telp.
+										Rumah</label>
+										<div class="col-sm-auto">
+										 <input type="text" class="form-control" id="telp_rumah"
 										placeholder="Nomor Telepon Rumah" th:field="*{telepon_rumah}"
 										aria-describedby="telpRumahHelpBlock" minlength="10">
 									<small id="telpRumahHelpBlock" class="form-text text-muted">
 										cth : 02158xxxxxx</small>
+								</div>
 								</div>
 							</div>
 							<div class="form-group row">

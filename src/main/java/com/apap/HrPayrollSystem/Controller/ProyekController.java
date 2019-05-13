@@ -194,7 +194,7 @@ public class ProyekController {
 		List<PegawaiOutsourcingModel> pegawaiProyek = new ArrayList<PegawaiOutsourcingModel>();
 		for (int i=0; i<pegawaiOutsourcing.size(); i++){
 			if ((pegawaiOutsourcing.get(i)).getProyek() != null) {
-				if ((pegawaiOutsourcing.get(i).getProyek().getId())==(proyek.getId())){
+				if ((pegawaiOutsourcing.get(i).getProyek().getId())==(proyek.getId()) && pegawaiOutsourcing.get(i).getStatus()==true){
 					pegawaiProyek.add(pegawaiOutsourcing.get(i));
 				}
 			}

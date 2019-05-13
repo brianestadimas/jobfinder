@@ -42,6 +42,12 @@ public class RiwayatKerjaPegawaiServiceImpl implements RiwayatKerjaPegawaiServic
 //		
 //	}
 
+	@Override
+	public void deleteRiwayat(RiwayatKerjaPegawaiModel riwayat) {
+		// TODO Auto-generated method stub
+		riwayatKerjaPegawaiDb.delete(riwayat);
+	}
+
 	
 	
 }

@@ -10,5 +10,5 @@ public interface RiwayatKerjaPegawaiService {
 	List<RiwayatKerjaPegawaiModel> getAllRiwayat();
 	RiwayatKerjaPegawaiModel addRiwayat(RiwayatKerjaPegawaiModel riwayat);
 //	void addRiwayat(long id);
-	
+	void deleteRiwayat(RiwayatKerjaPegawaiModel riwayat);
 }

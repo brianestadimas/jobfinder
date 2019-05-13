@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -86,7 +86,6 @@ canvas {
 
 <div class="blankspace">
 <div class="boxContainer">
-<a th:href="@{'/proyek-ubah/' + ${proyek.id}}" class="btn btn-warning btn-large" style="float: right; margin-right: 5px; margin-bottom: -10px;">Ubah Feedback<br></a>
 <h4 style="display: inline; margin-left: 10px">Ulasan Proyek</h4>
 
 <hr></hr>
@@ -100,10 +99,10 @@ canvas {
         </tr>
     </thead>
     <tbody>
-        <tr th:each="feedback : ${feedback_proyek}"> 
-            <td th:text="feedback.tanggal_pengisian_feedback">11-31-2031</td>
-            <td th:text="feedback.pegawai_outsourcing.pelamar.nama_lengkap"></td>
-            <td th:text="feedback.feedback"></td>
+        <tr th:each="feedback : *{feedback_proyek}"> 
+            <td th:text="${feedback.tanggal_pengisian_feedback}">11-31-2031</td>
+            <td th:text="${feedback.pegawai_outsourcing.pelamar_id.nama_lengkap}"></td>
+            <td th:text="${feedback.feedback}"></td>
             <td><a th:href="'/pegawai-detail/'+${feedback.pegawai_outsourcing.id}" type="button" class="btn btn-success">Detail</a></td>
         </tr>
     </tbody>

@@ -64,12 +64,13 @@ public class PelamarController {
 	 * @return Halaman HTML formulir pendaftaran pelamar
 	 */
 	@RequestMapping(value = "pelamar/daftar", method = RequestMethod.GET)
-	private String daftarPelamar(Model model) {
-
+	private String daftarPelamar(Model model, HttpServletRequest req) {
+		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
 		PelamarModel pelamar = new PelamarModel();
 		FormCommand command = new FormCommand();
 		command.addPengalamanToList(new PengalamanPelamarModel());
 		// Tambah attribute ke dalam model
+		model.addAttribute("role", user.getRole());
 		model.addAttribute("pelamar", pelamar);
 		model.addAttribute("command", command);
 		return "pelamar-daftar";
@@ -84,7 +85,7 @@ public class PelamarController {
 	 * @return Halaman HTML formulir pendaftaran pelamar
 	 */
 	@RequestMapping(value = "pelamar/daftar", params = { "addEntry" }, method = RequestMethod.POST)
-	private String addEntryPengalaman(Model model, @ModelAttribute FormCommand command,
+	private String addEntryPengalaman(Model model, @ModelAttribute FormCommand command,HttpServletRequest req,
 			@ModelAttribute PelamarModel pelamar) {
 		// Add baris baru dalam pengalaman di form
 		if (command.getPengalamanList().size() >= 3) {
@@ -92,6 +93,8 @@ public class PelamarController {
 		} else {
 			command.addPengalamanToList(new PengalamanPelamarModel());
 		}
+		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
+		model.addAttribute("role", user.getRole());
 		model.addAttribute("command", command);
 		model.addAttribute("pelamar", pelamar);
 		return "pelamar-daftar";
@@ -109,7 +112,8 @@ public class PelamarController {
 	@RequestMapping(value = "pelamar/daftar", params = { "deleteEntry" }, method = RequestMethod.POST)
 	private String deleteEntryPengalaman(Model model, @ModelAttribute FormCommand command,
 			@ModelAttribute PelamarModel pelamar, HttpServletRequest deleteIndex) {
-
+		AccountModel user = akun_service.findByUsername(deleteIndex.getRemoteUser());
+		model.addAttribute("role", user.getRole());
 		if (command.getPengalamanList().size() == 1) {
 			model.addAttribute("deleteLimit_msg", "Tidak bisa dihapus, minimum 1 entri pengalaman");
 		} else {
@@ -427,7 +431,7 @@ public class PelamarController {
 		
 		pegawaiService.assignAll(daftar_pegawai.getDaftar_pegawai());
 		
-		model.addAttribute("notifikasi_sukses","Berhasil Melakukan assignment terhadap pegawai dengan nama : " + name);
+		redir.addFlashAttribute("notifikasi_sukses","Berhasil Melakukan assignment terhadap pegawai dengan nama : " + name);
 		return "redirect:/pegawai";
 	}
 }
