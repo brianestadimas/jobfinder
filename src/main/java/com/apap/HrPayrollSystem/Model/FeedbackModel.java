@@ -35,11 +35,10 @@ public class FeedbackModel implements Serializable{
 	private PegawaiOutsourcingModel pegawai_outsourcing;	
 	
 	//Fk to proyek id
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_proyek",referencedColumnName="id",nullable=false)
-	@OnDelete(action=OnDeleteAction.NO_ACTION)
-	@JsonIgnore
-	private ProyekModel proyek;
+	@NotNull
+	@Size(max=50)
+	@Column(name="proyek",nullable=false)
+	private String proyek;
 	
 	@NotNull
 	@Size(max=255)
@@ -60,11 +59,11 @@ public class FeedbackModel implements Serializable{
 		this.pegawai_outsourcing = pegawai_outsourcing;
 	}
 
-	public ProyekModel getProyek() {
+	public String getProyek() {
 		return proyek;
 	}
 
-	public void setProyek(ProyekModel proyek) {
+	public void setProyek(String proyek) {
 		this.proyek = proyek;
 	}
 

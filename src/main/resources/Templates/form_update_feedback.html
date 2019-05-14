@@ -66,7 +66,7 @@
     <div class="blankspace">
        <!--  <div class="boxContainer2" style="overflow-x:auto;"> -->
        <form th:action="'/pegawai-detail/'+${id}+'/feedback/update/submit'" method="post" th:object="${feedback}">
-                <img src="img/icon_building.png" style="max-width:5%;margin-top: -10px">
+                <img src="/img/icon_building.png" style="max-width:5%;margin-top: -10px">
                 <h2 style="display: inline; margin-left: 10px">Ubah Feedback</h2>
                 <hr>
 
@@ -85,7 +85,7 @@
       <div class="form-group col-md-4">
         <label for="inputProyek">Proyek</label>
         <select class="form-control" id="inputProyek" th:field="${feedback.proyek}" name="proyek">
-          <option th:each="dp: ${daftar_proyek}"  th:value="${dp.id}" th:text="${dp.nama_proyek}">aaaaaa
+          <option th:each="dp: ${daftar_proyek}"  th:value="${dp}" th:text="${dp}">aaaaaa
           </option>
       </select>
       </div>

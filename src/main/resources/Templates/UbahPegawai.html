@@ -301,7 +301,7 @@ thead th {
 					<div class="form-group col-md-6">
 						<label for="join_date">Join Date</label> <input
 							th:if="${pegawai.status}" type="date" class="form-control"
-							id="join_date" name="join_date" th:field="*{join_date}" /> <input
+							id="join_date" name="join_date1" th:field="*{join_date}" /> <input
 							th:unless="${pegawai.status}" type="text" class="form-control"
 							th:value="'dd/mm/yy'" disabled />
 
@@ -344,7 +344,7 @@ thead th {
 					<div class="form-group col-md-6">
 						<label for="endDate">End Date</label> <input
 							th:if="${pegawai.status}" type="date" class="form-control"
-							name="end_date" id="end_date" th:field="*{end_date}" /> <input
+							name="end_date1" id="end_date" th:field="*{end_date}" /> <input
 							th:unless="${pegawai.status}" type="text" class="form-control"
 							id="end_date" th:value="'dd/mm/yy'" disabled />
 					</div>
@@ -367,7 +367,7 @@ thead th {
 
 
 	</div>
-	</div>
+
 	<!-- <hr />
 	</div>
 	</div> -->

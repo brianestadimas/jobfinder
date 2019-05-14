@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -45,18 +46,15 @@ public class RiwayatKerjaPegawaiModel implements Serializable{
 	private PegawaiOutsourcingModel pegawai_outsourcing_id;	
 	
 	//Fk to proyek id 
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_proyek",referencedColumnName="id",nullable=false)
-	@OnDelete(action=OnDeleteAction.NO_ACTION)
-	@JsonIgnore
-	private ProyekModel proyek;
-	
+	@NotNull
+	@Size(max=50)
+	@Column(name="proyek",nullable=false)
+	private String proyek;	
 	//FK to produk id
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_produk",referencedColumnName="id",nullable=false)
-	@OnDelete(action=OnDeleteAction.NO_ACTION)
-	@JsonIgnore
-	private ProdukModel produk;
+	@NotNull
+	@Size(max=50)
+	@Column(name="produk",nullable=false)
+	private String produk;
 	
 	@NotNull
 	@Column(name="join_date",nullable = false)
@@ -83,19 +81,19 @@ public class RiwayatKerjaPegawaiModel implements Serializable{
 		this.pegawai_outsourcing_id = pegawai_outsourcing_id;
 	}
 
-	public ProyekModel getProyek() {
+	public String getProyek() {
 		return proyek;
 	}
 
-	public void setProyek(ProyekModel proyek) {
+	public void setProyek(String proyek) {
 		this.proyek = proyek;
 	}
 
-	public ProdukModel getProduk() {
+	public String getProduk() {
 		return produk;
 	}
 
-	public void setProduk(ProdukModel produk) {
+	public void setProduk(String produk) {
 		this.produk = produk;
 	}
 	
