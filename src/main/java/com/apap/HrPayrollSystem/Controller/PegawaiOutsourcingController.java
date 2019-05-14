@@ -178,8 +178,6 @@ public class PegawaiOutsourcingController {
 	
 	@RequestMapping(value="/pegawai/ubah/{id}", method = RequestMethod.POST)
     public RedirectView submitUbahPegawai(@PathVariable(value="id") long id, @ModelAttribute PegawaiOutsourcingModel pegawaiBaru, Model model, HttpServletRequest req) {	
-		System.out.println(pegawaiService.getPegawaiById(id).getProyek().getStart_date_kontrak());
-		System.out.println(pegawaiService.getPegawaiById(id).getProyek().getEnd_date_kontrak());
 		pegawaiService.updatePegawai(id,pegawaiBaru);
 		model.addAttribute("pegawai", pegawaiBaru);
 		return new RedirectView("/pegawai-detail/"+id);
@@ -378,6 +376,13 @@ public class PegawaiOutsourcingController {
 		System.out.println("ujang");
 		feedback_service.delete_feedback(id_feedback);
 		return "redirect:/pegawai-detail/"+id_pegawai;
+	}
+	
+	@RequestMapping(value="/pegawai-detail/{id_pegawai}/print-format", method=RequestMethod.GET)
+	private String printFormat(@PathVariable(value="id_pegawai") long id_pegawai, Model model) {
+		PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(id_pegawai);
+		model.addAttribute("pegawai", pegawai);
+		return "format-print-pegawai";
 	}
 	
 	

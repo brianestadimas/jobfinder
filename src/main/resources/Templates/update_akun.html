@@ -15,37 +15,70 @@
   		border-color: black;
   		font-size:12px;
 	}
+	.boxContainer{
+	  background-color:#fdfdfd;
+	  border-radius: 10px;
+	  padding:20px 16px;
+	  margin-left: auto;
+	  margin-right: auto;
+	  box-shadow:0 0px 9px 0 rgba(0,0,0,0.16),0 2px 0px 0 rgba(0,0,0,0.12);
+	  width: 40%;
+	  margin: "center";
+	}
+	.boxContainer2{
+	background-color:#fdfdfd;
+	border-radius: 10px;
+	padding:20px 16px;
+	margin:0px 20px;
+	box-shadow:0 0px 9px 0 rgba(0,0,0,0.16),0 2px 0px 0 rgba(0,0,0,0.12)
+	}
+	thead th{
+	  background-color : #6B757F;
+	  color:#FFFFFF;
+	}
+	.blankspace{
+	  margin-top: 20px;
+	  }
 
 </style>
 
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
-	
-	<form th:action="@{/account/update/submit}" th:object="${akun}" method = "POST">
-		<input type="hidden" th:field="*{id}"/>
-		<div id="add_produk">
-			<h2>Nama : </h2>
-			<input id="form_add" type="text" th:field="${akun.name}" name="name" />
+		<div class="blankspace">
+			<div class="boxContainer2">
+				<h2 style="display: inline; margin-left: 10px">Ubah Akun</h2>
+				<hr></hr>
+					<div id="add_produk" class="boxContainer" style="overflow-x:auto;">				
+						<form th:action="@{/account/update/submit}" th:object="${akun}" method = "POST">
+							<input type="hidden" th:field="*{id}"/>
+							<div id="add_produk">
+								<h2>Nama : </h2>
+								<input id="form_add" type="text" th:field="${akun.name}" name="name" />
+							</div>
+							<div id="add_produk">
+								<h2>Username : </h2>
+								<input id="form_add" type="text" th:field="${akun.username}" name="username" />
+							</div>
+							<div id="add_produk">
+								<h2>Password : </h2>
+								<input id="form_add" type="password" th:field="${akun.password}" name="password" />
+							</div>
+							<div style="display:flex;align-items: baseline;">
+								<h2>Peran : </h2>
+								<select name = "role">
+									<option th:field="${akun.role}" value="manager">Manager</option>
+									<option th:field="${akun.role}" value="busdev">Business Development</option>
+									<option th:field="${akun.role}" value="hr">Human Resource</option>
+									<option th:field="${akun.role}" value="pelamar">Pelamar</option>
+									<option th:field="${akun.role}" value="viewer">Pegawai</option>
+								</select>
+							</div>
+							<button class="btn btn-success btn-large" type="submit" style="float:right; margin-bottom: 10px; ">Submit</button>
+						<a th:href="@{'/account/list'}" class="btn btn-warning btn-large" style=" float:right; margin-bottom: 10px; margin-right: 10px; margin: center">Batalkan<br></a>
+						</form>
+					</div>
+			</div>
 		</div>
-		<div id="add_produk">
-			<h2>Username : </h2>
-			<input id="form_add" type="text" th:field="${akun.username}" name="username" />
-		</div>
-		<div id="add_produk">
-			<h2>Password : </h2>
-			<input id="form_add" type="password" th:field="${akun.password}" name="password" />
-		</div>
-		<div>
-			<h2>Peran : </h2>
-			<input type="radio" name="role" th:field="${akun.role}" value="manager"/>Manager
-			<input type="radio" name="role" th:field="${akun.role}" value="busdev"/>Business Development
-			<input type="radio" name="role" th:field="${akun.role}" value="hr"/>Human Resource
-			<input type="radio" name="role" th:field="${akun.role}" value="pelamar"/>Pelamar
-			<input type="radio" name="role" th:field="${akun.role}" value="viewer"/>Pegawai
-		</div>
-		
-		<button type="submit">Submit</button>
-	</form>
 	
 
 
