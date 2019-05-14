@@ -2,6 +2,7 @@ package com.apap.HrPayrollSystem.Controller;
 
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -211,12 +212,13 @@ public class PegawaiOutsourcingController {
 					RiwayatKerjaPegawaiModel rBaru = new RiwayatKerjaPegawaiModel();
 					
 					PegawaiOutsourcingModel temp = pegawaiService.getPegawaiById(id);
-					
+					LocalDate locald = LocalDate.now();
+					java.sql.Date date = java.sql.Date.valueOf(locald); 
 					rBaru.setPegawai_outsourcing_id(temp);
 					rBaru.setProyek(temp.getProyek().getNama_proyek());
 					rBaru.setProduk(temp.getProduk().getNama_produk());
 					rBaru.setJoin_date(temp.getJoin_date());
-					rBaru.setEnd_date(temp.getEnd_date());
+					rBaru.setEnd_date(date);
 					riwayatService.addRiwayat(rBaru);
 					pegawaiService.updatePegawaiStatusById(id);
 					

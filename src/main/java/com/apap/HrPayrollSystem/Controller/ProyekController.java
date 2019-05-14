@@ -1,5 +1,6 @@
 package com.apap.HrPayrollSystem.Controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,12 +148,13 @@ public class ProyekController {
 				if ((pegawaiOutsourcing.get(i)).getProyek().equals(proyekService.getProyekById(id).get())) {
 					RiwayatKerjaPegawaiModel rBaru = new RiwayatKerjaPegawaiModel();
 					
-					
+					LocalDate locald = LocalDate.now();
+					java.sql.Date date = java.sql.Date.valueOf(locald); // Magic happens here!
 					rBaru.setPegawai_outsourcing_id(pegawaiOutsourcing.get(i));
 					rBaru.setProyek(pegawaiOutsourcing.get(i).getProyek().getNama_proyek());
 					rBaru.setProduk(pegawaiOutsourcing.get(i).getProduk().getNama_produk());
 					rBaru.setJoin_date(pegawaiOutsourcing.get(i).getJoin_date());
-					rBaru.setEnd_date(pegawaiOutsourcing.get(i).getEnd_date());
+					rBaru.setEnd_date(date);
 					riwayatService.addRiwayat(rBaru);
 					pegawaiOutsourcing.get(i).setProyek(null);
 					pegawaiOutsourcing.get(i).setStatus(false);
