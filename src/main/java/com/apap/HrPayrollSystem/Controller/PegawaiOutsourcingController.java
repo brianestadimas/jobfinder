@@ -214,7 +214,6 @@ public class PegawaiOutsourcingController {
 					
 					rBaru.setPegawai_outsourcing_id(temp);
 					rBaru.setProyek(temp.getProyek().getNama_proyek());
-					System.out.println(temp.getProduk().getNama_produk());
 					rBaru.setProduk(temp.getProduk().getNama_produk());
 					rBaru.setJoin_date(temp.getJoin_date());
 					rBaru.setEnd_date(temp.getEnd_date());
@@ -329,6 +328,7 @@ public class PegawaiOutsourcingController {
 
 	@RequestMapping(value="/pegawai-detail/{id}/feedback/submit", method=RequestMethod.POST)
 	private String feedbackSubmit(@PathVariable(value="id") long id, @ModelAttribute FeedbackModel feedback, Model model, HttpServletRequest req ) throws ParseException {
+		feedback.setId(feedback_service.get_all_feedback().size()+1);
 		feedback_service.save_feedback(feedback);
 		return "redirect:/pegawai-detail/"+id;
 	}

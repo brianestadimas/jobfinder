@@ -83,7 +83,9 @@ public class KehadiranServiceImpl implements KehadiranService{
 		for (PerformaWrapper performaFinal : listPerforma) {
 			performaFinal.hitungTotal();
 		}
-		return listPerforma;
+		List<PerformaWrapper> listPerforma2 = listPerforma.subList(0, listPerforma.size()-1);
+		System.out.println(listPerforma2.size());
+		return listPerforma2;
 	}
 
 	

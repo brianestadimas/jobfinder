@@ -121,8 +121,8 @@ public class KehadiranController {
 		List<String> nip_pegawai_pada_proyek_ini = new ArrayList<String>();
 		List<String> nama_pegawai_pada_proyek_ini = new ArrayList<String>();
 		List<PegawaiOutsourcingModel> pegawai_pegawai_proyek_ini = new ArrayList<PegawaiOutsourcingModel>();
-		for(int i = 0 ; i < pegawai_outsourcing.size() ; i++) {
-			if(pegawai_outsourcing.get(i).getProyek().getId() == proyek_id && pegawai_outsourcing.get(i).getStatus() == true) {
+		for(int i = 0 ; i < pegawai_outsourcing.size() ; i++) {			
+			if(pegawai_outsourcing.get(i).getProyek()!=null && pegawai_outsourcing.get(i).getProyek().getId() == proyek_id && pegawai_outsourcing.get(i).getStatus() == true) {
 				nip_pegawai_pada_proyek_ini.add(pegawai_outsourcing.get(i).getNip());
 				nama_pegawai_pada_proyek_ini.add(pegawai_outsourcing.get(i).getPelamar_id().getNama_lengkap());
 				pegawai_pegawai_proyek_ini.add(pegawai_outsourcing.get(i));
