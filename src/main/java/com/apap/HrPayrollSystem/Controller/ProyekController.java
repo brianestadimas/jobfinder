@@ -102,9 +102,9 @@ public class ProyekController {
 		}
 		int panjangKehadiran = kehadiranProyek.size();
 		List<FeedbackModel> feedback_proyek =  new ArrayList<FeedbackModel>();
-		for(int i = 0 ; i < feedback_service.get_all_feedback().size() ; i++) {
-			for(int j = 0 ; j < kehadiranProyek.get(1).getKehadiranList().size() ; j++) {
-				if(feedback_service.get_all_feedback().get(i).getPegawai_outsourcing().equals(kehadiranProyek.get(1).getKehadiranList().get(j).getPegawai_outsourcing())) {
+		for(int i = 0 ; i < feedback_service.get_all_feedback().size() ; i++) {//pr buat besok
+			for(int j = 0 ; j < kehadiranProyek.get(i).getKehadiranList().size() ; j++) {
+				if(feedback_service.get_all_feedback().get(i).getPegawai_outsourcing().equals(kehadiranProyek.get(i).getKehadiranList().get(j).getPegawai_outsourcing())) {
 					feedback_proyek.add(feedback_service.get_all_feedback().get(i));
 				}
 			}

@@ -46,7 +46,7 @@ thead th{
                     th:text="${ubahSukses_msg}"></h2>
 
 	<div class="boxContainer2">
-                <div th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" id="kelola-akun">
+                <div th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" id="kelola-proyek">
         <a th:href="@{'/proyek/ubah/' + ${proyek.id}}" class="btn btn-warning btn-large" style="float: right; margin-right: 5px; margin-bottom: -40px;">Ubah Detail</a>
         </div>
         <p th:text="${proyek.deskripsi_proyek}">
@@ -120,9 +120,8 @@ thead th{
                 </table>
             </div>
     <p><a class="btn btn-primary btn-large" th:href="@{'/performa-proyek/'+${proyek.id} }" style="float: left; margin-right: 5px; margin-bottom: 10px;"><i class="fa fa-bar-chart"></i> Performa <br> Absensi</a><p>
-    <div th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" id="kelola-akun">
     <p><a class="btn btn-info btn-large" th:href="@{'/proyek/'+${proyek.id}+'/kehadiran'}" style="float: left; margin-right: 5px; margin-bottom: 10px;"><i class="fa fa-calendar-check-o"></i> Kelola <br> Absensi</a><p>
-    </div>
+ 
     </div>
     </div>
     </div>

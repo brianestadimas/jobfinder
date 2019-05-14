@@ -170,6 +170,8 @@ public class PegawaiOutsourcingController {
 		List<ProdukModel> produkList2 = produkList.subList(0, produkList.size());
 		//List<ProdukModel> produkAvail = produkList.get(1);
 		//List<PelamarModel> pelamarList = pelamarService
+		model.addAttribute("start_date_kontrak", pegawaiLama.getProyek().getStart_date_kontrak());
+		model.addAttribute("end_date_kontrak", pegawaiLama.getProyek().getEnd_date_kontrak());
 		model.addAttribute("pegawai", pegawaiLama);
 		model.addAttribute("produk", produkList2);
 		return "UbahPegawai";

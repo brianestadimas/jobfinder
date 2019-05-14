@@ -58,10 +58,12 @@ thead th{
 				<td th:text="${kehadiran}"></td>
 				<td>
 					<a th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/'+${kehadiran}}" type="button" class="btn btn-success">Detail</a>
-
+						<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
 						<a th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/update/'+${kehadiran}}" type="button" class="btn btn-warning" style="margin-left: 10px;">Ubah</a>
+						</div>
+						<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
 						<a type="button" class="btn btn-danger" style="margin-left: 10px;" data-toggle="modal" data-target="#hapus-kehadiran" th:attr="data-target='#hapus-kehadiran'+${kehadiran}" >Hapus</a>
-											    	
+						</div>					    	
 								<div class="modal" th:id="'hapus-kehadiran'+${kehadiran}">
 								    <div class="modal-dialog">
 								      <div class="modal-content">
