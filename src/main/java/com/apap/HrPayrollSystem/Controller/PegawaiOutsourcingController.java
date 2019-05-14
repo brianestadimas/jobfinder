@@ -2,6 +2,7 @@ package com.apap.HrPayrollSystem.Controller;
 
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -170,6 +171,8 @@ public class PegawaiOutsourcingController {
 		List<ProdukModel> produkList2 = produkList.subList(0, produkList.size());
 		//List<ProdukModel> produkAvail = produkList.get(1);
 		//List<PelamarModel> pelamarList = pelamarService
+		model.addAttribute("start_date_kontrak", pegawaiLama.getProyek().getStart_date_kontrak());
+		model.addAttribute("end_date_kontrak", pegawaiLama.getProyek().getEnd_date_kontrak());
 		model.addAttribute("pegawai", pegawaiLama);
 		model.addAttribute("produk", produkList2);
 		return "UbahPegawai";
@@ -209,13 +212,13 @@ public class PegawaiOutsourcingController {
 					RiwayatKerjaPegawaiModel rBaru = new RiwayatKerjaPegawaiModel();
 					
 					PegawaiOutsourcingModel temp = pegawaiService.getPegawaiById(id);
-					
+					LocalDate locald = LocalDate.now();
+					java.sql.Date date = java.sql.Date.valueOf(locald); 
 					rBaru.setPegawai_outsourcing_id(temp);
 					rBaru.setProyek(temp.getProyek().getNama_proyek());
-					System.out.println(temp.getProduk().getNama_produk());
 					rBaru.setProduk(temp.getProduk().getNama_produk());
 					rBaru.setJoin_date(temp.getJoin_date());
-					rBaru.setEnd_date(temp.getEnd_date());
+					rBaru.setEnd_date(date);
 					riwayatService.addRiwayat(rBaru);
 					pegawaiService.updatePegawaiStatusById(id);
 					
@@ -327,6 +330,7 @@ public class PegawaiOutsourcingController {
 
 	@RequestMapping(value="/pegawai-detail/{id}/feedback/submit", method=RequestMethod.POST)
 	private String feedbackSubmit(@PathVariable(value="id") long id, @ModelAttribute FeedbackModel feedback, Model model, HttpServletRequest req ) throws ParseException {
+		feedback.setId(feedback_service.get_all_feedback().size()+1);
 		feedback_service.save_feedback(feedback);
 		return "redirect:/pegawai-detail/"+id;
 	}

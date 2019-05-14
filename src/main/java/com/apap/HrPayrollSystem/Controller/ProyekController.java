@@ -1,5 +1,6 @@
 package com.apap.HrPayrollSystem.Controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +19,13 @@ import com.apap.HrPayrollSystem.Model.AccountModel;
 import com.apap.HrPayrollSystem.Model.FeedbackModel;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.ProyekModel;
+import com.apap.HrPayrollSystem.Model.RiwayatKerjaPegawaiModel;
 import com.apap.HrPayrollSystem.Service.AccountService;
 import com.apap.HrPayrollSystem.Service.FeedbackService;
 import com.apap.HrPayrollSystem.Service.KehadiranService;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
 import com.apap.HrPayrollSystem.Service.ProyekService;
+import com.apap.HrPayrollSystem.Service.RiwayatKerjaPegawaiService;
 import com.apap.HrPayrollSystem.Utility.PegawaiProyekWrapper;
 import com.apap.HrPayrollSystem.Utility.PerformaWrapper;
 
@@ -38,7 +41,8 @@ public class ProyekController {
 	private KehadiranService kehadiranService;
 	@Autowired
 	private FeedbackService feedback_service;
-
+	@Autowired
+	private RiwayatKerjaPegawaiService riwayatService;
 	
 	@RequestMapping("/proyek")
 	private String proyek(Model model,HttpServletRequest req) {
@@ -101,14 +105,17 @@ public class ProyekController {
 			model.addAttribute("Meningkat", false);
 		}
 		int panjangKehadiran = kehadiranProyek.size();
-		List<FeedbackModel> feedback_proyek =  new ArrayList<FeedbackModel>();
+		List<FeedbackModel> feedback_proyek =  new ArrayList<FeedbackModel>();	
 		for(int i = 0 ; i < feedback_service.get_all_feedback().size() ; i++) {
-			for(int j = 0 ; j < kehadiranProyek.get(1).getKehadiranList().size() ; j++) {
-				if(feedback_service.get_all_feedback().get(i).getPegawai_outsourcing().equals(kehadiranProyek.get(1).getKehadiranList().get(j).getPegawai_outsourcing())) {
+			for(int j = 0 ; j < pegawaiService.getAllPegawai().size() ; j++) {
+				if(feedback_service.get_all_feedback().get(i).getPegawai_outsourcing().equals(pegawaiService.getAllPegawai().get(j))) {
 					feedback_proyek.add(feedback_service.get_all_feedback().get(i));
 				}
 			}
+			
 		}
+		
+		
 		model.addAttribute("feedback_proyek", feedback_proyek);
 		model.addAttribute("panjangKehadiran", panjangKehadiran);
 		model.addAttribute("proyek", proyek);
@@ -129,15 +136,32 @@ public class ProyekController {
 	private String deleteProyek(@PathVariable(value = "id") long id, Model model) {
 
 		List<PegawaiOutsourcingModel> pegawaiOutsourcing = pegawaiService.getAllPegawai();
+		for(int i = 0 ; i < kehadiranService.get_all_kehadiran().size() ; i ++) {
+				if(kehadiranService.get_all_kehadiran().get(i).getProyek().equals(proyekService.getProyekById(id).get())) {
+					kehadiranService.delete_kehadiran(kehadiranService.get_all_kehadiran().get(i));
+
+				}
+		}
+		
 		for (int i=0; i<pegawaiOutsourcing.size(); i++){
-			if ((pegawaiOutsourcing.get(i)).getProyek() != null) {
-				if ((pegawaiOutsourcing.get(i).getProyek().getId())==(id)){
+			if(pegawaiOutsourcing.get(i).getProyek()!=null) {
+				if ((pegawaiOutsourcing.get(i)).getProyek().equals(proyekService.getProyekById(id).get())) {
+					RiwayatKerjaPegawaiModel rBaru = new RiwayatKerjaPegawaiModel();
+					
+					LocalDate locald = LocalDate.now();
+					java.sql.Date date = java.sql.Date.valueOf(locald); // Magic happens here!
+					rBaru.setPegawai_outsourcing_id(pegawaiOutsourcing.get(i));
+					rBaru.setProyek(pegawaiOutsourcing.get(i).getProyek().getNama_proyek());
+					rBaru.setProduk(pegawaiOutsourcing.get(i).getProduk().getNama_produk());
+					rBaru.setJoin_date(pegawaiOutsourcing.get(i).getJoin_date());
+					rBaru.setEnd_date(date);
+					riwayatService.addRiwayat(rBaru);
 					pegawaiOutsourcing.get(i).setProyek(null);
 					pegawaiOutsourcing.get(i).setStatus(false);
 				}
 			}
 		}
-		
+
 		proyekService.deleteById(id);
 		return "redirect:/proyek";
 	}
