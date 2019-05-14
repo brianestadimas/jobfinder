@@ -124,18 +124,22 @@ public class PegawaiOutsourcingController {
 				model.addAttribute("Meningkat",false);
 
 			}
-			List<ProyekModel> daftar_proyek = new ArrayList<ProyekModel>();
-			for (int x=0; x<rKerja.size(); x++) {
+			List<String> daftar_proyek = new ArrayList<String>();
+			for (int x=0; x<rTemp.size(); x++) {
 				//if ada yg sama jgn tambahin
 				if(daftar_proyek.isEmpty()) {
-					daftar_proyek.add(rKerja.get(x).getProyek());
+//					System.out.println(rKerja.get(x).getProyek());
+					daftar_proyek.add(rTemp.get(x).getProyek());
 				}
 				if(!daftar_proyek.contains(rKerja.get(x).getProyek())) {
-					daftar_proyek.add(rKerja.get(x).getProyek());
+//					System.out.println(rKerja.get(x).getProyek());
+					daftar_proyek.add(rTemp.get(x).getProyek());
 				}
 			}
 			if (pegawai.getProyek()!=null) {
-				daftar_proyek.add(pegawai.getProyek());
+				if(!daftar_proyek.contains(pegawai.getProyek().getNama_proyek())) {
+					daftar_proyek.add(pegawai.getProyek().getNama_proyek());
+				}
 			}
 			model.addAttribute("kehadiranPegawai", kehadiranPegawai);
 			int panjangKehadiran = kehadiranPegawai.size();
@@ -163,7 +167,7 @@ public class PegawaiOutsourcingController {
 	private String ubahPegawai(@PathVariable(value = "id") long id, Model model) {
 		PegawaiOutsourcingModel pegawaiLama = pegawaiService.getPegawaiById(id);
 		List<ProdukModel> produkList = produkService.getAllProduk();
-		List<ProdukModel> produkList2 = produkList.subList(1, produkList.size());//maksudnya apa REEEEEEEEEEEEEEEEE
+		List<ProdukModel> produkList2 = produkList.subList(0, produkList.size());
 		//List<ProdukModel> produkAvail = produkList.get(1);
 		//List<PelamarModel> pelamarList = pelamarService
 		model.addAttribute("pegawai", pegawaiLama);
@@ -173,8 +177,11 @@ public class PegawaiOutsourcingController {
 	}
 	
 	@RequestMapping(value="/pegawai/ubah/{id}", method = RequestMethod.POST)
-    public RedirectView submitUbahPegawai(@PathVariable(value="id") long id, @ModelAttribute PegawaiOutsourcingModel pegawaiBaru, Model model) {	
-		System.out.println(pegawaiBaru.getPkwt());
+    public RedirectView submitUbahPegawai(@PathVariable(value="id") long id, @ModelAttribute PegawaiOutsourcingModel pegawaiBaru, Model model, HttpServletRequest req) {	
+		System.out.println(pegawaiBaru.getJoin_date());
+		System.out.println(pegawaiBaru.getEnd_date());
+		System.out.println(pegawaiService.getPegawaiById(id).getJoin_date());
+		System.out.println(pegawaiService.getPegawaiById(id).getEnd_date());
 		pegawaiService.updatePegawai(id,pegawaiBaru);
 		model.addAttribute("pegawai", pegawaiBaru);
 		return new RedirectView("/pegawai-detail/"+id);
@@ -203,6 +210,17 @@ public class PegawaiOutsourcingController {
 		try {
 			for(Long id : ids) {
 				if(pegawaiService.getPegawaiById(id).getStatus() == true) {
+					RiwayatKerjaPegawaiModel rBaru = new RiwayatKerjaPegawaiModel();
+					
+					PegawaiOutsourcingModel temp = pegawaiService.getPegawaiById(id);
+					
+					rBaru.setPegawai_outsourcing_id(temp);
+					rBaru.setProyek(temp.getProyek().getNama_proyek());
+					System.out.println(temp.getProduk().getNama_produk());
+					rBaru.setProduk(temp.getProduk().getNama_produk());
+					rBaru.setJoin_date(temp.getJoin_date());
+					rBaru.setEnd_date(temp.getEnd_date());
+					riwayatService.addRiwayat(rBaru);
 					pegawaiService.updatePegawaiStatusById(id);
 					
 					
@@ -210,16 +228,7 @@ public class PegawaiOutsourcingController {
 					 * Untuk nambah Riwayat Kerja
 					 */
 					
-					RiwayatKerjaPegawaiModel rBaru = new RiwayatKerjaPegawaiModel();
-					
-					PegawaiOutsourcingModel temp = pegawaiService.getPegawaiById(id);
-					
-					rBaru.setPegawai_outsourcing_id(temp);
-					rBaru.setProyek(temp.getProyek());
-					rBaru.setProduk(temp.getProduk());
-					rBaru.setJoin_date(temp.getJoin_date());
-					rBaru.setEnd_date(temp.getEnd_date());
-					riwayatService.addRiwayat(rBaru);
+				
 					notif += pegawaiService.getPegawaiById(id).getPelamar_id().getNama_lengkap()+",";
 					//riwayatService.addRiwayat(id);
 				}
@@ -329,7 +338,30 @@ public class PegawaiOutsourcingController {
 	@RequestMapping(value="/pegawai-detail/{id_pegawai}/feedback/update/{id_feedback}", method=RequestMethod.GET)
 	private String feedbackUpdate(@PathVariable(value="id_pegawai") long id_pegawai,@PathVariable(value="id_feedback") long id_feedback, Model model) {
 		FeedbackModel updated_feedback = feedback_service.get_feedback_by_id(id_feedback);
-		List<ProyekModel> daftar_proyek = proyekService.getAllProyek();
+		PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(id_pegawai);
+		List<RiwayatKerjaPegawaiModel> rKerja= riwayatService.getAllRiwayat();
+		List<RiwayatKerjaPegawaiModel>	rTemp = new ArrayList<RiwayatKerjaPegawaiModel>();
+	
+		for( RiwayatKerjaPegawaiModel riwayat : rKerja) {
+			if (riwayat.getPegawai_outsourcing_id().equals(pegawai)){
+				rTemp.add(riwayat);
+			}
+		}
+		List<String> daftar_proyek = new ArrayList<String>();
+		for (int x=0; x<rTemp.size(); x++) {
+			//if ada yg sama jgn tambahin
+			if(daftar_proyek.isEmpty()) {
+				daftar_proyek.add(rTemp.get(x).getProyek());
+			}
+			if(!daftar_proyek.contains(rTemp.get(x).getProyek())) {
+				daftar_proyek.add(rTemp.get(x).getProyek());
+			}
+		}
+		if (pegawai.getProyek()!=null) {
+			if(!daftar_proyek.contains(pegawai.getProyek().getNama_proyek())) {
+				daftar_proyek.add(pegawai.getProyek().getNama_proyek());
+			}
+		}
 		model.addAttribute("id", id_pegawai);
 		model.addAttribute("daftar_proyek", daftar_proyek);
 		model.addAttribute("feedback", updated_feedback);

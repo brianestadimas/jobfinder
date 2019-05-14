@@ -156,8 +156,7 @@ public class PelamarController {
 			}
 			AccountModel user = akun_service.findByUsername(req.getRemoteUser());
 			if(user.getRole().equals("pelamar")) {
-				 SecurityContextHolder.getContext().setAuthentication(null);
-				return "redirect:/login"; 
+				return "pelamar_daftar2"; 
 			}
 			redir.addFlashAttribute("daftarSukses_msg",
 					"Pelamar " + pelamar.getNama_lengkap() + " sukses didaftarkan !");
@@ -431,8 +430,8 @@ public class PelamarController {
 		}
 		
 		pegawaiService.assignAll(daftar_pegawai.getDaftar_pegawai());
-		
-		redir.addFlashAttribute("notifikasi_sukses","Berhasil Melakukan assignment terhadap pegawai dengan nama : " + name);
+		String msg = "Berhasil Melakukan assignment terhadap pegawai dengan nama : " + name;
+		redir.addFlashAttribute("notifikasi_sukses",msg.substring(0, msg.length()));
 		return "redirect:/pegawai";
 	}
 }

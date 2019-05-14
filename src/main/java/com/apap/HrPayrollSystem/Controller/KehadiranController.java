@@ -66,10 +66,12 @@ public class KehadiranController {
 				}
 			}
 		}
+		String jenis_proyek = proyek_service.getProyekById(proyek_id).get().getJenis_proyek();
 		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
 		model.addAttribute("user", user);
 
 		//TO DO render
+		model.addAttribute("jenis_proyek", jenis_proyek);
 		model.addAttribute("nama_proyek_ini", nama_proyek);
 		model.addAttribute("id_proyek", proyek_id);
 		model.addAttribute("list_of_kehadiran",kehadiran_proyek_ini);

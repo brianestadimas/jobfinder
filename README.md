@@ -76,7 +76,7 @@ tombol2 di kehadiran kok gitu? bisa jadi miss pas merge
 
 kelola gaji di detail proyek maksudnya apa? garubeji
 
-nasib dari proyek dan produk di feedback/riwayat abis kedua itu dihapus? 
+nasib dari proyek dan produk di feedback/riwayat abis kedua itu dihapus? sudah ke handle
 
 apakah kehadiran yg udah di gaji mau ditandain?
 
@@ -105,13 +105,11 @@ boostrap tidak pakai 3.3.7 alternatif lainnya :) cari cara si navbar nya jadi se
 	pelamar-ubah.html //harusnya udah bener
 
 aji
-hasil penggajian ada E nya
-jika proyek unik, gk ada penggajian 
+[x] jika proyek unik, gk ada penggajian 
 reorder id kalau ada yg kehapus dan jadi berantakan
-ngubah pake fragment semua html
 playaround dengan csrf nya
 samain end point
-hapus pegawai
+
 
 ## Version Control
 
