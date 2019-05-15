@@ -107,14 +107,14 @@ public class ProyekController {
 		int panjangKehadiran = kehadiranProyek.size();
 		List<FeedbackModel> feedback_proyek =  new ArrayList<FeedbackModel>();	
 		for(int i = 0 ; i < feedback_service.get_all_feedback().size() ; i++) {
-			for(int j = 0 ; j < pegawaiService.getAllPegawai().size() ; j++) {
-				if(feedback_service.get_all_feedback().get(i).getPegawai_outsourcing().equals(pegawaiService.getAllPegawai().get(j))) {
-					feedback_proyek.add(feedback_service.get_all_feedback().get(i));
-				}
-			}
-			
+			if(feedback_service.get_all_feedback().get(i).getProyek().equals(proyekService.getProyekById(id).get().getNama_proyek())) {
+				for(int j = 0 ; j < pegawaiService.getAllPegawai().size() ; j++) {
+					if(feedback_service.get_all_feedback().get(i).getPegawai_outsourcing().equals(pegawaiService.getAllPegawai().get(j))) {
+						feedback_proyek.add(feedback_service.get_all_feedback().get(i));
+					}
+				}	
+			}			
 		}
-		
 		
 		model.addAttribute("feedback_proyek", feedback_proyek);
 		model.addAttribute("panjangKehadiran", panjangKehadiran);

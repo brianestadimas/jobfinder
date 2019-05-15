@@ -171,8 +171,6 @@ public class PegawaiOutsourcingController {
 		List<ProdukModel> produkList2 = produkList.subList(0, produkList.size());
 		//List<ProdukModel> produkAvail = produkList.get(1);
 		//List<PelamarModel> pelamarList = pelamarService
-		model.addAttribute("start_date_kontrak", pegawaiLama.getProyek().getStart_date_kontrak());
-		model.addAttribute("end_date_kontrak", pegawaiLama.getProyek().getEnd_date_kontrak());
 		model.addAttribute("pegawai", pegawaiLama);
 		model.addAttribute("produk", produkList2);
 		return "UbahPegawai";
@@ -375,7 +373,7 @@ public class PegawaiOutsourcingController {
 		return "redirect:/pegawai-detail/"+id;
 	}
 	
-	@RequestMapping(value="/pegawai-detail/{id_pegawai}/feedback/delete/{id_feedback}",method=RequestMethod.GET)
+	@RequestMapping(value="/pegawai-detail/{id_pegawai}/feedback/delete/{id_feedback}",method=RequestMethod.POST)
 	private String feedbackDelete(@PathVariable(value="id_pegawai") long id_pegawai, @PathVariable(value="id_feedback") long id_feedback, Model model) {
 		System.out.println("ujang");
 		feedback_service.delete_feedback(id_feedback);
