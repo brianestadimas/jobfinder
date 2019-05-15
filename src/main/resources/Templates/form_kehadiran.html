@@ -54,9 +54,7 @@ table{
 
 <body > 
 <nav th:replace="fragments/fragment :: navbar"></nav>
- <div class="blankspace">
- 	               	<h2 class="alert alert-fail" th:if="${fail_notif!=null}"
-					th:text="${fail_notif}"></h2>	
+ <div class="blankspace">	
 <img src="/img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
 <form action="#" th:action="'/proyek/'+${proyek_id}+'/kehadiran/tambah/submit'" method="post" th:object="${daftar_kehadiran}">
 <h2 style="display: inline; margin-left: 10px">Tambah Kehadiran</h2>
@@ -64,19 +62,23 @@ table{
 <h2 class="alert alert-warning" th:if="${fail_notif!=null}"	th:text="${fail_notif}"></h2>	
 <div class="boxContainer2" style="overflow-x:auto;">
     <div class="form-group col-md-3">
-        <label for="inputAddress">Judul Absensi *</label>
+        <label for="inputAddress">Judul Kehadiran *</label>
         <input type="text" class="form-control"  th:value="${judul_kehadiran}" name="judul_absensi" required>
     </div>
     <div class="form-group col-md-6">
     </div>
     <div class="form-group col-md-3">
         <label for="inputAddress">Jumlah Hari Kerja *</label>
-        <input id="tags" type="number" class="form-control" th:value="${jumlah_hari_kerja}" name="jumlah_hari_kerja" required>
+        <input id="tags" type="number" class="form-control" min=0 max=31 th:value="${jumlah_hari_kerja}" name="jumlah_hari_kerja" required>
     </div>
 </div>
 <br/>
 <div class="boxContainer" style="overflow-x:auto; margin-top: -10px">
+<div class="Header" style= "display : flex ; overflow-x:auto; margin-top: -10px">
 <h4 style="display: inline; margin-left: 10px">Kehadiran Pegawai</h4>
+<h4 th:text="'Jumlah Pegawai Proyek : '+${#lists.size(nama_pegawai)}"></h4> 
+
+</div>
 <hr></hr>
                 
         
@@ -120,7 +122,7 @@ table{
                 <button class="btn btn-primary btn-large" style="" type="submit">Simpan</button>     
                 <!-- <input class="btn btn-success btn-large" type="submit" value="SIMPAN"> -->
                 <a class="btn btn-danger btn-large" style=" margin-right: 10px" th:href="@{'/proyek/'+${proyek_id}+'/kehadiran'}">Batal</a>
-       <h3 th:text="'Jumlah Pegawai Proyek : '+${#lists.size(nama_pegawai)}"></h3> 
+
        </form>
   </div>
   </div>

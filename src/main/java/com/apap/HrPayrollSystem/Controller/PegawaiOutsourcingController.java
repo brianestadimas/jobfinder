@@ -321,7 +321,7 @@ public class PegawaiOutsourcingController {
 			name+= daftar_pegawai.getDaftar_pegawai().get(i).getPelamar_id().getNama_lengkap()+",";
 		}
 		pegawaiService.assignAll(daftar_pegawai.getDaftar_pegawai());
-		model.addAttribute("notifikasi_sukses","Berhasil Melakukan assignment terhadap pegawai dengan nama : " + name.substring(0,name.length()-1));
+		redir.addFlashAttribute("notifikasi_sukses","Berhasil Melakukan assignment terhadap pegawai dengan nama : " + name.substring(0,name.length()-1));
 		return "redirect:/pegawai";
 	}
 	
