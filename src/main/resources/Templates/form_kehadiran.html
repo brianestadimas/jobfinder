@@ -54,31 +54,29 @@ table{
 
 <body > 
 <nav th:replace="fragments/fragment :: navbar"></nav>
- <div class="blankspace">	
-<img src="/img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
-<form action="#" th:action="'/proyek/'+${proyek_id}+'/kehadiran/tambah/submit'" method="post" th:object="${daftar_kehadiran}">
+ <div class="blankspace">
+ 	               		
+<img src="/img/absence.png" style="max-width:4%;margin-top: 0px">
 <h2 style="display: inline; margin-left: 10px">Tambah Kehadiran</h2>
+<form action="#" th:action="'/proyek/'+${proyek_id}+'/kehadiran/tambah/submit'" method="post" th:object="${daftar_kehadiran}">
 <hr></hr>
-<h2 class="alert alert-warning" th:if="${fail_notif!=null}"	th:text="${fail_notif}"></h2>	
+<h5 class="alert alert-warning" th:if="${fail_notif!=null}"	th:text="${fail_notif}"></h5>	
+<h5 class="alert alert-fail" th:if="${fail_notif!=null}" th:text="${fail_notif}"></h5>
 <div class="boxContainer2" style="overflow-x:auto;">
     <div class="form-group col-md-3">
-        <label for="inputAddress">Judul Kehadiran *</label>
+        <label for="inputAddress">Judul Absensi *</label>
         <input type="text" class="form-control"  th:value="${judul_kehadiran}" name="judul_absensi" required>
     </div>
     <div class="form-group col-md-6">
     </div>
     <div class="form-group col-md-3">
         <label for="inputAddress">Jumlah Hari Kerja *</label>
-        <input id="tags" type="number" class="form-control" min=0 max=31 th:value="${jumlah_hari_kerja}" name="jumlah_hari_kerja" required>
+        <input id="tags" type="number" class="form-control" th:value="${jumlah_hari_kerja}" name="jumlah_hari_kerja" required>
     </div>
 </div>
 <br/>
 <div class="boxContainer" style="overflow-x:auto; margin-top: -10px">
-<div class="Header" style= "display : flex ; overflow-x:auto; margin-top: -10px">
 <h4 style="display: inline; margin-left: 10px">Kehadiran Pegawai</h4>
-<h4 th:text="'Jumlah Pegawai Proyek : '+${#lists.size(nama_pegawai)}"></h4> 
-
-</div>
 <hr></hr>
                 
         
@@ -95,7 +93,7 @@ table{
                                         <th>Alfa</th>
                                         <th>Libur</th>
                                         <th>Cuti</th>
-                                        <th>Lain-Lain</th>
+                                        <th>Lain-Lain (Opt)</th>
                                         <th style="display:none"></th>
                                         <th style="display:none"></th>
                                 </tr>
@@ -104,13 +102,13 @@ table{
                                 <tr id="test1" th:each="daftar_kehadiran, itemStat : *{daftar_kehadiran}">
                                         <td th:text="${nip_pegawai[itemStat.index]}">wuRYYYYYYYYYY</td>
                                         <td th:text="${nama_pegawai[itemStat.index]}">wuRYYYYYYYYYY</td>
-                                        <td><input type="number" style="width:100%" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_kehadiran}" name="jumlah_hadir"></td>
-                                        <td><input type="number" style="width:100%"  th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_sakit}" name="jumlah_sakit"></td>
-                                        <td><input type="number" style="width:100%"  th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_izin}" name="jumlah_izin"></td>
-                                        <td><input type="number" style="width:100%"  th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_absen}" name="jumlah_alfa"></td>
-                                        <td><input type="number" style="width:100%"  th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_off}" name="jumlah_libur"></td>
-                                        <td><input type="number" style="width:100%"  th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_cuti}" name="jumlah_cuti"></td>
-                                        <td><input type="number" style="width:100%"  th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_lain_lain}" name="jumlah_lain_lain"></td>
+                                        <td><input type="number" style="width:100%" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_kehadiran}" name="jumlah_hadir" required></td>
+                                        <td><input type="number" style="width:100%"  th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_sakit}" name="jumlah_sakit" required></td>
+                                        <td><input type="number" style="width:100%"  th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_izin}" name="jumlah_izin" required></td>
+                                        <td><input type="number" style="width:100%"  th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_absen}" name="jumlah_alfa" required></td>
+                                        <td><input type="number" style="width:100%"  th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_off}" name="jumlah_libur" required></td>
+                                        <td><input type="number" style="width:100%"  th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_cuti}" name="jumlah_cuti" required></td>
+                                        <td><input type="number" style="width:100%"  th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_lain_lain}" name="jumlah_lain_lain" required></td>
                                 		<td style="display:none"><input type="hidden" th:field="*{daftar_kehadiran[__${itemStat.index}__].pegawai_outsourcing}"></td>
                                 		<td style="display:none"><input type="hidden" th:field="*{daftar_kehadiran[__${itemStat.index}__].id}"></td>
                                 </tr>
@@ -119,18 +117,13 @@ table{
         
                         </tbody>
                 </table>
-                <button class="btn btn-primary btn-large" style="" type="submit">Simpan</button>     
+                </div>
+  <div class="blankspace"></div>
+                <button class="btn btn-success btn-large" style="margin-left:20px" type="submit">Simpan</button>     
                 <!-- <input class="btn btn-success btn-large" type="submit" value="SIMPAN"> -->
                 <a class="btn btn-danger btn-large" style=" margin-right: 10px" th:href="@{'/proyek/'+${proyek_id}+'/kehadiran'}">Batal</a>
-
        </form>
-  </div>
-  </div>
-  <div class="blankspace">
-       
-	                
-
-					
+  </div>			
 	</div>
 	<script type="text/javascript" src="/media/js/site.js?_=994321fabf3873df746bb8bbccd1886a"></script>
   <script type="text/javascript" src="/media/js/dynamic.php?comments-page=extensions%2Fbuttons%2Fexamples%2Fstyling%2Fbootstrap.html" async></script>
@@ -163,7 +156,8 @@ $(document).ready(function() {
         autoWidth: true,
         columnDefs: [
         { "width": "180px", "targets": [0,1] },
-        { "width": "80px", "targets": [2,3,4,5,6,7,8,9,10] },
+        { "width": "80px", "targets": [2,3,4,5,6,7] },
+        { "width": "120px", "targets": [8] },
         ],
       "scrollY": "500px",
       "sScrollX": "100%",

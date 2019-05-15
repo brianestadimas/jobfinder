@@ -103,7 +103,7 @@ public class KehadiranController {
 		}
 		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
 		model.addAttribute("user", user);
-
+		model.addAttribute("proyek_id", proyek_id);
 		model.addAttribute("judul_kehadiran", judul_kehadiran);
 		model.addAttribute("jumlah_hari_kerja", detail_kehadiran_proyek_ini.get(0).getJumlah_hari_kerja());
 		model.addAttribute("nip_pegawai",nip_pegawai_proyek);
