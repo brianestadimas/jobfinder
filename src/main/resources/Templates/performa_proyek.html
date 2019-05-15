@@ -75,8 +75,13 @@ canvas {
 
         <h4> Belum Terdapat Kehadiran Proyek </h4>
         <hr></hr>
-        <a class="btn btn-primary btn-large"  style="margin-right: 10px;" th:href="@{'/proyek/'+${proyek.id}+'/kehadiran/tambah'}" id="tambah_absensi" >
-       Tambah Kehadiran</a>
+        <div>
+        
+        </div>
+        <div th:if="user.role=='hr' or user.role=='admin' or user.role=='manager' ">
+        	<a class="btn btn-primary btn-large"  style="margin-right: 10px;" th:href="@{'/proyek/'+${proyek.id}+'/kehadiran/tambah'}" id="tambah_absensi" >
+       			Tambah Kehadiran</a>
+        </div>
         </div>
     </div>
 

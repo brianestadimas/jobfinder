@@ -28,7 +28,7 @@ public class ProyekModel implements Serializable{
 	private String nama_proyek;
 	
 	@NotNull
-	@Size(max=20)
+	@Size(max=50)
 	@Column(name="nomor_kontrak",nullable = false)
 	private String nomor_kontrak;
 	

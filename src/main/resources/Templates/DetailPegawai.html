@@ -69,6 +69,7 @@
         <form action="#" th:action="'/proyek/'+${proyek_id}+'/kehadiran/update/submit'" method="post" th:object="${daftar_kehadiran}"> -->
             <img src="/img/icon_building.png" style="max-width:5%;margin-top: -10px">
             <h2 style="display: inline; margin-left: 10px">Detail Pegawai</h2>
+            <h5 class="alert alert-success" th:if="${notif!=null}"	th:text="${notif}"></h5>
             <hr>
             <ul class="nav nav-tabs" style="margin-left: 20px">
                 <li class="active"><a data-toggle="tab" href="#home">Informasi Umum</a></li>
@@ -359,8 +360,29 @@
                         <td th:text="${feedback.feedback}">feedback</td>
                         <td>
                             <a th:href="'/pegawai-detail/'+${pegawai.id}+'/feedback/update/'+${feedback.id}">Ubah</a>
-                            <a th:href="'/pegawai-detail/'+${pegawai.id}+'/feedback/delete/'+${feedback.id}">Hapus</a>
+                            <a th:href="'/pegawai-detail/'+${pegawai.id}+'/feedback/delete/'+${feedback.id}" data-toggle="modal" data-target="#hapusFeedback">Hapus</a>
                         </td>
+                         <div class="modal" id="hapusFeedback">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+			
+									<!-- Modal Header -->
+									<div class="modal-header">
+										<h4 class="modal-title">Hapus Feedback Pegawai</h4>
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+									</div>
+									<!-- Modal body -->
+									<div class="modal-body text-center">Apakah Anda yakin untuk
+										menghapus feedback pegawai?</div>
+			
+									<!-- Modal footer -->
+									<div class="modal-footer">
+										 <a type="button" class="btn btn-danger" th:href="@{'/pegawai-detail/'+${pegawai.id}+'/feedback/delete/'+${feedback.id}}">Ya</a>
+										<button type="button" class="btn btn-danger" data-dismiss="modal">Tidak</button>
+									</div>
+								</div>
+							</div>
+						</div>
                     </tr>
                     <tfoot>
                         <th>Tanggal</th>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.apap.HrPayrollSystem.Model.AccountModel;
 import com.apap.HrPayrollSystem.Service.AccountService;
@@ -73,21 +74,20 @@ public class AccountController {
 	@RequestMapping(value="/account/add/submit", method=RequestMethod.POST)
 	private String tambahAkunSubmit(Model model,
 									@ModelAttribute AccountModel account,
-									HttpServletRequest req) {
+									HttpServletRequest req, RedirectAttributes redir) {
 		List<AccountModel> get_all_account = akun_service.get_all_account();
 		if(get_all_account.isEmpty()) {
 			akun_service.addAccount(account);
 		}else {
 			for(int i = 0 ; i < get_all_account.size() ; i++) {
 				if(account.getUsername().equals(get_all_account.get(i).getUsername())) {
-					AccountModel akun = new AccountModel();
-					model.addAttribute("akun",akun);
-					return "tambah_akun";
+					redir.addFlashAttribute("notif", "Sudah terdapat akun dengan username " +account.getUsername() );		
+					return "redirect:/account/add";
 				}
 			}
 			akun_service.addAccount(account);
 		}
-				
+		redir.addFlashAttribute("notif", "Berhasil menambahkan akun dengan nama "+account.getName()+" dan peran"+account.getRole() );		
 		return "redirect:/account/list";
 	}
 	
@@ -95,9 +95,10 @@ public class AccountController {
 	@RequestMapping(value="/account/delete/{id}", method=RequestMethod.GET)
 	private String hapusAkun(Model model,
 							 @ModelAttribute AccountModel account,
-							 HttpServletRequest req) {
+							 HttpServletRequest req, RedirectAttributes redir) {
+		String nama_akun = account.getName();
 		akun_service.delete_account(account);
-
+		redir.addFlashAttribute("notif", "Berhasil menghapus akun");
 		return "redirect:/account/list";
 	}
 	
@@ -124,10 +125,10 @@ public class AccountController {
 	@RequestMapping(value="/account/update/submit", method=RequestMethod.POST)
 	private String updateAkunSubmit(Model model,
 									@ModelAttribute AccountModel account,
-									HttpServletRequest req) {
+									HttpServletRequest req, RedirectAttributes redir) {
 		akun_service.save_account(account);
 		
-		
+		redir.addFlashAttribute("notif", "Berhasil mengubah akun dengan nama "+ account.getName());
 		return "redirect:/account/list";
 	}
 	
@@ -152,7 +153,7 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value="/my-account/update/submit", method=RequestMethod.POST)
-	private String updateAkunSayaSubmit(HttpServletRequest req) {
+	private String updateAkunSayaSubmit(HttpServletRequest req, RedirectAttributes redir) {
 		String password_lama = req.getParameter("password_lama");
 		String password_baru = req.getParameter("password_baru");
 		AccountModel akun = akun_service.findByUsername(req.getRemoteUser());
@@ -163,8 +164,10 @@ public class AccountController {
 //			akun_service.save_account(account);
 			String new_pass = akun_service.encrypt(password_baru);
 			akun_service.changePassword(new_pass, req.getRemoteUser());
+			redir.addFlashAttribute("notif", "Berhasil mengubah password");
 			return "redirect:/my-account";
 		}else {
+			redir.addFlashAttribute("notif", "Password lama tidak sesuai dengan yang ada di database");
 			return "redirect:/my-account/update";
 		}
 

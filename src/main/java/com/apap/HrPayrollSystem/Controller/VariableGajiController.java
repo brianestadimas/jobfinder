@@ -1,5 +1,7 @@
 package com.apap.HrPayrollSystem.Controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,9 +33,14 @@ public class VariableGajiController {
 	}
 	
 	@RequestMapping(value="/variable-gaji/submit",method=RequestMethod.POST)
-	private String submitVariableGaji(@ModelAttribute VariableGajiModel variableGaji, Model model) {
-		variableGajiService.saveVariableGaji(variableGaji);
-		
+	private String submitVariableGaji( Model model, 
+							HttpServletRequest req) {
+		VariableGajiModel newVar = new VariableGajiModel();
+		newVar.setBPJSK(Float.parseFloat(req.getParameter("BPJSK")));
+		newVar.setBPJSTK(Float.parseFloat(req.getParameter("BPJSTK")));
+		newVar.setPersenan_pph(Float.parseFloat(req.getParameter("persenan_pph")));
+		newVar.setPTKP(Integer.parseInt(req.getParameter("PTKP")));
+		variableGajiService.saveVariableGaji(newVar);
 		return "redirect:/variable-gaji";
 	}
 	
@@ -47,10 +54,14 @@ public class VariableGajiController {
 	}
 	
 	@RequestMapping(value="/variable-gaji/update",method=RequestMethod.POST)
-	public RedirectView updateVariableGajiSubmit(@ModelAttribute VariableGajiModel newVarGaji, Model model) {
-		variableGajiService.updateVariableGaji(newVarGaji);
-		
-		model.addAttribute("variableGaji", newVarGaji);
+	public RedirectView updateVariableGajiSubmit(Model model, 
+												HttpServletRequest req) {
+		VariableGajiModel newVar = new VariableGajiModel();
+		newVar.setBPJSK(Float.parseFloat(req.getParameter("BPJSK")));
+		newVar.setBPJSTK(Float.parseFloat(req.getParameter("BPJSTK")));
+		newVar.setPersenan_pph(Float.parseFloat(req.getParameter("persenan_pph")));
+		newVar.setPTKP(Integer.parseInt(req.getParameter("PTKP")));
+		variableGajiService.updateVariableGaji(newVar);
 		return new RedirectView("/variable-gaji");
 	}
 	

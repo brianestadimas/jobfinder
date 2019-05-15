@@ -78,7 +78,7 @@ public class ProyekController {
 	}
 	
 	@RequestMapping(value = "/performa-proyek/{id}", method = RequestMethod.GET)
-	private String performaProyek(@PathVariable long id, Model model) {
+	private String performaProyek(@PathVariable long id, Model model,HttpServletRequest req) {
 		// Performa dalam Proyek (4 Bulan Terakhir)
 		ProyekModel proyek = proyekService.getProyekById(id).get();
 		List<PerformaWrapper> kehadiranProyek = kehadiranService.get_all_kehadiran_by_proyek(proyek);
@@ -115,7 +115,8 @@ public class ProyekController {
 				}	
 			}			
 		}
-		
+		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
+		model.addAttribute("user", user);
 		model.addAttribute("feedback_proyek", feedback_proyek);
 		model.addAttribute("panjangKehadiran", panjangKehadiran);
 		model.addAttribute("proyek", proyek);
@@ -133,7 +134,7 @@ public class ProyekController {
 	 * @return Halaman HTML list_proyek
 	 */	
 	@RequestMapping(value = "/proyek-hapus/{id}", method = RequestMethod.GET)
-	private String deleteProyek(@PathVariable(value = "id") long id, Model model) {
+	private String deleteProyek(@PathVariable(value = "id") long id, Model model,RedirectAttributes redir) {
 
 		List<PegawaiOutsourcingModel> pegawaiOutsourcing = pegawaiService.getAllPegawai();
 		for(int i = 0 ; i < kehadiranService.get_all_kehadiran().size() ; i ++) {
@@ -161,8 +162,9 @@ public class ProyekController {
 				}
 			}
 		}
-
+		String nama_proyek = proyekService.getProyekById(id).get().getNama_proyek();
 		proyekService.deleteById(id);
+		redir.addFlashAttribute("sukses_menambahkan", "proyek dengan nama "+ nama_proyek +" berhasil dihapus");
 		return "redirect:/proyek";
 	}
 	
@@ -183,7 +185,7 @@ public class ProyekController {
 			return "redirect:/proyek-tambah";
 		}
 		proyekService.addProyek(proyek);
-		model.addAttribute("sukses_menambahkan", "proyek dengan nama "+proyek.getNama_proyek()+"berhasil ditambahkan");
+		redir.addFlashAttribute("sukses_menambahkan", "proyek dengan nama "+proyek.getNama_proyek()+" berhasil ditambahkan");
 		return "redirect:/proyek";
 	}
 
@@ -201,8 +203,8 @@ public class ProyekController {
 	@RequestMapping(value = "/proyek-ubah/{id}", method = RequestMethod.POST)
 	private String ubahProyekPost(@PathVariable(value = "id") long id, ProyekModel proyek, Model model,
 			RedirectAttributes redir) {
-
-		proyekService.updateProyek(id, proyek);
+		proyekService.addProyek(proyek);
+//		proyekService.updateProyek(id, proyek);
 		redir.addFlashAttribute("ubahSukses_msg", "Proyek " + proyek.getNama_proyek() + " berhasil diubah!");
 		return "redirect:/proyek-detail/"+id;
 	}
@@ -233,7 +235,8 @@ public class ProyekController {
 		return "ubah_pegawai_proyek";
 	}
 	@RequestMapping(value = "/proyek-pegawai/{id}", method = RequestMethod.POST)
-	private String ubahPegawaiProyekPost(@PathVariable(value = "id") long id, @ModelAttribute PegawaiProyekWrapper listPegawai, Model model) {
+	private String ubahPegawaiProyekPost(@PathVariable(value = "id") long id, @ModelAttribute PegawaiProyekWrapper listPegawai, Model model,
+			RedirectAttributes redir) {
 		ProyekModel proyek = proyekService.getProyekById(id).get();
 		pegawaiService.save_all_pegawai_proyek(listPegawai.getListPegawai());
 		
@@ -246,9 +249,7 @@ public class ProyekController {
 				}
 			}
 		}
-		
-		model.addAttribute("proyek", proyek);
-		model.addAttribute("listPegawai", pegawaiProyek);
+		redir.addFlashAttribute("ubahSukses_msg", "Proyek " + proyek.getNama_proyek() + " berhasil diubah!");
 		return "redirect:/proyek-detail/"+id;
 	}
 

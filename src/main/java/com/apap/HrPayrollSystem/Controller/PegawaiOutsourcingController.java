@@ -178,9 +178,10 @@ public class PegawaiOutsourcingController {
 	}
 	
 	@RequestMapping(value="/pegawai/ubah/{id}", method = RequestMethod.POST)
-    public RedirectView submitUbahPegawai(@PathVariable(value="id") long id, @ModelAttribute PegawaiOutsourcingModel pegawaiBaru, Model model, HttpServletRequest req) {	
+    public RedirectView submitUbahPegawai(@PathVariable(value="id") long id, @ModelAttribute PegawaiOutsourcingModel pegawaiBaru, Model model, HttpServletRequest req, RedirectAttributes redir) {	
 		pegawaiService.updatePegawai(id,pegawaiBaru);
 		model.addAttribute("pegawai", pegawaiBaru);
+		redir.addFlashAttribute("notif", "Berhasil mengubah pegawai");
 		return new RedirectView("/pegawai-detail/"+id);
     }
 	
@@ -231,7 +232,7 @@ public class PegawaiOutsourcingController {
 				}
 				
 			}
-			redir.addFlashAttribute("notifikasi_sukses", notif);
+			redir.addFlashAttribute("notifikasi_sukses", notif.substring(0,notif.length()-1));
 			return "redirect:/pegawai";
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -260,6 +261,7 @@ public class PegawaiOutsourcingController {
 						kehadiranService.delete_kehadiran(kehadiranService.get_all_kehadiran().get(i));
 					}
 				}
+				pegawai.getPelamar_id().setIs_pegawai(false);
 				pegawaiService.deletePegawaiById(id);
 			}
 			redir.addFlashAttribute("notifikasi_sukses", "Berhasil menghapus pegawai");
@@ -327,9 +329,10 @@ public class PegawaiOutsourcingController {
 	
 
 	@RequestMapping(value="/pegawai-detail/{id}/feedback/submit", method=RequestMethod.POST)
-	private String feedbackSubmit(@PathVariable(value="id") long id, @ModelAttribute FeedbackModel feedback, Model model, HttpServletRequest req ) throws ParseException {
+	private String feedbackSubmit(@PathVariable(value="id") long id, @ModelAttribute FeedbackModel feedback, Model model, HttpServletRequest req, RedirectAttributes redir ) throws ParseException {
 		feedback.setId(feedback_service.get_all_feedback().size()+1);
 		feedback_service.save_feedback(feedback);
+		redir.addFlashAttribute("notif","berhasil menambah ulasan");
 		return "redirect:/pegawai-detail/"+id;
 	}
 	
@@ -367,16 +370,18 @@ public class PegawaiOutsourcingController {
 	}
 	
 	@RequestMapping(value="/pegawai-detail/{id}/feedback/update/submit", method=RequestMethod.POST)
-	private String feedbackUpdateSubmit(@ModelAttribute FeedbackModel feedback,@PathVariable(value="id") long id ,Model model, HttpServletRequest req ) {
+	private String feedbackUpdateSubmit( RedirectAttributes redir,@ModelAttribute FeedbackModel feedback,@PathVariable(value="id") long id ,Model model, HttpServletRequest req ) {
 		System.out.println("tayo");
 		feedback_service.save_feedback(feedback);
+		redir.addFlashAttribute("notif","berhasil menambah ulasan");
 		return "redirect:/pegawai-detail/"+id;
 	}
 	
 	@RequestMapping(value="/pegawai-detail/{id_pegawai}/feedback/delete/{id_feedback}",method=RequestMethod.POST)
-	private String feedbackDelete(@PathVariable(value="id_pegawai") long id_pegawai, @PathVariable(value="id_feedback") long id_feedback, Model model) {
+	private String feedbackDelete(@PathVariable(value="id_pegawai") long id_pegawai, RedirectAttributes redir, @PathVariable(value="id_feedback") long id_feedback, Model model) {
 		System.out.println("ujang");
 		feedback_service.delete_feedback(id_feedback);
+		redir.addFlashAttribute("notif","berhasil menambah ulasan");
 		return "redirect:/pegawai-detail/"+id_pegawai;
 	}
 	
