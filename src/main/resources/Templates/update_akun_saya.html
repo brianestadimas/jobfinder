@@ -47,6 +47,7 @@
 	<div class="blankspace">
 			<div class="boxContainer2">
 				<h2 style="display: inline; margin-left: 10px">Ubah Akun Saya</h2>
+				<h5 class="alert alert-warning" th:if="${notif!=null}"	th:text="${notif}"></h5>
 				<hr></hr>
 					<div id="add_produk" class="boxContainer" style="overflow-x:auto;">				
 						<form th:action="@{/my-account/update/submit}" method = "POST">

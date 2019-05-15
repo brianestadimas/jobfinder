@@ -51,8 +51,8 @@ table{
         <h2 style="display: inline; margin-left: 10px" th:text="${proyek.nama_proyek}"></h2>
         <hr style="margin-top:-1px"></hr>
 
-        <h2 class="alert alert-success" th:if="${ubahSukses_msg!=null}"
-                    th:text="${ubahSukses_msg}"></h2>
+        <h5 class="alert alert-success" th:if="${ubahSukses_msg!=null}"
+                    th:text="${ubahSukses_msg}"></h5>
 
 	<div class="boxContainer2">
                 <div th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" id="kelola-akun">

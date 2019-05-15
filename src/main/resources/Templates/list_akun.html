@@ -39,6 +39,8 @@
 	<div class="blankspace">
 		<div class="boxContainer2">
 			<h2 style="display: inline; margin-left: 10px">Daftar Akun</h2>
+				<h5 class="alert alert-success" th:if="${notif!=null}"
+				th:text="${notif}"></h5>
 			<a class="btn btn-info btn-large" style="float: right; line-height:1.6" th:href="@{/account/add}">Tambah Akun</a>
 				<hr></hr>
 				<div  class="boxContainer" style="overflow-x:auto;">

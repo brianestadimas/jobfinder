@@ -18,14 +18,14 @@ public class VariableGajiModel {
 	@Column(name="PTKP",nullable = true)
 	private int PTKP;
 	
-	@Column(name="BPJSTK",nullable = true)
-	private int BPJSTK;
+	@Column(name="BPJSTK",nullable = true, precision=3, scale=2)
+	private float BPJSTK;
 	
-	@Column(name="BPJSK",nullable = true)
-	private int BPJSK;
+	@Column(name="BPJSK",nullable = true, precision=3, scale=2)
+	private float BPJSK;
 		
-	@Column(name="persenan_pph",nullable = true)
-	private int persenan_pph;
+	@Column(name="persenan_pph",nullable = true, precision=3, scale=2)
+	private float persenan_pph;
 	
 	public int getPTKP() {
 		return PTKP;
@@ -35,19 +35,19 @@ public class VariableGajiModel {
 		PTKP = pTKP;
 	}
 
-	public int getBPJSTK() {
+	public float getBPJSTK() {
 		return BPJSTK;
 	}
 
-	public void setBPJSTK(int bPJSTK) {
+	public void setBPJSTK(float bPJSTK) {
 		BPJSTK = bPJSTK;
 	}
 
-	public int getBPJSK() {
+	public float getBPJSK() {
 		return BPJSK;
 	}
 
-	public void setBPJSK(int bPJSK) {
+	public void setBPJSK(float bPJSK) {
 		BPJSK = bPJSK;
 	}
 
@@ -59,11 +59,11 @@ public class VariableGajiModel {
 		this.id = id;
 	}
 
-	public int getPersenan_pph() {
+	public float getPersenan_pph() {
 		return persenan_pph;
 	}
 
-	public void setPersenan_pph(int persenan_pph) {
+	public void setPersenan_pph(float persenan_pph) {
 		this.persenan_pph = persenan_pph;
 	}
 	

@@ -219,7 +219,7 @@ public class KehadiranController {
 	private String updateKehadiranProyekSubmit(@PathVariable(value="proyek_id") long proyek_id,
 											@ModelAttribute KehadiranWrapper daftar_daftar_kehadiran, 
 											HttpServletRequest req,
-											Model model) {
+											Model model, RedirectAttributes redir) {
 								
 		int jumlah_hari_kerja = Integer.parseInt(req.getParameter("jumlah_hari_kerja"));
 		String judul_kehadiran = String.valueOf(req.getParameter("judul_absensi"));
@@ -239,15 +239,13 @@ public class KehadiranController {
 										daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_kehadiran()+
 										daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_off()+
 										daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_sakit()) {
-					model.addAttribute("fail_notif", "Terdapat kehadiran dengan jumlah komponen kehadiran tidak sama dengan jumlah hari kerja");
+					redir.addFlashAttribute("fail_notif", "Terdapat kehadiran dengan jumlah komponen kehadiran tidak sama dengan jumlah hari kerja");
 					return "redirect:/proyek/{proyek_id}/kehadiran/update/"+judul_kehadiran;
 				}
 			}
 			kehadiran_service.save_all_kehadiran(daftar_daftar_kehadiran.getDaftar_kehadiran());				
 			
-								//TO DO render
-				model.addAttribute("id_proyek", proyek_id);
-				model.addAttribute("notifikasi_sukses","Berhasil Mengubah Kehadiran dengan judul "+judul_kehadiran);
+				redir.addFlashAttribute("notifikasi_sukses","Berhasil Mengubah Kehadiran dengan judul "+judul_kehadiran);
 				return "redirect:/proyek/"+proyek_id+"/kehadiran";
 			}
 	
@@ -255,7 +253,7 @@ public class KehadiranController {
 	@RequestMapping(value="/proyek/{proyek_id}/kehadiran/hapus/{judul_kehadiran}", method=RequestMethod.GET)
 	private String hapusKehadiranProyek(@PathVariable(value="proyek_id") long proyek_id,
 										 @PathVariable(value="judul_kehadiran") String judul_kehadiran,
-										 Model model) {
+										 Model model, RedirectAttributes redir) {
 	List<KehadiranModel> get_all_kehadiran = kehadiran_service.get_all_kehadiran();
 	List<KehadiranModel> kehadiran_yang_dihapus = new ArrayList<KehadiranModel>();	
 	for(int i = 0 ; i < get_all_kehadiran.size() ; i++) {
@@ -268,8 +266,7 @@ public class KehadiranController {
 	}
 	
 	//TO DO render
-	model.addAttribute("id_proyek", proyek_id);
-	model.addAttribute("notifikasi_sukses","Berhasil Menghapus Kehadiran dengan judul "+judul_kehadiran);
+	redir.addFlashAttribute("notifikasi_sukses","Berhasil Menghapus Kehadiran dengan judul "+judul_kehadiran);
 	return "redirect:/proyek/"+proyek_id+"/kehadiran";
 	}
 	
@@ -313,7 +310,7 @@ public class KehadiranController {
 								    @PathVariable(value="judul_kehadiran") String judul_kehadiran,
 								    @ModelAttribute KehadiranWrapper daftar_daftar_kehadiran, 
 									HttpServletRequest req,
-								    Model model) {
+								    Model model, RedirectAttributes redir) {
 		int jumlah_hari_kerja = Integer.parseInt(req.getParameter("jumlah_hari_kerja"));
 		String judul_kehadiran_2 = String.valueOf(req.getParameter("judul_absensi"));
 		ProyekModel proyek = new ProyekModel();
@@ -335,7 +332,7 @@ public class KehadiranController {
 									daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_kehadiran()+
 									daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_off()+
 									daftar_daftar_kehadiran.getDaftar_kehadiran().get(i).getJumlah_sakit()) {
-				model.addAttribute("fail_notif", "Terdapat kehadiran dengan jumlah komponen kehadiran tidak sama dengan jumlah hari kerja");
+				redir.addFlashAttribute("fail_notif", "Terdapat kehadiran dengan jumlah komponen kehadiran tidak sama dengan jumlah hari kerja");
 				return "redirect:/proyek/{proyek_id}/kehadiran/"+judul_kehadiran_2+"/penggajian";
 			}
 			GajiModel penggajian = new GajiModel();
@@ -388,11 +385,11 @@ public class KehadiranController {
 			float gaji_pokok = daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getGaji_pokok();
 			float  var_bpjstk = variable.getBPJSTK();
 			float var_bpjsk = variable.getBPJSK();
-			if(!daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getBpjstk().equals(null)) {
+			if(!daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getBpjstk().isEmpty()) {
 				bpjstk =  gaji_pokok * (var_bpjstk/100);
 			}
 			float bpjsk = 0;
-			if(!daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getBpjsk().equals(null)) {
+			if(!daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing().getBpjsk().isEmpty()) {
 				bpjsk =   gaji_pokok * (var_bpjsk/100);
 			}
 			float total_bpjs = bpjstk+bpjsk;
@@ -408,16 +405,16 @@ public class KehadiranController {
 			float gaji_netto = jumlah_gaji - pph21;
 			Penggajian rekap_gaji = new Penggajian(daftar_penggajian.getDaftar_penggajian().get(i), 
 												   daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing(), 
-												gaji_bruto, 
-												bpjstk, 
-												bpjsk, 
-												total_bpjs, 
-												jumlah_gaji, 
-												ptkp, 
-												pkp, 
-												pph21, 
-												total_potongan, 
-												gaji_netto);
+												(int)gaji_bruto, 
+												(int)bpjstk, 
+												(int)bpjsk, 
+												(int)total_bpjs, 
+												(int)jumlah_gaji, 
+												(int)ptkp, 
+												(int)pkp, 
+												(int)pph21, 
+												(int)total_potongan, 
+												(int)gaji_netto);
 			daftar_rekap_gaji.add(rekap_gaji);
 			daftar_gaji.add(daftar_penggajian.getDaftar_penggajian().get(i));
 			daftar_pegawai.add(daftar_penggajian.getDaftar_penggajian().get(i).getPegawai_outsourcing());
@@ -445,14 +442,7 @@ public class KehadiranController {
 		return "detail_penggajian";
 	}
 	
-	@RequestMapping(value="/proyek/{proyek_id}/kehadiran/penggajian_submit",method=RequestMethod.POST)
-	private String penggajianSubmit() {
-		
-		
-		
-		
-		return "redirect:/proyek/{proyek_id}/kehadiran";
-	}
+
 	
 	
 	

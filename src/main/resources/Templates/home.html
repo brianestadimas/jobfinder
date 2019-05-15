@@ -69,7 +69,7 @@ thead th{
 
 #button-di-home{
 	width:max-content;
-	background-color:yellow;
+
 
 
 }
@@ -135,9 +135,8 @@ thead th{
 		</div>
 		<div style="padding-top:2%" id="status-db-dan-kelola-proyek">
 				<div>
-				<a th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" type="button" th:href="@{'/produk'}">Kelola Produk</a>
-				<a id="button-di-home" th:href="@{/variable-gaji}">Variable Gaji</a>
-				<button id="button-di-home">Lihat User Manual</button>
+				<a class="btn btn-success btn-large large" th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" type="button" th:href="@{'/produk'}">Kelola <br> Produk</a>
+				<a class="btn btn-success btn-large large" id="button-di-home" th:href="@{/variable-gaji}">Variable <br> Gaji</a>
 			</div>
 			<div id="kelola-proyek">
 				<h2>Pelamar Terbaru & Kelola Pelamar</h2>

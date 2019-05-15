@@ -119,7 +119,18 @@ public class PelamarModel implements Serializable{
 
 	@Column(name="apply_date",nullable = false)
 	private Date apply_date;
+	
+	@Column(name="is_pegawai",nullable = true)
+	private boolean is_pegawai=false;
 
+
+	public boolean isIs_pegawai() {
+		return is_pegawai;
+	}
+
+	public void setIs_pegawai(boolean is_pegawai) {
+		this.is_pegawai = is_pegawai;
+	}
 
 	public long getId() {
 		return id;

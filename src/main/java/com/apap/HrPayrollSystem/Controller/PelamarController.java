@@ -173,12 +173,8 @@ public class PelamarController {
 	@RequestMapping(value = "pelamar/", method = RequestMethod.GET)
 	private String getPelamar(Model model,HttpServletRequest req) {
 		List<PelamarModel> pelamar_belum_assign = new ArrayList<PelamarModel>();
-		List<PelamarModel> pelamar_sudah_assign = new ArrayList<PelamarModel>();
-		for(int i = 0 ; i < pegawaiService.getAllPegawai().size() ; i++) {
-			pelamar_sudah_assign.add(pegawaiService.getAllPegawai().get(i).getPelamar_id());
-		}
-		for(int i = 0 ; i < pelamarService.getAllPelamar().size();i++) {
-			if(!pelamar_sudah_assign.contains(pelamarService.getAllPelamar().get(i))) {
+		for(int i = 0 ; i < pelamarService.getAllPelamar().size() ; i++) {
+			if(pelamarService.getAllPelamar().get(i).isIs_pegawai()==false) {
 				pelamar_belum_assign.add(pelamarService.getAllPelamar().get(i));
 			}
 		}
@@ -311,7 +307,7 @@ public class PelamarController {
 
 	}
 
-	@RequestMapping(value = "/pelamar/hapus", method = RequestMethod.POST)
+	@RequestMapping(value = "/pelamar/hapus", method = RequestMethod.GET)
 	private String deletePelamar(@RequestParam("id") Long[] ids, Model model) {
 		List<PengalamanPelamarModel> arsip_pengalaman = pengalamanService.getAllPengalaman();
 		if (ids.length == 0) {
@@ -328,7 +324,7 @@ public class PelamarController {
 			}
 		}
 		model.addAttribute("deleteSukses_msg", "Pelamar berhasil dihapus");
-		return "pelamar-view";
+		return "redirect:/pelamar/";
 	}
 
 	@ModelAttribute("radio_gender")
@@ -384,7 +380,7 @@ public class PelamarController {
 		List<ProdukModel> daftar_produk = produkService.getAllProduk();
 		List<ProyekModel> daftar_proyek = proyekService.getAllProyek();
 		wrapper.setDaftar_proyek(daftar_proyek);
-		List<String> nama_pelamar = new ArrayList<String>();
+		List<PelamarModel> nama_pelamar = new ArrayList<PelamarModel>();
 		
 		for(int i=0; i<ids.length; i++) {
 			PelamarModel pelamar = pelamarService.getPelamarById(ids[i]);
@@ -392,7 +388,7 @@ public class PelamarController {
 			pegawai.setPelamar_id(pelamar);
 			
 			wrapper.add_pegawai(pegawai);
-			nama_pelamar.add(pelamar.getNama_lengkap());
+			nama_pelamar.add(pelamar);
 		}
 		
 		model.addAttribute("wrapper", wrapper);
@@ -426,12 +422,13 @@ public class PelamarController {
 			daftar_pegawai.getDaftar_pegawai().get(i).setJoin_date(join_date);;
 			daftar_pegawai.getDaftar_pegawai().get(i).setEnd_date(end_date);
 			daftar_pegawai.getDaftar_pegawai().get(i).setStatus(is_assigned);
+			daftar_pegawai.getDaftar_pegawai().get(i).getPelamar_id().setIs_pegawai(true);
 			name+= daftar_pegawai.getDaftar_pegawai().get(i).getPelamar_id().getNama_lengkap()+",";
 		}
 		
 		pegawaiService.assignAll(daftar_pegawai.getDaftar_pegawai());
-		String msg = "Berhasil Melakukan assignment terhadap pegawai dengan nama : " + name;
-		redir.addFlashAttribute("notifikasi_sukses",msg.substring(0, msg.length()));
+		String msg = "Berhasil Melakukan assignment terhadap pelamar dengan nama : " + name;
+		redir.addFlashAttribute("notifikasi_sukses",msg.substring(0, msg.length()-1));
 		return "redirect:/pegawai";
 	}
 }
