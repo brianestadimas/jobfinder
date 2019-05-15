@@ -57,11 +57,15 @@ public class KehadiranServiceImpl implements KehadiranService{
 	public List<PerformaWrapper> get_all_kehadiran_by_proyek(ProyekModel proyek) {
 		List<KehadiranModel> all_proyek = new ArrayList<KehadiranModel>();
 		List<PerformaWrapper> listPerforma = new ArrayList<PerformaWrapper>();
-		for (int i = kehadiran_Db.findAll().size() - 1; i >= 0; i--) {
+
+		for (int i = kehadiran_Db.findAll().size()-1; i >= 0; i--) {
 			KehadiranModel kehadiran = kehadiran_Db.findAll().get(i);
 			if (kehadiran.getProyek().equals(proyek)) {
 				all_proyek.add(kehadiran);
 			}
+		}
+		if(all_proyek.size()==0) {
+			return listPerforma;
 		}
 		PerformaWrapper performaSementara = new PerformaWrapper();
 		for (KehadiranModel hadirProyek : all_proyek) {
@@ -82,6 +86,9 @@ public class KehadiranServiceImpl implements KehadiranService{
 		}
 		for (PerformaWrapper performaFinal : listPerforma) {
 			performaFinal.hitungTotal();
+		}
+		if(listPerforma.size() < 5) {
+			return listPerforma;
 		}
 		List<PerformaWrapper> listPerforma2 = listPerforma.subList(0, listPerforma.size()-1);
 		System.out.println(listPerforma2.size());
