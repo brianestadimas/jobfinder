@@ -326,21 +326,28 @@ table{
 		$.each($("input[name='id']:checked"), function() {
 			parameters += "id=" + $(this).val() + "&";
 		});
-		var urls = "/pegawai/assign?" + parameters;
-		console.log(parameters);
-		$.ajax({
-			type : "POST",
-			url : "/pegawai/assign?" + parameters,
-			dataType : "json",
-			success : function(result) {
+		if (parameters == "") {
+			var y = document.getElementById("tes2");
+			y.style.display = "block";
 
-			}
-		});
-		window.location.href = urls;
-		console.log(urls);
-		location.replace(urls);
+		} else {
+			var urls = "/pegawai/assign?" + parameters;
+			console.log(parameters);
+			$.ajax({
+				type : "POST",
+				url : "/pegawai/assign?" + parameters,
+				dataType : "json",
+				success : function(result) {
+	
+				}
+			});
+			window.location.href = urls;
+			console.log(urls);
+			location.replace(urls);
+		}
 
 	});
+
 </script>
 
 </html>
