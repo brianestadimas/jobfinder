@@ -34,20 +34,29 @@ thead th{
 .hide{
     display:none;
 }
+table{
+	margin: 0 auto;
+	width: 100%;
+	clear: both;
+	border-collapse: collapse;
+	table-layout: fixed; // ***********add this
+	word-wrap:break-word; // ***********and this
+}
 </style>
 
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
         <div class="blankspace">
-        <img src="/img/icon_building.png" style="max-width:5%; margin-top: -10px; margin-left: -10px">
+        <img src="/img/icon_building.png" style="max-width:4%; margin-top: -10px; margin-left : 5px;">
         <h2 style="display: inline; margin-left: 10px" th:text="${proyek.nama_proyek}"></h2>
+        <hr style="margin-top:-1px"></hr>
 
         <h2 class="alert alert-success" th:if="${ubahSukses_msg!=null}"
                     th:text="${ubahSukses_msg}"></h2>
 
 	<div class="boxContainer2">
-                <div th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" id="kelola-proyek">
-        <a th:href="@{'/proyek/ubah/' + ${proyek.id}}" class="btn btn-warning btn-large" style="float: right; margin-right: 5px; margin-bottom: -40px;">Ubah Detail</a>
+                <div th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" id="kelola-akun">
+        <a th:href="@{'/proyek-ubah/' + ${proyek.id}}" class="btn btn-warning btn-large" style="float: right; margin-right: 5px; margin-bottom: -40px;">Ubah Detail</a>
         </div>
         <p th:text="${proyek.deskripsi_proyek}">
 
@@ -120,8 +129,9 @@ thead th{
                 </table>
             </div>
     <p><a class="btn btn-primary btn-large" th:href="@{'/performa-proyek/'+${proyek.id} }" style="float: left; margin-right: 5px; margin-bottom: 10px;"><i class="fa fa-bar-chart"></i> Performa <br> Absensi</a><p>
+    <div th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" id="kelola-akun">
     <p><a class="btn btn-info btn-large" th:href="@{'/proyek/'+${proyek.id}+'/kehadiran'}" style="float: left; margin-right: 5px; margin-bottom: 10px;"><i class="fa fa-calendar-check-o"></i> Kelola <br> Absensi</a><p>
- 
+    </div>
     </div>
     </div>
     </div>
@@ -131,11 +141,12 @@ thead th{
 
 <div class="blankspace">
 <div class="boxContainer">
-<img src="/img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
-<h2 style="display: inline; margin-left: 10px">Pegawai Proyek</h2>
 <div th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" id="kelola-akun">
 <a href="#" th:href="@{'/proyek-pegawai/' + ${proyek.id}}" class="btn btn-warning btn-large" style="float: right;">Ubah Regulasi</a>
 </div>
+<h4>Pegawai Proyek</h4>
+<hr></hr>
+
 <p>
 <table id="example" class="table table-striped table-bordered" style="width:100%;">
         <thead>
@@ -184,12 +195,13 @@ thead th{
             <tr>
                 <th>NIP</th>
                 <th>Nama Pegawai</th>
+                <th>Produk</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Gaji Pokok</th>
                 <th>Tunjangan Tetap</th>
                 <th>Tunjangan Tidak Tetap</th>
-                <th>BPJS TK</th>
+                <th>BPJSTK</th>
                 <th>BPJSK</th>
                 <th>Jaminan</th>
             </tr>
@@ -197,8 +209,11 @@ thead th{
     </table>
 </div>
 </div>
-<a href="#" onClick="Download()" class="btn btn-info btn-large" style="float: left; margin-right: 10px; margin-left: 20px; margin-top: 20px; margin-bottom: 20px">< Kembali</a></p>
-    
+<div class="blankspace">
+    <div class="col-lg-12">
+	<a class="btn btn-danger btn-large" th:href="@{'/proyek'}">Kembali</a>
+	</div>
+	</div>
 	
 	<script type="text/javascript" src="/media/js/site.js?_=994321fabf3873df746bb8bbccd1886a"></script>
 	<script type="text/javascript" src="/media/js/dynamic.php?comments-page=extensions%2Fbuttons%2Fexamples%2Fstyling%2Fbootstrap.html" async></script>
@@ -225,15 +240,23 @@ thead th{
 $(document).ready(function() {
     // Setup - add a text input to each footer cell
 
-    var table = $('#example').DataTable( {
-    	"scrollY": "500px",
-    	"sScrollX": "100%",
-    	"sScrollXInner": "100%",
-	  	"scrollCollapse": true,
-		buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print',
+  	var table = $('#example').DataTable( {
+		autoWidth: false,
+		"order": [ 0, "desc" ],
+        columnDefs: [
+        { "width": "120px", "targets": [3,4,5,6,8,9] },
+        { "width": "180px", "targets": [0,1,2,7] },
+        { "width": "250px", "targets": [10] },
         ],
-   	} );
+		"scrollY" : "500px",
+		"sScrollX" : "100%",
+		"sScrollXInner" : "100%",
+		"scrollCollapse" : true, 
+		buttons : [ 'copy', 'csv', 'excel', 'pdf', 'print' ],
+		exportOptions: {
+	          rows: ':visible'
+	        }
+		} );
 
 	table.buttons().container()
 		.appendTo( '#example_wrapper .col-sm-12:eq(0)' );
@@ -245,7 +268,7 @@ $(document).ready(function() {
 
     $('#example tfoot th').each( function () {
         var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+        $(this).html( '<input type="text" style="width:100%" placeholder="Search '+title+'" />' );
     } );
     // DataTable
     var docDefinition = {

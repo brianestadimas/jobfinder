@@ -1,250 +1,284 @@
 <!DOCTYPE html>
-<!-- saved from url=(0156)file:///Users/savirasantoso/Documents/workspace-sts-3.9.5.RELEASE/hr-and-payroll-system/src/main/resources/templates/fragments/detailPegawaiOutsourcing.html -->
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
-<meta http-equiv="Content-Type"
-	content="text/html; charset=windows-1252">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="./detailPegawaiOutsourcing_files/jquery.dataTables.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <title></title>
 </head>
-
 <style>
-/* table {
-        table-layout: fixed;
-        } */
-body {
-	font-family: "Open Sans", sans-serif;
-	line-height: 1.25;
-}
-
-hr {
-	border-top: 1px solid rgb(37, 37, 37);
-}
-
-.tablecontainer {
-	padding-top: 100px;
-	padding-right: 300px;
-	padding-bottom: 50px;
-	padding-left: 100px;
-}
-
-table {
-	border: 1px solid #ccc;
-	border-collapse: collapse;
-	table-layout: fixed;
-	width: 100%;
-}
-
-table caption {
-	font-size: 1.5em;
-	margin: .5em 0 .75em;
-}
-
-table tr {
-	border: 1px solid #ddd;
-	padding: .35em;
-}
-
-table tr:nth-child(even) {
-	background: #f8f8f8;
-}
-
-table th, table td {
-	padding: .625em;
-	text-align: left;
-	border: 1px solid rgb(207, 207, 207)
-}
-
-table th {
-	background: rgb(226, 226, 226);
-	color: #fff;
-	font-size: .85em;
-	letter-spacing: .1em;
-	text-transform: uppercase;
-}
-
-.nav-tabs {
-	padding-right: 10%;
-}
-
-table td {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.history {
-	border-collapse: collapse;
-	width: 100%;
-	color: black;
-}
-
-tr.history:hover {
-	background-color: black;
-}
+    .boxContainer{
+        background-color:#fdfdfd;
+        border-radius: 10px;
+        padding:20px 16px;
+        margin:0px 20px;
+        box-shadow:0 0px 9px 0 rgba(0,0,0,0.16),0 2px 0px 0 rgba(0,0,0,0.12)
+    }
+    .boxContainer2{
+        background-color:#fdfdfd;
+        border-radius: 10px;
+        padding:20px 16px 20px 20px;
+        margin:20px 20px;
+    }
+    .boxContainer3{
+        background-color:#fefefe;
+        border-radius: 10px;
+        padding:20px 16px 20px 20px;
+        margin:20px 20px;
+    }
+    .boxContainer4{
+        background-color:#fcfcfc;
+        padding:20px 16px;
+        margin:0px 20px;
+        box-shadow:0 0px 9px 0 rgba(0,0,0,0.16),0 2px 0px 0 rgba(0,0,0,0.12)
+    }
+    thead th{
+        background-color : #6B757F;
+        color:#FFFFFF;
+    }
+    .blankspace{
+        margin-top: 20px;
+    }
+    table{
+        margin: 0 auto;
+        width: 100%;
+        clear: both;
+        border-collapse: collapse;
+        table-layout: fixed; // ***********add this
+        word-wrap:break-word; // ***********and this
+    }
 </style>
+
 <body>
-<nav th:replace="fragments/fragment :: navbar"></nav>
-	<h3 th:text="${pelamar.nama_lengkap}"></h3>
-	<a href="#"> <span class="glyphicon glyphicon-circle-arrow-left"></span></a>
-	<!--Belum berfungsi-->
-	<!-- <hr> -->
-	<nav>
-		<div class="nav nav-tabs" id="nav-tab" role="tablist">
-			<a class="nav-item nav-link active" id="nav-home-tab"
-				data-toggle="tab" href="#nav-home" role="tab"
-				aria-controls="nav-home" aria-selected="true">Informasi Umum</a>
-		</div>
-	</nav>
-	<div class="tab-content" id="nav-tabContent">
-		<div class="tab-pane fade show active" id="nav-home" role="tabpanel"
-			aria-labelledby="nav-home-tab">
-<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
-			<a th:href="'/pelamar/ubah/'+${pelamar.id}"
-				class="btn btn-info btn-large"
-				style="float: right; margin-top: 10px; margin-right: 50px;">Ubah</a>
-				</div>
-			<div class="tablecontainer">
-				<h6 class="alert alert-success" th:if="${ubahSukses_msg!=null}"
-					th:text="${ubahSukses_msg}"></h6>
-				<table style="width: 100%" id="table"
-					class="table table-striped table-bordered dataTable">
-					<tbody>
-						<tr>
-							<td style="width: 50%" scope="row">Tanggal Melamar</td>
-							<td style="width: 100%" th:text="${pelamar.apply_date}"></td>
-						</tr>
-						<tr>
-							<td style="width: 50%" scope="row">Produk yang Diinginkan</td>
-							<td style="width: 100%" th:text="${pelamar.produk_dilamar}"></td>
-						</tr>
-					</tbody>
-				</table>
-				<br> <br>
-				<table class="table table-striped table-bordered">
-					<tbody>
-					<thead>Data Pribadi
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="blankspace">
+       <!--  <div class="boxContainer2" style="overflow-x:auto;"> -->
+<!-- 
+        <form action="#" th:action="'/proyek/'+${proyek_id}+'/kehadiran/update/submit'" method="post" th:object="${daftar_kehadiran}"> -->
+            <img src="/img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
+            <h2 style="display: inline; margin-left: 10px">Detail Pelamar</h2>
+            <hr>
+            <ul class="nav nav-tabs" style="margin-left: 20px">
+                <li class="active"><a data-toggle="tab" href="#home">Informasi Umum</a></li>
+                <li><a data-toggle="tab" href="#menu1">Pengalaman Kerja</a></li>
+                <a  th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun" th:href="'/pelamar/ubah/'+${pelamar.id}" class="btn btn-warning btn-large"
+                style="float: right; margin-top:0px ; margin-right: 50px;">Ubah Informasi</a>
+            </ul>
+                <div class="tab-content">
+                <div id="home" class="home tab-pane fade in active">
+                 <div class="col-lg-1"></div>
+                 <div class="col-lg-10">
+                    <br>
+                    <table style="width:100%" id="table" class="table table-striped table-bordered dataTable">
+                        <tbody>
+                            <tr>
+                                <td style="width:50%" scope="row">Tanggal Melamar</td>
+                                <td style="width:100%" th:text="${pelamar.apply_date}"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:50%" scope="row">Produk yang Diinginkan</td>
+                                <td style="width:100%" th:text="${pelamar.produk_dilamar}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <h4>Data Pribadi</h4>
+                    <table class="table table-striped table-bordered">
 
-					</thead>
-					<tr>
-						<td style="width: 50%" scope="row">Nama Lengkap</td>
-						<td style="width: 100%" th:text="${pelamar.nama_lengkap}"></td>
-					</tr>
-					<tr>
-						<td style="width: 50%">Nama Panggilan</td>
-						<td style="width: 100%" th:text="${pelamar.nama_panggilan}"></td>
-					</tr>
-					<tr>
-						<td style="width: 50%">Jenis Kelamin</td>
-						<td style="width: 100%" th:text="${pelamar.gender}"></td>
-					</tr>
-					<tr>
-						<td style="width: 50%">Tanggal Lahir</td>
-						<td style="width: 100%" th:text="${pelamar.tanggal_lahir}"></td>
-					</tr>
+                        <tbody>
 
-					<tr>
-						<td style="width: 50%">Status Marital</td>
-						<td style="width: 100%" th:text="${pelamar.status_marital}"></td>
-					</tr>
-					</tbody>
-				</table>
+                            <tr>
+                                <td style="width:50%" scope="row">Nama Lengkap</td>
+                                <td style="width:100%" th:text="${pelamar.nama_lengkap}"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:50%">Nama Panggilan</td>
+                                <td style="width:100%" th:text="${pelamar.nama_panggilan}"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:50%">Jenis Kelamin</td>
+                                <td style="width:100%" th:text="${pelamar.gender}"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:50%">Tanggal Lahir</td>
+                                <td style="width:100%" th:text="${pelamar.tanggal_lahir}"></td>
+                            </tr>
 
-				<br> <br>
+                            <tr>
+                                <td style="width:50%">Status Marital</td>
+                                <td style="width:100%" th:text="${pelamar.status_marital}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped table-bordered">
+                        <tbody>
+                            <tr>
+                                <td style="width:50%" scope="row">Alamat</td>
+                                <td style="width:100%" th:text="${pelamar.alamat}"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:50%">Region</td>
+                                <td style="width:100%" th:text="${pelamar.region}"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:50%">No Telepon Rumah</td>
+                                <td style="width:100%" th:text="${pelamar.telepon_rumah}"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:50%">No Handphone</td>
+                                <td style="width:100%" th:text="${pelamar.nomor_handphone}"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:50%">No Whatsapp</td>
+                                <td style="width:100%" th:text="${pelamar.nomor_whatsapp}"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:50%">No Telepon Orang Terdekat</td>
+                                <td style="width:100%" th:text="${pelamar.telepon_orang_terdekat}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-				<table class="table table-striped table-bordered">
-					<tbody>
-						<tr>
-							<td style="width: 50%" scope="row">Alamat</td>
-							<td style="width: 100%" th:text="${pelamar.alamat}"></td>
-						</tr>
-						<tr>
-							<td style="width: 50%">Region</td>
-							<td style="width: 100%" th:text="${pelamar.region}"></td>
-						</tr>
-						<tr>
-							<td style="width: 50%">No. Handphone</td>
-							<td style="width: 100%" th:text="${pelamar.nomor_handphone}"></td>
-						</tr>
-						<tr>
-							<td style="width: 50%">Telepon Rumah</td>
-							<td style="width: 100%" th:text="${pelamar.telepon_rumah}"></td>
-						</tr>
-						<tr>
-							<td style="width: 50%">No. Whatsapp</td>
-							<td style="width: 100%" th:text="${pelamar.nomor_whatsapp}"></td>
-						</tr>
-						<tr>
-							<td style="width: 50%">No. Telepon Orang Terdekat</td>
-							<td style="width: 100%"
-								th:text="${pelamar.telepon_orang_terdekat}"></td>
-						</tr>
-					</tbody>
-				</table>
+                    <br>
+                    <!-- <h5>No.Identitas</h5> -->
+                    <h4>Nomor Identitas</h4>
+                    <table class="table table-striped table-bordered">
+                        <tbody>
+                            <tr>
+                                <td style="width:50%" scope="row">No.KTP</td>
+                                <td style="width:100%" th:text="${pelamar.no_ktp}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-				<br> <br>
+                    <br>
 
-				<!-- <h5>No.Identitas</h5> -->
-				<table class="table table-striped table-bordered">
-					<tbody>
-					<thead>No.Identitas
-					</thead>
-					<tr>
-						<td style="width: 50%" scope="row">No.KTP</td>
-						<td style="width: 100%" th:text="${pelamar.no_ktp}"></td>
-					</tr>
-					</tbody>
-				</table>
-				<br> <br>
-				<!-- <h5>Riwayat Pendidikan</h5> -->
-				<table class="table table-striped table-bordered">
-					<tbody>
-					<thead>Riwayat Pendidikan
-					</thead>
-					<tr>
-						<td style="width: 50%" scope="row">Pendidikan Terakhir</td>
-						<td style="width: 100%" th:text="${pelamar.pendidikan_terakhir}"></td>
-					</tr>
-					<tr>
-						<td style="width: 50%">Nama Sekolah</td>
-						<td style="width: 100%" th:text="${pelamar.nama_sekolah}"></td>
-					</tr>
-					<tr>
-						<td style="width: 50%">Tempat Sekolah</td>
-						<td style="width: 100%" th:text="${pelamar.tempat_sekolah}"></td>
-					</tr>
-					<tr>
-						<td style="width: 50%">Jurusan</td>
-						<td style="width: 100%" th:text="${pelamar.jurusan}"></td>
-					</tr>
-					<tr>
-						<td style="width: 30%;">Tahun Lulus</td>
-						<td style="width: 100%" th:text="${pelamar.lulusan_tahun}"></td>
-					</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-	<div class="tab-pane fade" id="nav-contact" role="tabpanel"
-		aria-labelledby="nav-contact-tab">.....</div>
+                    <!-- <h5>Riwayat Pendidikan</h5> -->
+                    <h4>Riwayat Pendidikan</h4>
+                    <table class="table table-striped table-bordered">
+                        <tbody>
+                            <tr>
+                                <td style="width:50%" scope="row">Pendidikan Terakhir</td>
+                                <td style="width:100%" th:text="${pelamar.pendidikan_terakhir}"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:50%">Nama Sekolah</td>
+                                <td style="width:100%" th:text="${pelamar.nama_sekolah}"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:50%">Tempat Sekolah</td>
+                                <td style="width:100%" th:text="${pelamar.tempat_sekolah}"></td>
+                            </tr>
+                            <tr>
+                                <td style="width:50%">Jurusan</td>
+                                <td style="width:100%" th:text="${pelamar.jurusan}"></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 30%;">Tahun Lulus</td>
+                                <td style="width:100%" th:text="${pelamar.lulusan_tahun}"></td>
+                            </tr> 
+                               <!-- <tr>
+                                <td style="width:100%" th:text="${#dates.format(#dates.createNow(), 'yyyy MMM dd ')}"></td>
+                                <td style="width:100%" th:text="${pegawai.end_date}"></td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+                <div id="menu1" class="home tab-pane fade">
+                <div class="blankspace">
+                        <div class="boxContainer" style="overflow-x:auto;">
+                            <h4 style="display: inline; margin-left: 10px">Riwayat Kerja</h4>
+                            <hr></hr>
+                            <!--dropdown filter based on product-->
+                            <table id="example2"  class="table table-striped table-bordered" style="width: 100%">
+                                <thead>
+                                    <th>Nama Perusahaan</th>
+                                    <th>Tahun Terakhir</th>
+                                    <th>Tahun Bekerja</th>
+                                    <th>Bulan Bekerja</th>
+                                    <th>Jabatan</th>
+                                    <th>Alasan Berhenti</th>
+                                </thead>
+                                <tbody>
+                                    <tr th:each ="listRiwayat: ${list_pengalaman}">
+                                        <td th:text="${listRiwayat.nama_perusahaan}">Tidak memiliki</td>
+                                        <td th:text="${listRiwayat.tahun_terakhir}"></td>
+                                        <td th:text="${listRiwayat.lamaTahun_bekerja}"></td>
+                                        <td th:text="${listRiwayat.lamaBulan_bekerja}"></td>
+                                        <td th:text="${listRiwayat.jabatan}"></td>
+                                        <td th:text="${listRiwayat.alasan_berhenti}"></td>
+                                    </tr>
+                                 </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
-	<script src="./detailPegawaiOutsourcing_files/jquery.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script type="text/javascript" charset="utf8"
-		src="./detailPegawaiOutsourcing_files/jquery.dataTables.js"></script>
-	<script>
-		$(document).ready(function() {
-			$('#table').DataTable();
-		});
-	</script>
-</body>
+</div>
+</div>
+</div>
+<div class="blankspace">
+    <div class="col-lg-12">
+        <a class="btn btn-danger btn-large" th:href="@{'/pelamar'}">Kembali</a>
+        <a class="btn btn-success btn-large" th:href="@{'/pelamar/'+${pelamar.id}+'/print-format'}">Print Pelamar</a>
+    </div>
+    </div>
+    <div class="blankspace">
+    </div>
+        <script type="text/javascript" src="/media/js/site.js?_=994321fabf3873df746bb8bbccd1886a"></script>
+        <script type="text/javascript" src="/media/js/dynamic.php?comments-page=extensions%2Fbuttons%2Fexamples%2Fstyling%2Fbootstrap.html" async></script>
+        <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.bootstrap.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
+        <script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js"></script>
+        
+        <script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
+        <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+        <script type="text/javascript" class="init"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    </body>
+    <footer>
 
-</html>
+    </footer>
+    </html>
+<script>
+
+
+function Download(){
+    var x = $('example').children();
+    var fullText = "";
+    $.each(x, function(index, value) {
+       //console.log(value);
+        fullText+=$(this).context.innerText + ",";
+        console.log($(this).context.innerText);
+    });
+    
+    var docDefinition2 = {
+    content: [
+        fullText
+    ]
+    };
+    // this is just a simulation of the open event, replacing it with print produces the same result
+    var docDefinition = { content: [
+        {text:'Liat var docDefinition sama docDefinition2 di javascript Download(), baca dokumentasi',fontSize:20},
+        {text:'Dokumentasi di http://pdfmake.org',fontSize:15},
+        {text:'-dimas',fontSize:15},
+        ] 
+    };
+
+    pdfMake.createPdf(docDefinition).download('gg.pdf');
+};
+    
+</script>
