@@ -31,7 +31,7 @@
     }
     .boxContainer4{
         background-color:#fcfcfc;
-        padding:20px 16px;
+        padding:20px 16px 20px 20px;
         margin:0px 20px;
         box-shadow:0 0px 9px 0 rgba(0,0,0,0.16),0 2px 0px 0 rgba(0,0,0,0.12)
     }
@@ -41,26 +41,28 @@
 </style>
 
 <body>
-
+	<div class="blankspace">
     <div style="width: 75%; margin:auto;">
 
         <div id="myDIV" class="boxContainer4 myDIV">
         <h2 style="display: inline; margin-left: 10px">Login</h2>
-        
-            <div class="container-fluid">
+        <hr></hr>
+        <div class="container-fluid" align="center">
         <h2>Selamat Datang di SIMOS!</h2>
         <h3>Harap Masukan username dan password anda</h3>
-        <div class="row">
+        <div class="row" >
+        <div class="col-md-4">
+        </div>
             <div class="col-md-4">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header" >
                     </div>
                     <div class="card-body">
                         <div th:if="${param.error}">
                             <span style="color: red">Invalid username or password</span>
                         </div>
                         <form th:action="@{/login}" method="POST">
-                            <div class="row form-group">
+                            <div class="row form-group" >
                                 <label class="col-sm-4">Username:</label>
                                 <input type="text" class="col-sm-8 form-control input-sm" name="username">
                             </div>
@@ -79,9 +81,9 @@
     </div>
         
         
-        </div>
     </div>
-
+    </div>
+</div>
 </body>
 
 </html>
