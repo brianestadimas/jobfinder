@@ -5,21 +5,14 @@
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" />
-<link rel="stylesheet"
-	href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css">
 <link href="css/style.css" rel="stylesheet" />
-<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css"
-	rel="stylesheet" type="text/css" />
-
-
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css"rel="stylesheet" type="text/css" />
 <title></title>
 </head>
+
 <style>
 .boxContainer {
 	background-color: #fdfdfd;
@@ -27,19 +20,19 @@
 	padding: 20px 16px;
 	margin: 0px 20px;
 	box-shadow: 0 0px 9px 0 rgba(0, 0, 0, 0.16), 0 2px 0px 0
-		rgba(0, 0, 0, 0.12);
+		rgba(0, 0, 0, 0.12)
 }
 
 .boxContainer2 {
-	background-color: hsl(0, 0%, 96%);
+	background-color: #fdfdfd;
 	border-radius: 10px;
 	padding: 20px 16px 20px 20px;
 	margin: 20px 20px;
 }
 
 thead th {
-	background-color: #f1f7fd;
-	color: #ffffff;
+	background-color: #6B757F;
+	color: #FFFFFF;
 }
 
 .blankspace {
@@ -47,301 +40,273 @@ thead th {
 }
 </style>
 
+
 <body>
-	<nav th:replace="fragments/fragment :: navbar"></nav>
-	<div class="blankspace">
-		<div class="boxContainer2">
-			
-			<h2 style="display: inline;">Ubah Data Pegawai</h2>
-			<h2 class="alert alert-fail" th:if="${fail_notif!=null}" th:text="${fail_notif}"></h2>	
-
-			
-			<form th:action="@{'/pegawai/ubah/' + *{id}} " th:object="${pegawai}"
-				method="POST">
-
-				<input type="hidden" id="id" name="id" th:field="*{id}"> <input
-					type="hidden" id="gaji_pokok" name="gaji_pokok"
-					th:field="*{gaji_pokok}"> <input type="hidden"
-					id="tunjangan_tetap" name="tunjangan_tetap"
-					th:field="*{tunjangan_tetap}"> <input type="hidden"
-					id="tunjangan_tidak_tetap" name="tunjangan_tidak_tetap"
-					th:field="*{tunjangan_tidak_tetap}"> <input type="hidden"
-					name="jaminan" th:field="*{jaminan}"> <input type="hidden"
-					name="nama_sekolah" th:field="*{pelamar_id.nama_sekolah}">
-				<input type="hidden" name="pendidikan_terakhir"
-					th:field="*{pelamar_id.pendidikan_terakhir}"> <input
-					type="hidden" name="jurusan" th:field="*{pelamar_id.jurusan}">
-				<input type="hidden" name="apply_date"
-					th:field="*{pelamar_id.apply_date}"> <input type="hidden"
-					name="tempat_sekolah" th:field="*{pelamar_id.tempat_sekolah}">
-				<input type="hidden" name="join_date" th:field="*{join_date}">
-				<input type="hidden" name="tempat_sekolah" th:field="*{end_date}">
-
-				<input type="hidden" name="id" th:field="${pegawai.pelamar_id.id}">
-
-				<div class="form-row">
-					<div class="form-group col-md-6"></div>
-					<div class="form-group col-md-6"></div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label for="nip">NIP</label> <input
-							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-							type="number" maxlength="16" class="form-control" id="nip"
-							th:field="*{nip}" name="nip" required />
-					</div>
-					<div class="form-group col-md-6">
-						<label for="no_arsip">Nomor Arsip</label> <input type="text"
-							class="form-control" id="no_arsip"
-							placeholder="Masukkan Nomor Arsip" th:field="*{no_arsip}"
-							required />
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label for="nama_Lengkap">Nama Lengkap</label> <input type="text"
-							class="form-control" id="nama_lengkap"
-							placeholder="Masukkan Nama Lengkap"
-							th:field="*{pelamar_id.nama_lengkap}" required />
-					</div>
-					<div class="form-group col-md-6">
-						<label for="nama_panggilan">Nama Panggilan</label> <input
-							type="text" class="form-control" id="nama_panggilan"
-							th:field="*{pelamar_id.nama_panggilan}" />
-					</div>
-				</div>
-
-				<div class="form-row">
-					<div class="form-group col-md-3">
-						<label for="tanggal_lahir"> Tanggal Lahir </label> <input
-							type="date" class="form-control" id="datepicker1"
-							th:field="*{pelamar_id.tanggal_lahir}" required />
-					</div>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="blankspace">
+<div class="boxContainer2">
+<img src="/img/icon_building.png" style="max-width: 5%; margin-top: -10px">
+<h2 style="display: inline; margin-left: 10px">Ubah Data Pegawai</h2>
+<hr></hr>
+<h2 class="alert alert-fail" th:if="${fail_notif!=null}"
+				th:text="${fail_notif}"></h2>
 
 
+<form th:action="@{'/pegawai/ubah/' + *{id}} " th:object="${pegawai}"
+	method="POST">
 
-					<!-- <div class="col-sm-auto">
-									<input class="form-control" required="required"
-										th:field="*{apply_date}" id="datepicker1"
-										onkeypress="return false;">
-								</div> -->
+	<input type="hidden" id="id" name="id" th:field="*{id}"> <input
+		type="hidden" id="gaji_pokok" name="gaji_pokok"
+		th:field="*{gaji_pokok}"> <input type="hidden"
+		id="tunjangan_tetap" name="tunjangan_tetap"
+		th:field="*{tunjangan_tetap}"> <input type="hidden"
+		id="tunjangan_tidak_tetap" name="tunjangan_tidak_tetap"
+		th:field="*{tunjangan_tidak_tetap}"> <input type="hidden"
+		name="jaminan" th:field="*{jaminan}"> <input type="hidden"
+		name="nama_sekolah" th:field="*{pelamar_id.nama_sekolah}">
+	<input type="hidden" name="pendidikan_terakhir"
+		th:field="*{pelamar_id.pendidikan_terakhir}"> <input
+		type="hidden" name="jurusan" th:field="*{pelamar_id.jurusan}">
+	<input type="hidden" name="apply_date"
+		th:field="*{pelamar_id.apply_date}"> <input type="hidden"
+		name="tempat_sekolah" th:field="*{pelamar_id.tempat_sekolah}">
+	<input type="hidden" name="join_date" th:field="*{join_date}">
+	<input type="hidden" name="tempat_sekolah" th:field="*{end_date}">
 
+	<input type="hidden" name="id" th:field="${pegawai.pelamar_id.id}">
+	
+	<div class="form-row">
+		<div class="form-group col-md-6"></div>
+		<div class="form-group col-md-6"></div>
+	</div>
+	<div class="form-row">
+	<div class="form-group col-md-6">
+		<label for="nip">NIP</label> 
+		<input
+		oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+		type="number" maxlength="16" class="form-control" id="nip"
+		th:field="*{nip}" name="nip" required />
+	</div>
+	<div class="form-group col-md-6">
+		<label for="no_arsip">Nomor Arsip</label> 
+		<input type="text" class="form-control" id="no_arsip"
+			placeholder="Masukkan Nomor Arsip" th:field="*{no_arsip}"
+			required />
+	</div>
+	</div>
+	
+	<div class="form-row">
+		<div class="form-group col-md-6">
+			<label for="nama_Lengkap">Nama Lengkap</label> 
+			<input type="text" class="form-control" id="nama_lengkap"
+			placeholder="Masukkan Nama Lengkap" th:field="*{pelamar_id.nama_lengkap}" 
+			required />
+		</div>
+		<div class="form-group col-md-6">
+			<label for="nama_panggilan">Nama Panggilan</label> 
+			<input type="text" class="form-control" id="nama_panggilan"
+				th:field="*{pelamar_id.nama_panggilan}" />
+		</div>
+	</div>
 
-					<div th:if="${pegawai.pelamar_id.gender == 'Laki-laki'}"
-						class="form-group col-md-3">
-						<label for="inputAddress">Jenis Kelamin *</label><br> <input
-							type="radio" name="gender" th:field="*{pelamar_id.gender}"
-							value="Laki-laki" checked> Laki-laki <input type="radio"
-							name="gender" th:field="*{pelamar_id.gender}" value="Perempuan">
-						Perempuan
-					</div>
+	<div class="form-row">
+		<div class="form-group col-md-3">
+			<label for="tanggal_lahir"> Tanggal Lahir </label> 
+			<input type="date" class="form-control" id="tanggal_lahir"
+			th:field="*{pelamar_id.tanggal_lahir}" required />
+		</div>
 
-					<div th:unless="${pegawai.pelamar_id.gender == 'Laki-laki'}"
-						class="form-group col-md-3">
-						<label for="inputAddress">Jenis Kelamin *</label><br> <input
-							type="radio" name="gender" th:field="*{pelamar_id.gender}"
-							value="Laki-laki"> Laki-laki <input type="radio"
-							name="gender" th:field="*{pelamar_id.gender}" value="Perempuan"
-							checked> Perempuan
-					</div>
+		<div th:if="${pegawai.pelamar_id.gender == 'Laki-laki'}"
+			class="form-group col-md-3">
+			<label for="inputAddress">Jenis Kelamin *</label>
+			<br> 
+			<input type="radio" name="gender" th:field="*{pelamar_id.gender}"
+			value="Laki-laki" checked> Laki-laki 
+			<input type="radio" name="gender" th:field="*{pelamar_id.gender}" 
+			value="Perempuan">Perempuan
+		</div>
 
-
-					<div
-						th:if="${pegawai.pelamar_id.status_marital == 'Sudah Menikah'}"
-						class="form-group col-md-4">
-						<label for="inputAddress">Status Marital *</label><br> <input
-							type="radio" name="status_marital"
-							th:field="*{pelamar_id.status_marital}" value="Sudah Menikah"
-							checked> Sudah Menikah <input type="radio"
-							name="status_marital" th:field="*{pelamar_id.status_marital}"
-							value="Belum Menikah"> Belum Menikah
-					</div>
-
-					<div
-						th:unless="${pegawai.pelamar_id.status_marital == 'Sudah Menikah'}"
-						class="form-group col-md-4">
-						<label for="inputAddress"> Status Marital *</label><br> <input
-							type="radio" name="status_marital"
-							th:field="*{pelamar_id.status_marital}" value="Sudah Menikah">
-						Sudah Menikah <input type="radio" name="status_marital"
-							th:field="*{pelamar_id.status_marital}" value="Belum Menikah"
-							checked> Belum Menikah
-					</div>
-
-					<div class="form-group col-md-4"></div>
-
-				</div>
-
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label for="alamat">Alamat</label> <input type="text"
-							class="form-control" id="alamat" th:field="*{pelamar_id.alamat}" />
-					</div>
-					<div class="form-group col-md-4">
-						<label for="region"> Region </label> <input type="search"
-							class="form-control tags" id="region"
-							th:field="${pegawai.pelamar_id.region}" required aria-describedby="regionHelpBlock">
-									<small id="regionHelpBlock" class="form-text text-muted">Cari
-										sesuai Kota/Kabupaten</small>
-							
-							
-
-							
-							<!-- 
-							<input type="search" class="form-control tags"
-										th:field="*{region}" required="required"
-										placeholder="Cari Region" aria-describedby="regionHelpBlock">
-									<small id="regionHelpBlock" class="form-text text-muted">Cari
-										sesuai Kota/Kabupaten</small> -->
-					</div>
-					<div class="form-group col-md-4"></div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label for="telepon">Nomor Handphone</label> <input type="text"
-							class="form-control" id="nomor_handphone"
-							placeholder="Masukkan Nomor Telepon"
-							th:field="*{pelamar_id.nomor_handphone}" required
-							aria-describedby="hpHelpBlock" minlength="11"> <small
-							id="hpHelpBlock" class="form-text text-muted"> cth :
-							0812xxxxxxxx</small>
-					</div>
-					<div class="form-group col-md-6">
-						<label for="nomor_Whatsapp">Nomor Whatsapp</label> <input
-							class="form-control" id="nomor_Whatsapp" placeholder="Masukkan Nomor Whatsapp"
-							th:field="*{pelamar_id.nomor_whatsapp}" 
-							aria-describedby="waHelpBlock" minlength="11"/> <small
-							id="waHelpBlock" class="form-text text-muted"> cth :
-							0812xxxxxxxx</small>
-							
-					</div>
+		<div th:unless="${pegawai.pelamar_id.gender == 'Laki-laki'}"
+			class="form-group col-md-3">
+			<label for="inputAddress">Jenis Kelamin *</label>
+			<br> 
+			<input type="radio" name="gender" th:field="*{pelamar_id.gender}" 
+			value="Laki-laki"> Laki-laki 
+			<input type="radio"name="gender" th:field="*{pelamar_id.gender}" 
+			value="Perempuan"checked> Perempuan
+		</div>
 
 
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label for="telepon_orang_terdekat">Nomor Telepon Orang
-							Terdekat</label> <input
-							class="form-control" id="telp_orang_terdekat" placeholder="Masukkan Nomor Orang Terdekat"
-							th:field="*{pelamar_id.telepon_orang_terdekat}" 
-							aria-describedby="dktHelpBlock" minlength="11"/> <small
-							id="dktHelpBlock" class="form-text text-muted"> cth :
-							0812xxxxxxxx</small>
-					</div>
-					<div class="form-group col-md-6"></div>
-				</div>
+		<div th:if="${pegawai.pelamar_id.status_marital == 'Sudah Menikah'}"class="form-group col-md-4">
+			<label for="inputAddress">Status Marital *</label>
+			<br> 
+			<input type="radio" name="status_marital" th:field="*{pelamar_id.status_marital}" 
+			value="Sudah Menikah"checked> Sudah Menikah 
+			<input type="radio" name="status_marital" th:field="*{pelamar_id.status_marital}"
+			value="Belum Menikah"> Belum Menikah
+		</div>
 
-				<div class="form-row">
-					<div class="form-group col-md-6"></div>
-					<div class="form-group col-md-6"></div>
-				</div>
+		<div th:unless="${pegawai.pelamar_id.status_marital == 'Sudah Menikah'}" class="form-group col-md-4">
+			<label for="inputAddress"> Status Marital *</label>
+			<br> 
+			<input type="radio" name="status_marital" th:field="*{pelamar_id.status_marital}" 
+			value="Sudah Menikah">  Sudah Menikah 
+			<input type="radio" name="status_marital" th:field="*{pelamar_id.status_marital}" 
+			value="Belum Menikah" checked>  Belum Menikah
+		</div>
 
-				<div class="form-row">
-					<div class="form-group col-md-12">
-						<h6>No.Identitas</h6>
-						<hr>
-					</div>
-				</div>
+		<div class="form-group col-md-4"></div>
 
-				<div class="form-row">
-					<div class="form-group col-md-12">
-						<label for="no_ktp">No.KTP</label><input
-							class="form-control" id="no_ktp"
-							placeholder="Masukkan Nomor KTP" th:field="*{pelamar_id.no_ktp}"
-							 aria-describedby="ktpHelpBlock" minlength="16"required/><small
-							id="ktpHelpBlock" class="form-text text-muted"> cth :
-							10 xx xx xxxxxx xxxx</small>
+	</div>
 
-					</div>
+	<div class="form-row">
+		<div class="form-group col-md-6">
+			<label for="alamat">Alamat</label> 
+			<input type="text" class="form-control" id="alamat" th:field="*{pelamar_id.alamat}" />
+		</div>
+		<div class="form-group col-md-4">
+			<label for="region"> Region </label> 
+			<input type="search" class="form-control tags" id="region" th:field="${pegawai.pelamar_id.region}" 
+			required aria-describedby="regionHelpBlock"> 
+			<small id="regionHelpBlock" class="form-text text-muted">Cari sesuai Kota/Kabupaten </small>
 
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label for="pkwt">No.PKWT</label> <input
-							type="text" class="form-control" id="pkwt"
-							placeholder="Masukkan Nomor PKWT" th:field="*{pkwt}" required />
-							
-							<!-- oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" -->
-					</div>
-					<div class="form-group col-md-6">
-						<label for="npwp">No.NPWP</label> <input type="text"
-							class="form-control" id="npwp" placeholder="Masukkan Nomor NPWP"
-							th:field="*{npwp}" required aria-describedby="npwpHelpBlock"
-							minlength="15"><small id="npwpHelpBlock"
-							class="form-text text-muted"> cth : xx.xxx.xxx.x-xxx.xxx</small>
+		</div>
+		<!-- <div class="form-group col-md-4"></div> -->
+	</div>
+				
+	<div class="form-row">
+		<div class="form-group col-md-6">
+			<label for="telepon">Nomor Handphone</label> 
+			<input type="text" class="form-control" id="nomor_handphone" placeholder="Masukkan Nomor Telepon"
+			th:field="*{pelamar_id.nomor_handphone}" required aria-describedby="hpHelpBlock" minlength="11">
+			 <small id="hpHelpBlock" class="form-text text-muted"> cth :0812xxxxxxxx </small>
+		</div>
+		<div class="form-group col-md-6">
+			<label for="telepon">Nomor Telepon Rumah</label> 
+			<input type="text" class="form-control" id="telp_rumah" placeholder="Masukkan Nomor Telepon Rumah"
+			th:field="*{pelamar_id.telepon_rumah}" required aria-describedby="rmhHelpBlock" minlength="11">
+			 <small id="rmhHelpBlock" class="form-text text-muted"> cth :021-7666-xxx </small>
+		</div>
+		
+	</div>
+	<div class="form-row">
+		<div class="form-group col-md-6">
+			<label for="nomor_Whatsapp">Nomor Whatsapp</label> 
+			<input class="form-control" id="nomor_Whatsapp" placeholder="Masukkan Nomor Whatsapp"
+			th:field="*{pelamar_id.nomor_whatsapp}" aria-describedby="waHelpBlock" minlength="11" />
+			 <small id="waHelpBlock" class="form-text text-muted"> cth :0812xxxxxxxx </small>
 
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label for="bpjstk">No.BPJS Ketenagakerjaan</label> <input
-							type="number" class="form-control" id="bpjstk"
-							placeholder="Masukkan Nomor BPJS Ketenagakerjaan"
-							th:field="*{bpjstk}" required />
-					</div>
-					<div class="form-group col-md-6">
-						<label for="bpjsk">No.BPJS Kesehatan</label> <input type="number"
-							class="form-control" id="bpjsk"
-							placeholder="Masukkan Nomor BPJS Kesehatan" th:field="*{bpjsk}"
-							required />
-					</div>
-				</div>
+		</div>
+		<div class="form-group col-md-6">
+			<label for="telepon_orang_terdekat">Nomor Telepon Orang Terdekat</label> 
+			<input class="form-control" id="telp_orang_terdekat" placeholder="Masukkan Nomor Orang Terdekat"
+			th:field="*{pelamar_id.telepon_orang_terdekat}" aria-describedby="dktHelpBlock" minlength="11" /> 
+			<small id="dktHelpBlock" class="form-text text-muted"> cth :0812xxxxxxxx</small>
+		</div>
+		
+	</div>
 
-				<div class="form-row">
-					<div class="form-group col-md-6"></div>
-					<div class="form-group col-md-6"></div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-12">
-						<h6>Informasi Rekening</h6>
-						<hr>
-					</div>
-				</div>
+	<div class="form-row">
+		<div class="form-group col-md-6"></div> <div class="form-group col-md-6"></div>
+	</div>
 
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label for="nama_bank">Nama Bank</label> <input type="text"
-							class="form-control" id="nama_bank"
-							placeholder="Masukkan Nama Bank" th:field="*{nama_bank}" />
-					</div>
-					<div class="form-group col-md-6">
-						<label for="no_rekening">No.Rekening</label> <input
-							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-							type="number" maxlength="20" class="form-control" id="no_rekening"
-							placeholder="Masukkan Nomor Rekening" th:field="*{no_rekening}" />
-					</div>
-					<br> <br>
-				</div>
+	<div class="form-row">
+		<div class="form-group col-md-12">
+			<h4>No.Identitas</h4> <hr>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div class="form-group col-md-12">
+			<label for="no_ktp">No.KTP</label>
+			<input class="form-control" id="no_ktp" placeholder="Masukkan Nomor KTP"
+			th:field="*{pelamar_id.no_ktp}" aria-describedby="ktpHelpBlock"
+			minlength="16" required />
+			<small id="ktpHelpBlock"class="form-text text-muted"> cth : 10 xx xx xxxxxx xxxx</small>
+		</div>
+
+	</div>
+	<div class="form-row">
+		<div class="form-group col-md-6">
+			<label for="pkwt">No.PKWT</label> 
+			<input type="text" class="form-control" id="pkwt" placeholder="Masukkan Nomor PKWT"
+			th:field="*{pkwt}" required />
+		<!-- oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" -->
+		</div>
+		
+		<div class="form-group col-md-6">
+			<label for="npwp">No.NPWP</label> 
+			<input type="text" class="form-control" id="npwp" placeholder="Masukkan Nomor NPWP"
+			th:field="*{npwp}" required aria-describedby="npwpHelpBlock"minlength="15">
+			<small id="npwpHelpBlock"class="form-text text-muted"> cth : xx.xxx.xxx.x-xxx.xxx</small>
+
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="form-group col-md-6">
+			<label for="bpjstk">No.BPJS Ketenagakerjaan</label>
+			 <input type="number" class="form-control" id="bpjstk"
+				placeholder="Masukkan Nomor BPJS Ketenagakerjaan" th:field="*{bpjstk}" required />
+		</div>
+		<div class="form-group col-md-6">
+			<label for="bpjsk">No.BPJS Kesehatan</label>
+			 <input type="number" class="form-control" id="bpjsk"
+			placeholder="Masukkan Nomor BPJS Kesehatan" th:field="*{bpjsk}"required />
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div class="form-group col-md-6"></div> <div class="form-group col-md-6"></div>
+	</div>
+	<div class="form-row">
+		<div class="form-group col-md-12">
+			<h4>Informasi Rekening</h4>
+			<hr>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div class="form-group col-md-6">
+			<label for="nama_bank">Nama Bank</label> <input type="text"
+				class="form-control" id="nama_bank"
+				placeholder="Masukkan Nama Bank" th:field="*{nama_bank}" />
+		</div>
+		<div class="form-group col-md-6">
+			<label for="no_rekening">No.Rekening</label> <input
+				oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+				type="number" maxlength="3" class="form-control" id="no_rekening"
+				placeholder="Masukkan Nomor Rekening" th:field="*{no_rekening}" />
+		</div>
+		<br> 
+		<br>
+	</div>
 
 
-				<div class="form-row">
-					<div class="form-group col-md-12">
-						<h6>Proyek</h6>
-						<hr>
-					</div>
-				</div>
+	<div class="form-row">
+		<div class="form-group col-md-12">
+			<h4>Proyek</h4><hr>
+		</div>
+	</div>
 
-				<div class="form-row">
+	<div class="form-row">
 
-					<div class="form-group col-md-6">
-						<label for="namaLengkap">Nama Proyek</label> <input type="text"
-							th:if="${pegawai.status}" class="form-control" id="proyek"
-							placeholder="" th:field="${pegawai.proyek.nama_proyek}" disabled />
-						<input th:unless="${pegawai.status}" class="form-control"
-							id="proyek" placeholder="" th:value="None" disabled />
+		<div class="form-group col-md-6">
+			<label for="namaLengkap">Nama Proyek</label> 
+			<input type="text" th:if="${pegawai.status}" class="form-control" id="proyek"
+			placeholder="" th:value="${pegawai.proyek.nama_proyek}" disabled />
+			<input th:unless="${pegawai.status}" class="form-control"
+			id="proyek" placeholder="" th:value="None" disabled />
 
-					</div>
+		</div>
 
-					<div class="form-group col-md-6">
-						<label for="join_date">Join Date</label> <input
-							th:if="${pegawai.status}" type="date" class="form-control"
-							id="StartDate" name="join_date" th:field="*{join_date}" /> <input
-							th:unless="${pegawai.status}" type="text" class="form-control"
-							th:value="'dd/mm/yy'" disabled />
+		<div class="form-group col-md-6">
+			<label for="join_date">Join Date</label> 
+			<input th:if="${pegawai.status}" type="date" class="form-control" id="StartDate" name="join_date" th:field="*{join_date}" /> 
+			<input th:unless="${pegawai.status}" type="text" class="form-control"th:value="'dd/mm/yy'" disabled />
 
-					</div>
+		</div>
 
-				</div>
+	</div>
 
 
 				<div class="form-row">
@@ -377,10 +342,11 @@ thead th {
 
 					<div class="form-group col-md-6">
 						<label for="endDate">End Date</label> <input
-							th:if="${pegawai.status}" type="date" class="form-control EndDate"
-							name="end_date" id="end_date" th:field="*{end_date}" /> <input
-							th:unless="${pegawai.status}" type="text" class="form-control"
-							id="end_date" th:value="'dd/mm/yy'" disabled />
+							th:if="${pegawai.status}" class="form-control EndDate"
+							name="end_date" id="datepicker3" th:field="*{end_date}" /> <input
+							 th:unless="${pegawai.status}"
+							type="text" class="form-control" id="end_date"
+							th:value="'dd/mm/yy'" disabled />
 					</div>
 
 					<div class="form-row">
@@ -401,7 +367,7 @@ thead th {
 
 
 	</div>
-
+	</div>
 
 	<script type="text/javascript"
 		src="/media/js/site.js?_=994321fabf3873df746bb8bbccd1886a"></script>
@@ -450,7 +416,13 @@ thead th {
 	    var x = $( "#StartDate" ).val();
 	    $( "input.EndDate" ).replaceWith('<input th:if="${pegawai.status}" type="date" class="form-control EndDate" name="end_date" id="end_date" th:field="*{end_date}" min="' + x + '" required>');
 	 });
-	
+	$('#datepicker3').datepicker({
+		uiLibrary : 'bootstrap4',
+		format : 'yyyy-mm-dd',
+		min : minDate,
+		max : maxDate,
+	});
+
 	$(document).ready(function() {
 		$('#nomor_handphone').mask('0000-0000-0000');
 		$('#telp_rumah').mask('000-0000-0000');
