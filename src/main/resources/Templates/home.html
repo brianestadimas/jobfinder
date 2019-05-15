@@ -109,8 +109,8 @@ thead th{
 					<hr>
 					<div >
 						<div style="display:flex">
-							<a class="btn btn-success btn-large" style="margin-right:1%">Lihat Proyek</a>
-							<a class="btn btn-success btn-large">Tambah Proyek</a>
+							<a th:href="@{/proyek}" class="btn btn-success btn-large" style="margin-right:1%">Lihat Proyek</a>
+							<a th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" th:href="@{/proyek-tambah}" class="btn btn-success btn-large">Tambah Proyek</a>
 						</div>
 						<table style="padding:10px" class="table table-striped table-bordered">
 							<thead>
@@ -134,20 +134,18 @@ thead th{
 			</div>
 		</div>
 		<div style="padding-top:2%" id="status-db-dan-kelola-proyek">
-			<div>
+				<div>
 				<a th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" type="button" th:href="@{'/produk'}">Kelola Produk</a>
-				<div id="status-db">
-					<a id="button-di-home" th:href="@{/variable-gaji}">Variable Gaji</a>
-					<button id="button-di-home">Lihat User Manual</button>
-				</div>
+				<a id="button-di-home" th:href="@{/variable-gaji}">Variable Gaji</a>
+				<button id="button-di-home">Lihat User Manual</button>
 			</div>
 			<div id="kelola-proyek">
 				<h2>Pelamar Terbaru & Kelola Pelamar</h2>
 					<hr>
 					<div >
 						<div style="display:flex">
-							<a class="btn btn-success btn-large" style="margin-right:1%">Lihat Pelamar</a>
-							<a class="btn btn-success btn-large">Tambah Pelamar</a>
+							<a th:href="@{/pelamar/}" class="btn btn-success btn-large" style="margin-right:1%">Lihat Pelamar</a>
+							<a th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" th:href="@{/pelamar/daftar}" class="btn btn-success btn-large">Tambah Pelamar</a>
 						</div>
 						<table style="padding:10px" class="table table-striped table-bordered" id="example">
 							<thead>

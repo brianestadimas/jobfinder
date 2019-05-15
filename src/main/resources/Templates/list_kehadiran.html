@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css">
 	<link href="css/style.css" rel="stylesheet">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<title></title>
 </head>
 <style>
@@ -57,41 +58,48 @@ thead th{
 			<tr th:each="kehadiran, itemStat : *{list_of_kehadiran}">
 				<td th:text="${kehadiran}"></td>
 				<td>
-					<a th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/'+${kehadiran}}" type="button" class="btn btn-success">Detail</a>
+					<div>
+						<div style="display:flex;">
+						<a th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/'+${kehadiran}}" type="button" class="btn btn-success">Detail</a>
 						<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
 						<a th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/update/'+${kehadiran}}" type="button" class="btn btn-warning" style="margin-left: 10px;">Ubah</a>
 						</div>
-						<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
-						<a type="button" class="btn btn-danger" style="margin-left: 10px;" data-toggle="modal" data-target="#hapus-kehadiran" th:attr="data-target='#hapus-kehadiran'+${kehadiran}" >Hapus</a>
-						</div>					    	
-								<div class="modal" th:id="'hapus-kehadiran'+${kehadiran}">
-								    <div class="modal-dialog">
-								      <div class="modal-content">
-								      
-								        <!-- Modal Header -->
-								        <div class="modal-header">
-								          <h4 class="modal-title">Anda akan menghapus kehadiran ini</h4>
-								          <button type="button" class="close" data-dismiss="modal">&times;</button>
-								        </div>
-								        
-								        <!-- Modal body -->
-								        <div class="modal-body">
-								          Apakah anda yakin akan menghapus kehadiran?
-								        </div>
-								        
-								        <!-- Modal footer -->
-								        <div class="modal-footer" >
+							</div>
+							<div style="display:flex;">
+								<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
+								<a type="button" class="btn btn-danger"  data-toggle="modal" data-target="#hapus-kehadiran" th:attr="data-target='#hapus-kehadiran'+${kehadiran}" >Hapus</a>
+								</div>					    	
+										<div class="modal" th:id="'hapus-kehadiran'+${kehadiran}">
+											    <div class="modal-dialog">
+											      <div class="modal-content">
+											      
+											        <!-- Modal Header -->
+											        <div class="modal-header">
+											          <h4 class="modal-title">Anda akan menghapus kehadiran ini</h4>
+											          <button type="button" class="close" data-dismiss="modal">&times;</button>
+											        </div>
+											        
+											        <!-- Modal body -->
+											        <div class="modal-body">
+											          Apakah anda yakin akan menghapus kehadiran?
+											        </div>
+											        
+											        <!-- Modal footer -->
+											        <div class="modal-footer" >
+											        	<a type="button" class="btn btn-danger" th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/hapus/'+${kehadiran}}">Ya</a>
+											        	<button type="button" class="btn btn-danger" data-dismiss="modal">Tidak</button>
+											        </div> 
+									      </div>
+									    </div>
+								</div>  
+								<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
+									<a th:if="${jenis_proyek=='umum'}" th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/'+${kehadiran}+'/penggajian'}" type="button" class="btn btn-primary" style="margin-left: 10px;">Penggajian</a>
+								</div>				
 							
-									        	<a type="button" class="btn btn-danger" th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/hapus/'+${kehadiran}}">Ya</a>
-							
-								        	<button type="button" class="btn btn-danger" data-dismiss="modal">Tidak</button>
-								        </div>
-								        
-								      </div>
-								    </div>
-								</div>  				
-							<a th:if="${jenis_proyek=='umum'}" th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/'+${kehadiran}+'/penggajian'}" type="button" class="btn btn-primary" style="margin-left: 10px;">Penggajian</a>
-
+						</div>
+					</div>
+					
+						
 				</td>
 			</tr>
 		</tbody>
@@ -123,7 +131,8 @@ thead th{
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
     <script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
     <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
     <script type="text/javascript" class="init"></script>

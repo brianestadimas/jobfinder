@@ -289,6 +289,7 @@ public class KehadiranController {
 					detail_kehadiran_proyek_ini.add(get_all_kehadiran.get(i));
 			}
 		}
+		//APAKAH jika tidak ada gaji dia bisa di gaji????
 		for(int i = 0 ; i < detail_kehadiran_proyek_ini.size() ; i++) {
 			daftar_kehadiran.add_kehadiran(detail_kehadiran_proyek_ini.get(i));
 		}
