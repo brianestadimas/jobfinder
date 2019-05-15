@@ -34,42 +34,48 @@ thead th {
 	background-color: #6B757F;
 	color: #FFFFFF;
 }
-
+table{
+	margin: 0 auto;
+	width: 100%;
+	clear: both;
+	border-collapse: collapse;
+	table-layout: fixed; // ***********add this
+	word-wrap:break-word; // ***********and this
+}
 .blankspace {
 	margin-top: 20px;
 }
+
 
 </style>
 
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
 	<div class="blankspace">
-		<div class="boxContainer">
+		
 			<img src="/img/icon_human_resources.png"
 				style="max-width: 5%; margin-top: -10px">
 			<h2 style="display: inline; margin-left: 10px">Pegawai
 				Outsourcing</h2>
-			<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun"> 
-				<a href="#" onClick="" id="berhentiButton"
-					class="btn btn-info btn-large"
-					style="float: right; margin-right: 10px;">Berhenti Assign</a>
-			</div>
-			<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun"> 
+			<hr style="margin-top:-3px"></hr>
+			<h5 class="alert alert-success" th:if="${notifikasi_sukses!=null}"
+				th:text="${notifikasi_sukses}"></h5>
+			<h5 class="alert alert-danger" id="tes2" style="display: none">Belum
+				ada pelamar dipilih</h5>
+			<div class="boxContainer">
+			<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
 				<a href="#" class="btn btn-success btn-large" id="assignButton"
 					onClick="" style="float: right; margin-right: 10px;">Assign
 					Dipilih</a>
-			</div>
-			<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun"> 
 				<a href="#" onClick="" id="hapusButton"
 					class="btn btn-info btn-danger"
 					style="float: right; margin-right: 10px;">Hapus</a>
-			</div>
-
-			<p>
-			<h2 class="alert alert-success" th:if="${notifikasi_sukses!=null}"
-				th:text="${notifikasi_sukses}"></h2>
-			<h5 class="alert alert-danger" id="tes2" style="display: none">Belum
-				ada pelamar dipilih</h5>
+				<a href="#" onClick="" id="berhentiButton"
+					class="btn btn-info btn-large"
+					style="float: right; margin-right: 10px;">Berhenti Assign</a>
+				</div>
+			<h4>Daftar Pegawai</h4>
+			<hr></hr>
 			<table id="example" class="table table-striped table-bordered "
 				style="width: 100%;">
 				<thead>
@@ -81,6 +87,7 @@ thead th {
 						<th>Produk</th>
 						<th>Jabatan</th>
 						<th>Project</th>
+						<th></th>
 
 						<!-- <th></th>
                 <th></th> -->
@@ -92,8 +99,7 @@ thead th {
 						th:id="'row' + ${pegawai.id}">
 						<td><input type="checkbox" class="checkbox" name="id"
 							th:value="${pegawai.id}"></td>
-						<td><a th:href="@{'/pegawai-detail/' + ${pegawai.id}}"
-							th:text="${pegawai.pelamar_id.nama_lengkap}"></a></td>
+						<td th:text="${pegawai.pelamar_id.nama_lengkap}"></td>
 						<td th:text="${pegawai.pelamar_id.region}"></td>
 
 						<td th:if="${pegawai.status}">Not Available</td>
@@ -109,7 +115,7 @@ thead th {
 						<td th:if="${pegawai.status}"
 							th:text="${pegawai.proyek.nama_proyek}"></td>
 						<td th:unless="${pegawai.status}">None</td>
-
+						<td><a th:href="@{'/pegawai-detail/' + ${pegawai.id}}" class="btn btn-success btn-sm">Detail</a></td>
 
 						<!-- <td><button type="button" class="btn btn-success">Assign</button></td>
                 <td><button type="button" class="btn btn-warning">Berhenti Assign</button></td> -->
@@ -125,6 +131,7 @@ thead th {
 						<th>Produk</th>
 						<th>Jabatan</th>
 						<th>Project</th>
+						<th></th>
 						<!-- <th></th>
                 <th></th> -->
 					</tr>
@@ -176,14 +183,21 @@ thead th {
 				var table = $('#example')
 						.DataTable(
 								{
+									autoWidth: false,
+									"order": [ 0, "desc" ],
+							        columnDefs: [
+							        { "width": "30px", "targets": [0,7] },
+							        { "width": "180px", "targets": [1,2,6] },
+							        { "width": "120px", "targets": [3,4,5] },
+							        ],
 									"scrollY" : "500px",
 									"sScrollX" : "100%",
 									"sScrollXInner" : "100%",
-									"scrollCollapse" : true,
-									"lengthMenu" : [ [ 10, 50, 100, -1 ],
-											[ 10, 50, 100, "All" ] ],
-									buttons : [ 'copy', 'csv', 'excel', 'pdf',
-											'print' ]
+									"scrollCollapse" : true, 
+									buttons : [ 'copy', 'csv', 'excel', 'pdf', 'print' ],
+									exportOptions: {
+								          rows: ':visible'
+								        }
 								});
 
 				table.buttons().container().appendTo(
@@ -248,10 +262,11 @@ thead th {
 		}
 	});
 
-	$('#example tfoot th').each(function() {
-		var title = $(this).text();
-		$(this).html('<input type="text" placeholder="Search '+title+'" />');
-	});
+	 $('#example tfoot th').each( function () {
+	        var title = $(this).text();
+	        $(this).html( '<input type="text" style="width:100%" placeholder="Search '+title+'" />' );
+	    } );
+
 	// DataTable
 	var docDefinition = {
 		pageSize : 'A4',
