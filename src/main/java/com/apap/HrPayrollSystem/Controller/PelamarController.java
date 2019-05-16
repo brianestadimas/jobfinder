@@ -198,7 +198,7 @@ public class PelamarController {
 	//
 
 	@RequestMapping(value = "pelamar/{id}/print-format", method = RequestMethod.GET)
-	private String getPelamarDetail(@PathVariable(value = "id") long id, Model model ,HttpServletRequest req ) {
+	private String printPelamar(@PathVariable(value = "id") long id, Model model ,HttpServletRequest req ) {
 		PelamarModel arsip_pelamar = pelamarService.getPelamarById(id);
 		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
 		List<PengalamanPelamarModel> arsip_pengalaman = pengalamanService.getAllPengalamanByPelamar(arsip_pelamar);
