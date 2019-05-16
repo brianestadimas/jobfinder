@@ -293,7 +293,7 @@ thead th {
 		<div class="form-group col-md-6">
 			<label for="namaLengkap">Nama Proyek</label> 
 			<input type="text" th:if="${pegawai.status}" class="form-control" id="proyek"
-			placeholder="" th:value="${pegawai.proyek.nama_proyek}" th:text="${pegawai.proyek.nama_proyek} +'('+${pegawai.proyek.start_date_kontrak}+'/'+${pegawai.proyek.end_date_kontrak}+')'" disabled />
+			th:value="${pegawai.proyek.nama_proyek}" th:placeholder="${pegawai.proyek.nama_proyek} +'('+${pegawai.proyek.start_date_kontrak}+'/'+${pegawai.proyek.end_date_kontrak}+')'" disabled />
 			<input th:unless="${pegawai.status}" class="form-control"
 			id="proyek" placeholder="" th:value="None" readonly />
 
