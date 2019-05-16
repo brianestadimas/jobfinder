@@ -118,6 +118,7 @@
     <div class="col-md-3"></div>
     <div class="col-md-6">
 		<div class="blankspace">
+			<input id="form_add" class="form-control" type="hidden" th:field="${akun.id}" name="id" />
 		<button class="btn btn-success btn-large" type="submit" style=" margin-bottom: 10px; ">Simpan</button>
 		<a th:href="@{'/account/list'}" class="btn btn-danger btn-large" style="  margin-bottom: 10px; margin-right: 10px; margin: center">Batalkan<br></a>
 		</div>
