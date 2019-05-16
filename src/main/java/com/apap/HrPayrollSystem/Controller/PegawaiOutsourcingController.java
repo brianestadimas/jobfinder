@@ -391,7 +391,7 @@ public class PegawaiOutsourcingController {
 	}
 	
 	@RequestMapping(value="/pegawai-detail/{id_pegawai}/print-format", method=RequestMethod.GET)
-	private String printFormat(@PathVariable(value="id_pegawai") long id_pegawai, Model model) {
+	private String printFormat(@PathVariable(value="id_pegawai") long id_pegawai, Model model, HttpServletRequest req) {
 		PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(id_pegawai);
 		Boolean expiredStatus= true;
 		
@@ -416,7 +416,7 @@ public class PegawaiOutsourcingController {
 			
 			
 		//get feedback
-		List<FeedbackModel> list_feedback_pegawai = feedback_service.get_feedback_by_id_pegawai(id);
+		List<FeedbackModel> list_feedback_pegawai = feedback_service.get_feedback_by_id_pegawai(id_pegawai);
 		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
 		model.addAttribute("user", user);
 		model.addAttribute("list_of_feedback", list_feedback_pegawai);
