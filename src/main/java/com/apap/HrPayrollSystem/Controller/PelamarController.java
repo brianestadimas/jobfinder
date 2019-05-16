@@ -195,6 +195,7 @@ public class PelamarController {
 		model.addAttribute("list_pengalaman", arsip_pengalaman);
 		return "pelamar-detail";
 	}
+	//
 
 	@RequestMapping(value = "pelamar/{id}/print-format", method = RequestMethod.GET)
 	private String getPelamarDetail(@PathVariable(value = "id") long id, Model model ,HttpServletRequest req ) {
