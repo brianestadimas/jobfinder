@@ -149,6 +149,7 @@ public class PelamarController {
 			pelamar.setProduk_dilamar(produkResult.substring(0, produkResult.length() - 1));
 			pelamar.setGender(command.getSelectedRadioGender());
 			pelamar.setStatus_marital(command.getSelectedRadioMarital());
+			pelamar.setIs_pegawai(false);
 			pelamarService.addPelamar(pelamar);
 			for (PengalamanPelamarModel pp : command.getPengalamanList()) {
 				pp.setPelamar_id(pelamar);
