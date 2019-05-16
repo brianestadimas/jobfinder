@@ -2,12 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css">
-    <link href="css/style.css" rel="stylesheet">
-    <title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css">
+	<link href="css/style.css" rel="stylesheet">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<title></title>
 </head>
 <style>
     .boxContainer{
@@ -360,9 +361,9 @@
                         <td th:text="${feedback.feedback}">feedback</td>
                         <td>
                             <a th:href="'/pegawai-detail/'+${pegawai.id}+'/feedback/update/'+${feedback.id}">Ubah</a>
-                            <a th:href="'/pegawai-detail/'+${pegawai.id}+'/feedback/delete/'+${feedback.id}" data-toggle="modal" data-target="#hapusFeedback">Hapus</a>
+                            <a data-toggle="modal" data-target="#hapus-feedback" th:attr="data-target='#hapus-feedback'+${feedback.id}">Hapus</a>
                         </td>
-                         <div class="modal" id="hapusFeedback">
+                         <div class="modal" th:id="'hapus-feedback'+${feedback.id}">
 							<div class="modal-dialog modal-dialog-centered">
 								<div class="modal-content">
 			
@@ -453,11 +454,11 @@
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
         <script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js"></script>
-        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
         <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
         <script type="text/javascript" class="init"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     </body>
     <footer>
 
