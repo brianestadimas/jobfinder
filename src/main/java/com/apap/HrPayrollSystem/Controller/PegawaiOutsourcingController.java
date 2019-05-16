@@ -378,7 +378,7 @@ public class PegawaiOutsourcingController {
 	private String feedbackUpdateSubmit( RedirectAttributes redir,@ModelAttribute FeedbackModel feedback,@PathVariable(value="id") long id ,Model model, HttpServletRequest req ) {
 		System.out.println("tayo");
 		feedback_service.save_feedback(feedback);
-		redir.addFlashAttribute("notif","berhasil menambah ulasan");
+		redir.addFlashAttribute("notif","berhasil mengubah ulasan");
 		return "redirect:/pegawai-detail/"+id;
 	}
 	
@@ -386,14 +386,64 @@ public class PegawaiOutsourcingController {
 	private String feedbackDelete(@PathVariable(value="id_pegawai") long id_pegawai, RedirectAttributes redir, @PathVariable(value="id_feedback") long id_feedback, Model model) {
 		System.out.println("ujang");
 		feedback_service.delete_feedback(id_feedback);
-		redir.addFlashAttribute("notif","berhasil menambah ulasan");
+		redir.addFlashAttribute("notif","berhasil menghapus ulasan");
 		return "redirect:/pegawai-detail/"+id_pegawai;
 	}
 	
 	@RequestMapping(value="/pegawai-detail/{id_pegawai}/print-format", method=RequestMethod.GET)
 	private String printFormat(@PathVariable(value="id_pegawai") long id_pegawai, Model model) {
-		PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(id_pegawai);
+		PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(id);
+		Boolean expiredStatus= true;
+		
+		List<RiwayatKerjaPegawaiModel> rKerja= riwayatService.getAllRiwayat();
+		List<RiwayatKerjaPegawaiModel>	rTemp = new ArrayList<RiwayatKerjaPegawaiModel>();
+	
+		for( RiwayatKerjaPegawaiModel riwayat : rKerja) {
+			if (riwayat.getPegawai_outsourcing_id().equals(pegawai)){
+				rTemp.add(riwayat);
+			}
+		}
+		Date date = new Date();
+		long satuHari = 86400000;
+		long hariKe14 = pegawai.getEnd_date().getTime() -  14*satuHari;
+		if(date.getTime() >  hariKe14) {
+			expiredStatus=true; //kalau mendekati end date
+		}else {
+			expiredStatus=false; //kalau belum dekat end date
+		}
+			List<String> daftar_proyek = new ArrayList<String>();
+			for (int x=0; x<rTemp.size(); x++) {
+				//if ada yg sama jgn tambahin
+				if(daftar_proyek.isEmpty()) {
+//					System.out.println(rKerja.get(x).getProyek());
+					daftar_proyek.add(rTemp.get(x).getProyek());
+				}
+				if(!daftar_proyek.contains(rKerja.get(x).getProyek())) {
+//					System.out.println(rKerja.get(x).getProyek());
+					daftar_proyek.add(rTemp.get(x).getProyek());
+				}
+			}
+			if (pegawai.getProyek()!=null) {
+				if(!daftar_proyek.contains(pegawai.getProyek().getNama_proyek())) {
+					daftar_proyek.add(pegawai.getProyek().getNama_proyek());
+				}
+			}
+			model.addAttribute("kehadiranPegawai", kehadiranPegawai);
+			int panjangKehadiran = kehadiranPegawai.size();
+			
+			model.addAttribute("panjangKehadiran", panjangKehadiran);
+			
+			
+		//get feedback
+		List<FeedbackModel> list_feedback_pegawai = feedback_service.get_feedback_by_id_pegawai(id);
+		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
+		model.addAttribute("user", user);		
+		model.addAttribute("kehadiranPegawai", kehadiranPegawai);
+		model.addAttribute("daftar_proyek", daftar_proyek);
+		model.addAttribute("list_of_feedback", list_feedback_pegawai);
+		model.addAttribute("expiredStatus", expiredStatus);
 		model.addAttribute("pegawai", pegawai);
+		model.addAttribute("riwayatPegawai", rTemp);
 		return "format-print-pegawai";
 	}
 	

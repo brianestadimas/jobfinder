@@ -63,7 +63,7 @@ public class PelamarController {
 	 * @param model Model
 	 * @return Halaman HTML formulir pendaftaran pelamar
 	 */
-	@RequestMapping(value = "pelamar/daftar", method = RequestMethod.GET)
+	@RequestMapping(value = "/pelamar/daftar", method = RequestMethod.GET)
 	private String daftarPelamar(Model model, HttpServletRequest req) {
 		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
 		PelamarModel pelamar = new PelamarModel();
@@ -84,7 +84,7 @@ public class PelamarController {
 	 * @param pelamar Model pelamar yang sudah diisi sementara
 	 * @return Halaman HTML formulir pendaftaran pelamar
 	 */
-	@RequestMapping(value = "pelamar/daftar", params = { "addEntry" }, method = RequestMethod.POST)
+	@RequestMapping(value = "/pelamar/daftar", params = { "addEntry" }, method = RequestMethod.POST)
 	private String addEntryPengalaman(Model model, @ModelAttribute FormCommand command,HttpServletRequest req,
 			@ModelAttribute PelamarModel pelamar) {
 		// Add baris baru dalam pengalaman di form
@@ -109,7 +109,7 @@ public class PelamarController {
 	 * @param deleteIndex Index dari baris yang akan dihapus
 	 * @return Halaman HTML formulir pendaftaran pelamar
 	 */
-	@RequestMapping(value = "pelamar/daftar", params = { "deleteEntry" }, method = RequestMethod.POST)
+	@RequestMapping(value = "/pelamar/daftar", params = { "deleteEntry" }, method = RequestMethod.POST)
 	private String deleteEntryPengalaman(Model model, @ModelAttribute FormCommand command,
 			@ModelAttribute PelamarModel pelamar, HttpServletRequest deleteIndex) {
 		AccountModel user = akun_service.findByUsername(deleteIndex.getRemoteUser());
@@ -133,7 +133,7 @@ public class PelamarController {
 	 * @param model   Model
 	 * @return Halaman HTML data pelamar
 	 */
-	@RequestMapping(value = "pelamar/daftar", params = { "submitPelamar" }, method = RequestMethod.POST)
+	@RequestMapping(value = "/pelamar/daftar", params = { "submitPelamar" }, method = RequestMethod.POST)
 	private String daftarPelamarPost(@ModelAttribute PelamarModel pelamar, @ModelAttribute FormCommand command,HttpServletRequest req,
 			Model model, RedirectAttributes redir) {
 		String produkResult = "";
@@ -171,7 +171,7 @@ public class PelamarController {
 	 * @param model Model
 	 * @return Halaman HTML list pelamar
 	 */
-	@RequestMapping(value = "pelamar/", method = RequestMethod.GET)
+	@RequestMapping(value = "/pelamar", method = RequestMethod.GET)
 	private String getPelamar(Model model,HttpServletRequest req) {
 		List<PelamarModel> pelamar_belum_assign = new ArrayList<PelamarModel>();
 		for(int i = 0 ; i < pelamarService.getAllPelamar().size() ; i++) {
@@ -185,7 +185,7 @@ public class PelamarController {
 		return "pelamar-view";
 	}
 
-	@RequestMapping(value = "pelamar/detail/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/pelamar/detail/{id}", method = RequestMethod.GET)
 	private String getPelamarDetail(@PathVariable(value = "id") long id, Model model ,HttpServletRequest req ) {
 		PelamarModel arsip_pelamar = pelamarService.getPelamarById(id);
 		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
@@ -197,7 +197,7 @@ public class PelamarController {
 	}
 	//
 
-	@RequestMapping(value = "pelamar/{id}/print-format", method = RequestMethod.GET)
+	@RequestMapping(value = "/pelamar/{id}/print-format", method = RequestMethod.GET)
 	private String printPelamar(@PathVariable(value = "id") long id, Model model ,HttpServletRequest req ) {
 		PelamarModel arsip_pelamar = pelamarService.getPelamarById(id);
 		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
@@ -205,7 +205,7 @@ public class PelamarController {
 		model.addAttribute("user", user);
 		model.addAttribute("pelamar", arsip_pelamar);
 		model.addAttribute("list_pengalaman", arsip_pengalaman);
-		return "format_print_pelamar";
+		return "format-print-pelamar";
 	}
 
 	/**
@@ -215,7 +215,7 @@ public class PelamarController {
 	 * @param model Model
 	 * @return Halaman HTML formulir ubah pelamar
 	 */
-	@RequestMapping(value = "pelamar/ubah/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/pelamar/ubah/{id}", method = RequestMethod.GET)
 	private String ubahPelamar(@PathVariable(value = "id") long id, Model model) {
 		FormCommand command = new FormCommand();
 		PelamarModel arsip_pelamar = pelamarService.getPelamarById(id);
@@ -239,7 +239,7 @@ public class PelamarController {
 	 * @param pelamar Model Pelamar yang akan diubah
 	 * @return Halaman HTML formulir ubah pelamar
 	 */
-	@RequestMapping(value = "pelamar/ubah/{id}", params = { "addEntryUbah" }, method = RequestMethod.POST)
+	@RequestMapping(value = "/pelamar/ubah/{id}", params = { "addEntryUbah" }, method = RequestMethod.POST)
 	private String addEntryPengalamanUpdate(Model model, @PathVariable(value = "id") long id,
 			@ModelAttribute FormCommand command, @ModelAttribute PelamarModel pelamar) {
 		// Add baris baru dalam pengalaman di form
@@ -263,7 +263,7 @@ public class PelamarController {
 	 * @param deleteIndex Index baris yang akan dihapus
 	 * @return Halaman HTML formulir ubah pelamar
 	 */
-	@RequestMapping(value = "pelamar/ubah/{id}", params = { "deleteEntryUbah" }, method = RequestMethod.POST)
+	@RequestMapping(value = "/pelamar/ubah/{id}", params = { "deleteEntryUbah" }, method = RequestMethod.POST)
 	private String deleteEntryPengalamanUpdate(Model model, @PathVariable(value = "id") long id,
 			@ModelAttribute FormCommand command, @ModelAttribute PelamarModel pelamar, HttpServletRequest deleteIndex) {
 
@@ -289,7 +289,7 @@ public class PelamarController {
 	 * @param model   Model
 	 * @return Halaman HTML detail pelamar
 	 */
-	@RequestMapping(value = "pelamar/ubah/{id}", params = { "submitPelamarUbah" }, method = RequestMethod.POST)
+	@RequestMapping(value = "/pelamar/ubah/{id}", params = { "submitPelamarUbah" }, method = RequestMethod.POST)
 	private String ubahPelamarPost(@PathVariable(value = "id") long id, @ModelAttribute PelamarModel pelamar,
 			@ModelAttribute FormCommand command, Model model, RedirectAttributes redir) {
 		String nama_pelamar = pelamar.getNama_lengkap();

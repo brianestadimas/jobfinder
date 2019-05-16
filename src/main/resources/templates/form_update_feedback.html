@@ -86,20 +86,20 @@
 
       <div class="form-group col-md-4">
         <label for="inputProyek">Proyek</label>
-        <select class="form-control" id="inputProyek" th:field="${feedback.proyek}" name="proyek">
+        <select class="form-control" id="inputProyek" th:field="${feedback.proyek}" name="proyek" required>
           <option th:each="dp: ${daftar_proyek}"  th:value="${dp}" th:text="${dp}">aaaaaa
           </option>
       </select>
       </div>
     <div class="form-group col-md-4">
       <label for="inputJoinDate">Tanggal Feedback</label>
-      <input type="Date" class="form-control getdate" th:value="${feedback.tanggal_pengisian_feedback}" th:field="${feedback.tanggal_pengisian_feedback}" name="tanggal_pengisian_feedback"/>
+      <input type="Date" class="form-control getdate" th:value="${feedback.tanggal_pengisian_feedback}" th:field="${feedback.tanggal_pengisian_feedback}" name="tanggal_pengisian_feedback" required/>
     </div>
     <div class="form-row">
       <div class="col-md-12"></div>
       <div class="form-group col-md-12">
         <label for="inputEndDate">Feedback</label>
-      <input type="text" class="form-control" th:field="${feedback.feedback}" name="feedback">
+      <input type="text" class="form-control" th:field="${feedback.feedback}" name="feedback" required>
       </div>
     </div>
     <div class="col-sm-12">

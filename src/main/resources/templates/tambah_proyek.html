@@ -75,7 +75,7 @@ thead th{
     </div>
     <div class="form-group col-md-6">
         <label for="inputAddress">No Telp CP *</label>
-        <input type="number" class="form-control" name="no_telp_cp" placeholder="081234567890" maxlength="16" required>
+        <input type="number" class="form-control" id="nomor_handphone" name="no_telp_cp" placeholder="081234567890" maxlength="16" required>
     </div>
     <div class="col-sm-12"></div> 
     <div class="form-group col-md-3">
@@ -135,6 +135,9 @@ thead th{
 <footer>
 </footer>
 <script>
+    $(document).ready(function() {
+    $('#nomor_handphone').mask('0000-0000-0000');
+  });
   $( "#StartDate" ).change(function() {
     var x = $( "#StartDate" ).val();
     $( "input.EndDate" ).replaceWith('<input type="Date" id="EndDate" class="EndDate form-control" name="end_date_kontrak" id="inputCity" min="' + x + '"required>');
