@@ -392,7 +392,7 @@ public class PegawaiOutsourcingController {
 	
 	@RequestMapping(value="/pegawai-detail/{id_pegawai}/print-format", method=RequestMethod.GET)
 	private String printFormat(@PathVariable(value="id_pegawai") long id_pegawai, Model model) {
-		PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(id);
+		PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(id_pegawai);
 		Boolean expiredStatus= true;
 		
 		List<RiwayatKerjaPegawaiModel> rKerja= riwayatService.getAllRiwayat();
@@ -411,34 +411,14 @@ public class PegawaiOutsourcingController {
 		}else {
 			expiredStatus=false; //kalau belum dekat end date
 		}
-			List<String> daftar_proyek = new ArrayList<String>();
-			for (int x=0; x<rTemp.size(); x++) {
-				//if ada yg sama jgn tambahin
-				if(daftar_proyek.isEmpty()) {
-//					System.out.println(rKerja.get(x).getProyek());
-					daftar_proyek.add(rTemp.get(x).getProyek());
-				}
-				if(!daftar_proyek.contains(rKerja.get(x).getProyek())) {
-//					System.out.println(rKerja.get(x).getProyek());
-					daftar_proyek.add(rTemp.get(x).getProyek());
-				}
-			}
-			if (pegawai.getProyek()!=null) {
-				if(!daftar_proyek.contains(pegawai.getProyek().getNama_proyek())) {
-					daftar_proyek.add(pegawai.getProyek().getNama_proyek());
-				}
-			}
-			model.addAttribute("kehadiranPegawai", kehadiranPegawai);
-			int panjangKehadiran = kehadiranPegawai.size();
 			
-			model.addAttribute("panjangKehadiran", panjangKehadiran);
+			
 			
 			
 		//get feedback
 		List<FeedbackModel> list_feedback_pegawai = feedback_service.get_feedback_by_id_pegawai(id);
 		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
-		model.addAttribute("user", user);		
-		model.addAttribute("daftar_proyek", daftar_proyek);
+		model.addAttribute("user", user);
 		model.addAttribute("list_of_feedback", list_feedback_pegawai);
 		model.addAttribute("expiredStatus", expiredStatus);
 		model.addAttribute("pegawai", pegawai);
