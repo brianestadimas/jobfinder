@@ -78,28 +78,28 @@
 	<div class="form-row">
       <div class="form-group col-md-12">
         <label for="inputProyek">Nama :</label>
-        <input id="form_add" class="form-control" type="text" th:field="${akun.name}" name="name" />
+        <input id="form_add" class="form-control" type="text" th:field="${akun.name}" name="name" required/>
       </div>
       </div>
      <div class="form-row">
      <div class="col-md-12"></div>
     <div class="form-group col-md-12">
       <label for="inputJoinDate">Username : </label>
-     <input id="form_add" class="form-control" type="text" th:field="${akun.username}" name="username" />
+     <input id="form_add" class="form-control" type="text" th:field="${akun.username}" name="username" required />
     </div>
     </div>
     <div class="form-row">
     <div class="col-md-12"></div>
       <div class="form-group col-md-12">
         <label for="inputEndDate">Password :</label>
-      <input id="form_add" class="form-control" type="password" th:field="${akun.password}" name="password" />
+      <input id="form_add" class="form-control" type="password" th:field="${akun.password}" name="password" required />
       </div>
     </div>
     <div class="form-row">
     <div class="col-md-12"></div>
     <div class="form-group col-md-12">
         <label for="inputProyek">Peran :</label>
-        <select name = "role" class="form-control">
+        <select name = "role" class="form-control" required >
 			<option th:field="${akun.role}" value="pelamar">Pelamar</option>
 		</select>
       </div>
