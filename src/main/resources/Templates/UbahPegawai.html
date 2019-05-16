@@ -230,14 +230,14 @@ thead th {
 		<div class="form-group col-md-6">
 			<label for="pkwt">No.PKWT</label> 
 			<input type="text" class="form-control" id="pkwt" placeholder="Masukkan Nomor PKWT"
-			th:field="*{pkwt}" required />
+			th:field="*{pkwt}"  />
 		<!-- oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" -->
 		</div>
 		
 		<div class="form-group col-md-6">
 			<label for="npwp">No.NPWP</label> 
 			<input type="text" class="form-control" id="npwp" placeholder="Masukkan Nomor NPWP"
-			th:field="*{npwp}" required aria-describedby="npwpHelpBlock"minlength="15">
+			th:field="*{npwp}"  aria-describedby="npwpHelpBlock"minlength="15">
 			<small id="npwpHelpBlock"class="form-text text-muted"> cth : xx.xxx.xxx.x-xxx.xxx</small>
 
 		</div>
@@ -246,12 +246,12 @@ thead th {
 		<div class="form-group col-md-6">
 			<label for="bpjstk">No.BPJS Ketenagakerjaan</label>
 			 <input type="number" class="form-control" id="bpjstk"
-				placeholder="Masukkan Nomor BPJS Ketenagakerjaan" th:field="*{bpjstk}" required />
+				placeholder="Masukkan Nomor BPJS Ketenagakerjaan" th:field="*{bpjstk}"  />
 		</div>
 		<div class="form-group col-md-6">
 			<label for="bpjsk">No.BPJS Kesehatan</label>
 			 <input type="number" class="form-control" id="bpjsk"
-			placeholder="Masukkan Nomor BPJS Kesehatan" th:field="*{bpjsk}"required />
+			placeholder="Masukkan Nomor BPJS Kesehatan" th:field="*{bpjsk}" />
 		</div>
 	</div>
 
@@ -295,14 +295,14 @@ thead th {
 			<input type="text" th:if="${pegawai.status}" class="form-control" id="proyek"
 			placeholder="" th:value="${pegawai.proyek.nama_proyek}" disabled />
 			<input th:unless="${pegawai.status}" class="form-control"
-			id="proyek" placeholder="" th:value="None" disabled />
+			id="proyek" placeholder="" th:value="None" readonly />
 
 		</div>
 
 		<div class="form-group col-md-6">
 			<label for="join_date">Join Date</label> 
-			<input th:if="${pegawai.status}" type="date" class="form-control" id="StartDate" name="join_date" th:field="*{join_date}" /> 
-			<input th:unless="${pegawai.status}" type="text" class="form-control"th:value="'dd/mm/yy'" disabled />
+			<input th:if="${pegawai.status}" id="datepicker2" class="form-control" name="jn_date" th:value="*{join_date}" /> 
+ 			<input th:unless="${pegawai.status}" class="form-control" name="jn_date" th:value="*{join_date}" readonly /> 
 
 		</div>
 
@@ -318,10 +318,10 @@ thead th {
 							<option th:each="produk: ${produk}" th:value="${produk.id}"
 								th:text="${produk.nama_produk}">Wireframe</option>
 						</select> <select th:unless="${pegawai.status}" id="produk"
-							class="form-control">
+							class="form-control" readonly>
 							<option th:unless="${pegawai.status}"
 								th:text="${pegawai.produk.nama_produk}" th:value="*{produk.id}"
-								th:selected="${pegawai.produk.nama_produk}" disabled></option>
+								th:selected="${pegawai.produk.nama_produk}" readonly></option>
 							<!-- 	th:field="*{produk.nama_produk}" -->
 						</select>
 					</div>
@@ -341,12 +341,9 @@ thead th {
 
 
 					<div class="form-group col-md-6">
-						<label for="endDate">End Date</label> <input
-							th:if="${pegawai.status}" class="form-control EndDate"
-							name="end_date" id="datepicker3" th:field="*{end_date}" /> <input
-							 th:unless="${pegawai.status}"
-							type="text" class="form-control" id="end_date"
-							th:value="'dd/mm/yy'" disabled />
+						<label for="endDate">End Date</label> 
+						<input th:if="${pegawai.status}" id="datepicker3" class="form-control" name="en_date" th:value="*{end_date}" /> 
+						<input th:unless="${pegawai.status}" class="form-control" name="en_date" th:value="*{end_date}" readonly/>	
 					</div>
 
 					<div class="form-row">
@@ -412,15 +409,20 @@ thead th {
 
 
 <script>
-	$( "#StartDate" ).change(function() {
-	    var x = $( "#StartDate" ).val();
-	    $( "input.EndDate" ).replaceWith('<input th:if="${pegawai.status}" type="date" class="form-control EndDate" name="end_date" id="end_date" th:field="*{end_date}" min="' + x + '" required>');
-	 });
+	
+	var stDate="[[${start_date_kontrak}]]"
+	var endDate="[[${end_date_kontrak}]]"
+	$('#datepicker2').datepicker({
+			uiLibrary : 'bootstrap',
+			format : 'yyyy-mm-dd',
+			minDate : stDate,
+			maxDate : endDate,
+		});
 	$('#datepicker3').datepicker({
-		uiLibrary : 'bootstrap4',
+		uiLibrary : 'bootstrap',
 		format : 'yyyy-mm-dd',
-		min : minDate,
-		max : maxDate,
+		minDate : stDate,
+		maxDate : endDate,
 	});
 
 	$(document).ready(function() {
@@ -428,7 +430,7 @@ thead th {
 		$('#telp_rumah').mask('000-0000-0000');
 		$('#telp_orang_terdekat').mask('0000-0000-0000');
 		$('#nomor_Whatsapp').mask('0000-0000-0000');
-		$('#no_ktp').mask('00-00-00-000000-0000');
+		$('#no_ktp').mask('0000000000000000');
 		$('#npwp').mask('00.000.000.0-000.000');
 		
 	});

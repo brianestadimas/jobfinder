@@ -171,6 +171,8 @@ public class PegawaiOutsourcingController {
 		List<ProdukModel> produkList2 = produkList.subList(0, produkList.size());
 		//List<ProdukModel> produkAvail = produkList.get(1);
 		//List<PelamarModel> pelamarList = pelamarService
+		model.addAttribute("start_date_kontrak", pegawaiLama.getProyek().getStart_date_kontrak());
+		model.addAttribute("end_date_kontrak", pegawaiLama.getProyek().getEnd_date_kontrak());
 		model.addAttribute("pegawai", pegawaiLama);
 		model.addAttribute("produk", produkList2);
 		return "UbahPegawai";
@@ -179,8 +181,11 @@ public class PegawaiOutsourcingController {
 	
 	@RequestMapping(value="/pegawai/ubah/{id}", method = RequestMethod.POST)
     public RedirectView submitUbahPegawai(@PathVariable(value="id") long id, @ModelAttribute PegawaiOutsourcingModel pegawaiBaru, Model model, HttpServletRequest req, RedirectAttributes redir) {	
+		java.sql.Date join_date = java.sql.Date.valueOf(req.getParameter("jn_date"));
+		java.sql.Date end_date = java.sql.Date.valueOf(req.getParameter("en_date"));
+		pegawaiBaru.setJoin_date(join_date);
+		pegawaiBaru.setEnd_date(end_date);
 		pegawaiService.updatePegawai(id,pegawaiBaru);
-		model.addAttribute("pegawai", pegawaiBaru);
 		redir.addFlashAttribute("notif", "Berhasil mengubah pegawai");
 		return new RedirectView("/pegawai-detail/"+id);
     }
@@ -377,7 +382,7 @@ public class PegawaiOutsourcingController {
 		return "redirect:/pegawai-detail/"+id;
 	}
 	
-	@RequestMapping(value="/pegawai-detail/{id_pegawai}/feedback/delete/{id_feedback}",method=RequestMethod.POST)
+	@RequestMapping(value="/pegawai-detail/{id_pegawai}/feedback/delete/{id_feedback}",method=RequestMethod.GET)
 	private String feedbackDelete(@PathVariable(value="id_pegawai") long id_pegawai, RedirectAttributes redir, @PathVariable(value="id_feedback") long id_feedback, Model model) {
 		System.out.println("ujang");
 		feedback_service.delete_feedback(id_feedback);

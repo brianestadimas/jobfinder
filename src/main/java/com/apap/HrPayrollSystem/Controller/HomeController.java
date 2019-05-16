@@ -32,20 +32,24 @@ public class HomeController {
 	@RequestMapping("/")
 	private String home(Model model,
 			HttpServletRequest req) {
-		List<ProyekModel> list_of_proyek = proyek_service.getAllProyek();
-		List<PelamarModel> pelamar_belum_assign = new ArrayList<PelamarModel>();
-		List<PelamarModel> pelamar_sudah_assign = new ArrayList<PelamarModel>();
-		for(int i = 0 ; i < pegawaiService.getAllPegawai().size() ; i++) {
-			pelamar_sudah_assign.add(pegawaiService.getAllPegawai().get(i).getPelamar_id());
-		}
-		for(int i = 0 ; i < pelamar_service.getAllPelamar().size();i++) {
-			if(!pelamar_sudah_assign.contains(pelamar_service.getAllPelamar().get(i))) {
-				pelamar_belum_assign.add(pelamar_service.getAllPelamar().get(i));
-			}
-		}
 		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
 		if(user.getRole().equals("pelamar")) {
 			return "redirect:/pelamar/daftar";
+		}
+		List<ProyekModel> list_of_proyek = new ArrayList<ProyekModel>();
+		List<PelamarModel> pelamar_belum_assign = new ArrayList<PelamarModel>();
+		for(int i = 0 ; i < pelamar_service.getAllPelamar().size() ; i++) {
+			if(pelamar_service.getAllPelamar().get(i).isIs_pegawai()==false) {
+				if(pelamar_belum_assign.size()<7) {
+					pelamar_belum_assign.add(pelamar_service.getAllPelamar().get(i));
+				}
+				
+			}
+		}
+		for(int i = 0 ; i < proyek_service.getAllProyek().size() ; i++) {
+			if(list_of_proyek.size()<7) {
+				list_of_proyek.add(proyek_service.getAllProyek().get(i));
+			}
 		}
 		model.addAttribute("user", user);
 		model.addAttribute("pelamar", pelamar_belum_assign);

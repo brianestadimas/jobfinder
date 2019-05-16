@@ -94,14 +94,14 @@ table{
 											        	<a type="button" class="btn btn-danger" th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/hapus/'+${kehadiran}}">Ya</a>
 											        	<button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Tidak</button>
 											        </div> 
-									      </div>
-									    </div>
-								</div>  
+									     		 </div>
+									    	</div>
+										</div>  
 								<span th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
 									<a th:if="${jenis_proyek=='umum'}" th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/'+${kehadiran}+'/penggajian'}" type="button" class="btn btn-primary btn-sm" style="margin-left: 10px;">Penggajian</a>
 								</span>				
 							
-						</div>
+						
 					
 						
 				</td>
