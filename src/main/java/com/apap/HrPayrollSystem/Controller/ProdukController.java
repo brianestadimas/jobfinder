@@ -67,7 +67,7 @@ public class ProdukController {
 									RedirectAttributes redir) {
 		produk_service.saveProduk(produk);
 		redir.addFlashAttribute("notifikasi", "Produk Berhasil Diubah");
-		return "list_produk";
+		return "redirect:/produk";
 	}
 	
 	//hapus produk

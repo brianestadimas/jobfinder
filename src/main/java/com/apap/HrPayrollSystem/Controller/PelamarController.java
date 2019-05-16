@@ -196,6 +196,17 @@ public class PelamarController {
 		return "pelamar-detail";
 	}
 
+	@RequestMapping(value = "pelamar/{id}/print-format", method = RequestMethod.GET)
+	private String getPelamarDetail(@PathVariable(value = "id") long id, Model model ,HttpServletRequest req ) {
+		PelamarModel arsip_pelamar = pelamarService.getPelamarById(id);
+		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
+		List<PengalamanPelamarModel> arsip_pengalaman = pengalamanService.getAllPengalamanByPelamar(arsip_pelamar);
+		model.addAttribute("user", user);
+		model.addAttribute("pelamar", arsip_pelamar);
+		model.addAttribute("list_pengalaman", arsip_pengalaman);
+		return "format_print_pelamar";
+	}
+
 	/**
 	 * Fitur mengubah pelamar : GET formulir ubah pelamar
 	 * 
