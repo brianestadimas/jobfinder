@@ -58,19 +58,19 @@
     	<table style="width:100%">    
 	    	<tr>
 		    	<th>BPJSTK (%)</th>
-				<td><input id="input_box" type="number" th:field="${variableGaji.BPJSTK}" step="0.01" min = 0 name="BPJSTK"></td>
+				<td><input id="input_box" type="number" th:field="${variableGaji.BPJSTK}" step="0.01" min = 0 name="BPJSTK" required></td>
 			</tr>
 			<tr>
 				<th>BPJSK (%)</th>
-				<td><input id="input_box" type="number" th:field="${variableGaji.BPJSK}" step="0.01" min = 0 name="BPJSK"></td>
+				<td><input id="input_box" type="number" th:field="${variableGaji.BPJSK}" step="0.01" min = 0 name="BPJSK" required></td>
 			</tr>
 			<tr>
 				<th>PTKP (Rp)</th>
-				<td><input id="input_box" type="number" th:field="${variableGaji.PTKP}" min=0 name="PTKP"></td>
+				<td><input id="input_box" type="number" th:field="${variableGaji.PTKP}" min=0 name="PTKP" required></td>
 			</tr>
 			<tr>
 				<th>PPH (%)</th>
-				<td><input id="input_box" type="number" th:field="${variableGaji.persenan_pph}" step="0.01" min = 0 name="persenan_pph"></td>
+				<td><input id="input_box" type="number" th:field="${variableGaji.persenan_pph}" step="0.01" min = 0 name="persenan_pph" required></td>
 			</tr>
 			<tr>
 				<th><button class="btn btn-success btn-large" type="submit" style="margin-bottom: 10px; margin: center; float: right">Simpan<br></button></th>
