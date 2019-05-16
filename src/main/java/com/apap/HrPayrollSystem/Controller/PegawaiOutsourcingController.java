@@ -438,7 +438,6 @@ public class PegawaiOutsourcingController {
 		List<FeedbackModel> list_feedback_pegawai = feedback_service.get_feedback_by_id_pegawai(id);
 		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
 		model.addAttribute("user", user);		
-		model.addAttribute("kehadiranPegawai", kehadiranPegawai);
 		model.addAttribute("daftar_proyek", daftar_proyek);
 		model.addAttribute("list_of_feedback", list_feedback_pegawai);
 		model.addAttribute("expiredStatus", expiredStatus);
