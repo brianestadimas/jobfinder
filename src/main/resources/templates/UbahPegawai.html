@@ -115,22 +115,22 @@ thead th {
 			th:field="*{pelamar_id.tanggal_lahir}" required />
 		</div>
 
-		<div th:if="${pegawai.pelamar_id.gender == 'Laki-laki'}"
+		<div th:if="${pegawai.pelamar_id.gender == 'Laki-Laki'}"
 			class="form-group col-md-3">
 			<label for="inputAddress">Jenis Kelamin *</label>
 			<br> 
 			<input type="radio" name="gender" th:field="*{pelamar_id.gender}"
-			value="Laki-laki" checked> Laki-laki 
+			value="Laki-Laki" checked> Laki-laki 
 			<input type="radio" name="gender" th:field="*{pelamar_id.gender}" 
 			value="Perempuan">Perempuan
 		</div>
 
-		<div th:unless="${pegawai.pelamar_id.gender == 'Laki-laki'}"
+		<div th:unless="${pegawai.pelamar_id.gender == 'Laki-Laki'}"
 			class="form-group col-md-3">
 			<label for="inputAddress">Jenis Kelamin *</label>
 			<br> 
 			<input type="radio" name="gender" th:field="*{pelamar_id.gender}" 
-			value="Laki-laki"> Laki-laki 
+			value="Laki-Laki"> Laki-laki 
 			<input type="radio"name="gender" th:field="*{pelamar_id.gender}" 
 			value="Perempuan"checked> Perempuan
 		</div>

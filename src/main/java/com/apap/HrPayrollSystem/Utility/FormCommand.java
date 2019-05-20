@@ -61,13 +61,15 @@ public class FormCommand {
 	}
 
 	public boolean checkForNull() {
-		if(this.selectedCheckboxProduk.length==0||this.selectedRadioGender==null||this.selectedRadioMarital==null) {
+		if(this.selectedCheckboxProduk==null||this.selectedCheckboxProduk.length==0||this.selectedRadioGender==null||this.selectedRadioMarital==null) {
 			return true;
 		}else
 			return false;
 	}
 	public String checkForNullMsg () {
-		if(this.selectedCheckboxProduk.length==0)
+		if (this.selectedCheckboxProduk==null)
+			return "Belum ada produk, hubungi admin untuk menambah produk !";
+		else if(this.selectedCheckboxProduk.length==0)
 			return "Minimal memilih satu jenis produk !";
 		else if(this.selectedRadioGender==null)
 			return "Jenis kelamin belum dipilih !";

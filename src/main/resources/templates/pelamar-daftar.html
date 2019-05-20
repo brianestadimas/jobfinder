@@ -89,7 +89,7 @@
 </style>
 
 <body>
-<!-- 	<div class="col-lg-12">
+	<!-- 	<div class="col-lg-12">
         <img src="/img/cop.png" style="max-width:100%;">
     </div> -->
 	<!-- 	<nav th:replace="fragments/fragment :: navbar"></nav> -->
@@ -118,7 +118,7 @@
 								<div class="col-sm-auto">
 									<input class="form-control" required="required"
 										th:field="*{apply_date}" id="datepicker1"
-										onkeypress="return false;">
+										readonly/>
 								</div>
 							</div>
 							<fieldset class="form-group">
@@ -188,8 +188,7 @@
 									class="requiredField">*</span></label>
 								<div class="col-sm-auto">
 									<input class="form-control" required="required"
-										th:field="*{tanggal_lahir}" id="datepicker2"
-										onkeypress="return false;">
+										th:field="*{tanggal_lahir}" id="datepicker2" readonly/>
 								</div>
 							</div>
 							<div class="form-group row">
@@ -260,28 +259,29 @@
 								</div>
 							</div>
 							<div class="form-grup row">
-								<label for="no_handphone" class="col-form-label col-sm-4 col-md-2">No.
-										Handphone<span class="requiredField">*</span>
-									</label> 
-									<div class="col-sm-auto">
+								<label for="no_handphone"
+									class="col-form-label col-sm-4 col-md-2">No. Handphone<span
+									class="requiredField">*</span>
+								</label>
+								<div class="col-sm-auto">
 									<input type="text" class="form-control" id="nomor_handphone"
 										placeholder="Nomor Handphone" th:field="*{nomor_handphone}"
 										required="required" aria-describedby="hpHelpBlock"
 										minlength="11"> <small id="hpHelpBlock"
 										class="form-text text-muted"> cth : 0812xxxxxxxx</small>
 								</div>
-								</div>
-									<div class="form-grup row">
-									<label for="nama_lengkap" class="col-form-label col-sm-4 col-md-2">Telp.
-										Rumah</label>
-										<div class="col-sm-auto">
-										 <input type="text" class="form-control" id="telp_rumah"
+							</div>
+							<div class="form-grup row">
+								<label for="nama_lengkap"
+									class="col-form-label col-sm-4 col-md-2">Telp. Rumah</label>
+								<div class="col-sm-auto">
+									<input type="text" class="form-control" id="telp_rumah"
 										placeholder="Nomor Telepon Rumah" th:field="*{telepon_rumah}"
 										aria-describedby="telpRumahHelpBlock" minlength="10">
 									<small id="telpRumahHelpBlock" class="form-text text-muted">
 										cth : 02158xxxxxx</small>
-										</div>
-									</div>
+								</div>
+							</div>
 
 							<div class="form-group row">
 								<label for="telp_orang_terdekat"
@@ -303,7 +303,8 @@
 								<label for="nomor_whatsapp"
 									class="col-form-label col-sm-4 col-md-2">No. WhatsApp </label>
 								<div class="col-sm-auto">
-									<input type="text" class="form-control" id="nomor_whatsapp"
+									<input
+										class="form-control" id="nomor_whatsapp"
 										placeholder="Nomor WhatsApp" th:field="*{nomor_whatsapp}"
 										aria-describedby="nomorWAHelpBlock" minlength="11"><small
 										id="nomorWAHelpBlock" class="form-text text-muted">
@@ -456,11 +457,13 @@
 												class="col-sm-4 col-xl-3 col-form-label">Lama
 												Bekerja (Tahun) </label>
 											<div class="col-sm-auto">
-												<select class="form-control" id="tahun_bekerja"
-													th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}"><option
-														th:each="val : ${list_tahunBekerja}" th:value="${val}"
-														th:text="${val}"></option>
-												</select>
+												<input type="number" max="100" min="0" value="0"
+													th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}" />
+												<!-- 												<select class="form-control" id="tahun_bekerja" -->
+												<!-- 													th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}"><option -->
+												<!-- 														th:each="val : ${list_tahunBekerja}" th:value="${val}" -->
+												<!-- 														th:text="${val}"></option> -->
+												<!-- 												</select> -->
 											</div>
 										</div>
 										<div class="form-group row">
@@ -468,11 +471,13 @@
 												class="col-sm-4 col-xl-3 col-form-label">Lama
 												Bekerja (Bulan) </label>
 											<div class="col-sm-auto">
-												<select class="form-control" id="bulan_bekerja"
-													th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaBulan_bekerja}"><option
-														th:each="val : ${list_bulanBekerja}" th:value="${val}"
-														th:text="${val}"></option>
-												</select>
+												<input type="number" max="12" min="0" value="0"
+													th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}" />
+												<!-- 												<select class="form-control" id="bulan_bekerja" -->
+												<!-- 													th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaBulan_bekerja}"><option -->
+												<!-- 														th:each="val : ${list_bulanBekerja}" th:value="${val}" -->
+												<!-- 														th:text="${val}"></option> -->
+												<!-- 												</select> -->
 											</div>
 										</div>
 										<div class="form-group row">
@@ -539,7 +544,8 @@
 					</div>
 				</form>
 			</div>
-
+		</div>
+	</div>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script
@@ -547,6 +553,7 @@
 
 </body>
 <script>
+
 	$(document).ready(function() {
 		$('#nomor_handphone').mask('0000-0000-0000');
 		$('#telp_rumah').mask('000-0000-0000');
@@ -554,6 +561,8 @@
 		$('#nomor_whatsapp').mask('0000-0000-0000');
 		$('#no_ktp').mask('0000000000000000');
 	});
+		
+	};
 
 	var text_max = 255;
 	$('#count_message').html(text_max + '/255 Karakter');
@@ -563,19 +572,24 @@
 		var text_remaining = text_max - text_length;
 		$('#count_message').html(text_remaining + '/255 Karakter');
 	});
+	
+	var today = new Date();
+	var todayFormatted = today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
+	var yester = new Date();
+	var yesterFormatted = (yester.getFullYear() - 20) + "-" + yester.getMonth() + "-" + yester.getDate()
 
-	var today = new Date(new Date().getFullYear(), new Date().getMonth(),
-			new Date().getDate());
 	$('#datepicker1').datepicker({
 		uiLibrary : 'bootstrap4',
 		format : 'yyyy-mm-dd',
 		minDate : today,
+		value : todayFormatted,
 	});
 
 	$('#datepicker2').datepicker({
 		uiLibrary : 'bootstrap4',
 		format : 'yyyy-mm-dd',
-		maxDate : today
+		maxDate : today,
+		value : yesterFormatted,
 	});
 	$(function() {
 		var availableTags = [ "SIMEULUE", "ACEH SINGKIL", "ACEH SELATAN",
