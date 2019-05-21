@@ -70,7 +70,7 @@ table{
 				ada pegawai dipilih</h5>
 			<h5 class="alert alert-danger" th:if="${pegawai_sudah_assign_msg!=null}"
 				th:text="${pegawai_sudah_assign_msg}"></h5>
-				 
+			<h5 class="alert alert-danger" th:if="${msg_error!=null}" th:text="${msg_error}"></h5>	 
 			<div class="boxContainer">
 			<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
 				<a href="#" class="btn btn-success btn-large" id="assignButton"
