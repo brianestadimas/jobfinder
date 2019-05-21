@@ -354,24 +354,6 @@ public class PelamarController {
 		return new String[] { "Belum Menikah", "Sudah Menikah" };
 	}
 
-	@ModelAttribute("list_tahunBekerja")
-	public String[] getTahunBekerjaValues() {
-		String[] values = new String[21];
-		for (int i = 0; i <= 20; i++) {
-			values[i] = Integer.toString(i);
-		}
-		return values;
-	}
-
-	@ModelAttribute("list_bulanBekerja")
-	public String[] getBulanBekerjaValues() {
-		String[] values = new String[13];
-		for (int i = 0; i <= 12; i++) {
-			values[i] = Integer.toString(i);
-		}
-		return values;
-	}
-
 	@ModelAttribute("list_tahun")
 	public List<String> getTahunValues() {
 		int minYear = Year.now().getValue() - 48;

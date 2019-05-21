@@ -118,7 +118,7 @@ public class PegawaiOutsourcingController {
 				model.addAttribute("persentasePerforma", "Stabil");
 				model.addAttribute("Meningkat",true);
 			} else if (persentasePerforma > 0) {
-				model.addAttribute("persentasePerforma", "Meningkat" + persentasePerforma + "%");
+				model.addAttribute("persentasePerforma", "Meningkat " + persentasePerforma + "%");
 				model.addAttribute("Meningkat",true);
 			} else {
 				model.addAttribute("persentasePerforma", "Menurun " + persentasePerforma + "%");

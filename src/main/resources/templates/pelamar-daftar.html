@@ -89,14 +89,10 @@
 </style>
 
 <body>
-	<!-- 	<div class="col-lg-12">
-        <img src="/img/cop.png" style="max-width:100%;">
-    </div> -->
-	<!-- 	<nav th:replace="fragments/fragment :: navbar"></nav> -->
 	<div class="container-fluid"
 		style="margin-left: 1rem; margin-top: 1rem">
-		<h6 class="alert alert-danger" th:if="${daftarError_msg!=null}"
-			th:text="${daftarError_msg}"></h6>
+		<h5 class="alert alert-danger" th:if="${daftarError_msg!=null}"
+			th:text="${daftarError_msg}"></h5>
 		<div class="row">
 			<div class="col-xs-auto col-xl-10">
 				<h2 style="margin-top: 1rem">
@@ -105,7 +101,6 @@
 					</small>
 				</h2>
 				<hr class="hrCustom">
-
 				<form th:action="@{'/pelamar/daftar/'}" th:object="${pelamar}"
 					method="POST">
 					<div class="card">
@@ -403,18 +398,18 @@
 							</div>
 							<hr class="hrCustom2">
 							<h5 class="card-title">Riwayat Pekerjaan</h5>
-							<p>
+							<h6>
 								Tuliskan <b>3</b> riwayat pekerjaan Anda yang paling terakhir.
-								Jika tidak ada, isilah kolom <em>Nama Perusahaan</em> dan <em>Alasan
-									Berhenti</em> dengan menuliskan <b>Tidak Ada</b>.
-							</p>
+							</h6>
+							<p style="color:red;">* Jika tidak ada, isilah kolom <em>Nama Perusahaan</em> dan <em>Alasan
+									Berhenti</em> dengan menuliskan <b>"Tidak Ada"</b>.</p>
 							<p>
 								Gunakan tombol <b>Tambah Riwayat</b> untuk menambah kolom
-								riwayat dan <b>Hapus Riwayat</b> untuk menghapus riwayat.
-							<h6 class="alert alert-danger" th:if="${deleteLimit_msg!=null}"
-								th:text="${deleteLimit_msg}"></h6>
-							<h6 class="alert alert-danger" th:if="${limit_msg!=null}"
-								th:text="${limit_msg}"></h6>
+								riwayat dan <b>Hapus Riwayat</b> untuk menghapus riwayat.</p>
+							<h5 class="alert alert-danger" th:if="${deleteLimit_msg!=null}"
+								th:text="${deleteLimit_msg}"></h5>
+							<h5 class="alert alert-danger" th:if="${limit_msg!=null}"
+								th:text="${limit_msg}"></h5>
 							<div class="col-lg-10">
 								<div class="card"
 									th:each="np, iterationStatus : ${command.pengalamanList}">
@@ -457,13 +452,8 @@
 												class="col-sm-4 col-xl-3 col-form-label">Lama
 												Bekerja (Tahun) </label>
 											<div class="col-sm-auto">
-												<input type="number" max="100" min="0" value="0"
+												<input type="number" max="100" min="0" value="0" placeholder="0"
 													th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}" />
-												<!-- 												<select class="form-control" id="tahun_bekerja" -->
-												<!-- 													th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}"><option -->
-												<!-- 														th:each="val : ${list_tahunBekerja}" th:value="${val}" -->
-												<!-- 														th:text="${val}"></option> -->
-												<!-- 												</select> -->
 											</div>
 										</div>
 										<div class="form-group row">
@@ -471,13 +461,8 @@
 												class="col-sm-4 col-xl-3 col-form-label">Lama
 												Bekerja (Bulan) </label>
 											<div class="col-sm-auto">
-												<input type="number" max="12" min="0" value="0"
+												<input type="number" max="12" min="0" value="0" placeholder="0"
 													th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}" />
-												<!-- 												<select class="form-control" id="bulan_bekerja" -->
-												<!-- 													th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaBulan_bekerja}"><option -->
-												<!-- 														th:each="val : ${list_bulanBekerja}" th:value="${val}" -->
-												<!-- 														th:text="${val}"></option> -->
-												<!-- 												</select> -->
 											</div>
 										</div>
 										<div class="form-group row">
@@ -561,8 +546,6 @@
 		$('#nomor_whatsapp').mask('0000-0000-0000');
 		$('#no_ktp').mask('0000000000000000');
 	});
-		
-	};
 
 	var text_max = 255;
 	$('#count_message').html(text_max + '/255 Karakter');
@@ -573,8 +556,9 @@
 		$('#count_message').html(text_remaining + '/255 Karakter');
 	});
 	
-	var today = new Date();
-	var todayFormatted = today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
+	var today = new Date(new Date().getFullYear(), new Date().getMonth(),
+			new Date().getDate());
+	var todayFormatted = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
 	var yester = new Date();
 	var yesterFormatted = (yester.getFullYear() - 20) + "-" + yester.getMonth() + "-" + yester.getDate()
 
