@@ -91,8 +91,8 @@
 			</small>
 		</h2>
 		<hr class="hrCustom">
-		<h6 class="alert alert-danger" th:if="${ubahError_msg!=null}"
-			th:text="${ubahError_msg}"></h6>
+		<h5 class="alert alert-danger" th:if="${ubahError_msg!=null}"
+			th:text="${ubahError_msg}"></h5>
 		<div class="row">
 			<div class="col-xs-auto col-xl-10">
 				<form th:action="@{'/pelamar/ubah/'} + ${pelamar.id}"
@@ -108,7 +108,7 @@
 								<div class="col-sm-auto">
 									<input class="form-control" required="required"
 										th:field="*{apply_date}" id="datepicker1"
-										onkeypress="return false;">
+										readonly>
 								</div>
 							</div>
 							<fieldset class="form-group">
@@ -179,7 +179,7 @@
 								<div class="col-sm-auto">
 									<input class="form-control" required="required"
 										th:field="*{tanggal_lahir}" id="datepicker2"
-										onkeypress="return false;">
+										readonly>
 								</div>
 							</div>
 							<div class="form-group row">
@@ -264,8 +264,8 @@
 								</div>
 							</div>
 							<div class="form-group row">
-								<label for="telp_rumah"
-									class="col-form-label col-sm-4 col-md-2">Telp. Rumah</label>
+								<label for="telp_rumah" class="col-form-label col-sm-4 col-md-2">Telp.
+									Rumah</label>
 								<div class="col-sm-auto">
 									<input type="text" class="form-control" id="telp_rumah"
 										placeholder="Nomor Telepon Rumah" th:field="*{telepon_rumah}"
@@ -274,268 +274,268 @@
 										cth : 02158xxxxxx</small>
 								</div>
 							</div>
-						<div class="form-group row">
-							<label for="telp_orang_terdekat"
-								class="col-form-label col-sm-4 col-md-2">No. Telp. Orang
-								Terdekat<span class="requiredField">*</span>
-							</label>
-							<div class="col-sm-auto">
-								<input type="text" class="form-control" id="telp_orang_terdekat"
-									placeholder="Nomor Telp. Orang Terdekat"
-									th:field="*{telepon_orang_terdekat}" required="required"
-									aria-describedby="telpOrangTerdekatHelpBlock" minlength="10">
-								<small id="telpOrangTerdekatHelpBlock"
-									class="form-text text-muted"> cth : 0812xxxxxxxx,
-									02158xxxxxx</small>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="nomor_whatsapp"
-								class="col-form-label col-sm-4 col-md-2">No. WhatsApp </label>
-							<div class="col-sm-auto">
-								<input type="text" class="form-control" id="nomor_whatsapp"
-									placeholder="Nomor WhatsApp" th:field="*{nomor_whatsapp}"
-									aria-describedby="nomorWAHelpBlock" minlength="11"><small
-									id="nomorWAHelpBlock" class="form-text text-muted"> cth
-									: 0812xxxxxxxx</small>
-							</div>
-						</div>
-						<hr class="hrCustom2">
-						<h5 class="card-title">Nomor Identitas</h5>
-						<div class="form-group row">
-							<label for="no_ktp" class="col-form-label col-sm-4 col-md-2">No.
-								KTP<span class="requiredField">*</span>
-							</label>
-							<div class="col-sm-auto">
-								<input type="text" class="form-control" id="no_ktp"
-									placeholder="Nomor KTP" th:field="*{no_ktp}"
-									required="required" aria-describedby="ktpHelpBlock"
-									minlength="16"> <small id="ktpHelpBlock"
-									class="form-text text-muted"> cth : 3017xxxxxxxxxxxx</small>
-							</div>
-						</div>
-						<hr class="hrCustom2">
-						<h5 class="card-title">Riwayat Pendidikan</h5>
-						<div class="form-group row">
-							<label for="pendidikan_terakhir"
-								class="col-sm-4 col-md-2 col-form-label">Pendidikan
-								Terakhir<span class="requiredField">*</span>
-							</label>
-							<div class="col-sm-auto">
-								<select class="form-control" id="pendidikan_terakhir"
-									th:field="*{pendidikan_terakhir}" required="required">
-									<option selected value="" hidden="hidden">-Pilih
-										Jenjang-</option>
-									<option value="Pendidikan Informal">Pendidikan
-										Informal</option>
-									<option value="SD">SD</option>
-									<option value="SMP">SMP</option>
-									<option value="SMA/SMK">SMA/SMK</option>
-									<option value="Diploma">Diploma</option>
-									<option value="Sarjana">Sarjana</option>
-									<option value="Magister">Magister</option>
-								</select>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="nama_sekolah"
-								class="col-form-label col-sm-4 col-md-2">Nama Sekolah<span
-								class="requiredField">*</span>
-							</label>
-							<div class="col-sm-auto">
-								<input type="text" class="form-control"
-									placeholder="Nama Sekolah" th:field="*{nama_sekolah}"
-									required="required" maxlength="50"
-									aria-describedby="namaSekolahHelpBlock"><small
-									id="namaSekolahHelpBlock" class="form-text text-muted">
-									cth : SMAN 68, Universitas Indonesia, dll</small>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="tempat_sekolah"
-								class="col-form-label col-sm-4 col-md-2">Lokasi Sekolah<span
-								class="requiredField">*</span>
-							</label>
-							<div class="col-sm-auto">
-								<input type="search" class="form-control tags"
-									placeholder="Cari Lokasi Sekolah" th:field="*{tempat_sekolah}"
-									required="required" maxlength="50"
-									aria-describedby="tempatSekolahHelpBlock"><small
-									id="tempatSekolahHelpBlock" class="form-text text-muted">
-									Cari sesuai Kabupaten/Kota</small>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="jurusan" class="col-form-label col-sm-4 col-md-2">Jurusan
-							</label>
-							<div class="col-sm-auto">
-								<input type="text" class="form-control" id="jurusan"
-									placeholder="Jurusan yang Diambil" th:field="*{jurusan}"
-									maxlength="50" aria-describedby="jurusanHelpBlock"><small
-									id="jurusanHelpBlock" class="form-text text-muted"> cth
-									: IPA, Akuntansi, dll</small>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="lulusan_tahun"
-								class="col-sm-4 col-md-2 col-form-label">Lulus Tahun<span
-								class="requiredField">*</span></label>
-							<div class="col-sm-auto">
-								<select class="form-control" id="lulusan_tahun"
-									th:field="*{lulusan_tahun}" required="required">
-									<option selected value="" hidden="hidden">-Pilih
-										Tahun-</option>
-									<option th:each="val : ${list_tahun}" th:value="${val}"
-										th:text="${val}"></option>
-								</select>
-							</div>
-						</div>
-						<hr class="hrCustom2">
-						<h5 class="card-title">Riwayat Pekerjaan</h5>
-						<p>
-							Tuliskan <b>3</b> riwayat pekerjaan Anda yang paling terakhir.
-							Jika tidak ada, isilah kolom <em>Nama Perusahaan</em> dan <em>Alasan</em>
-							dengan menuliskan <b>Tidak Ada</b>.
-						</p>
-						<p>
-							Gunakan tombol <b>Tambah Riwayat</b> untuk menambah kolom riwayat
-							dan <b>Hapus</b> untuk menghapus riwayat.
-						<h6 class="alert alert-danger" th:if="${deleteLimit_msg!=null}"
-							th:text="${deleteLimit_msg}"></h6>
-						<h6 class="alert alert-danger" th:if="${limit_msg!=null}"
-							th:text="${limit_msg}"></h6>
-						<div class="col-lg-10">
-							<div class="card"
-								th:each="np, iterationStatus : ${command.pengalamanList}">
-								<div class="card-header">
-									<h6
-										th:text="'Riwayat Pekerjaan '+ ${iterationStatus.index + 1}"></h6>
+							<div class="form-group row">
+								<label for="telp_orang_terdekat"
+									class="col-form-label col-sm-4 col-md-2">No. Telp.
+									Orang Terdekat<span class="requiredField">*</span>
+								</label>
+								<div class="col-sm-auto">
+									<input type="text" class="form-control"
+										id="telp_orang_terdekat"
+										placeholder="Nomor Telp. Orang Terdekat"
+										th:field="*{telepon_orang_terdekat}" required="required"
+										aria-describedby="telpOrangTerdekatHelpBlock" minlength="10">
+									<small id="telpOrangTerdekatHelpBlock"
+										class="form-text text-muted"> cth : 0812xxxxxxxx,
+										02158xxxxxx</small>
 								</div>
-								<div class="card-body">
-									<div class="form-group row">
-										<label for="nama_perusahaan"
-											class="col-sm-4 col-xl-3 col-form-label">Nama
-											Perusahaan<span class="requiredField">*</span>
-										</label>
-										<div class="col-sm-auto">
-											<input class="form-control" type="text" required="required"
-												id="nama_perusahaan"
-												th:field="${command.pengalamanList[__${iterationStatus.index}__].nama_perusahaan}"
-												maxlength="100" placeholder="Nama Perusahaan"
-												aria-describedby="namaPerusahaanHelpBlock"><small
-												id="namaPerusahaanHelpBlock" class="form-text text-muted">
-												cth : PT. Maju Mundur</small>
-										</div>
+							</div>
+							<div class="form-group row">
+								<label for="nomor_whatsapp"
+									class="col-form-label col-sm-4 col-md-2">No. WhatsApp </label>
+								<div class="col-sm-auto">
+									<input type="text" class="form-control" id="nomor_whatsapp"
+										placeholder="Nomor WhatsApp" th:field="*{nomor_whatsapp}"
+										aria-describedby="nomorWAHelpBlock" minlength="11"><small
+										id="nomorWAHelpBlock" class="form-text text-muted">
+										cth : 0812xxxxxxxx</small>
+								</div>
+							</div>
+							<hr class="hrCustom2">
+							<h5 class="card-title">Nomor Identitas</h5>
+							<div class="form-group row">
+								<label for="no_ktp" class="col-form-label col-sm-4 col-md-2">No.
+									KTP<span class="requiredField">*</span>
+								</label>
+								<div class="col-sm-auto">
+									<input type="text" class="form-control" id="no_ktp"
+										placeholder="Nomor KTP" th:field="*{no_ktp}"
+										required="required" aria-describedby="ktpHelpBlock"
+										minlength="16"> <small id="ktpHelpBlock"
+										class="form-text text-muted"> cth : 3017xxxxxxxxxxxx</small>
+								</div>
+							</div>
+							<hr class="hrCustom2">
+							<h5 class="card-title">Riwayat Pendidikan</h5>
+							<div class="form-group row">
+								<label for="pendidikan_terakhir"
+									class="col-sm-4 col-md-2 col-form-label">Pendidikan
+									Terakhir<span class="requiredField">*</span>
+								</label>
+								<div class="col-sm-auto">
+									<select class="form-control" id="pendidikan_terakhir"
+										th:field="*{pendidikan_terakhir}" required="required">
+										<option selected value="" hidden="hidden">-Pilih
+											Jenjang-</option>
+										<option value="Pendidikan Informal">Pendidikan
+											Informal</option>
+										<option value="SD">SD</option>
+										<option value="SMP">SMP</option>
+										<option value="SMA/SMK">SMA/SMK</option>
+										<option value="Diploma">Diploma</option>
+										<option value="Sarjana">Sarjana</option>
+										<option value="Magister">Magister</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="nama_sekolah"
+									class="col-form-label col-sm-4 col-md-2">Nama Sekolah<span
+									class="requiredField">*</span>
+								</label>
+								<div class="col-sm-auto">
+									<input type="text" class="form-control"
+										placeholder="Nama Sekolah" th:field="*{nama_sekolah}"
+										required="required" maxlength="50"
+										aria-describedby="namaSekolahHelpBlock"><small
+										id="namaSekolahHelpBlock" class="form-text text-muted">
+										cth : SMAN 68, Universitas Indonesia, dll</small>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="tempat_sekolah"
+									class="col-form-label col-sm-4 col-md-2">Lokasi Sekolah<span
+									class="requiredField">*</span>
+								</label>
+								<div class="col-sm-auto">
+									<input type="search" class="form-control tags"
+										placeholder="Cari Lokasi Sekolah" th:field="*{tempat_sekolah}"
+										required="required" maxlength="50"
+										aria-describedby="tempatSekolahHelpBlock"><small
+										id="tempatSekolahHelpBlock" class="form-text text-muted">
+										Cari sesuai Kabupaten/Kota</small>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="jurusan" class="col-form-label col-sm-4 col-md-2">Jurusan
+								</label>
+								<div class="col-sm-auto">
+									<input type="text" class="form-control" id="jurusan"
+										placeholder="Jurusan yang Diambil" th:field="*{jurusan}"
+										maxlength="50" aria-describedby="jurusanHelpBlock"><small
+										id="jurusanHelpBlock" class="form-text text-muted">
+										cth : IPA, Akuntansi, dll</small>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="lulusan_tahun"
+									class="col-sm-4 col-md-2 col-form-label">Lulus Tahun<span
+									class="requiredField">*</span></label>
+								<div class="col-sm-auto">
+									<select class="form-control" id="lulusan_tahun"
+										th:field="*{lulusan_tahun}" required="required">
+										<option selected value="" hidden="hidden">-Pilih
+											Tahun-</option>
+										<option th:each="val : ${list_tahun}" th:value="${val}"
+											th:text="${val}"></option>
+									</select>
+								</div>
+							</div>
+							<hr class="hrCustom2">
+							<h5 class="card-title">Riwayat Pekerjaan</h5>
+							<h6>
+								Tuliskan <b>3</b> riwayat pekerjaan Anda yang paling terakhir.
+							</h6>
+							<p style="color: red;">
+								* Jika tidak ada, isilah kolom <em>Nama Perusahaan</em> dan <em>Alasan
+									Berhenti</em> dengan menuliskan <b>"Tidak Ada"</b>.
+							</p>
+							<p>
+								Gunakan tombol <b>Tambah Riwayat</b> untuk menambah kolom
+								riwayat dan <b>Hapus Riwayat</b> untuk menghapus riwayat.
+							</p>
+							<h6 class="alert alert-danger" th:if="${deleteLimit_msg!=null}"
+								th:text="${deleteLimit_msg}"></h6>
+							<h6 class="alert alert-danger" th:if="${limit_msg!=null}"
+								th:text="${limit_msg}"></h6>
+							<div class="col-lg-10">
+								<div class="card"
+									th:each="np, iterationStatus : ${command.pengalamanList}">
+									<div class="card-header">
+										<h6
+											th:text="'Riwayat Pekerjaan '+ ${iterationStatus.index + 1}"></h6>
 									</div>
-									<div class="form-group row">
-										<label for="tahun_terakhir"
-											class="col-sm-4 col-xl-3 col-form-label">Tahun
-											Terakhir </label>
-										<div class="col-sm-auto">
-											<select class="form-control" id="tahun_terakhir"
-												th:field="${command.pengalamanList[__${iterationStatus.index}__].tahun_terakhir}">
-												<option selected value="" hidden="hidden">-Pilih
-													Tahun-</option>
-												<option th:each="val : ${list_tahun}" th:value="${val}"
-													th:text="${val}"></option>
-											</select>
+									<div class="card-body">
+										<div class="form-group row">
+											<label for="nama_perusahaan"
+												class="col-sm-4 col-xl-3 col-form-label">Nama
+												Perusahaan<span class="requiredField">*</span>
+											</label>
+											<div class="col-sm-auto">
+												<input class="form-control" type="text" required="required"
+													id="nama_perusahaan"
+													th:field="${command.pengalamanList[__${iterationStatus.index}__].nama_perusahaan}"
+													maxlength="100" placeholder="Nama Perusahaan"
+													aria-describedby="namaPerusahaanHelpBlock"><small
+													id="namaPerusahaanHelpBlock" class="form-text text-muted">
+													cth : PT. Maju Mundur</small>
+											</div>
 										</div>
-									</div>
-									<div class="form-group row">
-										<label for="tahun_bekerja"
-											class="col-sm-4 col-xl-3 col-form-label">Lama Bekerja
-											(Tahun) </label>
-										<div class="col-sm-auto">
-											<select class="form-control" id="tahun_bekerja"
-												th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}"><option
-													th:each="val : ${list_tahunBekerja}" th:value="${val}"
-													th:text="${val}"></option>
-											</select>
+										<div class="form-group row">
+											<label for="tahun_terakhir"
+												class="col-sm-4 col-xl-3 col-form-label">Tahun
+												Terakhir </label>
+											<div class="col-sm-auto">
+												<select class="form-control" id="tahun_terakhir"
+													th:field="${command.pengalamanList[__${iterationStatus.index}__].tahun_terakhir}">
+													<option selected value="" hidden="hidden">-Pilih
+														Tahun-</option>
+													<option th:each="val : ${list_tahun}" th:value="${val}"
+														th:text="${val}"></option>
+												</select>
+											</div>
 										</div>
-									</div>
-									<div class="form-group row">
-										<label for="bulan_bekerja"
-											class="col-sm-4 col-xl-3 col-form-label">Lama Bekerja
-											(Bulan) </label>
-										<div class="col-sm-auto">
-											<select class="form-control" id="bulan_bekerja"
-												th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaBulan_bekerja}"><option
-													th:each="val : ${list_tahunBekerja}" th:value="${val}"
-													th:text="${val}"></option>
-											</select>
+										<div class="form-group row">
+											<label for="tahun_bekerja"
+												class="col-sm-4 col-xl-3 col-form-label">Lama
+												Bekerja (Tahun) </label>
+											<div class="col-sm-auto">
+												<input type="number" max="100" min="0" value="0"
+													placeholder="0"
+													th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}" />
+											</div>
 										</div>
-									</div>
-									<div class="form-group row">
-										<label for="jabatan" class="col-sm-4 col-xl-3 col-form-label">Jabatan
-										</label>
-										<div class="col-sm-auto">
-											<input class="form-control" type="text" id="jabatan"
-												th:field="${command.pengalamanList[__${iterationStatus.index}__].jabatan}"
-												maxlength="50" placeholder="Jabatan"
-												aria-describedby="jabatanHelpBlock"><small
-												id="jabatanBlock" class="form-text text-muted"> cth
-												: Admin, Ketua Regu</small>
+										<div class="form-group row">
+											<label for="bulan_bekerja"
+												class="col-sm-4 col-xl-3 col-form-label">Lama
+												Bekerja (Bulan) </label>
+											<div class="col-sm-auto">
+												<input type="number" max="12" min="0" value="0"
+													placeholder="0"
+													th:field="${command.pengalamanList[__${iterationStatus.index}__].lamaTahun_bekerja}" />
+											</div>
 										</div>
-									</div>
-									<div class="form-group row">
-										<label for="alasan_berhenti"
-											class="col-sm-4 col-xl-3 col-form-label">Alasan
-											Berhenti<span class="requiredField">*</span>
-										</label>
-										<div class="col-sm-4">
-											<textarea class="form-control alasan_berhenti"
-												required="required" id="alasan_berhenti" rows="4"
-												th:field="${command.pengalamanList[__${iterationStatus.index}__].alasan_berhenti}"
-												maxlength="255"
-												placeholder="Tuliskan alasan berhenti dari pekerjaan!"></textarea>
+										<div class="form-group row">
+											<label for="jabatan" class="col-sm-4 col-xl-3 col-form-label">Jabatan
+											</label>
+											<div class="col-sm-auto">
+												<input class="form-control" type="text" id="jabatan"
+													th:field="${command.pengalamanList[__${iterationStatus.index}__].jabatan}"
+													maxlength="50" placeholder="Jabatan"
+													aria-describedby="jabatanHelpBlock"><small
+													id="jabatanBlock" class="form-text text-muted"> cth
+													: Admin, Ketua Regu</small>
+											</div>
 										</div>
+										<div class="form-group row">
+											<label for="alasan_berhenti"
+												class="col-sm-4 col-xl-3 col-form-label">Alasan
+												Berhenti<span class="requiredField">*</span>
+											</label>
+											<div class="col-sm-4">
+												<textarea class="form-control alasan_berhenti"
+													required="required" id="alasan_berhenti" rows="4"
+													th:field="${command.pengalamanList[__${iterationStatus.index}__].alasan_berhenti}"
+													maxlength="255"
+													placeholder="Tuliskan alasan berhenti dari pekerjaan!"></textarea>
+											</div>
+										</div>
+										<input type="hidden"
+											th:field="${command.pengalamanList[__${iterationStatus.index}__].id}">
+										<button type="submit" class="btn btn-warning"
+											name="deleteEntryUbah" th:value="${iterationStatus.index}">Hapus
+											Riwayat</button>
 									</div>
-									<input type="hidden"
-										th:field="${command.pengalamanList[__${iterationStatus.index}__].id}">
-									<button type="submit" class="btn btn-warning"
-										name="deleteEntryUbah" th:value="${iterationStatus.index}">Hapus
+								</div>
+								<div style="text-align: center; margin-top: 1rem">
+									<button type="submit" class="btn btn-secondary"
+										name="addEntryUbah" th:value="${command}+${pelamar}">Tambah
 										Riwayat</button>
 								</div>
-							</div>
-							<div style="text-align: center; margin-top: 1rem">
-								<button type="submit" class="btn btn-secondary"
-									name="addEntryUbah" th:value="${command}+${pelamar}">Tambah
-									Riwayat</button>
-							</div>
 
-						</div>
-						<hr class="hrCustom2">
-						<button type="button" class="btn btn-primary" data-toggle="modal"
-							data-target="#myModal">Simpan</button>
-						<a type="button" th:href="@{/pelamar/}" class="btn btn-danger">Kembali</a>		
-						<!-- The Modal -->
-						<div class="modal fade" id="myModal">
-							<div class="modal-dialog modal-dialog-centered">
-								<div class="modal-content">
+							</div>
+							<hr class="hrCustom2">
+							<button type="button" class="btn btn-primary" data-toggle="modal"
+								data-target="#myModal">Simpan</button>
+							<a type="button" th:href="@{/pelamar/}" class="btn btn-danger">Kembali</a>
+							<!-- The Modal -->
+							<div class="modal fade" id="myModal">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
 
-									<!-- Modal Header -->
-									<div class="modal-header">
-										<h4 class="modal-title">Formulir Ubah Pelamar</h4>
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-									</div>
-									<!-- Modal body -->
-									<div class="modal-body"
-										th:text="'Apakah Anda yakin untuk mengubah Pelamar ' + *{nama_lengkap}"></div>
-									<!-- Modal footer -->
-									<div class="modal-footer">
-										<button type="submit" class="btn btn-danger"
-											name="submitPelamarUbah">Ya</button>
-										<button type="button" class="btn btn-danger"
-											data-dismiss="modal">Tidak</button>
+										<!-- Modal Header -->
+										<div class="modal-header">
+											<h4 class="modal-title">Formulir Ubah Pelamar</h4>
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+										</div>
+										<!-- Modal body -->
+										<div class="modal-body"
+											th:text="'Apakah Anda yakin untuk mengubah Pelamar ' + *{nama_lengkap}"></div>
+										<!-- Modal footer -->
+										<div class="modal-footer">
+											<button type="submit" class="btn btn-danger"
+												name="submitPelamarUbah">Ya</button>
+											<button type="button" class="btn btn-danger"
+												data-dismiss="modal">Tidak</button>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+				</form>
 			</div>
-			</form>
 		</div>
-	</div>
 	</div>
 
 	<script
@@ -564,6 +564,7 @@
 
 	var today = new Date(new Date().getFullYear(), new Date().getMonth(),
 			new Date().getDate());
+
 	$('#datepicker1').datepicker({
 		uiLibrary : 'bootstrap4',
 		format : 'yyyy-mm-dd',
@@ -573,7 +574,7 @@
 	$('#datepicker2').datepicker({
 		uiLibrary : 'bootstrap4',
 		format : 'yyyy-mm-dd',
-		maxDate : today
+		maxDate : today,
 	});
 	$(function() {
 		var availableTags = [ "SIMEULUE", "ACEH SINGKIL", "ACEH SELATAN",

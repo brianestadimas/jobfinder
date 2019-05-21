@@ -118,7 +118,7 @@ public class PegawaiOutsourcingController {
 				model.addAttribute("persentasePerforma", "Stabil");
 				model.addAttribute("Meningkat",true);
 			} else if (persentasePerforma > 0) {
-				model.addAttribute("persentasePerforma", "Meningkat" + persentasePerforma + "%");
+				model.addAttribute("persentasePerforma", "Meningkat " + persentasePerforma + "%");
 				model.addAttribute("Meningkat",true);
 			} else {
 				model.addAttribute("persentasePerforma", "Menurun " + persentasePerforma + "%");
@@ -231,9 +231,15 @@ public class PegawaiOutsourcingController {
 	}
 	
 	@RequestMapping(value = "/pegawai-hapus", method = RequestMethod.GET)
-	private String hapusPegawai(@RequestParam("id") Long[] ids, Model model, RedirectAttributes redir) {
-//		List<RiwayatKerjaPegawaiModel> riwayatKerjaPegawai = new List();
-		try {
+	private String hapusPegawai(@RequestParam("id") Long[] ids, Model model, RedirectAttributes redir, HttpServletRequest req) {
+		boolean test = true;
+		for(int i=0 ; i<ids.length ; i++) {
+			PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(ids[i]);
+			if(pegawai.getStatus()) {
+				redir.addFlashAttribute("msg_error","Pegawai masih bertugas dalam proyek, berhentikan pegawai terlebih dahulu");
+				return "redirect:/pegawai";		 
+			}
+		}
 			for(Long id : ids) {
 				PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(id);
 				for(int i = 0 ; i < feedback_service.get_all_feedback().size() ; i++) {
@@ -254,12 +260,8 @@ public class PegawaiOutsourcingController {
 				pegawai.getPelamar_id().setIs_pegawai(false);
 				pegawaiService.deletePegawaiById(id);
 			}
-			redir.addFlashAttribute("notifikasi_sukses", "Berhasil menghapus pegawai");
+			redir.addFlashAttribute("notifikasi_sukses", "Pegawai berhasil dihapus");
 			return "redirect:/pegawai";
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
-			return "redirect:/pegawai";
-		}
 	}
 	
 	

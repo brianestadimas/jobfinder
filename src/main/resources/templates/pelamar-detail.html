@@ -55,12 +55,11 @@
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <div class="blankspace">
-       <!--  <div class="boxContainer2" style="overflow-x:auto;"> -->
-<!-- 
-        <form action="#" th:action="'/proyek/'+${proyek_id}+'/kehadiran/update/submit'" method="post" th:object="${daftar_kehadiran}"> -->
             <img src="/img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
             <h2 style="display: inline; margin-left: 10px">Detail Pelamar</h2>
             <hr>
+            <h5 class="alert alert-success" th:if="${ubahSukses_msg!=null}"
+			th:text="${ubahSukses_msg}"></h5>
             <ul class="nav nav-tabs" style="margin-left: 20px">
                 <li class="active"><a data-toggle="tab" href="#home">Informasi Umum</a></li>
                 <li><a data-toggle="tab" href="#menu1">Pengalaman Kerja</a></li>

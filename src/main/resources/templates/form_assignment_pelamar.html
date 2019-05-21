@@ -66,9 +66,9 @@
   <div class="boxContainer2" style="overflow-x:auto;">
       <div class="form-row">
         <div class="form-group col-md-4">
-          <label for="inputProyek">Proyek (Tanggal Mulai Proyek / Tanggal Akhir Proyek) *</label>
+          <label for="inputProyek">Proyek (Tanggal Mulai Proyek - Tanggal Akhir Proyek) *</label>
           <select class="form-control" id="inputProyek" name="proyek" required>
-            <option th:each="dp: ${daftar_proyek}"  th:value="${dp.id}"  th:text="${dp.nama_proyek}+' ('+${dp.start_date_kontrak}+'/'+${dp.end_date_kontrak}+')'">Tidak Terdapat Proyek
+            <option th:each="dp: ${daftar_proyek}"  th:value="${dp.id}"  th:text="${dp.nama_proyek} +' ('+${#dates.format(dp.start_date_kontrak, 'dd MMM yyyy')}+' - '+${#dates.format(dp.end_date_kontrak, 'dd MMM yyyy')}+')'">Tidak Terdapat Proyek
             </option>
         </select>
         </div>
