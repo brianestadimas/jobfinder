@@ -387,11 +387,17 @@ public class PelamarController {
 	
 	//Assign Pelamar Get
 	@RequestMapping(value = "/pelamar/assign", method = RequestMethod.GET)
-	private String assignPelamar(@RequestParam("id") long[] ids, Model model) {
+	private String assignPelamar(@RequestParam("id") long[] ids, Model model, RedirectAttributes redir) {
 		
 		AssignmentWrapper wrapper = new AssignmentWrapper();
 		List<ProdukModel> daftar_produk = produkService.getAllProduk();
 		List<ProyekModel> daftar_proyek = proyekService.getAllProyek();
+		
+		if(daftar_proyek.size()==0){
+			redir.addFlashAttribute("proyek_null", "Masih Belum Tersedia Proyek, Segera Daftarkan!");
+			return "redirect:/pegawai";
+		}
+		
 		wrapper.setDaftar_proyek(daftar_proyek);
 		List<PelamarModel> nama_pelamar = new ArrayList<PelamarModel>();
 		

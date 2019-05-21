@@ -181,7 +181,6 @@ public class AccountController {
 		if(cek_password == true) {
 //			account.setPassword(password_baru);
 //			akun_service.save_account(account);
-			
 			String new_pass = akun_service.encrypt(password_baru);
 			akun_service.changePassword(new_pass, req.getRemoteUser());
 			redir.addFlashAttribute("notif", "Berhasil mengubah password");
