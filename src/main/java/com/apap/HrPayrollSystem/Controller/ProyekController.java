@@ -180,6 +180,20 @@ public class ProyekController {
 	@RequestMapping(value = "/proyek-tambah", method = RequestMethod.POST)
 	public String addProyekPost(Model model, @ModelAttribute ProyekModel proyek,
 			RedirectAttributes redir) {
+		ArrayList<ProyekModel> allProyek = (ArrayList<ProyekModel>) proyekService.getAllProyek();
+		for (int i=0; i<proyekService.getAllProyek().size(); i++){
+			if (allProyek.get(i).getNama_proyek()==proyek.getNama_proyek()){
+				if (allProyek.get(i).getRegion()==proyek.getRegion()){
+					if (allProyek.get(i).getStart_date_kontrak()==proyek.getStart_date_kontrak()){
+						if (allProyek.get(i).getEnd_date_kontrak()==proyek.getEnd_date_kontrak()){
+							redir.addFlashAttribute("fail_notif", "Proyek yang sama sudah ada");
+							return "redirect:/proyek-tambah";
+						}
+					}
+				}
+
+			}
+		}
 		if(proyek.getEnd_date_kontrak().before(proyek.getStart_date_kontrak())) {
 			redir.addFlashAttribute("fail_notif", "Tanggal mulai proyek harus lebih kecil dari tanggal berakhir proyek");
 			return "redirect:/proyek-tambah";
@@ -204,7 +218,6 @@ public class ProyekController {
 	private String ubahProyekPost(@PathVariable(value = "id") long id, ProyekModel proyek, Model model,
 			RedirectAttributes redir) {
 		proyekService.addProyek(proyek);
-//		proyekService.updateProyek(id, proyek);
 		redir.addFlashAttribute("ubahSukses_msg", "Proyek " + proyek.getNama_proyek() + " berhasil diubah!");
 		return "redirect:/proyek-detail/"+id;
 	}

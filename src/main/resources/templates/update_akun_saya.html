@@ -67,7 +67,8 @@
        <!--  <div class="boxContainer2" style="overflow-x:auto;"> -->
       <form th:action="@{/my-account/update/submit}" method = "POST">
                 <img src="/img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
-                <h2 style="display: inline; margin-left: 10px">Ubah Akun</h2>
+                <h2 style="display: inline; margin-left: 10px">Ubah Akun Saya</h2>
+                <h5 class="alert alert-warning" th:if="${notif!=null}" th:text="${notif}"></h5>
                 <hr>
 <div class="form-row">
       <div class="form-group col-md-3"></div>

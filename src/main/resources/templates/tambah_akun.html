@@ -68,6 +68,7 @@
        <form th:action="@{/account/add/submit}" th:object="${akun}" method = "POST">
                 <img src="/img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
                 <h2 style="display: inline; margin-left: 10px">Tambah Akun</h2>
+                <h5 class="alert alert-warning" th:if="${notif!=null}" th:text="${notif}"></h5>
                 <hr>
 <div class="form-row">
       <div class="form-group col-md-3"></div>

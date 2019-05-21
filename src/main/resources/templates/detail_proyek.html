@@ -127,7 +127,7 @@ table{
                         </tr>
                 </table>
             </div>
-    <p><a class="btn btn-primary btn-large" th:href="@{'/performa-proyek/'+${proyek.id} }" style="float: left; margin-right: 5px; margin-bottom: 10px;"><i class="fa fa-bar-chart"></i> Performa <br> Kehadiran</a><p>
+    <p><a class="btn btn-primary btn-large" th:href="@{'/performa-proyek/'+${proyek.id} }" style="float: left; margin-right: 5px; margin-bottom: 10px;"><i class="fa fa-bar-chart"></i> Performa <br> Kehadiran<br> Pegawai</a><p>
     <div th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" id="kelola-akun">
     <p><a class="btn btn-info btn-large" th:href="@{'/proyek/'+${proyek.id}+'/kehadiran'}" style="float: left; margin-right: 5px; margin-bottom: 10px;"><i class="fa fa-calendar-check-o"></i> Kelola <br> Kehadiran</a><p>
     </div>

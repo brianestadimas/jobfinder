@@ -80,14 +80,26 @@ public class AccountController {
 			akun_service.addAccount(account);
 		}else {
 			for(int i = 0 ; i < get_all_account.size() ; i++) {
-				if(account.getUsername().equals(get_all_account.get(i).getUsername())) {
+				if(account.getUsername().equalsIgnoreCase(get_all_account.get(i).getUsername())) {
 					redir.addFlashAttribute("notif", "Sudah terdapat akun dengan username " +account.getUsername() );		
 					return "redirect:/account/add";
 				}
 			}
 			akun_service.addAccount(account);
 		}
-		redir.addFlashAttribute("notif", "Berhasil menambahkan akun dengan nama "+account.getName()+" dan peran"+account.getRole() );		
+		String peran = "";
+		if(account.getRole().equalsIgnoreCase("busdev")) {
+			peran ="Business Development";
+		}else if(account.getRole().equalsIgnoreCase("hr")) {
+			peran ="Human Resources";
+		}else if(account.getRole().equalsIgnoreCase("manager")) {
+			peran = "Manager";
+		}else if(account.getRole().equalsIgnoreCase("pelamar")) {
+			peran = "Pelamar";
+		}else if(account.getRole().equalsIgnoreCase("viewer")) {
+			peran = "Pegawai";
+		}
+		redir.addFlashAttribute("notif", "Berhasil menambahkan akun dengan nama "+account.getName()+" dengan peran "+peran );		
 		return "redirect:/account/list";
 	}
 	
@@ -96,7 +108,6 @@ public class AccountController {
 	private String hapusAkun(Model model,
 							 @ModelAttribute AccountModel account,
 							 HttpServletRequest req, RedirectAttributes redir) {
-		String nama_akun = account.getName();
 		akun_service.delete_account(account);
 		redir.addFlashAttribute("notif", "Berhasil menghapus akun");
 		return "redirect:/account/list";
@@ -118,6 +129,7 @@ public class AccountController {
 		}else if(peran.equals("hr")) {
 			return_page = "update_akun_hr";
 		}
+		
 		model.addAttribute("akun", akun_diupdate);
 		return return_page;
 	}
@@ -126,8 +138,15 @@ public class AccountController {
 	private String updateAkunSubmit(Model model,
 									@ModelAttribute AccountModel account,
 									HttpServletRequest req, RedirectAttributes redir) {
-		akun_service.save_account(account);
+//		akun_service.save_account(account);
 		
+		for(int i = 0 ; i < akun_service.get_all_account().size() ; i++) {
+			if(account.getUsername().equals(akun_service.get_all_account().get(i).getUsername())) {
+				redir.addFlashAttribute("notif", "Sudah terdapat akun dengan username " +account.getUsername() );
+				return "redirect:/account/update/"+account.getId();
+			}
+		}
+		akun_service.save_account(account);
 		redir.addFlashAttribute("notif", "Berhasil mengubah akun dengan nama "+ account.getName());
 		return "redirect:/account/list";
 	}

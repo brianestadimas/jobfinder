@@ -73,8 +73,7 @@ table{
 						</span>
 								<span th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
 								<a type="button" class="btn btn-danger btn-sm" style="margin-left:10px" data-toggle="modal" data-target="#hapus-kehadiran" th:attr="data-target='#hapus-kehadiran'+${kehadiran}" >Hapus</a>
-								</span>					    	
-										<div class="modal" th:id="'hapus-kehadiran'+${kehadiran}">
+								<div class="modal" th:id="'hapus-kehadiran'+${kehadiran}">
 											    <div class="modal-dialog">
 											      <div class="modal-content">
 											      
@@ -96,7 +95,9 @@ table{
 											        </div> 
 									     		 </div>
 									    	</div>
-										</div>  
+										</div>
+								</span>					    	
+										  
 								<span th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
 									<a th:if="${jenis_proyek=='umum'}" th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/'+${kehadiran}+'/penggajian'}" type="button" class="btn btn-primary btn-sm" style="margin-left: 10px;">Penggajian</a>
 								</span>				

@@ -189,22 +189,7 @@ public class PegawaiOutsourcingController {
 		redir.addFlashAttribute("notif", "Berhasil mengubah pegawai");
 		return new RedirectView("/pegawai-detail/"+id);
     }
-	
-	
-//	@RequestMapping(value = "/pegawai-hapus", method = RequestMethod.POST)
-//	private String deletePegawai(@RequestParam("id") Long[] ids, Model model) {
-//		
-//		try {
-//			for(Long id : ids) {
-//				pegawaiService.deletePegawaiById(id);
-//				
-//			}
-//			return "redirect:/pegawai";
-//		} catch(Exception e) {
-//			return null;
-//		}
-//		
-//	}
+
 
 	@RequestMapping(value = "/pegawai-berhenti-assign", method = RequestMethod.GET)
 	private String berhentiPegawai(@RequestParam("id") Long[] ids, Model model, RedirectAttributes redir) {
@@ -282,10 +267,23 @@ public class PegawaiOutsourcingController {
 	
 	//Assign Pegawai Get
 	@RequestMapping(value = "/pegawai/assign", method = RequestMethod.GET)
-	private String assignPegawai(@RequestParam("id") long[] ids, Model model) {
+	private String assignPegawai(@RequestParam("id") long[] ids, Model model, RedirectAttributes redir) {
 		AssignmentWrapper wrapper = new AssignmentWrapper();
 		List<ProdukModel> daftar_produk = produkService.getAllProduk();
 		List<ProyekModel> daftar_proyek = proyekService.getAllProyek();
+		
+		if(daftar_proyek.size()==0){
+			redir.addFlashAttribute("proyek_null", "Masih Belum Tersedia Proyek, Segera Daftarkan!");
+			return "redirect:/pegawai";
+		}
+		
+		for(int i=0; i<ids.length; i++) {
+			PegawaiOutsourcingModel pegawai = pegawaiService.getPegawaiById(ids[i]);
+			if (pegawai.getStatus()){
+				redir.addFlashAttribute("pegawai_sudah_assign_msg", "Assign gagal, pegawai masih bertugas di proyek lain");
+				return "redirect:/pegawai";
+			}
+		}
 		
 		wrapper.setDaftar_proyek(daftar_proyek);
 		List<String> nama_pegawai = new ArrayList<String>();	
@@ -378,7 +376,6 @@ public class PegawaiOutsourcingController {
 	
 	@RequestMapping(value="/pegawai-detail/{id}/feedback/update/submit", method=RequestMethod.POST)
 	private String feedbackUpdateSubmit( RedirectAttributes redir,@ModelAttribute FeedbackModel feedback,@PathVariable(value="id") long id ,Model model, HttpServletRequest req ) {
-		System.out.println("tayo");
 		feedback_service.save_feedback(feedback);
 		redir.addFlashAttribute("notif","berhasil mengubah ulasan");
 		return "redirect:/pegawai-detail/"+id;
@@ -386,7 +383,6 @@ public class PegawaiOutsourcingController {
 	
 	@RequestMapping(value="/pegawai-detail/{id_pegawai}/feedback/delete/{id_feedback}",method=RequestMethod.GET)
 	private String feedbackDelete(@PathVariable(value="id_pegawai") long id_pegawai, RedirectAttributes redir, @PathVariable(value="id_feedback") long id_feedback, Model model) {
-		System.out.println("ujang");
 		feedback_service.delete_feedback(id_feedback);
 		redir.addFlashAttribute("notif","berhasil menghapus ulasan");
 		return "redirect:/pegawai-detail/"+id_pegawai;
@@ -412,11 +408,7 @@ public class PegawaiOutsourcingController {
 			expiredStatus=true; //kalau mendekati end date
 		}else {
 			expiredStatus=false; //kalau belum dekat end date
-		}
-			
-			
-			
-			
+		}	
 		//get feedback
 		List<FeedbackModel> list_feedback_pegawai = feedback_service.get_feedback_by_id_pegawai(id_pegawai);
 		AccountModel user = akun_service.findByUsername(req.getRemoteUser());

@@ -60,10 +60,17 @@ table{
 			<hr style="margin-top:-3px"></hr>
 			<h5 class="alert alert-success" th:if="${notifikasi_sukses!=null}"
 				th:text="${notifikasi_sukses}"></h5>
-			<h6 class="alert alert-danger" th:if="${msg_error!=null}" th:text="${msg_error}"></h6>
+			<!-- Bagian Savira  -->
+			<h5 class="alert alert-danger" th:if="${proyek_null!=null}"
+				th:text="${proyek_null}"></h5>
+			<h5 class="alert alert-success" id="successHapus" style="display: none">Berhasil Menghapus Pegawai</h5>
+			<h5 class="alert alert-danger" th:if="${daftarError_msg!=null}" th:text="${daftarError_msg}"></h5>
+			<!-- Bagian Savira -->
 			<h5 class="alert alert-danger" id="tes2" style="display: none">Belum
 				ada pegawai dipilih</h5>
-		
+			<h5 class="alert alert-danger" th:if="${pegawai_sudah_assign_msg!=null}"
+				th:text="${pegawai_sudah_assign_msg}"></h5>
+				 
 			<div class="boxContainer">
 			<div th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
 				<a href="#" class="btn btn-success btn-large" id="assignButton"
