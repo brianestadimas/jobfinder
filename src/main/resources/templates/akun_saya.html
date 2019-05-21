@@ -117,7 +117,12 @@
 					</tr>
 					<tr>
 						<td style="width: 50%">Peran Akun</td>
-						<td style="width: 100%" th:text="${akun.role}"></td>
+						<td style="width: 100%" th:if="${akun.role=='hr'}">Human Resources</td>
+						<td style="width: 100%" th:if="${akun.role=='busdev'}">Business Development</td>
+						<td style="width: 100%" th:if="${akun.role=='viewer'}">Pegawai</td>
+						<td style="width: 100%" th:if="${akun.role=='manager'}">Manager</td>
+						<td style="width: 100%" th:if="${akun.role=='admin'}">Administrator</td>
+						<td style="width: 100%" th:if="${akun.role=='pelamar'}">Pelamar</td>
 					</tr>
 					</tbody>
 				</table>

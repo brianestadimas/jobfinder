@@ -68,6 +68,7 @@
        <form th:action="@{/account/update/submit}" th:object="${akun}" method = "POST">
                 <img src="/img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
                 <h2 style="display: inline; margin-left: 10px">Ubah Akun</h2>
+                <h5 class="alert alert-warning" th:if="${notif!=null}" th:text="${notif}"></h5>
                 <hr>
 <div class="form-row">
       <div class="form-group col-md-3"></div>
@@ -91,7 +92,7 @@
     <div class="form-row">
     <div class="col-md-12"></div>
       <div class="form-group col-md-12">
-        <label for="inputEndDate">Password :</label>
+        <label for="inputEndDate">Re-Enter Password :</label>
       <input id="form_add" class="form-control" type="password" th:field="${akun.password}" name="password" required />
       </div>
     </div>
