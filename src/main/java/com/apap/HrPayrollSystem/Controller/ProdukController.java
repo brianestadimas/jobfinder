@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.apap.HrPayrollSystem.Model.AccountModel;
 import com.apap.HrPayrollSystem.Model.PegawaiOutsourcingModel;
 import com.apap.HrPayrollSystem.Model.ProdukModel;
 import com.apap.HrPayrollSystem.Service.PegawaiOutsourcingService;
@@ -46,8 +47,19 @@ public class ProdukController {
 	private String tambahProdukSubmit(Model model,
 									  @ModelAttribute ProdukModel produk, 
 									  RedirectAttributes redir) {
-		produk_service.saveProduk(produk);
-		redir.addFlashAttribute("notifikasi", "Produk Berhasil Ditambah");
+		List<ProdukModel> get_all_produk = produk_service.getAllProduk();
+		if(get_all_produk.isEmpty()) {
+			produk_service.saveProduk(produk);
+		}else {
+			for(int i = 0 ; i < get_all_produk.size() ; i++) {
+				if(produk.getNama_produk().equalsIgnoreCase(get_all_produk.get(i).getNama_produk())) {
+					redir.addFlashAttribute("notif", "Sudah terdapat produk dengan nama " +produk.getNama_produk() );		
+					return "redirect:/produk/tambah";
+				}
+			}
+			produk_service.saveProduk(produk);
+		}
+		redir.addFlashAttribute("notifikasi", "Berhasil menambahkan produk dengan nama "+produk.getNama_produk() );		
 		return "redirect:/produk";
 
 	}
@@ -65,6 +77,12 @@ public class ProdukController {
 	private String editProdukSubmit(@ModelAttribute ProdukModel produk,
 									Model model, 
 									RedirectAttributes redir) {
+		for(int i = 0 ; i < produk_service.getAllProduk().size() ; i++) {
+			if(produk.getNama_produk().equalsIgnoreCase(produk_service.getAllProduk().get(i).getNama_produk())) {
+				redir.addFlashAttribute("notif", "Sudah terdapat produk dengan nama " +produk.getNama_produk() );		
+				return "redirect:/produk/update/"+produk.getId();
+			}
+		}
 		produk_service.saveProduk(produk);
 		redir.addFlashAttribute("notifikasi", "Produk Berhasil Diubah");
 		return "redirect:/produk";

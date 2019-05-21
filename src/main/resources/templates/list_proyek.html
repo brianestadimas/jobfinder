@@ -74,10 +74,10 @@ table{
 				<td th:text="${proyek.region}"></td>
 				<td th:text="${proyek.start_date_kontrak}"></td>
 				<td th:text="${proyek.end_date_kontrak}"></td>
-				<td><a th:href="@{'/proyek-detail/' + ${proyek.id}}" type="button" class="btn btn-success btn-sm">Detail</a><a th:href="@{'/proyek-hapus/' + ${proyek.id}}" type="button" class="btn btn-danger btn-sm" style="margin-left: 10px;"
-				data-toggle="modal" data-target="#proy">Hapus</a></td>
+				<td><a th:href="@{'/proyek-detail/' + ${proyek.id}}" type="button" class="btn btn-success btn-sm">Detail</a>
+					<a type="button" class="btn btn-danger btn-sm" style="margin-left: 10px;" data-toggle="modal" data-target="#hapus-proyek" th:attr="data-target='#hapus-proyek'+${proyek.id}">Hapus</a>
 				
-				<div class="modal" id="proy">
+				<div class="modal" th:id="'hapus-proyek'+${proyek.id}">
 				    <div class="modal-dialog">
 				      <div class="modal-content">
 				      
@@ -99,7 +99,10 @@ table{
 				        </div> 
 				      </div>
 	   				 </div>
-				</div> 
+				</div>
+				</td>
+				
+				 
 
 			</tr>
 		</tbody>
