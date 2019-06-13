@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <title></title>
+</head>
+<style>
+    .boxContainer{
+        background-color:#fdfdfd;
+        border-radius: 10px;
+        padding:20px 16px;
+        margin:0px 20px;
+        box-shadow:0 0px 9px 0 rgba(0,0,0,0.16),0 2px 0px 0 rgba(0,0,0,0.12)
+    }
+    .boxContainer2{
+        background-color:#fdfdfd;
+        border-radius: 10px;
+        padding:20px 16px 20px 20px;
+        margin:20px 20px;
+    }
+    .boxContainer3{
+        background-color:#fefefe;
+        border-radius: 10px;
+        padding:20px 16px 20px 20px;
+        margin:20px 20px;
+    }
+    .boxContainer4{
+        background-color:#fcfcfc;
+        padding:20px 16px;
+        margin:0px 20px;
+        box-shadow:0 0px 9px 0 rgba(0,0,0,0.16),0 2px 0px 0 rgba(0,0,0,0.12)
+    }
+    thead th{
+        background-color : #6B757F;
+        color:#FFFFFF;
+    }
+    .blankspace{
+        margin-top: 20px;
+    }
+    table{
+    margin: 0 auto;
+    width: 100%;
+    clear: both;
+    border-collapse: collapse;
+    table-layout: fixed; // ***********add this
+    word-wrap:break-word; // ***********and this
+    }
+</style>
+</head>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<body>
+    <div class="blankspace">
+       <!--  <div class="boxContainer2" style="overflow-x:auto;"> -->
+                <img src="/img/assign.png" style="max-width: 4%; margin-top: -10px">
+                <h2 style="display: inline; margin-left: 10px">Assign Pegawai</h2>
+                <hr>
+                <h5 class="alert alert-danger"  th:if="${fail_notif!=null}" th:text="${fail_notif}"></h5> 
+    </div>
+    <form th:action="'/pegawai/assign/submit'" method="post" th:object="${wrapper}">             
+  <div class="boxContainer2" style="overflow-x:auto;">
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="inputProyek">Proyek (Tanggal Mulai Proyek / Tanggal Akhir Proyek) *</label>
+          <select class="form-control" id="inputProyek" name="proyek" required>
+            <option th:each="dp: ${daftar_proyek}"  th:value="${dp.id}"  th:text="${dp.nama_proyek}+' ('+${dp.start_date_kontrak}+'/'+${dp.end_date_kontrak}+')'">Tidak Terdapat Proyek
+            </option>
+        </select>
+        </div>
+      <div class="form-group col-md-4">
+        <label for="inputJoinDate">Join Date *</label>
+        <input type="Date" class="form-control" id="StartDate" name="join_date" required/>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="inputEndDate">End Date *</label>
+        <input type="Date" class="form-control EndDate" name="end_date" required/>
+        </div>
+      </div>
+      <div class="col-sm-12"></div>
+    </div>
+  </div>
+
+<div class="boxContainer" style="overflow-x:auto; margin-top: 10px">
+<h4 style="display: inline; margin-left: 10px">Melengkapi Data Tambahan</h4>
+<hr></hr>
+<table id="example2" class="table table-striped table-bordered" style="width:100%;">
+        <thead>
+            <tr>
+                <th>Nama</th> 
+                <th>Produk *</th>
+                <th>Jabatan *</th>
+                <th>NIP *</th>
+                <th>NPWP</th>
+                <th>PKWT</th>
+                <th>BPJS Kesehatan</th>
+                <th>BPJS Ketenagakerjaan</th>
+                <th style="display:none"></th>
+                <th style="display:none"></th>
+                <th style="display:none"></th>
+                <th style="display:none"></th>
+                <th style="display:none"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="wrapper, itemStat : ${wrapper.daftar_pegawai}">
+                <td th:text="${nama_pegawai[itemStat.index]}"></td>
+                <td><select style="width:100%" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].produk}" required>
+                  <option th:each="dp: ${daftar_produk}"  th:value="${dp.id}"  th:text="${dp.nama_produk}"></option>
+                </select></td>
+                <td><input style="width:100%" type="text" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].jabatan}" name="jabatan" required></td>
+                <td><input style="width:100%" type="number" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].nip}" name="nip" required></td>
+                <td><input style="width:100%" type="number" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].npwp}" name="npwp"></td>
+                <td><input style="width:100%" type="number" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].pkwt}" name="pkwt"></td>
+                <td><input style="width:100%" type="number" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].bpjsk}" name="bpjsk"></td>
+                <td><input style="width:100%"type="number" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].bpjstk}" name="bpjstk"></td>
+        
+                <td style="display:none"><input type="hidden" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].pelamar_id}" name="pelamar_id"></td>
+                <td style="display:none"><input type="hidden" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].id}" name="id"></td>
+                <td style="display:none"><input type="hidden" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].nama_bank}" name="nama_bank"></td>
+                <td style="display:none"><input type="hidden" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].no_arsip}" name="no_arsip"></td>
+                <td style="display:none"><input type="hidden" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].no_rekening}" name="no_rekening"></td>
+            </tr>
+         </tbody>
+       </table>
+  </div>
+  </div>
+
+<div class="blankspace">
+<button type="submit" class="btn btn-success btn-large" style="margin-left: 20px">Assign</button>
+<a class="btn btn-danger btn-large" th:href="@{'/pegawai/'}">Batalkan</a>
+<div class="blankspace">
+</form>
+
+    <script type="text/javascript" src="/media/js/site.js?_=994321fabf3873df746bb8bbccd1886a"></script>
+    <script type="text/javascript" src="/media/js/dynamic.php?comments-page=extensions%2Fbuttons%2Fexamples%2Fstyling%2Fbootstrap.html" async></script>
+    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.bootstrap.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
+    <script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" class="init"></script>
+
+</body>
+<footer>
+
+</footer> 
+</html>
+<script>
+$(document).ready(function() {
+  $( "#StartDate" ).change(function() {
+    var x = $( "#StartDate" ).val();
+    $( "input.EndDate" ).replaceWith('<input type="Date" id="EndDate" class="EndDate form-control" name="end_date" min="' + x + '"required>');
+  });
+    // Setup - add a text input to each footer cell
+    var table2 = $('#example2').DataTable( {
+        autoWidth: true,
+        columnDefs: [
+        { "width": "180px", "targets": [0] },
+        { "width": "120px", "targets": [1,2,3,4,5,6,7,8,9] },
+        ],
+        "scrollY": "500px",
+        "sScrollX": "100%",
+        "sScrollXInner": "100%",
+        "scrollCollapse": true,
+    } );
+  } );
+</script>
+
+</html>
