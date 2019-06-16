@@ -61,6 +61,7 @@ table{
 			<tr>
 				<th>Judul Kehadiran</th>
 				<th>Tindakan</th>
+				<th style="display:none"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -75,18 +76,16 @@ table{
 										  
 								<span th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
 									<a th:if="${jenis_proyek=='umum'}" th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/'+${kehadiran}+'/penggajian'}" type="button" class="btn btn-primary btn-sm" style="margin-left: 10px;">Penggajian</a>
-								</span>				
-							
-						
-					
-						
+								</span>	
 				</td>
+				<td style="display:none" th:value="${kehadiran}" th:text="${kehadiran}"></td>
 			</tr>
 		</tbody>
 		<tfoot>
 			<tr>
 				<th>Judul Kehadiran</th>
 				<th></th>
+				<th style="display:none"></th>
 			</tr>
 		</tfoot>
 	</table>
@@ -102,12 +101,6 @@ table{
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.bootstrap.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
 	<script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript" class="init"></script>
@@ -123,10 +116,12 @@ $(document).ready(function() {
     // Setup - add a text input to each footer cell
 
     var table = $('#example').DataTable( {
-        autoWidth: true,
+    	autoWidth: false,
+		"order": [ 2, "desc" ],
         columnDefs: [
         { "width": "450px", "targets": [0] },
         { "width": "150px", "targets": [1] },
+        { "width": "0px", "targets": [2] },
         ],
         "sScrollXInner": "100%",
         "scrollCollapse": true,
