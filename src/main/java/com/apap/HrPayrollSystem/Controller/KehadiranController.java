@@ -2,6 +2,7 @@ package com.apap.HrPayrollSystem.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -74,6 +75,7 @@ public class KehadiranController {
 		model.addAttribute("jenis_proyek", jenis_proyek);
 		model.addAttribute("nama_proyek_ini", nama_proyek);
 		model.addAttribute("id_proyek", proyek_id);
+		Collections.reverse(kehadiran_proyek_ini);
 		model.addAttribute("list_of_kehadiran",kehadiran_proyek_ini);
 		return "list_kehadiran";
 	}
