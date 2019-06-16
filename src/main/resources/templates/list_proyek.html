@@ -65,6 +65,7 @@ table{
 				<th>Start date</th>
 				<th>End Date</th>
 				<th></th>
+				<th style="display: none"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -75,7 +76,7 @@ table{
 				<td th:text="${proyek.start_date_kontrak}"></td>
 				<td th:text="${proyek.end_date_kontrak}"></td>
 				<td><a th:href="@{'/proyek-detail/' + ${proyek.id}}" type="button" class="btn btn-success btn-sm">Detail</a>
-					<a type="button" class="btn btn-danger btn-sm" style="margin-left: 10px;" data-toggle="modal" data-target="#hapus-proyek" th:attr="data-target='#hapus-proyek'+${proyek.id}">Hapus</a>
+					<a th:if="${user.role=='manager' or user.role=='busdev' or user.role=='admin'}" type="button" class="btn btn-danger btn-sm" style="margin-left: 10px;" data-toggle="modal" data-target="#hapus-proyek" th:attr="data-target='#hapus-proyek'+${proyek.id}">Hapus</a>
 				
 				<div class="modal" th:id="'hapus-proyek'+${proyek.id}">
 				    <div class="modal-dialog">
@@ -101,7 +102,7 @@ table{
 	   				 </div>
 				</div>
 				</td>
-				
+				<td style="display: none" th:text="${proyek.id}" th:value="${proyek.id}"></td>
 				 
 
 			</tr>
@@ -114,15 +115,13 @@ table{
 				<th>Start date</th>
 				<th>End Date</th>
 				<th></th>
+				<th style="display: none"></th>
 			</tr>
 		</tfoot>
 	</table>
 </div>
 </div>
 
-
-	<script type="text/javascript" src="/media/js/site.js?_=994321fabf3873df746bb8bbccd1886a"></script>
-	<script type="text/javascript" src="/media/js/dynamic.php?comments-page=extensions%2Fbuttons%2Fexamples%2Fstyling%2Fbootstrap.html" async></script>
 	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
@@ -134,7 +133,6 @@ table{
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
-	<script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript" class="init"></script>
 </body>
@@ -148,7 +146,7 @@ $(document).ready(function() {
 
 	var table = $('#example').DataTable( {
 		autoWidth: false,
-		"order": [ 0, "desc" ],
+		"order": [ 6, "desc" ],
         columnDefs: [
         { "width": "90px", "targets": [5] },
         { "width": "180px", "targets": [0,1,2] },
@@ -180,49 +178,22 @@ $('#example tfoot th').each( function () {
 	$('#myModal').on('shown.bs.modal', function () {
 	  $('#myInput').trigger('focus')
 	});
+	$(function() {
+		var table2 = $('#example').DataTable();
 
+		// Apply the search
+		table2.columns().every(function() {
+			var that = this;
 
-function Download(){
-	var x = $('example').children();
-	var fullText = "";
-	$.each(x, function(index, value) {
-	   //console.log(value);
-		fullText+=$(this).context.innerText + ",";
-		console.log($(this).context.innerText);
+			$('input', this.footer()).on('keyup change', function() {
+				if (that.search() !== this.value) {
+					that.search(this.value).draw();
+				}
+			});
+		});
 	});
-	
-	var docDefinition2 = {
-	content: [
-		fullText
-	]
-	};
-	// this is just a simulation of the open event, replacing it with print produces the same result
-	var docDefinition = { content: [
-		{text:'Liat var docDefinition sama docDefinition2 di javascript Download(), baca dokumentasi',fontSize:20},
-		{text:'Dokumentasi di http://pdfmake.org',fontSize:15},
-		{text:'-dimas',fontSize:15},
-		] 
-	};
 
-	pdfMake.createPdf(docDefinition).download('gg.pdf');
-};
-	
-$(function(){
-	var table2 = $('#example').DataTable();
- 
-	// Apply the search
-	table2.columns().every( function () {
-		var that = this;
- 
-		$( 'input', this.footer() ).on( 'keyup change', function () {
-			if ( that.search() !== this.value ) {
-				that
-					.search( this.value )
-					.draw();
-			}
-		} );
-	} );
-} );
+
 
 </script>
 

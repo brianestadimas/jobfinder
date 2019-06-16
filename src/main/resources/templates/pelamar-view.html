@@ -132,6 +132,7 @@ table{
 						<th>Pendidikan Terakhir</th>
 						<th>Tanggal Daftar</th>
 						<th></th>
+						<th style="display: none"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -145,6 +146,7 @@ table{
 						<td th:text="${pelamar.pendidikan_terakhir}"></td>
 						<td th:text="${pelamar.apply_date}"></td>
 						<td><a th:href="@{'/pelamar/detail/'} + ${pelamar.id}" class="btn btn-success btn-sm">Detail</a></td>
+						<td style="display: none" th:text="${pelamar.id}" th:value="${pelamar.id}"></td>
 					
 
 						
@@ -162,17 +164,13 @@ table{
 						<th>Pendidikan Terakhir</th>
 						<th>Tanggal Daftar</th>
 						<th></th>
+						<th style="display: none"></th>
 					</tr>
 				</tfoot>
 			</table>
 		</div>
 	</div>
 
-	<script type="text/javascript"
-		src="/media/js/site.js?_=994321fabf3873df746bb8bbccd1886a"></script>
-	<script type="text/javascript"
-		src="/media/js/dynamic.php?comments-page=extensions%2Fbuttons%2Fexamples%2Fstyling%2Fbootstrap.html"
-		async></script>
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script type="text/javascript"
@@ -195,11 +193,9 @@ table{
 		src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
 	<script type="text/javascript"
 		src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
-	<script type="text/javascript"
-		src="../../../../examples/resources/demo.js"></script>
+	
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<script type="text/javascript" class="init"></script>
 </body>
 
 <footer> </footer>
@@ -209,11 +205,12 @@ table{
 
 		var table = $('#example').DataTable({
 			autoWidth: false,
-			"order": [ 0, "desc" ],
+			"order": [ 7, "desc" ],
 	        columnDefs: [
 	        { "width": "30px", "targets": [0,6] },
 	        { "width": "180px", "targets": [1,2,3] },
 	        { "width": "120px", "targets": [4,5] },
+	        { "width": "0px", "targets": [7] },
 	        ],
 			"scrollY" : "500px",
 			"sScrollX" : "100%",

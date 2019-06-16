@@ -71,32 +71,7 @@ table{
 						<span th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
 						<a th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/update/'+${kehadiran}}" type="button" class="btn btn-warning btn-sm" style="margin-left: 10px;">Ubah</a>
 						</span>
-								<span th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
-								<a type="button" class="btn btn-danger btn-sm" style="margin-left:10px" data-toggle="modal" data-target="#hapus-kehadiran" th:attr="data-target='#hapus-kehadiran'+${kehadiran}" >Hapus</a>
-								<div class="modal" th:id="'hapus-kehadiran'+${kehadiran}">
-											    <div class="modal-dialog">
-											      <div class="modal-content">
-											      
-											        <!-- Modal Header -->
-											        <div class="modal-header">
-											          <h4 class="modal-title">Anda akan menghapus kehadiran ini</h4>
-											          <button type="button" class="close" data-dismiss="modal">&times;</button>
-											        </div>
-											        
-											        <!-- Modal body -->
-											        <div class="modal-body">
-											          Apakah anda yakin akan menghapus kehadiran?
-											        </div>
-											        
-											        <!-- Modal footer -->
-											        <div class="modal-footer" >
-											        	<a type="button" class="btn btn-danger" th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/hapus/'+${kehadiran}}">Ya</a>
-											        	<button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Tidak</button>
-											        </div> 
-									     		 </div>
-									    	</div>
-										</div>
-								</span>					    	
+								<a th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" type="button" class="btn btn-danger btn-sm" style="margin-left:10px" th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/hapus/'+${kehadiran}}">Hapus</a>		    	
 										  
 								<span th:if="${user.role=='manager' or user.role=='hr' or user.role=='admin'}" id="kelola-akun">
 									<a th:if="${jenis_proyek=='umum'}" th:href="@{'/proyek/'+${id_proyek}+'/kehadiran/'+${kehadiran}+'/penggajian'}" type="button" class="btn btn-primary btn-sm" style="margin-left: 10px;">Penggajian</a>
@@ -122,25 +97,20 @@ table{
 <a class="btn btn-danger btn-large" style="margin-left: 20px" th:href="@{'/proyek-detail/'+${proyek_id}}">Kembali</a>
 </div>
 <div class="blankspace">
-    <script type="text/javascript" src="/media/js/site.js?_=994321fabf3873df746bb8bbccd1886a"></script>
-    <script type="text/javascript" src="/media/js/dynamic.php?comments-page=extensions%2Fbuttons%2Fexamples%2Fstyling%2Fbootstrap.html" async></script>
-    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.bootstrap.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
-    <script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
-    <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
-    <script type="text/javascript" class="init"></script>
+	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.bootstrap.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
+	<script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" class="init"></script>
 </div>    
 
     </body>
@@ -155,19 +125,11 @@ $(document).ready(function() {
     var table = $('#example').DataTable( {
         autoWidth: true,
         columnDefs: [
-        { "width": "500px", "targets": [0] },
-        { "width": "160px", "targets": [1] },
+        { "width": "450px", "targets": [0] },
+        { "width": "150px", "targets": [1] },
         ],
-        "scrollY": "500px",
-        "sScrollX": "100%",
         "sScrollXInner": "100%",
         "scrollCollapse": true,
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-        exportOptions: {
-          rows: ':visible'
-        }
     } );
 
     table.buttons().container()
