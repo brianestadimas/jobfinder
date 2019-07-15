@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css">
+  <link href="css/style.css" rel="stylesheet">
+  <title></title>
+</head>
+<style>
+.boxContainer{
+  background-color:#fdfdfd;
+  border-radius: 10px;
+  padding:20px 16px;
+  margin:0px 20px;
+  box-shadow:0 0px 9px 0 rgba(0,0,0,0.16),0 2px 0px 0 rgba(0,0,0,0.12)
+}
+.boxContainer2{
+  background-color:#fdfdfd;
+  border-radius: 10px;
+  padding:20px 16px 20px 20px;
+  margin:20px 20px;
+}
+thead th{
+  background-color : #6B757F;
+  color:#FFFFFF;
+}
+.blankspace{
+  margin-top: 20px;
+}
+.boxContainer3{
+    background-color:#fefefe;
+    border-radius: 10px;
+    padding:20px 16px 20px 20px;
+    margin:20px 20px;
+}
+.boxContainer4{
+    background-color:#fcfcfc;
+    padding:20px 16px;
+    margin:0px 20px;
+    box-shadow:0 0px 9px 0 rgba(0,0,0,0.16),0 2px 0px 0 rgba(0,0,0,0.12)
+}
+table{
+    margin: 0 auto;
+    width: 100%;
+    clear: both;
+    border-collapse: collapse;
+    table-layout: fixed; // ***********add this
+    word-wrap:break-word; // ***********and this
+}
+</style>
+
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<img src="/img/absence.png" style="max-width:4%;margin-top: 0px">
+<h2 style="display: inline; margin-left: 10px">Ubah Kehadiran</h2>
+<form action="#" th:action="'/proyek/'+${proyek_id}+'/kehadiran/update/submit'" method="post" th:object="${daftar_kehadiran}">
+<hr></hr>
+<h5 class="alert alert-warning" th:if="${fail_notif!=null}"	th:text="${fail_notif}"></h5>	
+<h5 class="alert alert-danger"><b><span class="glyphicon glyphicon-warning-sign"></span>
+		Harap Diperhatikan! Jumlah hari kerja harus sama dengan keseluruhan kecuali lain-lain<span class="glyphicon glyphicon-warning-sign"></span></b></h5>
+<div class="boxContainer2" style="overflow-x:auto;">
+    <div class="form-group col-md-3">
+        <label for="inputAddress">Judul Absensi *</label>
+        <input type="text" class="form-control"  th:value="${judul_kehadiran}" name="judul_absensi" required>
+    </div>
+    <div class="form-group col-md-6">
+    </div>
+    <div class="form-group col-md-3">
+        <label for="inputAddress">Jumlah Hari Kerja *</label>
+        <input id="tags" type="number" class="form-control" th:value="${jumlah_hari_kerja}" name="jumlah_hari_kerja" required>
+    </div>
+</div>
+<br/>
+<div class="boxContainer" style="overflow-x:auto; margin-top: -10px">
+<h4 style="display: inline; margin-left: 10px">Kehadiran Pegawai</h4>
+<hr></hr>
+                
+        
+                <!--dropdown filter based on product-->
+                
+                <table id="example2" class="table table-striped table-bordered" style="width:100%;">
+                        <thead>
+                                <tr>
+                                        <th>NIP</th>
+                                        <th>Nama Pegawai</th>
+                                        <th>Hadir</th>
+                                        <th>Sakit</th>
+                                        <th>Izin</th>
+                                        <th>Alfa</th>
+                                        <th>Libur</th>
+                                        <th>Cuti</th>
+                                        <th>Lain-Lain (Opt)</th>
+                                        <th style="display:none"></th>
+                                        <th style="display:none"></th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr id="test1" th:each="daftar_kehadiran, itemStat : *{daftar_kehadiran}">
+                                        <td th:text="${nip_pegawai[itemStat.index]}">wuRYYYYYYYYYY</td>
+                                        <td th:text="${nama_pegawai[itemStat.index]}">wuRYYYYYYYYYY</td>
+                                        <td><input type="number" style="width:100%" th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_kehadiran}" name="jumlah_hadir" required></td>
+                                        <td><input type="number" style="width:100%"  th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_sakit}" name="jumlah_sakit" required></td>
+                                        <td><input type="number" style="width:100%"  th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_izin}" name="jumlah_izin" required></td>
+                                        <td><input type="number" style="width:100%"  th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_absen}" name="jumlah_alfa" required></td>
+                                        <td><input type="number" style="width:100%"  th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_off}" name="jumlah_libur" required></td>
+                                        <td><input type="number" style="width:100%"  th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_cuti}" name="jumlah_cuti" required></td>
+                                        <td><input type="number" style="width:100%"  th:field="*{daftar_kehadiran[__${itemStat.index}__].jumlah_lain_lain}" name="jumlah_lain_lain" required></td>
+                                		<td style="display:none"><input type="hidden" th:field="*{daftar_kehadiran[__${itemStat.index}__].pegawai_outsourcing}"></td>
+                                		<td style="display:none"><input type="hidden" th:field="*{daftar_kehadiran[__${itemStat.index}__].id}"></td>
+                                </tr>
+                                
+        
+        
+                        </tbody>
+                </table>
+                </div>
+  <div class="blankspace"></div>
+                <button class="btn btn-success btn-large" style="margin-left:20px" type="submit">Simpan</button>     
+                <!-- <input class="btn btn-success btn-large" type="submit" value="SIMPAN"> -->
+                <a class="btn btn-danger btn-large" style=" margin-right: 10px" th:href="@{'/proyek/'+${proyek_id}+'/kehadiran'}">Batalkan</a>
+       </form>
+  </div>			
+	</div>
+  <script type="text/javascript" src="/media/js/site.js?_=994321fabf3873df746bb8bbccd1886a"></script>
+  <script type="text/javascript" src="/media/js/dynamic.php?comments-page=extensions%2Fbuttons%2Fexamples%2Fstyling%2Fbootstrap.html" async></script>
+  <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.bootstrap.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript" class="init"></script>
+  </div>
+  
+</body>
+<footer>
+
+</footer>
+
+<script>
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+
+    var table = $('#example2').DataTable( {
+        autoWidth: true,
+        columnDefs: [
+            { "width": "180px", "targets": [0,1] },
+            { "width": "80px", "targets": [2,3,4,5,6,7] },
+            { "width": "120px", "targets": [8] },
+            ],
+      "scrollY": "500px",
+      "sScrollX": "100%",
+      "sScrollXInner": "100%",
+      "scrollCollapse": true,
+
+
+    } );
+
+  table.buttons().container()
+    .appendTo( '#example_wrapper .col-sm-12:eq(0)' );
+  } );
+
+    $('#example tfoot th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
+    // DataTable
+    var docDefinition = {
+     pageSize: 'A4',
+  };
+
+  $('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+  });
+
+
+function Download(){
+  var x = $('example').children();
+  var fullText = "";
+    $.each(x, function(index, value) {
+       //console.log(value);
+        fullText+=$(this).context.innerText + ",";
+        console.log($(this).context.innerText);
+    });
+    
+    var docDefinition2 = {
+  content: [
+    fullText
+  ]
+    };
+    // this is just a simulation of the open event, replacing it with print produces the same result
+  var docDefinition = { content: [
+    {text:'Liat var docDefinition sama docDefinition2 di javascript Download(), baca dokumentasi',fontSize:20},
+    {text:'Dokumentasi di http://pdfmake.org',fontSize:15},
+    {text:'-dimas',fontSize:15},
+    ] 
+  };
+
+  pdfMake.createPdf(docDefinition).download('gg.pdf');
+};
+    
+$(function(){
+  var table2 = $('#example').DataTable();
+ 
+    // Apply the search
+    table2.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+} );
+
+</script>
+
+</html>

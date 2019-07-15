@@ -114,6 +114,11 @@ public class PegawaiOutsourcingServiceImpl implements PegawaiOutsourcingService 
 		
 		updatePegawai.setNama_bank(pegawai.getNama_bank());
 		updatePegawai.setNo_rekening(pegawai.getNo_rekening());
+		
+		updatePegawai.setBpjsk(pegawai.getBpjsk());
+		updatePegawai.setBpjstk(pegawai.getBpjstk());
+		updatePegawai.setPkwt(pegawai.getPkwt());
+		updatePegawai.setNpwp(pegawai.getNpwp());
 	}
 	
 	@Override
