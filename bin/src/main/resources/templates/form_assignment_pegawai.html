@@ -58,17 +58,17 @@
     <div class="blankspace">
        <!--  <div class="boxContainer2" style="overflow-x:auto;"> -->
                 <img src="/img/assign.png" style="max-width: 4%; margin-top: -10px">
-                <h2 style="display: inline; margin-left: 10px">Assign Pelamar</h2>
+                <h2 style="display: inline; margin-left: 10px">Assign Pegawai</h2>
                 <hr>
                 <h5 class="alert alert-danger"  th:if="${fail_notif!=null}" th:text="${fail_notif}"></h5> 
     </div>
-    <form th:action="'/pelamar/assign/submit'" method="post" th:object="${wrapper}">             
+    <form th:action="'/pegawai/assign/submit'" method="post" th:object="${wrapper}">             
   <div class="boxContainer2" style="overflow-x:auto;">
       <div class="form-row">
         <div class="form-group col-md-4">
-          <label for="inputProyek">Proyek (Tanggal Mulai Proyek - Tanggal Akhir Proyek) *</label>
+          <label for="inputProyek">Proyek (Tanggal Mulai Proyek / Tanggal Akhir Proyek) *</label>
           <select class="form-control" id="inputProyek" name="proyek" required>
-            <option th:each="dp: ${daftar_proyek}"  th:value="${dp.id}"  th:text="${dp.nama_proyek} +' ('+${#dates.format(dp.start_date_kontrak, 'dd MMM yyyy')}+' - '+${#dates.format(dp.end_date_kontrak, 'dd MMM yyyy')}+')'">Tidak Terdapat Proyek
+            <option th:each="dp: ${daftar_proyek}"  th:value="${dp.id}"  th:text="${dp.nama_proyek}+' ('+${dp.start_date_kontrak}+'/'+${dp.end_date_kontrak}+')'">Tidak Terdapat Proyek
             </option>
         </select>
         </div>
@@ -93,7 +93,6 @@
         <thead>
             <tr>
                 <th>Nama</th> 
-                <th>Produk Dilamar</th>
                 <th>Produk *</th>
                 <th>Jabatan *</th>
                 <th>NIP *</th>
@@ -110,15 +109,14 @@
         </thead>
         <tbody>
             <tr th:each="wrapper, itemStat : ${wrapper.daftar_pegawai}">
-                <td th:text="${nama_pelamar[itemStat.index].nama_lengkap}"></td>
-                <td th:text="${nama_pelamar[itemStat.index].produk_dilamar}"></td>
+                <td th:text="${nama_pegawai[itemStat.index]}"></td>
                 <td><select style="width:100%" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].produk}" required>
                   <option th:each="dp: ${daftar_produk}"  th:value="${dp.id}"  th:text="${dp.nama_produk}"></option>
                 </select></td>
                 <td><input style="width:100%" type="text" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].jabatan}" name="jabatan" required></td>
                 <td><input style="width:100%" type="number" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].nip}" name="nip" required></td>
                 <td><input style="width:100%" type="number" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].npwp}" name="npwp"></td>
-                <td><input style="width:100%" type="text" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].pkwt}" name="pkwt"></td>
+                <td><input style="width:100%" type="number" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].pkwt}" name="pkwt"></td>
                 <td><input style="width:100%" type="number" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].bpjsk}" name="bpjsk"></td>
                 <td><input style="width:100%"type="number" th:field="${wrapper.daftar_pegawai[__${itemStat.index}__].bpjstk}" name="bpjstk"></td>
         
@@ -135,7 +133,7 @@
 
 <div class="blankspace">
 <button type="submit" class="btn btn-success btn-large" style="margin-left: 20px">Assign</button>
-<a class="btn btn-danger btn-large" th:href="@{'/pelamar/'}">Batalkan</a>
+<a class="btn btn-danger btn-large" th:href="@{'/pegawai/'}">Batalkan</a>
 <div class="blankspace">
 </form>
 
