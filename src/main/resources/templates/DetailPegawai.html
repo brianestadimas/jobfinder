@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css">
-	<link href="css/style.css" rel="stylesheet">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title></title>
 </head>
 <style>
     .boxContainer{
@@ -70,7 +70,7 @@
         <form action="#" th:action="'/proyek/'+${proyek_id}+'/kehadiran/update/submit'" method="post" th:object="${daftar_kehadiran}"> -->
             <img src="/img/icon_human_resources.png" style="max-width:5%;margin-top: -10px">
             <h2 style="display: inline; margin-left: 10px">Detail Pegawai</h2>
-            <h5 class="alert alert-success" th:if="${notif!=null}"	th:text="${notif}"></h5>
+            <h5 class="alert alert-success" th:if="${notif!=null}"  th:text="${notif}"></h5>
             <hr>
             <ul class="nav nav-tabs" style="margin-left: 20px">
                 <li class="active"><a data-toggle="tab" href="#home">Informasi Umum</a></li>
@@ -363,26 +363,26 @@
                             <a data-toggle="modal" data-target="#hapus-feedback" th:attr="data-target='#hapus-feedback'+${feedback.id}">Hapus</a>
                         </td>
                          <div class="modal" th:id="'hapus-feedback'+${feedback.id}">
-							<div class="modal-dialog modal-dialog-centered">
-								<div class="modal-content">
-			
-									<!-- Modal Header -->
-									<div class="modal-header">
-										<h4 class="modal-title">Hapus Feedback Pegawai</h4>
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-									</div>
-									<!-- Modal body -->
-									<div class="modal-body text-center">Apakah Anda yakin untuk
-										menghapus feedback pegawai?</div>
-			
-									<!-- Modal footer -->
-									<div class="modal-footer">
-										 <a type="button" class="btn btn-danger" th:href="@{'/pegawai-detail/'+${pegawai.id}+'/feedback/delete/'+${feedback.id}}">Ya</a>
-										<button type="button" class="btn btn-danger" data-dismiss="modal">Tidak</button>
-									</div>
-								</div>
-							</div>
-						</div>
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+            
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Hapus Feedback Pegawai</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <div class="modal-body text-center">Apakah Anda yakin untuk
+                                        menghapus feedback pegawai?</div>
+            
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                         <a type="button" class="btn btn-danger" th:href="@{'/pegawai-detail/'+${pegawai.id}+'/feedback/delete/'+${feedback.id}}">Ya</a>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Tidak</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </tr>
                     <tfoot>
                         <th>Tanggal</th>
