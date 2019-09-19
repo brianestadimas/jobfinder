@@ -38,11 +38,13 @@ public class HomeController {
 		}
 		List<ProyekModel> list_of_proyek = new ArrayList<ProyekModel>();
 		List<PelamarModel> pelamar_belum_assign = new ArrayList<PelamarModel>();
+		List<PelamarModel> pelamar_belum_assign_full = new ArrayList<PelamarModel>();
 		for(int i = 0 ; i < pelamar_service.getAllPelamar().size() ; i++) {
 			if(pelamar_service.getAllPelamar().get(i).isIs_pegawai()==false) {
 				if(pelamar_belum_assign.size()<7) {
 					pelamar_belum_assign.add(pelamar_service.getAllPelamar().get(i));
 				}
+				pelamar_belum_assign_full.add(pelamar_service.getAllPelamar().get(i));
 				
 			}
 		}
@@ -57,8 +59,8 @@ public class HomeController {
 		model.addAttribute("pegawai", pegawaiService.getAllPegawai());
 
 		//Changelog 19/09/2019
-		model.addAttribute("pelamarLength", pelamar_belum_assign.size());
-		model.addAttribute("proyekLength",list_of_proyek.size());
+		model.addAttribute("pelamarLength", pelamar_belum_assign_full.size());
+		model.addAttribute("proyekLength",proyek_service.getAllProyek().size());
 		model.addAttribute("pegawaiLength", pegawaiService.getAllPegawai().size());
 		return"home";
 	}
