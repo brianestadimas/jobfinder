@@ -55,6 +55,11 @@ public class HomeController {
 		model.addAttribute("pelamar", pelamar_belum_assign);
 		model.addAttribute("proyek",list_of_proyek);
 		model.addAttribute("pegawai", pegawaiService.getAllPegawai());
+
+		//Changelog 19/09/2019
+		model.addAttribute("pelamarLength", pelamar_belum_assign.size());
+		model.addAttribute("proyekLength",list_of_proyek.size());
+		model.addAttribute("pegawaiLength", pegawaiService.getAllPegawai().size());
 		return"home";
 	}
 	
