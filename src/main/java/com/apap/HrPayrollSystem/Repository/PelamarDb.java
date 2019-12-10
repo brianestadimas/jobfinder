@@ -13,6 +13,6 @@ public interface PelamarDb extends JpaRepository<PelamarModel,Long>{
 	PelamarModel findById(long id);
 
 	@Query("SELECT t.id FROM PelamarModel t WHERE t.is_pegawai = :is_pegawai")
-	List<Long> findAllPelamar(@Param("is_pegawai") boolean is_pegawai);
+	List<PelamarModel> findAllPelamar(@Param("is_pegawai") boolean is_pegawai);
 
 }
