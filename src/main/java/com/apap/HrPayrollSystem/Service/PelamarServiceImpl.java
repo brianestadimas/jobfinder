@@ -39,6 +39,11 @@ public class PelamarServiceImpl implements PelamarService {
 	}
 
 	@Override
+	public List<PelamarModel> getAllPelamarExPegawai() {
+		return pelamarDb.findAllPelamar(false);
+	}
+
+	@Override
 	public PelamarModel getPelamarById(long id) {
 		return pelamarDb.findById(id);
 	}

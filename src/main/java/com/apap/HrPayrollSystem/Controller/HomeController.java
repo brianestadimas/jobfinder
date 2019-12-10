@@ -39,6 +39,11 @@ public class HomeController {
 		List<ProyekModel> list_of_proyek = new ArrayList<ProyekModel>();
 		List<PelamarModel> pelamar_belum_assign = new ArrayList<PelamarModel>();
 		List<PelamarModel> pelamar_belum_assign_full = new ArrayList<PelamarModel>();
+
+		for (PelamarModel pelamar : pelamar_service.getAllPelamarExPegawai()){
+			pelamar_belum_assign.add(Pelamar);
+		}
+
 		// for(int i = 0 ; i < pelamar_service.getAllPelamar().size() ; i++) {
 		// 	if(pelamar_service.getAllPelamar().get(i).isIs_pegawai()==false) {
 		// 		if(pelamar_belum_assign.size()<7) {

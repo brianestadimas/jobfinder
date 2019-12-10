@@ -20,6 +20,8 @@ public interface PelamarService {
 
 	List<PelamarModel> getAllPelamar();
 
+	List<PelamarModel> getAllPelamarExPegawai();
+
 	PelamarModel getPelamarById(long id);
 
 	PelamarModel updatePelamar(PelamarModel pelamar);
