@@ -172,12 +172,13 @@ public class PelamarController {
 	 */
 	@RequestMapping(value = "/pelamar", method = RequestMethod.GET)
 	private String getPelamar(Model model,HttpServletRequest req) {
-		List<PelamarModel> pelamar_belum_assign = new ArrayList<PelamarModel>();
-		for(int i = 0 ; i < pelamarService.getAllPelamar().size() ; i++) {
-			if(pelamarService.getAllPelamar().get(i).isIs_pegawai()==false) {
-				pelamar_belum_assign.add(pelamarService.getAllPelamar().get(i));
-			}
-		}
+		// List<PelamarModel> pelamar_belum_assign = new ArrayList<PelamarModel>();
+		// for(int i = 0 ; i < pelamarService.getAllPelamar().size() ; i++) {
+		// 	if(pelamarService.getAllPelamar().get(i).isIs_pegawai()==false) {
+		// 		pelamar_belum_assign.add(pelamarService.getAllPelamar().get(i));
+		// 	}
+		// }
+		List<PelamarModel> pelamar_belum_assign = pelamarService.getAllPelamar();
 		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
 		model.addAttribute("user", user);
 		model.addAttribute("listPelamar", pelamar_belum_assign);
