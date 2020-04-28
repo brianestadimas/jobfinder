@@ -34,7 +34,7 @@ public class PelamarServiceImpl implements PelamarService {
 	}
 
 	@Override
-	public List<PelamarModel> getAllPelamar() {
+	public List<PelamarModel> getAllPelamar(String statusNow) {
 		return pelamarDb.findAll();
 	}
 
