@@ -39,8 +39,8 @@ public class PelamarServiceImpl implements PelamarService {
 	}
 
 	@Override
-	public List<PelamarModel> getAllPelamarExPegawai(boolean statusNow) {
-		return pelamarDb.findAllPelamar(statusNow);
+	public List<PelamarModel> getAllPelamarExPegawai() {
+		return pelamarDb.findAllPelamar(false);
 	}
 
 	@Override

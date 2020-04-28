@@ -178,7 +178,7 @@ public class PelamarController {
 		// 		pelamar_belum_assign.add(pelamarService.getAllPelamar().get(i));
 		// 	}
 		// }
-		List<PelamarModel> pelamar_belum_assign = pelamarService.getAllPelamarExPegawai(false);
+		List<PelamarModel> pelamar_belum_assign = pelamarService.getAllPelamarExPegawai();
 		AccountModel user = akun_service.findByUsername(req.getRemoteUser());
 		model.addAttribute("user", user);
 		model.addAttribute("listPelamar", pelamar_belum_assign);

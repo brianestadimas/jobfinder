@@ -20,7 +20,7 @@ public interface PelamarService {
 
 	List<PelamarModel> getAllPelamar();
 
-	List<PelamarModel> getAllPelamarExPegawai(boolean statusNow);
+	List<PelamarModel> getAllPelamarExPegawai();
 
 	PelamarModel getPelamarById(long id);
 
