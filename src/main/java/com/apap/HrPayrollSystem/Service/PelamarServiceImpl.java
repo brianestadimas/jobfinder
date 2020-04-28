@@ -34,12 +34,12 @@ public class PelamarServiceImpl implements PelamarService {
 	}
 
 	@Override
-	public List<PelamarModel> getAllPelamar(String statusNow) {
+	public List<PelamarModel> getAllPelamar() {
 		return pelamarDb.findAll();
 	}
 
 	@Override
-	public List<PelamarModel> getAllPelamarExPegawai() {
+	public List<PelamarModel> getAllPelamarExPegawai(String statusNow) {
 		return pelamarDb.findAllPelamar();
 	}
 
