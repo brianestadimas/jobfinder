@@ -40,7 +40,7 @@ public class PelamarServiceImpl implements PelamarService {
 
 	@Override
 	public List<PelamarModel> getAllPelamarExPegawai(String statusNow) {
-		return pelamarDb.findAllPelamar();
+		return pelamarDb.findAllPelamar(statusNow);
 	}
 
 	@Override
