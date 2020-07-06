@@ -15,6 +15,7 @@ public interface PelamarDb extends JpaRepository<PelamarModel,Long>{
 	@Query("SELECT t FROM Pelamar t WHERE t.is_pegawai") 
 	List<PelamarModel> findAllPelamar(@Param("statusNow") boolean statusNow);
 	
+	
 	PelamarModel findById(long id);
 
 }
