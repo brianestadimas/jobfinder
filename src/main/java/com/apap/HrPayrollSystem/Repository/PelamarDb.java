@@ -12,9 +12,8 @@ import com.apap.HrPayrollSystem.Model.PelamarModel;
 @Repository
 public interface PelamarDb extends JpaRepository<PelamarModel,Long>{
 
-	@Query("SELECT t FROM Pelamar t WHERE t.is_pegawai") 
+	@Query(value="SELECT t FROM Pelamar t WHERE t.is_pegawai", nativeQuery=true) 
 	List<PelamarModel> findAllPelamar(@Param("statusNow") boolean statusNow);
-	
 	
 	PelamarModel findById(long id);
 
