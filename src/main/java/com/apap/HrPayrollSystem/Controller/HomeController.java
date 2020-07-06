@@ -40,11 +40,11 @@ public class HomeController {
 		List<PelamarModel> pelamar_belum_assign = new ArrayList<PelamarModel>();
 		List<PelamarModel> pelamar_belum_assign_full = new ArrayList<PelamarModel>();
 
-		System.out.println(pelamar_service.getAllPelamarExPegawai()[0].getNama_lengkap());
+		// System.out.println(pelamar_service.getAllPelamarExPegawai()[0].getNama_lengkap());
 		for (PelamarModel pelamar : pelamar_service.getAllPelamarExPegawai()){
 			pelamar_belum_assign.add(pelamar);
 		}
-
+		//
 		// for(int i = 0 ; i < pelamar_service.getAllPelamar().size() ; i++) {
 		// 	if(pelamar_service.getAllPelamar().get(i).isIs_pegawai()==false) {
 		// 		if(pelamar_belum_assign.size()<7) {
