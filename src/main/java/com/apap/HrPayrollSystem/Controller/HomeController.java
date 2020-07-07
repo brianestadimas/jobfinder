@@ -48,7 +48,7 @@ public class HomeController {
 		// }
 		for(int i = 0 ; i < pelamar_service.getAllPelamarExPegawai().size() ; i++) {
 			if(pelamar_belum_assign.size()<7) {
-				pelamar_belum_assign.add(pelamar_service.getAllProyek().get(i));
+				pelamar_belum_assign.add(pelamar_service.getAllPelamarExPegawai().get(i));
 			}
 		}
 		//
