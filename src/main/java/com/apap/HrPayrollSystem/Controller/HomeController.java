@@ -40,9 +40,16 @@ public class HomeController {
 		List<PelamarModel> pelamar_belum_assign = new ArrayList<PelamarModel>();
 		List<PelamarModel> pelamar_belum_assign_full = new ArrayList<PelamarModel>();
 
+		pelamar_belum_assign_full = pelamar_service.getAllPelamarExPegawai().size();
+
 		// System.out.println(pelamar_service.getAllPelamarExPegawai()[0].getNama_lengkap());
-		for (PelamarModel pelamar : pelamar_service.getAllPelamarExPegawai()){
-			pelamar_belum_assign.add(pelamar);
+		// for (PelamarModel pelamar : pelamar_service.getAllPelamarExPegawai()){
+		// 	pelamar_belum_assign.add(pelamar);
+		// }
+		for(int i = 0 ; i < pelamar_service.getAllPelamarExPegawai().size() ; i++) {
+			if(pelamar_belum_assign.size()<7) {
+				pelamar_belum_assign.add(pelamar_service.getAllProyek().get(i));
+			}
 		}
 		//
 		// for(int i = 0 ; i < pelamar_service.getAllPelamar().size() ; i++) {
@@ -54,11 +61,11 @@ public class HomeController {
 				
 		// 	}
 		// }
-		// for(int i = 0 ; i < proyek_service.getAllProyek().size() ; i++) {
-		// 	if(list_of_proyek.size()<7) {
-		// 		list_of_proyek.add(proyek_service.getAllProyek().get(i));
-		// 	}
-		// }
+		for(int i = 0 ; i < proyek_service.getAllProyek().size() ; i++) {
+			if(list_of_proyek.size()<7) {
+				list_of_proyek.add(proyek_service.getAllProyek().get(i));
+			}
+		}
 		model.addAttribute("user", user);
 		model.addAttribute("pelamar", pelamar_belum_assign);
 		model.addAttribute("proyek",list_of_proyek);
