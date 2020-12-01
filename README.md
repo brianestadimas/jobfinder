@@ -1,143 +1,43 @@
-# HR and Payroll System
-TEST
-URL : 
-Pelamar
-
-Pegawai
-
-Proyek
-daftar : /proyek
-detail : /proyek-detail/1
-ubah : /pegawai-ubah/1
-tambah : /proyek-tambah/
-hapus : /pegawai-hapus?id=1
-
-Kehadiran
-
-Produk
-
-Akun
-
-
-# HR and Payroll System
-
-proyek sistem informasi untuk client yang meliputi fitur HR dan Payroll
+# Simple Jobs Information System
 
 ## Getting Started
 
-### Code Conference
-Snake_Case : Aji_Wuryanto
+### Overview
 
-Kalimat tanya sebagai penanda boolean : isEmpty
+![alt text](https://i.ibb.co/DLz536T/Screenshot-79.png)
 
-Kata kerja sebagai fungsi : submitPelamar
+![alt text](https://i.ibb.co/6FDN276/Screenshot-80.png)
 
-Kalimat tanya sebagai penanda boolean : isEmpty
-
-Kata kerja sebagai fungsi : submitPelamar
-
-Kata benda sebagai variable/object/attribut : pelamar
-
-### Bahasa Pemrograman
+### Language
 
 Java 8.0
 
 ### Framework
-Springboot sebagai backend
 
-Thymeleaf sebagai frontend
+Springboot as backend
 
-## Cara Mulai Mengerjakan
+Thymeleaf as frontend
 
-1. Pull dari master
-2. Drop semua table dengan db yg ada di application.properties
-3. run program
-4. import account.sql
+## Run at Localhost
 
+1. Pull from master
+2. Download Spring tools suite (STS) here (https://spring.io/tools)
+3. Download XAMPP (https://www.apachefriends.org/download.html)
+4. Run XAMPP Control Panel (Start Apache and MySQL)
+5. Open (localhost/phpmyadmin) in browser
+6. Create database named "joblist"
+7. Run STS and Open Project From Folder
+8. Maven Build
+9. Right click on root project folder then "Run as Springboots"
+10. Inject SQL for superadmin in localhost/phpmyadmin :
 
+username : admin
+password : admin
 
-## TODO
+INSERT INTO `account` (`id`, `name`, `password`, `role`, `username`) VALUES
+(1, 'admin', '$2a$10$ldYxhf9lQJgatap6ieoU1uJXEWE1aR00NfVB82sjUL69q0pF7vu8i', 'admin', 'admin');
 
-no owner
-
-anti cenayang security
-
-maxlength untuk input yg string sesuai dengan model//nanti
-
-pegawai outsourcing controller line 160 maksudnya apa? biar no produk gk keambil, bakal berlaku buat proyek juga
-
-abis penggajian kemana? ke list absensi proyek
-
-kalau pegawai dihapus, apakah semua riwayat dan feedback nya juga kehapus? kehapus
-
-apakah riwayat kerja bisa dihapus dan di ubah? gk bisa
-
-tombol2 di kehadiran kok gitu? bisa jadi miss pas merge
-
-kelola gaji di detail proyek maksudnya apa? garubeji
-
-nasib dari proyek dan produk di feedback/riwayat abis kedua itu dihapus? sudah ke handle
-
-apakah kehadiran yg udah di gaji mau ditandain?
-
-front end akun//tinggal hias/design
-
-front end login//tinggal hias/design
-
-cek notifikasi apa aja yg kurang
-
-modal modal
-
-cek view
-
-check image
-
-print format//pelamar sama pegawai (DONE)
-
-nael
-
-dimas
-boostrap tidak pakai 3.3.7 alternatif lainnya :) cari cara si navbar nya jadi selaras dengan yg lain
-	UbahPegawai.html
-	pelamar-daftar.html
-	DetailPegawai.html harusnya pake yg 3.30, cek pas mock UAT
-	pelamar-detail.html //harusnya udah bener
-	pelamar-ubah.html //harusnya udah bener
-
-aji
-[x] jika proyek unik, gk ada penggajian 
-reorder id kalau ada yg kehapus dan jadi berantakan
-playaround dengan csrf nya
-samain end point
-
-
-## Version Control
-
-gitlab
-
-## Java Documentation
-1. Diatas kelas dan method, ketik : "/**" lalu tekan enter
-2. Isi sesuai format tersedia
-3. Contoh isian:
-/**
-    * Fitur mengubah pelamar : POST request
-	* 
-	* @param id      id_pelamar
-	* @param pelamar Pelamar yang sudah diubah
-	* @param model   Model
-	* @return Halaman HTML detail pelamar
-*/
-
-
-## Authors
-
-Aji Wuryanto
-
-Athifah Fidelia 
-
-Savira Santoso
+## Author
 
 Brian Estadimas
-
-Nathanael Lemmuella
 
