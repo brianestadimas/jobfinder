@@ -35,8 +35,8 @@ table{
 	width: 100%;
 	clear: both;
 	border-collapse: collapse;
-	table-layout: fixed; // ***********add this
-	word-wrap:break-word; // ***********and this
+	table-layout: fixed; 
+	word-wrap:break-word; 
 }
 </style>
 <body>
@@ -46,13 +46,9 @@ table{
 <img src="/img/icon_human_resources.png" style="max-width:4%; margin-top: -10px; margin-left : 5px;">
 <h2 style="display: inline; margin-left: 10px">Akun</h2>
 <hr style="margin-top:-1px"></hr>
-<h5 class="alert alert-success" th:if="${notif!=null}" th:text="${notif}"></h5>
 
 
 <div class="boxContainer">
-<h5 class="alert alert-success" th:if="${sukses_menambahkan!=null}"
-					th:text="${sukses_menambahkan}"></h5>
-<a th:href="@{/account/add}" class="btn btn-info btn-large" style="float: right; margin-right: 10px;">Tambah</a>
 <p>
 <h4>Kelola Akun</h4>
 			<hr></hr>
@@ -62,45 +58,13 @@ table{
 				<th>No. </th>
 				<th>Nama </th>
 				<th>Username </th>
-				<th>Peran </th>
-				<th>Tindakan </th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="akun,iteration : *{akun_akun}">
 				<td th:text="${iteration.count}"></td>
 				<td th:text="${akun.name}"></td>
-				<td th:text="${akun.username}"></td>
-				<td th:text="${akun.role}"></td>
-				<td>
-					<a class="btn btn-warning btn-sm" type="button" th:href="@{'/account/update/'+${akun.id}}">Ubah</a>
-					<a type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapus-akun" th:attr="data-target='#hapus-akun'+${akun.id}">Hapus</a>
-					
-					<div class="modal" th:id="'hapus-akun'+${akun.id}">
-				    <div class="modal-dialog">
-				      <div class="modal-content">
-				      
-				        <!-- Modal Header -->
-				        <div class="modal-header">
-				          <h4 class="modal-title">Hapus Akun</h4>
-				          <button type="button" class="close" data-dismiss="modal">&times;</button>
-				        </div>
-				        
-				        <!-- Modal body -->
-				        <div class="modal-body">
-				          Apakah anda yakin akan menghapus akun?
-				        </div>
-				        
-				        <!-- Modal footer -->
-				        <div class="modal-footer" >
-				        	<a class="btn btn-danger btn-sm" type="button" th:href="@{'/account/delete/'+${akun.id}}" >Ya</a>
-				        	<button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Tidak</button>
-				        </div> 
-				      </div>
-	   				 </div>
-				</div> 
-				</td>
-					
+				<td th:text="${akun.username}"></td>	
 			</tr>
 		</tbody>
 	</table>
